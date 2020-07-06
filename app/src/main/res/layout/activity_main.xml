@@ -11,8 +11,9 @@
 
     <ImageView
         android:src="@drawable/waglelogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:adjustViewBounds="true"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         ></ImageView>
 
