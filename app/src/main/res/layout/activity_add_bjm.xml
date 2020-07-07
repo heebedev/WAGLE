@@ -30,15 +30,16 @@
             android:gravity="center" />
 
 
-        //디자인의 수정이 필요함... 그림자를 주고싶다...
+<!--        //디자인의 수정이 필요함... 그림자를 주고싶다...-->
 
         <Button
+            android:id="@+id/bt_bjmAdd"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/circle_btn_background"
             android:text="+"
-            android:textColor="#ffffff"></Button>
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 

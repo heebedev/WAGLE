@@ -7,4 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".activity.wagleSub.AddCostActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사용 내역"
+        android:textColor="#6E6A6A"
+        android:layout_margin="10dp"
+        android:textSize="15dp"
+        />
+
+    <Button
+        android:id="@+id/bt_costAdd"
+        android:layout_marginTop="50dp"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_btn_background"
+        android:text="+"
+        android:textColor="#fff" />
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="등록 완료"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/floating_btn_background"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+
+
+
 </LinearLayout>
