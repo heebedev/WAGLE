@@ -6,15 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <ImageView
         android:src="@drawable/waglelogo"
         android:layout_width="120dp"
         android:layout_height="220dp"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
-        ></ImageView>
+        />
 
     <!--    textinputEditText 써서.. 안내하기 -->
     <EditText
@@ -25,7 +23,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:background="#40ffffff"
-        ></EditText>
+        />
 
 
     <EditText
@@ -38,7 +36,7 @@
         android:inputType="textPassword"
         android:background="#40ffffff"
         android:layout_marginTop="10dp"
-        ></EditText>
+        />
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -50,6 +48,12 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="로그인" />
+
+    <Button
+        android:id="@+id/testLoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="테스트" />
 
 
     <Button
@@ -116,10 +120,6 @@
             android:textStyle="bold"
             android:text="회원가입" />
 
-
-
     </LinearLayout>
-
-
 
 </LinearLayout>
