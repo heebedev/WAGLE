@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
 
 public class LoginActivity extends Activity {
@@ -20,7 +21,7 @@ public class LoginActivity extends Activity {
         testLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), FindIdPwActivity.class));
                 finish();
             }
         });
