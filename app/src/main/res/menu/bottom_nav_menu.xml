@@ -3,22 +3,38 @@
 
     <item
         android:id="@+id/navigation_home"
+<<<<<<< HEAD
         android:icon="@drawable/ic_unchecked_home_24"
+=======
+        android:icon="@drawable/ic_unselected_home_24"
+>>>>>>> 4c9f2f6c772e31c8da73636f1dcc2a78e77ea9d0
         android:title="홈" />
 
     <item
         android:id="@+id/navigation_wagle"
+<<<<<<< HEAD
         android:icon="@drawable/ic_unchecked_dashboard_24"
+=======
+        android:icon="@drawable/ic_unselected_dashboard_24"
+>>>>>>> 4c9f2f6c772e31c8da73636f1dcc2a78e77ea9d0
         android:title="와글" />
 
     <item
         android:id="@+id/navigation_plan"
+<<<<<<< HEAD
         android:icon="@drawable/ic_unckecked_calendar_24"
+=======
+        android:icon="@drawable/ic_unselected_calendar_24"
+>>>>>>> 4c9f2f6c772e31c8da73636f1dcc2a78e77ea9d0
         android:title="일정" />
 
     <item
         android:id="@+id/navigation_myPage"
+<<<<<<< HEAD
         android:icon="@drawable/ic_unchecked_person_24"
+=======
+        android:icon="@drawable/ic_unselected_person_24"
+>>>>>>> 4c9f2f6c772e31c8da73636f1dcc2a78e77ea9d0
         android:title="나의 활동" />
 
 </menu>

@@ -18,11 +18,11 @@
 
     <Button
         android:id="@+id/bt_costAdd"
-        android:background="@drawable/ic_baseline_add_circle_24"
         android:layout_marginTop="50dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:background="@drawable/ic_add_circle_24"
         />
 
 
@@ -33,8 +33,7 @@
         android:layout_gravity="center"
         android:text="등록 완료"
         android:layout_marginTop="50dp"
-        android:background="@drawable/backgroundgrad"
-        android:textColor="#fff"
+        android:textColor="#5a5a5a"
         android:textStyle="bold"
         android:textSize="15dp"
         />
