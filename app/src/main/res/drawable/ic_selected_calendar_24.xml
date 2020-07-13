@@ -14,7 +14,7 @@
     <aapt:attr name="android:fillColor">
       <gradient
           android:endColor="?android:attr/colorPrimary"
-          android:endX="20"
+          android:endX="50"
           android:endY="70"
           android:startColor="?android:attr/colorPrimaryDark"
           android:startX="70"
