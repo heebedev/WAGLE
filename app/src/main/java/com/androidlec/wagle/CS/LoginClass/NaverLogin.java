@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.TempActivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
@@ -62,7 +62,7 @@ public class NaverLogin {
                     InputUserDataToDB();
                 }
 
-                Intent intent = new Intent(mContext, HomeActivity.class);
+                Intent intent = new Intent(mContext, TempActivity.class);
                 mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(mContext).getCode();
@@ -222,11 +222,31 @@ public class NaverLogin {
     }
 
     public void deleteToken() {
-        boolean isSuccessDeleteToken = mOAuthLoginInstance.logoutAndDeleteToken(mContext);
-        ((Activity) mContext).finish();
+        AsyncTask<Void, Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                boolean isSuccessDeleteToken = false;
+                try {
+                    isSuccessDeleteToken = mOAuthLoginInstance.logoutAndDeleteToken(mContext);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return isSuccessDeleteToken;
+            }
+        };
+
+        boolean isSuccess = false;
+        try {
+            isSuccess = asyncTask.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         ((Activity) mContext).finish();
 
-        if (!isSuccessDeleteToken) {
+        if (!isSuccess) {
             // 서버에서 토큰 삭제에 실패했어도 클라이언트에 있는 토큰은 삭제되어 로그아웃된 상태입니다.
             // 클라이언트에 토큰 정보가 없기 때문에 추가로 처리할 수 있는 작업은 없습니다.
             Log.d("Chance", "errorCode:" + mOAuthLoginInstance.getLastErrorCode(mContext));

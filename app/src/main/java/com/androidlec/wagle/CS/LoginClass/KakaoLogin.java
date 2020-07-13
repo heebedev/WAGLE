@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.TempActivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -52,7 +55,7 @@ public class KakaoLogin {
                         InputUserDataToDB(result.toString());
                     }
 
-                    Intent intent = new Intent(mContext, HomeActivity.class);
+                    Intent intent = new Intent(mContext, TempActivity.class);
                     mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
@@ -121,10 +124,16 @@ public class KakaoLogin {
             String uImageName = properties.getString("profile_image");
 
             JSONObject kakao_account = jsonObject.getJSONObject("kakao_account");
-            String uEmail = kakao_account.getString("email");
-            String uBirthDate = kakao_account.getString("birthday");
-
-//            Log.e("Chance", uImageName);
+            String emailOK = kakao_account.getString("email_needs_agreement");
+            String uEmail = "";
+            if(!emailOK.equals("true")){
+                uEmail = kakao_account.getString("email");
+            }
+            String birthdayOK = kakao_account.getString("birthday_needs_agreement");
+            String uBirthDate = "";
+            if(!birthdayOK.equals("true")){
+                uBirthDate = kakao_account.getString("birthday");
+            }
 
             result = new User(uId, uEmail, uName, uImageName, uBirthDate);
 

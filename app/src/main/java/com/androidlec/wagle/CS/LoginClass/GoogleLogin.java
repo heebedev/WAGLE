@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.TempActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -53,7 +54,7 @@ public class GoogleLogin {
                 InputUserDataToDB();
             }
 
-            mContext.startActivity(new Intent(mContext, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            mContext.startActivity(new Intent(mContext, TempActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
