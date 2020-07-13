@@ -34,12 +34,11 @@
 
         <Button
             android:id="@+id/bt_bjmAdd"
+            android:background="@drawable/ic_baseline_add_circle_24"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/circle_btn_background"
-            android:text="+"
-            android:textColor="#ffffff" />
+            />
 
     </LinearLayout>
 
