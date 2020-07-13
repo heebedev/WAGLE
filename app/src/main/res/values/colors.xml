@@ -7,4 +7,6 @@
     <color name="mainColor">#f9bcb5</color>
     <color name="subColor">#4b3c6c</color>
 
+    <color name="colorNaver">#1EC800</color>
+    <color name="colorNaverHighlighted">#137100</color>
 </resources>

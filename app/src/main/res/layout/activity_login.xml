@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/backgroundgrad"
     android:layout_width="match_parent"
@@ -14,29 +14,34 @@
         android:layout_marginTop="60dp"
         />
 
-    <!--    textinputEditText 써서.. 안내하기 -->
-    <EditText
-        android:id="@+id/loginID"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:hint="아이디"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:background="#40ffffff"
-        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginID"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="textEmailAddress"
+            android:hint="아이디"
+            android:background="#40ffffff" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/loginPW"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:hint="비밀번호"
-        android:gravity="center"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="textPassword"
-        android:background="#40ffffff"
-        android:layout_marginTop="10dp"
-        />
+        app:passwordToggleEnabled="true" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginPW"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="textPassword"
+            android:hint="비밀번호"
+            android:background="#40ffffff" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -49,48 +54,8 @@
         android:textStyle="bold"
         android:text="로그인" />
 
-    <Button
-        android:id="@+id/testLoginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="테스트" />
-
-
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:background="#FFD500"
-        android:text="카카오 로그인" />
-
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:background="#49B51B"
-        android:text="네이버 로그인" />
-
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:background="#FFFFFF"
-        android:text="구글 로그인" />
+    <!-- 소셜 로그인 -->
+    <include layout="@layout/include_socialloginbutton"/>
 
     <LinearLayout
         android:layout_width="match_parent"
