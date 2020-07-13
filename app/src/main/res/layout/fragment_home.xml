@@ -1,14 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HomeFragment" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="공지 사항"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        />
+
+                    <Button
+                        android:id="@+id/fragment_home_Notice_Add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_add_circle_24"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="50dp"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Notice1"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Notice2"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Notice3"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Notice4"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Notice_Plus"
+                    android:text="더보기"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="진행중인 와글"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        />
+
+                    <Button
+                        android:id="@+id/fragment_home_Wagle_Add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_add_circle_24"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="50dp"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Wagle1"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Wagle2"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Wagle3"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Wagle4"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Wagle_Plus"
+                    android:text="더보기"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="갤러리"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        />
+
+                    <Button
+                        android:id="@+id/fragment_home_Gallery_Add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_add_circle_24"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="50dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery1"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery2"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery3"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery4"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery5"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/fragment_home_Gallery6"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/jhj_wagle_image_loundary"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_Gallery_Plus"
+                    android:text="더보기"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="독후감"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        />
+
+                    <Button
+                        android:id="@+id/fragment_home_BookReport_Add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_add_circle_24"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="50dp"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_BookReport1"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_BookReport2"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_BookReport3"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_BookReport4"
+                    android:textSize="25dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/jhj_wagle_btn_loundary"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_home_BookReport_Plus"
+                    android:text="더보기"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

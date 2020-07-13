@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 인터넷을 타고 나갈려면 필요하다. ******************************************* -->
-
 
     <application
         android:allowBackup="true"
@@ -15,9 +13,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainMoimListActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
+        <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
         <activity android:name=".activity.menu.MyInfoActivity" />
@@ -25,9 +24,8 @@
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
-        <activity android:name=".MakeMoimActivity" >
-        </activity>
-        <activity android:name=".HomeActivity" >
+        <activity android:name=".MakeMoimActivity"></activity>
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,8 +35,7 @@
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
