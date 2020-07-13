@@ -26,13 +26,14 @@
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
         <activity android:name=".MakeMoimActivity" >
+        </activity>
+        <activity android:name=".HomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />

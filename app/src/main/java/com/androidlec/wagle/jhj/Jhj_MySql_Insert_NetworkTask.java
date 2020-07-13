@@ -8,13 +8,13 @@ import android.util.Log;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Jhj_MySql_NetworkTask extends AsyncTask<Integer, String, Void> {
+public class Jhj_MySql_Insert_NetworkTask extends AsyncTask<Integer, String, Void> {
 
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
 
-    public Jhj_MySql_NetworkTask(Context context, String mAddr) {
+    public Jhj_MySql_Insert_NetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
     }

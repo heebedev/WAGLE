@@ -1,19 +1,14 @@
 package com.androidlec.wagle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.input.InputManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,9 +17,7 @@ import android.widget.ViewFlipper;
 
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Make_Moim_Spinner_Adapter;
-import com.androidlec.wagle.jhj.Jhj_MySql_NetworkTask;
-
-import org.w3c.dom.Text;
+import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -203,7 +196,7 @@ public class MakeMoimActivity extends Activity {
     private void connectionInsertData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_NetworkTask insNetworkTask = new Jhj_MySql_NetworkTask(MakeMoimActivity.this, urlAddr);
+            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(MakeMoimActivity.this, urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {
