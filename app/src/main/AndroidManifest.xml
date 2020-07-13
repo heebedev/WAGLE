@@ -8,14 +8,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".TempActivity"></activity>
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
@@ -36,6 +40,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="ebfdfba386681b78fb5ad51ef1c68da2" />
     </application>
 
 </manifest>

@@ -8,7 +8,9 @@ import android.widget.ImageView;
 
 import com.androidlec.wagle.activity.user.LoginActivity;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 public class MainActivity extends Activity {
 
@@ -18,8 +20,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ImageView iv_splash = findViewById(R.id.iv_splash);
-        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(iv_splash);
-        Glide.with(this).load(R.drawable.wagleintro).into(gifImage);
+
+        Glide.with(this)
+                .load(R.drawable.wagleintro)
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(new DrawableImageViewTarget(iv_splash));
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -53,12 +53,6 @@
         android:textStyle="bold"
         android:text="로그인" />
 
-    <Button
-        android:id="@+id/testLoginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="테스트" />
-
 
     <LinearLayout
         android:id="@+id/lvbt_login_kakaologin"
@@ -158,7 +152,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvbt_login_findid"
+            android:id="@+id/tvbt_login_findidpw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -166,28 +160,8 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="bold"
-            android:text="아이디 찾기" />
+            android:text="아이디/비밀번 찾기" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#90ffffff"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:text=" / " />
-
-        <TextView
-            android:id="@+id/tvbt_login_findpw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:text="비밀번호 찾기" />
 
         <TextView
             android:layout_width="wrap_content"

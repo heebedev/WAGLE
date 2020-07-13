@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/login_btn_socialKaKao"
+        style="@style/SocialLoginButton"
+        android:background="@drawable/selector_login_button"
+        android:text="카카오 로그인" />
+
+    <Button
+        android:id="@+id/login_btn_socialNaver"
+        style="@style/SocialLoginButton"
+        android:background="@drawable/selector_naver_login_button"
+        android:textColor="@drawable/selector_naver_login_button_text"
+        android:text="네이버 로그인" />
+
+    <Button
+        android:id="@+id/login_btn_socialGoogle"
+        style="@style/SocialLoginButton"
+        android:background="@drawable/selector_google_login_button"
+        android:text="구글 로그인" />
+
+
+
+
+
+
+
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/login_btn_socialKaKao_provided"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+        android:id="@+id/login_btn_socialNaver_provided"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/login_btn_socialGoogle_provided"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+</LinearLayout>
