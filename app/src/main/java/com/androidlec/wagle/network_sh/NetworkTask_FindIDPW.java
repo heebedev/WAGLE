@@ -37,7 +37,6 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
         //log.v("status", "doinBackground start");
-        Log.v("Status", mAddr);
 
         try {
             URL url = new URL(mAddr);
@@ -54,7 +53,6 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
                 while (true) {
                     String strline = bufferedReader.readLine();
                     if(strline == null) break;
-                    Log.v("Status", strline);
                     stringBuffer.append(strline + "\n");
                 }
 
@@ -82,15 +80,8 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("find_idpw"));
-
-            if(jsonArray.get(0) != null) {
-                JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
-                result = jsonObject1.getString("findidpw");
-                Log.v("Status", result);
-            } else {
-                result = "";
-            }
-
+            JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+            result = jsonObject1.getString("findidpw");
         } catch (Exception e) {
             e.printStackTrace();
         }

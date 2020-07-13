@@ -26,10 +26,12 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static androidx.appcompat.app.AlertDialog.*;
+
 public class FindIdPwActivity extends Activity {
 
-    private TextView findid, findpw, result;
-    private EditText id, name, birth;
+    private TextView findemid, findpw, result;
+    private EditText email, name, birth;
     private String urlAddr;
     private String centIP;
     private String findData;
@@ -41,10 +43,10 @@ public class FindIdPwActivity extends Activity {
 
     private void init() {
 
-        findid = findViewById(R.id.tvbt_findid);
+        findemid = findViewById(R.id.tvbt_findemid);
         findpw = findViewById(R.id.tvbt_findpw);
         result = findViewById(R.id.tv_findidpw_result);
-        id = findViewById(R.id.et_findidpw_id);
+        email = findViewById(R.id.et_findidpw_email);
         name = findViewById(R.id.et_findidpw_name);
         birth = findViewById(R.id.et_findidpw_birth);
         canc = findViewById(R.id.bt_findidpw_back);
@@ -61,7 +63,7 @@ public class FindIdPwActivity extends Activity {
 
         init();
 
-        findid.setOnClickListener(onClickListener);
+        findemid.setOnClickListener(onClickListener);
         findpw.setOnClickListener(onClickListener);
         canc.setOnClickListener(onClickListener);
     }
@@ -73,20 +75,21 @@ public class FindIdPwActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.tvbt_findid :
+                case R.id.tvbt_findemid :
                     if (name.getText().toString().trim().length() == 0) {
                         Toast.makeText(FindIdPwActivity.this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else if (birth.getText().toString().trim().length() == 0) {
                         Toast.makeText(FindIdPwActivity.this, "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
-                        urlAddr = "http://" + centIP + ":8080/test/wagle_findidpw.jsp?find=id&name=" + name.getText().toString().trim() + "&birth=" + birth.getText().toString().trim();
+                        urlAddr = "http://" + centIP + ":8080/test/wagle_findidpw.jsp?find=email&name=" + name.getText().toString().trim() + "&birth=" + birth.getText().toString().trim();
                         connectGetData();
-                        if (findData.length() != 0) {
-                            result.setVisibility(View.VISIBLE);
-                            result.setText("당신의 아이디는 " + findData + " 입니다.");
-                        } else {
+
+                        if (findData == null) {
                             result.setVisibility(View.VISIBLE);
                             result.setText("회원정보가 존재하지 않습니다.");
+                        } else {
+                            result.setVisibility(View.VISIBLE);
+                            result.setText("당신의 아이디는 " + findData + " 입니다.");
                         }
                     }
                     break;
@@ -95,43 +98,70 @@ public class FindIdPwActivity extends Activity {
                         Toast.makeText(FindIdPwActivity.this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else if (birth.getText().toString().trim().length() == 0) {
                         Toast.makeText(FindIdPwActivity.this, "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    } else if (id.getText().toString().trim().length() == 0) {
+                    } else if (email.getText().toString().trim().length() == 0) {
                         Toast.makeText(FindIdPwActivity.this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
-                        urlAddr = "http://" + centIP + ":8080/test/wagle_findidpw.jsp?find=pw&id=" + id.getText().toString().trim() + "&name=" + name.getText().toString().trim() + "&birth=" + birth.getText().toString().trim();
-                        Log.v("Status", urlAddr);
+                        urlAddr = "http://" + centIP + ":8080/test/wagle_findidpw.jsp?find=pw&email=" + email.getText().toString().trim() + "&name=" + name.getText().toString().trim() + "&birth=" + birth.getText().toString().trim();
                         connectGetData();
-                        if (findData.length() != 0) {
+                        if (findData != null) {
                             final LinearLayout linear = (LinearLayout) View.inflate(FindIdPwActivity.this, R.layout.custom_newpw_sh, null);
 
-                            new AlertDialog.Builder(FindIdPwActivity.this)
-                                    .setTitle("비밀번호 변경")
+                            AlertDialog.Builder builder = new AlertDialog.Builder(FindIdPwActivity.this);
+                            builder.setTitle("비밀번호 변경")
                                     .setView(linear)
+                                    .setPositiveButton("OK", null) //onClick오버라이딩할거니까 null로해줘요.
+                                    .setNegativeButton("취소", null)
                                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            EditText newPw = linear.findViewById(R.id.newpw_pw);
-                                            EditText newPwcheck = linear.findViewById(R.id.newpw_pwcheck);
-
-                                            if (newPw.getText().toString().trim().equals(newPwcheck.getText().toString().trim())) {
-                                                urlAddr = "http://" + centIP + ":8080/test/wagle_changePw.jsp?id="+findData+"&pw="+newPw.getText().toString().trim();
-                                                Toast.makeText(FindIdPwActivity.this, "비밀번호가 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                                                intent = new Intent(FindIdPwActivity.this, LoginActivity.class);
-                                                startActivity(intent);
-                                            } else {
-                                                Toast.makeText(FindIdPwActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                                            }
 
                                         }
                                     })
                                     .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            intent = new Intent(FindIdPwActivity.this, LoginActivity.class);
-                                            startActivity(intent);
+
                                         }
-                                    })
-                                    .show();
+                                    });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    EditText newPw = linear.findViewById(R.id.newpw_pw);
+                                    EditText newPwcheck = linear.findViewById(R.id.newpw_pwcheck);
+                                    TextView newPwCmt = linear.findViewById(R.id.newpw_comment);
+
+                                    String newPwStr = newPw.getText().toString().trim();
+                                    String newPwCkStr = newPwcheck.getText().toString().trim();
+
+                                    if (newPwStr.equals(newPwCkStr) && newPwStr.length() >= 6) {
+                                        urlAddr = "http://" + centIP + ":8080/test/wagle_changePw.jsp?email="+findData+"&pw="+newPw.getText().toString().trim();
+                                        connectGetData();
+                                        Toast.makeText(FindIdPwActivity.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
+                                        intent = new Intent(FindIdPwActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                    } else if (newPwStr.length() < 6) {
+                                        newPwCmt.setText("비밀번호는 6자리 이상입니다.");
+                                        newPwCmt.setVisibility(View.VISIBLE);
+                                    } else {
+                                        newPwCmt.setText("비밀번호를 다시 확인해주세요.");
+                                        newPwCmt.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                            });
+
+                            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    intent = new Intent(FindIdPwActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+
                         } else {
                             result.setVisibility(View.VISIBLE);
                             result.setText("회원정보가 존재하지 않습니다.");
@@ -159,5 +189,6 @@ public class FindIdPwActivity extends Activity {
         }
 
     }  // connectGetData
+
 
 }
