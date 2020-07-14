@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
@@ -34,6 +36,8 @@ public class LoginActivity extends Activity {
     private LinearLayout googleLoginButton;
     private SignInButton signInButton;
     private GoogleLogin googleLogin;
+    //아이디 비밀번호 찾기
+    private TextView findidpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,9 @@ public class LoginActivity extends Activity {
         googleLoginButton = findViewById(R.id.lvbt_login_googlelogin);
         googleLoginButton.setOnClickListener(loginButtonClickListener);
         signInButton = findViewById(R.id.login_btn_socialGoogle_provided);
+        // 아이디비밀번호 찾기
+        findidpw = findViewById(R.id.tvbt_login_findidpw);
+        findidpw.setOnClickListener(findidpwClickListener);
 
     }
 
@@ -123,4 +130,11 @@ public class LoginActivity extends Activity {
         Session.getCurrentSession().removeCallback(kakaoLogin.sessionCallback);
     }
 
+
+    TextView.OnClickListener findidpwClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(LoginActivity.this, FindIdPwActivity.class));
+        }
+    };
 }
