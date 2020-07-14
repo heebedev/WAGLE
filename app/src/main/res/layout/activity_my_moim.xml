@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/iv_mymoiminfo_moimimage"
-            android:background="#95888888"
+            android:background="@drawable/ic_outline_emptyimage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -50,10 +50,13 @@
             android:gravity="center"
             />
 
-        <ImageButton
-            android:layout_marginLeft="220dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+
+        <Button
+            android:id="@+id/bt_mymoiminfo_addAdmin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="240dp"
+            android:background="@drawable/ic_add_circle_24"
             />
 
     </LinearLayout>
@@ -83,6 +86,7 @@
             />
 
         <TextView
+            android:id="@+id/tvbt_mymoiminfo_updateboardlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="200dp"
