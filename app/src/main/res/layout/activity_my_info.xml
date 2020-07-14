@@ -1,85 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".activity.menu.MyInfoActivity">
 
-    <ImageView
-        android:background="#95888888"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        ></ImageView>
-
-
     <TextView
-        android:id="@+id/tv_myinfo_name"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="내 프로필"
+        android:textSize="40dp"
         android:textStyle="bold"
+        android:textColor="#FFB3B3" />
+
+    <ImageView
+        android:id="@+id/myInfo_iv_photo"
+        android:src="@drawable/ic_outline_emptyimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/myInfo_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="이름"
+            android:gravity="center"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/myInfo_et_birthDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="생년월일"
+            android:gravity="center"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/myInfo_et_EmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="이메일주소"
+            android:gravity="center"
+            android:inputType="textEmailAddress"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/myInfo_btn_start"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="시작하기"
         android:textSize="18dp"
-        android:textColor="#4E4A4A"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이미지 등록하기"
-        />
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="생일"
-        android:layout_marginLeft="20dp" />
-
-
-    <EditText
-        android:id="@+id/et_myinfo_birthdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="성별"
-        android:layout_marginLeft="20dp" />
-
-
-    <EditText
-        android:id="@+id/et_myinfo_gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="휴대폰번호"
-        android:layout_marginLeft="20dp" />
-
-
-    <EditText
-        android:id="@+id/et_myinfo_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-
-
-
+        android:textStyle="bold"
+        android:backgroundTint="#FFB3B3"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 
 </LinearLayout>

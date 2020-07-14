@@ -28,7 +28,7 @@
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
-        <activity android:name=".activity.menu.MyInfoActivity" />
+        <activity android:name=".activity.menu.MyInfoActivity"/>
         <activity android:name=".activity.wagleSub.AddCostActivity" />
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
@@ -37,7 +37,6 @@
 
         </activity>
         <activity android:name=".HomeActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
