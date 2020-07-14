@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <!--  카카오 맵 Api  -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".MyApplication"
@@ -44,6 +47,8 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="ebfdfba386681b78fb5ad51ef1c68da2" />
+
+
     </application>
 
 </manifest>
