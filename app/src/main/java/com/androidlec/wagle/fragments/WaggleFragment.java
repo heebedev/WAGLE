@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import com.androidlec.wagle.CS.Adapter.WaggleAdapter;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
+import com.androidlec.wagle.CS.Network.WGNetworkTask;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 import java.util.ArrayList;
 
@@ -59,24 +61,26 @@ public class WaggleFragment extends Fragment {
         init(v);
         getData();
 
+        adapter = new WaggleAdapter(getActivity(), data);
+        recyclerView.setAdapter(adapter);
+
         return v;
     }
 
     private void getData() {
-//        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
-//
-//        urlAddr = urlAddr + "userId=" + userId;
-//
-//        try {
-//            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-//            result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
+
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.CONNECTED_MOIM_SEQ;
+
+        try {
+            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
+            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void init(View v) {
         recyclerView = v.findViewById(R.id.rv_wagleList);
-        adapter = new WaggleAdapter(getActivity(), data);
     }
 }

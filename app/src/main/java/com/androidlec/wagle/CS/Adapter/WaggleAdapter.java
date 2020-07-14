@@ -36,12 +36,23 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull mViewHolder holder, int position) {
-        holder.tv_title.setText(data.get(position).getTitle());
-        holder.tv_date.setText(data.get(position).getDate());
-        holder.tv_location.setText(data.get(position).getLocation());
-        holder.tv_fee.setText(data.get(position).getFee());
+        holder.tv_title.setText(data.get(position).getWcName());
+        if(data.get(position).getWcStartDate().equals(data.get(position).getWcEndDate())){
+            holder.tv_date.setText("일시 : " + data.get(position).getWcStartDate());
+        } else {
+            holder.tv_date.setText("일시 : " + data.get(position).getWcStartDate() + " ~ " + data.get(position).getWcEndDate());
+        }
+        holder.tv_location.setText("장소 : " + data.get(position).getWcLocate());
+        holder.tv_fee.setText("참가비 : " + data.get(position).getWcEntryFee());
 
-        holder.cardView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, ViewDetailWagleActivity.class)));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ViewDetailWagleActivity.class);
+                //intent.putExtra("data", data.get(position));
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

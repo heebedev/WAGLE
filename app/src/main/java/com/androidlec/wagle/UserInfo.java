@@ -7,6 +7,7 @@ public class UserInfo {
     public static String uEmail;
     public static String uName;
     public static String uLoginType;
+    public static String CONNECTED_MOIM_SEQ = "3";
 
     public UserInfo() {
     }

@@ -30,6 +30,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         tv_joinIn = findViewById(R.id.vdw_cs_tv_joinIn);
     }
 
+    private void getData() {
 
+    }
 
 }
