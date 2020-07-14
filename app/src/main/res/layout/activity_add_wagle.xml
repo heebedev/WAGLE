@@ -45,7 +45,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
         // 모집 기간  -> 선택은 달력으로 할 수 있게
@@ -66,7 +66,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
         // 3. 위치 -> 카카오 API로 검색할 수 있게.. (쓰기 or 검색)
@@ -87,7 +87,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
 
@@ -109,7 +109,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
 
@@ -151,7 +151,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
 
@@ -173,7 +173,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edittext_background"
+            android:background="@drawable/tintgrey_background"
             />
 
 

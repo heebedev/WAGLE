@@ -15,6 +15,7 @@
 
 
         <ImageView
+            android:id="@+id/iv_makemoim_moimimage"
             android:background="#95888888"
             android:layout_width="150dp"
             android:layout_height="150dp"
