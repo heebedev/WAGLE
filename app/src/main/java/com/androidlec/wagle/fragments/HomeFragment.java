@@ -7,26 +7,25 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.androidlec.wagle.MakeMoimActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
+import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +50,8 @@ public class HomeFragment extends Fragment {
     String seqno = "1";
 
     // Post_Notice_Json Data (Json 파싱)
-    ArrayList<Jhj_Notice_DTO> data;
+    ArrayList<Jhj_Notice_DTO> Ndata;
+    ArrayList<Jhj_Gallery_DTO> Gdata;
 
     // Layout (findViewById 를 사용하기위해) 선언
     ViewGroup rootView;
@@ -108,13 +108,19 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         // --------------------------------------------------------------
 
-        // 공지사항 세팅
-        Notice_Setting(rootView, IP);
-
         // Inflate the layout for this fragment
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // 공지사항 세팅
+        Notice_Setting(rootView, IP);
+        // 갤러리 세팅
+        //Gallery_Setting(rootView, IP);
+    }
 
     protected String Post_Select_All(String urlAddr) {
         String data = null;
@@ -200,10 +206,9 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp";
         String Noitce_JsonString = Post_Select_All(urlAddr);
-        data = Notice_parser(Noitce_JsonString);
+        Ndata = Notice_parser(Noitce_JsonString);
         // --------------------------------------------------------------
         // --------------------------------------------------------------
-
 
         // --------------------------------------------------------------
         // 공지사항 정보 4개 보여주기
@@ -213,10 +218,10 @@ public class HomeFragment extends Fragment {
                 R.id.fragment_home_Notice1, R.id.fragment_home_Notice2, R.id.fragment_home_Notice3, R.id.fragment_home_Notice4
         };
 
-        for (int i = 0 ; i < notice_Frag_Btn.length ; i++) {
+        for (int i = 0 ; i < Ndata.size() ; i++) {
             notice_Frag_Btn[i] = rootView.findViewById(notice_Frag_Btn_Id[i]);
             notice_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            notice_Frag_Btn[i].setText(data.get(i).getNoticeTitle());
+            notice_Frag_Btn[i].setText(Ndata.get(i).getNoticeTitle());
         }
         // --------------------------------------------------------------
         //
@@ -253,36 +258,36 @@ public class HomeFragment extends Fragment {
             // Type -> NW = Notice Write , NR = Notice Read
             switch (v.getId()) {
                 case R.id.fragment_home_Notice1 :
-                    intent.putExtra("Title", data.get(0).getNoticeTitle());
-                    intent.putExtra("Content", data.get(0).getNoticeContent());
-                    if (data.get(0).getPostUserSeqno().equals(seqno)) {
+                    intent.putExtra("Title", Ndata.get(0).getNoticeTitle());
+                    intent.putExtra("Content", Ndata.get(0).getNoticeContent());
+                    if (Ndata.get(0).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
                     } else {
                         intent.putExtra("Type", "NR");
                     }
                     break;
                 case R.id.fragment_home_Notice2 :
-                    intent.putExtra("Title", data.get(1).getNoticeTitle());
-                    intent.putExtra("Content", data.get(1).getNoticeContent());
-                    if (data.get(1).getPostUserSeqno().equals(seqno)) {
+                    intent.putExtra("Title", Ndata.get(1).getNoticeTitle());
+                    intent.putExtra("Content", Ndata.get(1).getNoticeContent());
+                    if (Ndata.get(1).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
                     } else {
                         intent.putExtra("Type", "NR");
                     }
                     break;
                 case R.id.fragment_home_Notice3 :
-                    intent.putExtra("Title", data.get(2).getNoticeTitle());
-                    intent.putExtra("Content", data.get(2).getNoticeContent());
-                    if (data.get(2).getPostUserSeqno().equals(seqno)) {
+                    intent.putExtra("Title", Ndata.get(2).getNoticeTitle());
+                    intent.putExtra("Content", Ndata.get(2).getNoticeContent());
+                    if (Ndata.get(2).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
                     } else {
                         intent.putExtra("Type", "NR");
                     }
                     break;
                 case R.id.fragment_home_Notice4 :
-                    intent.putExtra("Title", data.get(3).getNoticeTitle());
-                    intent.putExtra("Content", data.get(3).getNoticeContent());
-                    if (data.get(3).getPostUserSeqno().equals(seqno)) {
+                    intent.putExtra("Title", Ndata.get(3).getNoticeTitle());
+                    intent.putExtra("Content", Ndata.get(3).getNoticeContent());
+                    if (Ndata.get(3).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
                     } else {
                         intent.putExtra("Type", "NR");
@@ -309,29 +314,59 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp";
         String Gallery_JsonString = Post_Select_All(urlAddr);
-        data = Notice_parser(Gallery_JsonString);
+        Gdata = Gallery_parser(Gallery_JsonString);
         // --------------------------------------------------------------
         // --------------------------------------------------------------
-
 
         // --------------------------------------------------------------
         // 공지사항 정보 4개 보여주기
         // --------------------------------------------------------------
-        Button[] notice_Frag_Btn = new Button[4];
-        Integer[] notice_Frag_Btn_Id = {
-                R.id.fragment_home_Notice1, R.id.fragment_home_Notice2, R.id.fragment_home_Notice3, R.id.fragment_home_Notice4
+        ImageView[] gallery_Frag_Btn = new ImageView[6];
+        Integer[] gallery_Frag_Btn_Id = {
+                R.id.fragment_home_Gallery1, R.id.fragment_home_Gallery2, R.id.fragment_home_Gallery3,
+                R.id.fragment_home_Gallery4, R.id.fragment_home_Gallery5, R.id.fragment_home_Gallery6
         };
 
-        for (int i = 0 ; i < notice_Frag_Btn.length ; i++) {
-            notice_Frag_Btn[i] = rootView.findViewById(notice_Frag_Btn_Id[i]);
-            notice_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            notice_Frag_Btn[i].setText(data.get(i).getNoticeTitle());
+        String imgUrl = "http://" + IP + ":8080/wagle/moimImgs/gallery/";
+
+        for (int i = 0 ; i < Gdata.size() ; i++) {
+            gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
+            gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
+            Log.v(TAG, imgUrl + Gdata.get(i).getImageName());
+            //         Context                 URL              ImageView
+            Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
         }
         // --------------------------------------------------------------
         //
         // --------------------------------------------------------------
     }
 
+    // 갤러리 JsonData Dtos 에 저장하기
+    protected ArrayList<Jhj_Gallery_DTO> Gallery_parser(String jsonStr) {
+        ArrayList<Jhj_Gallery_DTO> dtos = new ArrayList<Jhj_Gallery_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("gallery"));
+            dtos.clear();
+
+            for (int i = 0 ; i < jsonArray.length() ; i++) {
+                // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String seqno = jsonObject1.getString("seqno");
+                String imgName = jsonObject1.getString("imagename");
+                String user_uSeqno = jsonObject1.getString("user_useqno");
+
+                dtos.add(new Jhj_Gallery_DTO(seqno, imgName, user_uSeqno));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
 
     // 갤러리 FTP File Uplaod
     protected void GalleryFTPUpload(Uri file, String fileName) {
