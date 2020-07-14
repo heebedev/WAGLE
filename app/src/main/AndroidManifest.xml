@@ -35,7 +35,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".activity.user.SignUpActivity"/>
         <activity android:name=".activity.user.FindIdPwActivity" />
-        <activity android:name=".activity.user.LoginActivity" />
+        <activity android:name=".activity.user.LoginActivity" >
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,6 +17,9 @@ public class MainMoimListActivity extends Activity {
 
     private String urlAddr, centIP;
 
+    //사용자정보
+    UserInfo userinfo;
+
     //모임리스트뷰
     private ArrayList<Moimlist> moimlistdata;
     private MoimListAdapter adapter;
@@ -30,7 +33,7 @@ public class MainMoimListActivity extends Activity {
         addMoim = findViewById(R.id.tv_mainMoim_addmoim);
 
         centIP = "192.168.0.138";
-        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + 1;
+        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.uSeqno;
 
         connectGetData();
     }
