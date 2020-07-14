@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.androidlec.wagle.CS.LoginClass.LoginInfo;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
@@ -227,7 +228,7 @@ public class MyInfoActivity extends AppCompatActivity {
         String name = et_name.getText().toString().trim();
         String birthDate = et_birthDate.getText().toString().trim();
         String emailAddress = et_emailAddress.getText().toString().trim();
-        //String uId = LoginId.getLoginId(); 임시..
+        // String uId = LoginInfo.LOGIN_ID;
         String uId = "jong@naver.com";
 
         if (TextUtils.isEmpty(name)) {
