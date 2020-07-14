@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
 
@@ -226,7 +227,8 @@ public class MyInfoActivity extends AppCompatActivity {
         String name = et_name.getText().toString().trim();
         String birthDate = et_birthDate.getText().toString().trim();
         String emailAddress = et_emailAddress.getText().toString().trim();
-        String uId = LoginId.getLoginId();
+        //String uId = LoginId.getLoginId(); 임시..
+        String uId = "jong@naver.com";
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "이름을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -237,7 +239,7 @@ public class MyInfoActivity extends AppCompatActivity {
         } else if (image_uri == null) {
             connectDB(name, birthDate, emailAddress, "", uId);
         } else {
-            ConnectFTP mConnectFTP = new ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri);
+            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri);
             String fileName = "";
             try {
                 fileName = mConnectFTP.execute().get();
