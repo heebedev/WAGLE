@@ -151,7 +151,6 @@ public class MakeMoimActivity extends Activity {
     // DB Inert
     // ------------------------------------------------------------------
     public void moimInsert() {
-
         // 입력받은 데이터 준비.
         EditText make_Moim_Edit_Name = findViewById(R.id.etMoimName);
         EditText make_Moim_ViewFliper_Intro = findViewById(R.id.make_moim_viewFliper_Intro);
