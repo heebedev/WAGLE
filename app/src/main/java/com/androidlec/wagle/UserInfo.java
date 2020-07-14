@@ -8,6 +8,6 @@ public class UserInfo {
     public static String UNAME;
     public static String ULOGINTYPE;
     public static String MOIMSEQNO;
-    
+
 
 }
