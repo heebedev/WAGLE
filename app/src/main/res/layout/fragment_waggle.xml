@@ -37,25 +37,29 @@
                 ></TextView>
 
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/lv_wagleList"
+        
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="12"
-            ></ListView>
+            android:layout_weight="12" >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="와글 더하기"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:background="@drawable/floating_btn_background">
-        </Button>
+            <ListView
+                android:id="@+id/lv_wagleList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></ListView>
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/wagle_fab_addwagle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="20dp"
+                android:background="@drawable/ic_add_circle_24">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+        </FrameLayout>
 
 
     </LinearLayout>
