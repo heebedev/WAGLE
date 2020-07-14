@@ -1,7 +1,5 @@
 package com.androidlec.wagle.CS.Model;
 
-import com.androidlec.wagle.CS.LoginClass.LoginInfo;
-
 public class User {
 
     private String uId, uEmail, uName, uImageName, uBirthDate, uLoginType;

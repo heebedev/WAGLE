@@ -41,7 +41,6 @@ public class AddWagleActivity extends AppCompatActivity {
         waglePlace.setOnClickListener(pickAplaceClickListener);
 
         //책등록, 와글 등록 클릭 리스너
-
         wagleAddBookInfo.setOnClickListener(rgstClickListener);
         wagleRegister.setOnClickListener(rgstClickListener);
 

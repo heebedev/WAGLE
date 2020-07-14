@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,6 +27,8 @@ public class GoogleLogin {
     public static final int RC_SIGN_IN = 100;
 
     private Context mContext;
+
+    private String strResult;
 
     @SuppressLint("StaticFieldLeak")
     public static GoogleSignInClient mGoogleSignInClient;
@@ -53,6 +56,12 @@ public class GoogleLogin {
             if(!findUserFromDB(userId)) {
                 InputUserDataToDB();
             }
+            String[] user = strResult.split(", ");
+            UserInfo.uSeqno = Integer.parseInt(user[0]);
+            UserInfo.uId = user[1];
+            UserInfo.uEmail = user[2];
+            UserInfo.uName = user[3];
+            UserInfo.uLoginType = user[4];
 
             mContext.startActivity(new Intent(mContext, TempActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {
@@ -75,7 +84,8 @@ public class GoogleLogin {
 
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            result = strResult.length() != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,9 +100,24 @@ public class GoogleLogin {
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
             csNetworkTask.execute().get();
+            setUserInfo(account.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setUserInfo(String userId) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "userId=" + userId;
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void signOut() {

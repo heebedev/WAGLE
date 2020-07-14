@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.androidlec.wagle.CS.LoginClass.LoginInfo;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
