@@ -5,11 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.UserInfo;
 import com.kakao.auth.ISessionCallback;
@@ -56,11 +53,11 @@ public class KakaoLogin {
                         InputUserDataToDB(result.toString());
                     }
                     String[] user = strResult.split(", ");
-                    UserInfo.uSeqno = Integer.parseInt(user[0]);
-                    UserInfo.uId = user[1];
-                    UserInfo.uEmail = user[2];
-                    UserInfo.uName = user[3];
-                    UserInfo.uLoginType = user[4];
+                    UserInfo.USEQNO = Integer.parseInt(user[0]);
+                    UserInfo.UID = user[1];
+                    UserInfo.UEMAIL = user[2];
+                    UserInfo.UNAME = user[3];
+                    UserInfo.ULOGINTYPE = user[4];
 
                     Intent intent = new Intent(mContext, TempActivity.class);
                     mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

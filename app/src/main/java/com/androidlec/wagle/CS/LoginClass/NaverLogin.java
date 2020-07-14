@@ -65,11 +65,11 @@ public class NaverLogin {
                     InputUserDataToDB();
                 }
                 String[] user = strResult.split(", ");
-                UserInfo.uSeqno = Integer.parseInt(user[0]);
-                UserInfo.uId = user[1];
-                UserInfo.uEmail = user[2];
-                UserInfo.uName = user[3];
-                UserInfo.uLoginType = user[4];
+                UserInfo.USEQNO = Integer.parseInt(user[0]);
+                UserInfo.UID = user[1];
+                UserInfo.UEMAIL = user[2];
+                UserInfo.UNAME = user[3];
+                UserInfo.ULOGINTYPE = user[4];
 
                 Intent intent = new Intent(mContext, TempActivity.class);
                 mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

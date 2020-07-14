@@ -1,7 +1,5 @@
 package com.androidlec.wagle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.androidlec.wagle.activity.user.LoginActivity;
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.Moimlist;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
@@ -39,7 +35,7 @@ public class MainMoimListActivity extends Activity {
         addMoim = findViewById(R.id.bt_mainMoim_addmoim);
 
         centIP = "192.168.0.138";
-        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.uSeqno;
+        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.USEQNO;
 
         connectGetData();
     }
@@ -81,8 +77,8 @@ public class MainMoimListActivity extends Activity {
     final ListView.OnItemClickListener moimItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            UserInfo.moimSeqno = (Integer) parent.getItemAtPosition(position);
-            Log.v("status", "moimseq : " + UserInfo.moimSeqno);
+            UserInfo.MOIMSEQNO = parent.getItemAtPosition(position).toString();
+            Log.v("status", "moimseq : " + UserInfo.MOIMSEQNO);
             //startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
         }
     };

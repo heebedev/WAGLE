@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
@@ -45,11 +44,11 @@ public class TempActivity extends AppCompatActivity {
         btn6.setOnClickListener(onClickListener);
         btn7.setOnClickListener(onClickListener);
 
-        Log.e("Chance", "uSeq : "+UserInfo.uSeqno);
-        Log.e("Chance", "uId : "+UserInfo.uId);
-        Log.e("Chance", "uEmail : "+UserInfo.uEmail);
-        Log.e("Chance", "uName : "+UserInfo.uName);
-        Log.e("Chance", "uLoginType : "+UserInfo.uLoginType);
+        Log.e("Chance", "uSeq : "+UserInfo.USEQNO);
+        Log.e("Chance", "uId : "+UserInfo.UID);
+        Log.e("Chance", "uEmail : "+UserInfo.UEMAIL);
+        Log.e("Chance", "uName : "+UserInfo.UNAME);
+        Log.e("Chance", "uLoginType : "+UserInfo.ULOGINTYPE);
 
     }
 

@@ -1,6 +1,5 @@
 package com.androidlec.wagle.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.androidlec.wagle.CS.Adapter.WaggleAdapter;
 import com.androidlec.wagle.CS.Model.WagleList;
-import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WGNetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -70,7 +68,7 @@ public class WaggleFragment extends Fragment {
     private void getData() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
 
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.CONNECTED_MOIM_SEQ;
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
 
         try {
             WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);

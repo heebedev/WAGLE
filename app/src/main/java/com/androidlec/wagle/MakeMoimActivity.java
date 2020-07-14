@@ -173,7 +173,7 @@ public class MakeMoimActivity extends Activity {
         String formatDate = sdfNow.format(date);
 
         // 지워야할것
-        int seqno = UserInfo.uSeqno;
+        int seqno = UserInfo.USEQNO;
 
         String imgName = name + formatDate + ".jpg";
 

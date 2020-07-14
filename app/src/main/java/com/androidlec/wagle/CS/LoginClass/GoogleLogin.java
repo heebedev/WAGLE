@@ -9,7 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,8 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.Arrays;
 
 public class GoogleLogin {
 
@@ -57,11 +54,11 @@ public class GoogleLogin {
                 InputUserDataToDB();
             }
             String[] user = strResult.split(", ");
-            UserInfo.uSeqno = Integer.parseInt(user[0]);
-            UserInfo.uId = user[1];
-            UserInfo.uEmail = user[2];
-            UserInfo.uName = user[3];
-            UserInfo.uLoginType = user[4];
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
 
             mContext.startActivity(new Intent(mContext, TempActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {

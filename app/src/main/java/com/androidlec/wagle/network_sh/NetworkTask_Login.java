@@ -1,9 +1,7 @@
 package com.androidlec.wagle.network_sh;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.androidlec.wagle.UserInfo;
 
@@ -91,11 +89,11 @@ public class NetworkTask_Login extends AsyncTask<Integer, String, Object> {
                 uName = jsonObject1.getString("uName");
                 uLoginType = jsonObject1.getString("uLoginType");
 
-                UserInfo.uSeqno = uSeqno;
-                UserInfo.uId = uId;
-                UserInfo.uEmail = uEmail;
-                UserInfo.uName = uName;
-                UserInfo.uLoginType = uLoginType;
+                UserInfo.USEQNO = uSeqno;
+                UserInfo.UID = uId;
+                UserInfo.UEMAIL = uEmail;
+                UserInfo.UNAME = uName;
+                UserInfo.ULOGINTYPE = uLoginType;
 
                 result = true;
             }
