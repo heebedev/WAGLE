@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/lvbt_login_kakaologin"
         android:layout_width="250dp"
@@ -14,9 +13,7 @@
         android:background="@drawable/btn_kakaologin"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="8dp"
-        >
-
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:src="@drawable/kakaologo"
@@ -24,7 +21,6 @@
             android:layout_height="32dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"/>
-
 
         <TextView
             android:layout_width="match_parent"
@@ -35,7 +31,6 @@
             android:gravity="center"
             android:layout_gravity="center_vertical"/>
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -45,8 +40,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:background="@drawable/btn_naverlogin"
-        android:layout_gravity="center"
-        >
+        android:layout_gravity="center">
 
         <ImageView
             android:src="@drawable/naverlogo"
@@ -55,7 +49,6 @@
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"/>
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +56,7 @@
             android:gravity="center"
             android:text="네이버 로그인"
             android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
@@ -74,8 +68,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:background="@drawable/btn_googlelogo"
-        android:layout_gravity="center"
-        >
+        android:layout_gravity="center">
 
         <ImageView
             android:src="@drawable/googlelogo"
@@ -83,7 +76,6 @@
             android:layout_height="18dp"
             android:layout_marginLeft="28dp"
             android:layout_gravity="center_vertical"/>
-
 
         <TextView
             android:layout_width="match_parent"
@@ -95,6 +87,8 @@
             android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
+
+
 
 
 
