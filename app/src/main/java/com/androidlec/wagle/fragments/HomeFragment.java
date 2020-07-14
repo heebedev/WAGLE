@@ -10,9 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +37,17 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // 지워야할것.
+    String seqno = "1";
+
+    // Post_Notice_Json Data (Json 파싱)
+    ArrayList<Jhj_Notice_DTO> data;
+
+
+    private static final String TAG = "HomeFragment";
+
+    //
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,8 +78,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -73,31 +90,161 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
 
         rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
-        rootView.findViewById(R.id.fragment_home_Wagle_Add).setOnClickListener(add_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
-        rootView.findViewById(R.id.fragment_home_BookReport_Add).setOnClickListener(add_home_fragment_OnClickListener);
 
         // --------------------------------------------------------------
-        // 버튼 이벤트 등록 끝
+        //
         // --------------------------------------------------------------
+
+        String IP = "192.168.0.82";
+
+        // 공지사항 세팅
+        Notice_Setting(rootView, IP);
 
         // Inflate the layout for this fragment
         return rootView;
     }
 
+    protected String Post_Select_All(String urlAddr) {
+        String data = null;
+
+        try {
+            Jhj_MySql_Select_NetworkTask networkTask = new Jhj_MySql_Select_NetworkTask(getActivity(), urlAddr);
+            // execute() java 파일안의 메소드 한번에 동작시키기, 메소드를 사용하면 HttpURLConnection 이 제대로 작동하지않는다.
+            Object obj = networkTask.execute().get();
+            data = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    // --------------------------------------------------------------
+    // + 버튼 이벤트
+    // --------------------------------------------------------------
     Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.v("HomeFragment", Integer.toString(v.getId()));
-
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Add :
                     Intent intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
-                    intent.putExtra("postType", "N");
+                    intent.putExtra("Type", "W");
                     startActivity(intent);
                     break;
             }
         }
     };
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------
+    // 공지사항 메소드
+    // -------------------------------------------------------------------------------------
+
+    protected void Notice_Setting(ViewGroup rootView, String IP) {
+        // --------------------------------------------------------------
+        // 공지사항 정보 4개 가져오기
+        // --------------------------------------------------------------
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp";
+        String Noitce_JsonString = Post_Select_All(urlAddr);
+        data = Notice_parser(Noitce_JsonString);
+        // --------------------------------------------------------------
+        // --------------------------------------------------------------
+
+
+        // --------------------------------------------------------------
+        // 공지사항 정보 4개 보여주기
+        // --------------------------------------------------------------
+        Button[] notice_Frag_Btn = new Button[4];
+        Integer[] notice_Frag_Btn_Id = {
+                R.id.fragment_home_Notice1, R.id.fragment_home_Notice2, R.id.fragment_home_Notice3, R.id.fragment_home_Notice4
+        };
+
+        for (int i = 0 ; i < notice_Frag_Btn.length ; i++) {
+            notice_Frag_Btn[i] = rootView.findViewById(notice_Frag_Btn_Id[i]);
+            notice_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
+            notice_Frag_Btn[i].setText(data.get(i).getNoticeTitle());
+        }
+        // --------------------------------------------------------------
+        //
+        // --------------------------------------------------------------
+    }
+
+    protected ArrayList<Jhj_Notice_DTO> Notice_parser(String jsonStr) {
+        ArrayList<Jhj_Notice_DTO> dtos = new ArrayList<Jhj_Notice_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+
+            for (int i = 0 ; i < 12 ; i++) {
+                Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
+                        jsonObject.getString("PostTitle" + i),
+                        jsonObject.getString("PostContent" + i),
+                        jsonObject.getString("PostUserSeqno" + i));
+
+                dtos.add(dto);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+    Button.OnClickListener notice_Frag_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
+
+            // Type -> NW = Notice Write , NR = Notice Read
+            switch (v.getId()) {
+                case R.id.fragment_home_Notice1 :
+                    intent.putExtra("Title", data.get(0).getNoticeTitle());
+                    intent.putExtra("Content", data.get(0).getNoticeContent());
+                    if (data.get(0).getPostUserSeqno().equals(seqno)) {
+                        intent.putExtra("Type", "NW");
+                    } else {
+                        intent.putExtra("Type", "NR");
+                    }
+                    break;
+                case R.id.fragment_home_Notice2 :
+                    intent.putExtra("Title", data.get(1).getNoticeTitle());
+                    intent.putExtra("Content", data.get(1).getNoticeContent());
+                    if (data.get(1).getPostUserSeqno().equals(seqno)) {
+                        intent.putExtra("Type", "NW");
+                    } else {
+                        intent.putExtra("Type", "NR");
+                    }
+                    break;
+                case R.id.fragment_home_Notice3 :
+                    intent.putExtra("Title", data.get(2).getNoticeTitle());
+                    intent.putExtra("Content", data.get(2).getNoticeContent());
+                    if (data.get(2).getPostUserSeqno().equals(seqno)) {
+                        intent.putExtra("Type", "NW");
+                    } else {
+                        intent.putExtra("Type", "NR");
+                    }
+                    break;
+                case R.id.fragment_home_Notice4 :
+                    intent.putExtra("Title", data.get(3).getNoticeTitle());
+                    intent.putExtra("Content", data.get(3).getNoticeContent());
+                    if (data.get(3).getPostUserSeqno().equals(seqno)) {
+                        intent.putExtra("Type", "NW");
+                    } else {
+                        intent.putExtra("Type", "NR");
+                    }
+                    break;
+            }
+
+            startActivity(intent);
+        }
+    };
+
+    // -------------------------------------------------------------------------------------
+    // 공지사항 메소드 끝
+    // -------------------------------------------------------------------------------------
 
 }
