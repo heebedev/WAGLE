@@ -1,10 +1,13 @@
 package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
@@ -20,6 +24,7 @@ import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -121,18 +126,49 @@ public class HomeFragment extends Fragment {
         return data;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == getActivity().RESULT_OK) {
+                try {
+                    Uri file = data.getData();
+                    // 파일이름 , 파일 경로
+                    String fileName = "";
+                    String fileDirectroy = "/moimImgs/gallery";
+
+                    // FTP 접속
+                    Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(getActivity(), "192.168.0.82", "host", "qwer1234", 25, file, fileName, fileDirectroy);
+                    connectFTP.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     // --------------------------------------------------------------
     // + 버튼 이벤트
     // --------------------------------------------------------------
     Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent;
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Add :
-                    Intent intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
+                    intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
                     intent.putExtra("Type", "W");
                     startActivity(intent);
                     break;
+                case R.id.fragment_home_Gallery_Add :
+                    intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, 1002);
+                    break;
+
             }
         }
     };
@@ -238,7 +274,6 @@ public class HomeFragment extends Fragment {
                     }
                     break;
             }
-
             startActivity(intent);
         }
     };
@@ -247,4 +282,12 @@ public class HomeFragment extends Fragment {
     // 공지사항 메소드 끝
     // -------------------------------------------------------------------------------------
 
+
+    // -------------------------------------------------------------------------------------
+    // 갤러리 시작
+    // -------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------
+    // 갤러리 끝
+    // -------------------------------------------------------------------------------------
 }

@@ -22,8 +22,9 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
     int port;
     Uri file;
     String fileName;
+    String directoryRoot;
 
-    public Jhj_FTPConnect(Context context, String host, String username, String password, int port, Uri file, String fileName) {
+    public Jhj_FTPConnect(Context context, String host, String username, String password, int port, Uri file, String fileName, String directoryRoot) {
         this.context = context;
         this.host = host;
         this.username = username;
@@ -31,19 +32,22 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
         this.port = port;
         this.file = file;
         this.fileName = fileName;
+        this.directoryRoot = directoryRoot;
         mFTPClient = new FTPClient();
     }
 
     @Override
     protected Boolean doInBackground(Integer... integers) {
+        mFTPClient.setControlEncoding("UTF-8");
         // FTP 접속 체크
         boolean status = false;
         // FTP 접속 시
         if (status = ftpConnect(host, username, password, port)) {
-            String currentPath = ftpGetDirectory() + "moimImgs";
+
+            Log.v(TAG, fileName);
 
             // 파일 업로드시
-            if (ftpUploadFile(file, fileName, currentPath)) {
+            if (ftpUploadFile(file, fileName, directoryRoot)) {
                 Log.v("ConnectFTP", "Success");
             }
         }
@@ -102,6 +106,16 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean ftpCreateDirectory(String directory) {
+        boolean result = false;
+        try {
+            result = mFTPClient.makeDirectory(directory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     //                                     저장할 파일 이름        저장할 FTP 폴더 경

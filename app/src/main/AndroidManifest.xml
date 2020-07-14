@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.androidlec.wagle">
     <!-- 인터넷을 타고 나갈려면 필요하다. ******************************************* -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,8 +19,12 @@
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
-        <activity android:name=".TempActivity"></activity>
+        <activity android:name=".jhj.Jhj_Post_Write_Notice">
+
+        </activity>
+        <activity android:name=".TempActivity">
+
+        </activity>
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
@@ -28,7 +33,9 @@
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
-        <activity android:name=".MakeMoimActivity"></activity>
+        <activity android:name=".MakeMoimActivity">
+
+        </activity>
         <activity android:name=".HomeActivity">
 
             <intent-filter>
@@ -40,7 +47,9 @@
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="ebfdfba386681b78fb5ad51ef1c68da2" />
