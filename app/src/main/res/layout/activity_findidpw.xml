@@ -5,13 +5,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".activity.user.FindIdPwActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="아이디/비밀번호 찾기"
+        android:layout_gravity="center"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="#FFB3B3" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
         android:layout_gravity="center">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_findidpw_email"
@@ -24,7 +34,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_findidpw_name"
@@ -79,7 +89,7 @@
             android:id="@+id/tvbt_findpw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="60dp"
             android:text="비밀번호 찾기"
             android:layout_gravity="center"
             android:textSize="20dp" />
@@ -93,13 +103,14 @@
             android:id="@+id/bt_findidpw_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
             android:text="뒤로가기"
-            />
-
-
-
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:backgroundTint="#FFB3B3"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
 
 

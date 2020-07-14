@@ -4,9 +4,13 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="mainColor">#f9bcb5</color>
+    <color name="topColor">#f9bcb5</color>
+    <color name="mainColor">#A25990</color>
     <color name="subColor">#4b3c6c</color>
+
 
     <color name="colorNaver">#00BF34</color>
     <color name="colorNaverHighlighted">#137100</color>
+
+    <color name="generalText">#5A5A5A</color>
 </resources>

@@ -46,6 +46,8 @@ public class LoginActivity extends Activity {
     private TextView findidpw;
     //아이디 비밀번호 입력
     private EditText userid, userpw;
+    //회원가입
+    private TextView signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,9 @@ public class LoginActivity extends Activity {
         // 아이디비밀번호 찾기
         findidpw = findViewById(R.id.tvbt_login_findidpw);
         findidpw.setOnClickListener(findidpwClickListener);
+        // 회원가입
+        signUpBtn = findViewById(R.id.tvbt_login_signup);
+        signUpBtn.setOnClickListener(signupClickListener);
 
 
     }
@@ -145,6 +150,7 @@ public class LoginActivity extends Activity {
     }
 
 
+    //아이디 찾기 버튼 클릭 이벤트
     TextView.OnClickListener findidpwClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -152,9 +158,11 @@ public class LoginActivity extends Activity {
         }
     };
 
+    //로그인 버튼 클릭 이벤트
     Button.OnClickListener genloginClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            loginResult.setVisibility(View.GONE);
             String email = userid.getText().toString();
             String pw = userpw.getText().toString();
             if(getUserData(email, pw)) {
@@ -163,6 +171,14 @@ public class LoginActivity extends Activity {
                 loginResult.setVisibility(View.VISIBLE);
             }
 
+        }
+    };
+
+    //회원가입 클릭 이벤트
+    TextView.OnClickListener signupClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         }
     };
 

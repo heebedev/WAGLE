@@ -3,10 +3,16 @@ package com.androidlec.wagle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.androidlec.wagle.activity.user.LoginActivity;
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.Moimlist;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
@@ -26,11 +32,11 @@ public class MainMoimListActivity extends Activity {
     private ListView moimList;
 
     //모임 더하기 버튼
-    private TextView addMoim;
+    private Button addMoim;
 
     private void init() {
         moimList = findViewById(R.id.lv_mainMoim_moimlist);
-        addMoim = findViewById(R.id.tv_mainMoim_addmoim);
+        addMoim = findViewById(R.id.bt_mainMoim_addmoim);
 
         centIP = "192.168.0.138";
         urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.uSeqno;
@@ -45,6 +51,9 @@ public class MainMoimListActivity extends Activity {
         //초기화
 
         init();
+
+        addMoim.setOnClickListener(addMoimClickListener);
+        moimList.setOnItemClickListener(moimItemClickListener);
 
 
     }
@@ -61,4 +70,20 @@ public class MainMoimListActivity extends Activity {
         }
 
     }  // connectGetData
+
+    Button.OnClickListener addMoimClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(MainMoimListActivity.this, MakeMoimActivity.class));
+        }
+    };
+
+    final ListView.OnItemClickListener moimItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            UserInfo.moimSeqno = (Integer) parent.getItemAtPosition(position);
+            Log.v("status", "moimseq : " + UserInfo.moimSeqno);
+            //startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
+        }
+    };
 }

@@ -8,6 +8,8 @@ public class UserInfo {
     public static String uName;
     public static String uLoginType;
 
+    public static int moimSeqno;
+
     public UserInfo() {
     }
 
@@ -49,5 +51,13 @@ public class UserInfo {
 
     public static void setuLoginType(String uLoginType) {
         UserInfo.uLoginType = uLoginType;
+    }
+
+    public static int getMoimSeqno() {
+        return moimSeqno;
+    }
+
+    public static void setMoimSeqno(int moimSeqno) {
+        UserInfo.moimSeqno = moimSeqno;
     }
 }
