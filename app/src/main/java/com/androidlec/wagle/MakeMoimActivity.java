@@ -186,7 +186,7 @@ public class MakeMoimActivity extends Activity {
     private void connectionFTP(String imgName) {
         try {
             // FTP 접속
-            Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName);
+            Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
             connectFTP.execute();
         } catch (Exception e) {
             e.printStackTrace();
