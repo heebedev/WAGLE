@@ -1,14 +1,21 @@
 package com.androidlec.wagle.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidlec.wagle.CS.Adapter.WaggleAdapter;
+import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,10 @@ import com.androidlec.wagle.R;
  * create an instance of this fragment.
  */
 public class WaggleFragment extends Fragment {
+
+    RecyclerView recyclerView;
+    WaggleAdapter adapter;
+    ArrayList<WagleList> data;
 
     public WaggleFragment() {
         // Required empty public constructor
@@ -45,8 +56,27 @@ public class WaggleFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_waggle, container, false);
 
-
+        init(v);
+        getData();
 
         return v;
+    }
+
+    private void getData() {
+//        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+//
+//        urlAddr = urlAddr + "userId=" + userId;
+//
+//        try {
+//            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+//            result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void init(View v) {
+        recyclerView = v.findViewById(R.id.rv_wagleList);
+        adapter = new WaggleAdapter(getActivity(), data);
     }
 }

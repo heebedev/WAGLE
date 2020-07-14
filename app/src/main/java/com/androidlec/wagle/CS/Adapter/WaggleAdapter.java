@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.ViewDetailWagleActivity;
 
 import java.util.ArrayList;
 
@@ -40,12 +41,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         holder.tv_location.setText(data.get(position).getLocation());
         holder.tv_fee.setText(data.get(position).getFee());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mContext.startActivity(new Intent(mContext, ));
-            }
-        });
+        holder.cardView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, ViewDetailWagleActivity.class)));
 
     }
 
