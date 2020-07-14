@@ -7,7 +7,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
@@ -15,7 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        android:theme="@style/WAGLETheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
+        <activity android:name=".TempActivity"></activity>
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
@@ -36,6 +47,9 @@
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
         <activity android:name=".MainActivity"></activity>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="ebfdfba386681b78fb5ad51ef1c68da2" />
     </application>
 
 </manifest>
