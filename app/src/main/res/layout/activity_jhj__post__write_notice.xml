@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".jhj.Jhj_Post_Write_Notice">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_write_Text_Title"
+                android:text="공지사항"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_margin="20dp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_write_Edit_Title"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#3A3A3A"
+                android:singleLine="true"
+                android:hint="공지사항 제목을 입력하세요"
+                android:textColorHint="#3A3A3A"
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:background="@drawable/jhj_post_write_edit_loundary"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_write_Edit_Content"
+                android:textSize="17dp"
+                android:textColor="#3A3A3A"
+                android:hint="내용을 입력하세요."
+                android:textColorHint="#3A3A3A"
+                android:inputType="textMultiLine"
+                android:lines="13"
+                android:maxLines="13"
+                android:gravity="top"
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:background="@drawable/jhj_post_write_edit_loundary"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_write_Btn_Cancle"
+                    android:text="취소"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_write_Btn_Submit"
+                    android:text="확인"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="50dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
