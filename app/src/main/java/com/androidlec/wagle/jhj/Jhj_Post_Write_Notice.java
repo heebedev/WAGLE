@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,15 +80,15 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
                 String title = title_Edit_Post_Write.getText().toString();
                 String content = content_Edit_Post_Write.getText().toString();
 
-                // Type 데이터 String에 담기
-                Intent intent = getIntent();
-                String type = intent.getStringExtra("postType");
+                // Type 지정
+                String type = "N";
 
                 // JSP 서버 IP
                 String IP = "192.168.0.82";
 
                 // Get 방식 URL 세팅
                 String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Insert.jsp?userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
+                Log.v("JhjPostWrite", urlAddr);
                 connectionInsertData(urlAddr);
             }
 

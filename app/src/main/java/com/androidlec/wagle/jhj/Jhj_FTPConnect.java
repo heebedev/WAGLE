@@ -49,6 +49,8 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
             // 파일 업로드시
             if (ftpUploadFile(file, fileName, directoryRoot)) {
                 Log.v("ConnectFTP", "Success");
+            } else {
+                Log.v("ConnectFTP", "False");
             }
         }
 
