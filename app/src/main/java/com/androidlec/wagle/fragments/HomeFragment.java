@@ -1,14 +1,18 @@
 package com.androidlec.wagle.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,12 +59,45 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
+        // --------------------------------------------------------------
+        // 버튼 이벤트 등록
+        // --------------------------------------------------------------
+
+        rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
+        rootView.findViewById(R.id.fragment_home_Wagle_Add).setOnClickListener(add_home_fragment_OnClickListener);
+        rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
+        rootView.findViewById(R.id.fragment_home_BookReport_Add).setOnClickListener(add_home_fragment_OnClickListener);
+
+        // --------------------------------------------------------------
+        // 버튼 이벤트 등록 끝
+        // --------------------------------------------------------------
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return rootView;
     }
+
+    Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.v("HomeFragment", Integer.toString(v.getId()));
+
+            switch (v.getId()) {
+                case R.id.fragment_home_Notice_Add :
+                    Intent intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
+                    intent.putExtra("postType", "N");
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
+
 }
