@@ -6,11 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
 
@@ -21,8 +16,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
@@ -35,18 +28,20 @@
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
-        <activity android:name=".MakeMoimActivity"></activity>
-        <activity android:name=".HomeActivity">
+        <activity android:name=".MakeMoimActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeActivity">
+        </activity>
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+        </activity>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="ebfdfba386681b78fb5ad51ef1c68da2" />
