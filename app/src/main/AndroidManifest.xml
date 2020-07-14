@@ -6,13 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
 
     <application
         android:name=".MyApplication"
@@ -21,10 +15,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
         <activity android:name=".TempActivity"></activity>
         <activity android:name=".MainMoimListActivity" />
@@ -37,6 +30,7 @@
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
         <activity android:name=".MakeMoimActivity"></activity>
         <activity android:name=".HomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
