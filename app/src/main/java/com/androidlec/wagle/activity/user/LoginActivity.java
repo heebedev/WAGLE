@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
+import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.network_sh.NetworkTask_Login;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.SignInButton;
@@ -21,9 +24,12 @@ import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
+
 public class LoginActivity extends Activity {
 
     // 로그인
+    private Button btnGenLogin;
+    private TextView loginResult;
     // 카카오 로그인
     private LinearLayout kakaoLoginButton;
     private LoginButton loginButton;
@@ -38,6 +44,8 @@ public class LoginActivity extends Activity {
     private GoogleLogin googleLogin;
     //아이디 비밀번호 찾기
     private TextView findidpw;
+    //아이디 비밀번호 입력
+    private EditText userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,11 @@ public class LoginActivity extends Activity {
 
     private void init() {
         // 로그인
+        btnGenLogin = findViewById(R.id.bt_login_login);
+        btnGenLogin.setOnClickListener(genloginClickListener);
+        userid = findViewById(R.id.et_login_loginID);
+        userpw = findViewById(R.id.et_login_loginPW);
+        loginResult = findViewById(R.id.tv_login_loginresult);
         // 카카오
         kakaoLogin = new KakaoLogin(getApplicationContext());
         kakaoLoginButton = findViewById(R.id.lvbt_login_kakaologin);
@@ -70,6 +83,7 @@ public class LoginActivity extends Activity {
         // 아이디비밀번호 찾기
         findidpw = findViewById(R.id.tvbt_login_findidpw);
         findidpw.setOnClickListener(findidpwClickListener);
+
 
     }
 
@@ -126,4 +140,32 @@ public class LoginActivity extends Activity {
             startActivity(new Intent(LoginActivity.this, FindIdPwActivity.class));
         }
     };
+
+    Button.OnClickListener genloginClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String email = userid.getText().toString();
+            String pw = userpw.getText().toString();
+            if(getUserData(email, pw)) {
+                startActivity(new Intent(LoginActivity.this, MainMoimListActivity.class));
+            } else {
+                loginResult.setVisibility(View.VISIBLE);
+            }
+
+        }
+    };
+
+    private boolean getUserData(String uEmail, String uPw) {
+        String centIP = "192.168.0.138";
+        String urlAddr = "http://" + centIP + ":8080/test/wagle_genlogin.jsp?uEmail=" + uEmail + "&uPw="+uPw;
+        boolean result = false;
+        try {
+            NetworkTask_Login networkTask = new NetworkTask_Login(LoginActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+            result = (boolean) obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }  // connectGetData
 }

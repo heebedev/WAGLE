@@ -3,8 +3,9 @@ package com.androidlec.wagle.network_sh;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.androidlec.wagle.dto.Moimlist;
+import com.androidlec.wagle.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,20 +15,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
+public class NetworkTask_Login extends AsyncTask<Integer, String, Object> {
 
     Context context;
     String mAddr;
-    ArrayList<Moimlist> moimlistdata;
+    int uSeqno;
+    String uId;
+    String uEmail;
+    String uName;
+    String uLoginType;
+    boolean result = false;
 
-    ProgressDialog progressDialog;
 
-    public NetworkTask_MoimList(Context context, String mAddr) {
+    public NetworkTask_Login(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.moimlistdata = new ArrayList<Moimlist>();
     }
 
     @Override
@@ -73,25 +76,29 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-        return moimlistdata;
+        return result;
     }
 
     private void Parser(String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("moim_list"));
-            //students_info 에 속해있는 Array를 가져와라.
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("user_info"));
+            if(jsonArray.isNull(0) != true) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+                uSeqno = jsonObject1.getInt("uSeqno");
+                uId = jsonObject1.getString("uId");
+                uEmail = jsonObject1.getString("uEmail");
+                uName = jsonObject1.getString("uName");
+                uLoginType = jsonObject1.getString("uLoginType");
 
-            for(int i = 0 ; i < jsonArray.length(); i++) {
-                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int moimseqno = Integer.parseInt(jsonObject1.getString("mSeqno"));
-                String moimname = jsonObject1.getString("mName");
+                UserInfo.uSeqno = uSeqno;
+                UserInfo.uId = uId;
+                UserInfo.uEmail = uEmail;
+                UserInfo.uName = uName;
+                UserInfo.uLoginType = uLoginType;
 
-                Moimlist moimlist = new Moimlist(moimseqno, moimname);
-
-                moimlistdata.add(moimlist);
+                result = true;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
