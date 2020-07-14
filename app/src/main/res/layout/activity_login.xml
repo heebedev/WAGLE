@@ -54,95 +54,7 @@
         android:text="로그인" />
 
 
-    <LinearLayout
-        android:id="@+id/lvbt_login_kakaologin"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:background="@drawable/btn_kakaologin"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        >
-
-
-        <ImageView
-            android:src="@drawable/kakaologo"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="카카오톡 로그인"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lvbt_login_naverlogin"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:background="@drawable/btn_naverlogin"
-        android:layout_gravity="center"
-        >
-
-        <ImageView
-            android:src="@drawable/naverlogo"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:text="네이버 로그인"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lvbt_login_googlelogin"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:background="@drawable/btn_googlelogo"
-        android:layout_gravity="center"
-        >
-
-        <ImageView
-            android:src="@drawable/googlelogo"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginLeft="28dp"
-            android:layout_gravity="center_vertical"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:text="구글 로그인"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
+    <include layout="@layout/include_socialloginbutton"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -160,24 +72,14 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textStyle="bold"
-            android:text="아이디/비밀번 찾기" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#90ffffff"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:text=" / " />
+            android:text="아이디/비밀번호 찾기" />
 
         <TextView
             android:id="@+id/tvbt_login_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
             android:gravity="center"
             android:textSize="15dp"
             android:textColor="#ffffff"

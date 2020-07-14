@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
-import com.androidlec.wagle.HomeActivity;
-import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
