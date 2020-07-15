@@ -55,4 +55,11 @@
         android:layout_height="wrap_content"
         android:text="발제문추가" />
 
+    <Button
+        android:id="@+id/btn9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="독후감 추가" />
+
+
 </LinearLayout>

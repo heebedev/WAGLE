@@ -1,13 +1,11 @@
 package com.androidlec.wagle.activity.user;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,18 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.adapter.MoimListAdapter;
-import com.androidlec.wagle.dto.Moimlist;
 import com.androidlec.wagle.network_sh.NetworkTask_FindIDPW;
-import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
-import static androidx.appcompat.app.AlertDialog.*;
 
 public class FindIdPwActivity extends Activity {
 

@@ -1,10 +1,9 @@
 package com.androidlec.wagle.network_sh;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.androidlec.wagle.dto.MoimList;
+import com.androidlec.wagle.dto.SgstRptList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,19 +15,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
+public class NetworkTask_QuestionReportList extends AsyncTask<Integer, String, Object> {
 
-    Context context;
-    String mAddr;
-    ArrayList<MoimList> moimlistdata;
+    private Context context;
+    private String mAddr;
+    private ArrayList<SgstRptList> questionlist;
 
-    ProgressDialog progressDialog;
-
-    public NetworkTask_MoimList(Context context, String mAddr) {
+    public NetworkTask_QuestionReportList(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.moimlistdata = new ArrayList<MoimList>();
+        this.questionlist = new ArrayList<SgstRptList>();
     }
+
 
     @Override
     protected Object doInBackground(Integer... integers) {
@@ -73,23 +71,25 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
-        return moimlistdata;
+
+        return questionlist;
     }
 
     private void Parser(String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("moim_list"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("suggestion_list"));
             //students_info 에 속해있는 Array를 가져와라.
 
             for(int i = 0 ; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int moimseqno = Integer.parseInt(jsonObject1.getString("mSeqno"));
-                String moimname = jsonObject1.getString("mName");
+                int seqno = Integer.parseInt(jsonObject1.getString("seqno"));
+                String scontent = jsonObject1.getString("scontent");
+                String rcontent = jsonObject1.getString("rcontent");
 
-                MoimList moimlist = new MoimList(moimseqno, moimname);
+                SgstRptList sgstRptList = new SgstRptList(seqno, scontent, rcontent);
 
-                moimlistdata.add(moimlist);
+                questionlist.add(sgstRptList);
             }
 
         } catch (Exception e) {
@@ -98,5 +98,7 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
 
 
     }
+
+
 
 }

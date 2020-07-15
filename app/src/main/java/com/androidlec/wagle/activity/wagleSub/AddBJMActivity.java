@@ -1,18 +1,11 @@
 package com.androidlec.wagle.activity.wagleSub;
 
 import androidx.annotation.RequiresApi;
-import androidx.annotation.Size;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Layout;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,17 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.androidlec.wagle.HomeActivity;
-import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.activity.user.FindIdPwActivity;
-import com.androidlec.wagle.activity.user.LoginActivity;
-import com.androidlec.wagle.adapter.MoimListAdapter;
-import com.androidlec.wagle.dto.Moimlist;
 import com.androidlec.wagle.network_sh.NetworkTask_AddBJM;
-import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
-
-import java.util.ArrayList;
 
 public class AddBJMActivity extends AppCompatActivity {
 

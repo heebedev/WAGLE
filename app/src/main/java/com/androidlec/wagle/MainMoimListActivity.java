@@ -3,14 +3,14 @@ package com.androidlec.wagle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.androidlec.wagle.adapter.MoimListAdapter;
-import com.androidlec.wagle.dto.Moimlist;
+import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class MainMoimListActivity extends Activity {
     UserInfo userinfo;
 
     //모임리스트뷰
-    private ArrayList<Moimlist> moimlistdata;
+    private ArrayList<MoimList> moimlistdata;
     private MoimListAdapter adapter;
     private ListView moimList;
 
@@ -58,7 +58,7 @@ public class MainMoimListActivity extends Activity {
         try {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
-            moimlistdata = (ArrayList<Moimlist>) obj;
+            moimlistdata = (ArrayList<MoimList>) obj;
             adapter = new MoimListAdapter(MainMoimListActivity.this, R.layout.custom_moimlist_sh, moimlistdata);
             moimList.setAdapter(adapter);
         } catch (Exception e) {

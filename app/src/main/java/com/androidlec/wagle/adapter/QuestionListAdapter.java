@@ -5,28 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.dto.MoimList;
+import com.androidlec.wagle.dto.SgstRptList;
 
 import java.util.ArrayList;
 
-public class MoimListAdapter extends BaseAdapter {
+public class QuestionListAdapter extends BaseAdapter {
 
     private Context mContext = null;
     private int layout = 0;
-    private ArrayList<MoimList> data = null;
+    private ArrayList<SgstRptList> data = null;
     private LayoutInflater inflater = null;
 
-    public TextView moimName;
+    TextView question;
+    EditText answer;
 
-    public MoimListAdapter(Context mContext, int layout, ArrayList<MoimList> data) {
+    public QuestionListAdapter(Context mContext, int layout, ArrayList<SgstRptList> data) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
@@ -35,7 +38,7 @@ public class MoimListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return data.get(position).getMoimseq();
+        return data.get(position).getSrSeqno();
     }
 
     @Override
@@ -50,10 +53,17 @@ public class MoimListAdapter extends BaseAdapter {
 
         }
 
-        moimName = convertView.findViewById(R.id.tv_moimlist_moimname);
+        question = convertView.findViewById(R.id.tv_dhglist_suggestion);
+        answer = convertView.findViewById(R.id.et_dhglist_report);
 
-        moimName.setText(data.get(position).getMoimName());
-
+        if (position == 0) {
+            question.setText(data.get(position).getSContent());
+        } else {
+            question.setText("질문 "+ position + ") " + data.get(position).getSContent());
+            if (data.get(position).getRContent() != null) {
+                answer.setText(data.get(position).getRContent());
+            }
+        }
 
         return convertView;
     }
