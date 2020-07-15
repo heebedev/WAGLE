@@ -3,12 +3,14 @@ package com.androidlec.wagle.activity.wagleSub;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 
 import java.text.DateFormat;
@@ -100,8 +102,7 @@ public class AddWagleActivity extends AppCompatActivity {
     EditText.OnClickListener pickAplaceClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
+            //startActivityForResult(new Intent(getApplicationContext(), FindLocationActivity.class));
         }
     };  // 장소 입력 클릭 리스너
 

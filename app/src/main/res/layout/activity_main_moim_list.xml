@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="#fff"
-    tools:context=".MakeMoimActivity">
+    tools:context=".MainMoimListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,8 +36,19 @@
             android:layout_height="250dp"
             android:dividerHeight="0px"
             android:divider="#ffffff"
-            ></ListView>
+            />
 
+        <TextView
+            android:id="@+id/tv_mainMoim_noList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="40dp"
+            android:text="내 모임이 없습니다."
+            android:gravity="center"
+            android:textSize="24sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/bt_mainMoim_addmoim"

@@ -20,8 +20,8 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:layout_marginLeft="20dp"
                 android:id="@+id/spWagleArrange"
+                android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:gravity="left"/>
@@ -45,6 +45,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/tv_noWagleList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="진행중인 와글이 없습니다."
+                android:textSize="24sp"
+                android:gravity="center"
+                android:visibility="gone"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/wagle_fab_addwagle"

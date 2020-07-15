@@ -2,8 +2,13 @@ package com.androidlec.wagle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.androidlec.wagle.CS.Model.WagleList;
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
@@ -15,6 +20,7 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_detail_wagle);
 
         init();
+        getData();
 
     }
 
@@ -28,10 +34,36 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         tv_wagleDetail = findViewById(R.id.vdw_cs_tv_wagleDetail);
         tv_wagleAgreeRefund = findViewById(R.id.vdw_cs_tv_wagleAgreeRefund);
         tv_joinIn = findViewById(R.id.vdw_cs_tv_joinIn);
+
+        tv_joinIn.setOnClickListener(onClickListener);
+
     }
 
     private void getData() {
+        Intent intent = getIntent();
+        WagleList data = intent.getParcelableExtra("data");
+
+        setData(data);
 
     }
+
+    private void setData(WagleList data) {
+        tv_title.setText(data.getWcName());
+        tv_startDate.setText(data.getWcStartDate());
+        tv_endDate.setText(data.getWcEndDate());
+        tv_dueDate.setText(data.getWcDueDate());
+        tv_location.setText(data.getWcLocate());
+        tv_fee.setText(data.getWcEntryFee());
+        tv_wagleDetail.setText(data.getWcWagleDetail());
+        tv_wagleAgreeRefund.setText(data.getWcWagleAgreeRefund());
+    }
+
+    View.OnClickListener onClickListener = v -> {
+        switch (v.getId()){
+            case R.id.vdw_cs_tv_joinIn:
+                Toast.makeText(this, "가입하기", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    };
 
 }

@@ -49,7 +49,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ViewDetailWagleActivity.class);
-                //intent.putExtra("data", data.get(position));
+                intent.putExtra("data", data.get(position));
                 mContext.startActivity(intent);
             }
         });

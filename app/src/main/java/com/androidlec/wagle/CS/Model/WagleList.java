@@ -1,6 +1,9 @@
 package com.androidlec.wagle.CS.Model;
 
-public class WagleList {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class WagleList implements Parcelable {
 
     private String wcSeqno, Moim_wmSeqno, MoimUser_muSeqno, WagleBook_wbSeqno, wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund;
 
@@ -19,6 +22,34 @@ public class WagleList {
         this.wcWagleDetail = wcWagleDetail;
         this.wcWagleAgreeRefund = wcWagleAgreeRefund;
     }
+
+    protected WagleList(Parcel in) {
+        wcSeqno = in.readString();
+        Moim_wmSeqno = in.readString();
+        MoimUser_muSeqno = in.readString();
+        WagleBook_wbSeqno = in.readString();
+        wcName = in.readString();
+        wcType = in.readString();
+        wcStartDate = in.readString();
+        wcEndDate = in.readString();
+        wcDueDate = in.readString();
+        wcLocate = in.readString();
+        wcEntryFee = in.readString();
+        wcWagleDetail = in.readString();
+        wcWagleAgreeRefund = in.readString();
+    }
+
+    public static final Creator<WagleList> CREATOR = new Creator<WagleList>() {
+        @Override
+        public WagleList createFromParcel(Parcel in) {
+            return new WagleList(in);
+        }
+
+        @Override
+        public WagleList[] newArray(int size) {
+            return new WagleList[size];
+        }
+    };
 
     public String getWcSeqno() {
         return wcSeqno;
@@ -122,5 +153,27 @@ public class WagleList {
 
     public void setWcWagleAgreeRefund(String wcWagleAgreeRefund) {
         this.wcWagleAgreeRefund = wcWagleAgreeRefund;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(wcSeqno);
+        dest.writeString(Moim_wmSeqno);
+        dest.writeString(MoimUser_muSeqno);
+        dest.writeString(WagleBook_wbSeqno);
+        dest.writeString(wcName);
+        dest.writeString(wcType);
+        dest.writeString(wcStartDate);
+        dest.writeString(wcEndDate);
+        dest.writeString(wcDueDate);
+        dest.writeString(wcLocate);
+        dest.writeString(wcEntryFee);
+        dest.writeString(wcWagleDetail);
+        dest.writeString(wcWagleAgreeRefund);
     }
 }
