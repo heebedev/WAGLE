@@ -18,9 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".jhj.Jhj_Post_Notice_List"></activity>
-        <activity android:name=".jhj.Jhj_Post_Write_Notice"></activity>
-        <activity android:name=".TempActivity"></activity>
+        <activity android:name=".jhj.Jhj_Post_Gallery_List"></activity>
+        <activity android:name=".jhj.Jhj_Post_Notice_List" />
+        <activity android:name=".jhj.Jhj_Post_Write_Notice" />
+        <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
@@ -29,7 +30,7 @@
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
-        <activity android:name=".MakeMoimActivity"></activity>
+        <activity android:name=".MakeMoimActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +41,7 @@
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
