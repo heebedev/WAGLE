@@ -41,7 +41,7 @@ public class Jhj_Post_Gallery_List extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(Jhj_Post_Gallery_List.this)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        adapter = new Jhj_Post_Gallery_List_Adapter(Gdata);
+        adapter = new Jhj_Post_Gallery_List_Adapter(Gdata, Jhj_Post_Gallery_List.this);
         recyclerView.setAdapter(adapter);
     }
 
