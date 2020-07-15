@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
         // 공지사항 세팅
         Notice_Setting(rootView, IP);
         // 갤러리 세팅
-        //Gallery_Setting(rootView, IP);
+        Gallery_Setting(rootView, IP);
     }
 
     protected String Post_Select_All(String urlAddr) {
@@ -262,6 +262,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(0).getNoticeContent());
                     if (Ndata.get(0).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(0).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -271,6 +272,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(1).getNoticeContent());
                     if (Ndata.get(1).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(1).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -280,6 +282,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(2).getNoticeContent());
                     if (Ndata.get(2).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(2).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -289,6 +292,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(3).getNoticeContent());
                     if (Ndata.get(3).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(3).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -332,7 +336,6 @@ public class HomeFragment extends Fragment {
         for (int i = 0 ; i < Gdata.size() ; i++) {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            Log.v(TAG, imgUrl + Gdata.get(i).getImageName());
             //         Context                 URL              ImageView
             Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
         }
