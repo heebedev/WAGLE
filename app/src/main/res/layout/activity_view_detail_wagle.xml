@@ -10,17 +10,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/vdw_cs_tv_title"
+        <EditText
+            android:id="@+id/vdw_cs_et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="정규 와글의 제목을 입력해주세요."
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
+            android:hint="정규 와글의 제목을 입력해주세요."
             android:textColorHint="#5A5A5A"
             android:textStyle="bold"
             android:textSize="25dp"
-            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:background="@null" />
+            android:background="@null"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="match_parent"
@@ -41,8 +43,8 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/vdw_cs_tv_startDate"
+            <EditText
+                android:id="@+id/vdw_cs_et_startDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -52,10 +54,11 @@
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:text="시작 일자"
+                android:editable="false"
                 />
 
-            <TextView
-                android:id="@+id/vdw_cs_tv_endDate"
+            <EditText
+                android:id="@+id/vdw_cs_et_endDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -65,6 +68,7 @@
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 android:text="종료 일자"
+                android:editable="false"
                 />
 
 
@@ -95,8 +99,8 @@
                     android:layout_marginLeft="10dp"
                     />
 
-                <TextView
-                    android:id="@+id/vdw_cs_tv_dueDate"
+                <EditText
+                    android:id="@+id/vdw_cs_et_dueDate"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -105,6 +109,7 @@
                     android:background="@drawable/tintgrey_background"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:editable="false"
                     android:text="등록 마감" />
 
             </LinearLayout>
@@ -118,7 +123,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3. 위치"
+                    android:text="3. 참가비"
                     android:textColor="#5A5A5A"
                     android:textSize="18dp"
                     android:textStyle="bold"
@@ -126,17 +131,19 @@
                     android:layout_marginLeft="10dp"
                     />
 
-                <TextView
-                    android:id="@+id/vdw_cs_tv_location"
+                <EditText
+                    android:id="@+id/vdw_cs_et_fee"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:inputType="number"
                     android:background="@drawable/tintgrey_background"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="장소 등록" />
+                    android:editable="false"
+                    android:text="0"/>
 
             </LinearLayout>
 
@@ -147,7 +154,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="4. 참가비"
+            android:text="4. 장소"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -155,14 +162,16 @@
             android:layout_marginLeft="10dp"
             />
 
-        <TextView
-            android:id="@+id/vdw_cs_tv_fee"
+        <EditText
+            android:id="@+id/vdw_cs_et_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:padding="10dp"
             android:background="@drawable/tintgrey_background"
+            android:editable="false"
             />
 
 
@@ -197,14 +206,15 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/vdw_cs_tv_wagleDetail"
+        <EditText
+            android:id="@+id/vdw_cs_et_wagleDetail"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/tintgrey_background"
+            android:editable="false"
             />
 
 
@@ -219,14 +229,15 @@
             android:layout_marginLeft="10dp"
             />
 
-        <TextView
-            android:id="@+id/vdw_cs_tv_wagleAgreeRefund"
+        <EditText
+            android:id="@+id/vdw_cs_et_wagleAgreeRefund"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/tintgrey_background"
+            android:editable="false"
             />
 
         <TextView

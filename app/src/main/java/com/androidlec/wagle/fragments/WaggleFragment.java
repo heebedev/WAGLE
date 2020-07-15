@@ -65,8 +65,15 @@ public class WaggleFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_waggle, container, false);
 
         init(v);
-        getData();
 
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getData();
         if(data.size() == 0){
             tv_noWagleList.setVisibility(View.VISIBLE);
             rv_wagleList.setVisibility(View.GONE);
@@ -77,7 +84,6 @@ public class WaggleFragment extends Fragment {
             rv_wagleList.setAdapter(adapter);
         }
 
-        return v;
     }
 
     private void getData() {

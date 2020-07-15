@@ -1,13 +1,18 @@
 package com.androidlec.wagle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -132,6 +137,26 @@ public class FindLocationActivity extends AppCompatActivity {
 
         @Override
         public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+            EditText editText = new EditText(getApplicationContext());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(FindLocationActivity.this);
+            builder.setTitle("주소 이름 지정");
+            builder.setMessage("이름을 지정하시고 확인을 누르면 장소지정이 완료됩니다.");
+            builder.setView(editText);
+            builder.setPositiveButton("확인", (dialog, which) -> {
+                String name = editText.getText().toString().trim();
+                if(name.length()==0){
+                    name = mapPOIItem.getItemName();
+                }
+                Intent intent = new Intent();
+                intent.putExtra("locationName", name);
+                intent.putExtra("locationAddress", mapPOIItem.getItemName());
+                setResult(RESULT_OK, intent);
+                finish();
+            });
+            builder.setNegativeButton("취소", null);
+            builder.show();
+
         }
 
         @Override
