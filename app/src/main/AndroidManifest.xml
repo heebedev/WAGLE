@@ -18,11 +18,6 @@
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".FindLocationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
@@ -40,7 +35,13 @@
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
