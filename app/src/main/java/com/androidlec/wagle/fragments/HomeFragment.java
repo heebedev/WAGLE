@@ -20,6 +20,7 @@ import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
+import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 import com.bumptech.glide.Glide;
 
@@ -102,8 +103,12 @@ public class HomeFragment extends Fragment {
         // 버튼 이벤트 등록
         // --------------------------------------------------------------
 
+        // 추가 버튼
         rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
+
+        // 더보기 버튼
+        rootView.findViewById(R.id.fragment_home_Notice_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
 
         // --------------------------------------------------------------
         // --------------------------------------------------------------
@@ -119,7 +124,7 @@ public class HomeFragment extends Fragment {
         // 공지사항 세팅
         Notice_Setting(rootView, IP);
         // 갤러리 세팅
-        //Gallery_Setting(rootView, IP);
+        Gallery_Setting(rootView, IP);
     }
 
     protected String Post_Select_All(String urlAddr) {
@@ -173,6 +178,7 @@ public class HomeFragment extends Fragment {
     // --------------------------------------------------------------
     // + 버튼 이벤트
     // --------------------------------------------------------------
+
     Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -193,6 +199,18 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+
+    Button.OnClickListener plus_home_fragment_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fragment_home_Notice_Plus :
+                    Intent intent = new Intent(getActivity(), Jhj_Post_Notice_List.class);
+                    startActivity(intent);
+            }
+        }
+    };
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
 
@@ -262,6 +280,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(0).getNoticeContent());
                     if (Ndata.get(0).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(0).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -271,6 +290,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(1).getNoticeContent());
                     if (Ndata.get(1).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(1).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -280,6 +300,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(2).getNoticeContent());
                     if (Ndata.get(2).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(2).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -289,6 +310,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("Content", Ndata.get(3).getNoticeContent());
                     if (Ndata.get(3).getPostUserSeqno().equals(seqno)) {
                         intent.putExtra("Type", "NW");
+                        intent.putExtra("Seqno", Ndata.get(3).getNoticeSeqno());
                     } else {
                         intent.putExtra("Type", "NR");
                     }
@@ -332,7 +354,6 @@ public class HomeFragment extends Fragment {
         for (int i = 0 ; i < Gdata.size() ; i++) {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            Log.v(TAG, imgUrl + Gdata.get(i).getImageName());
             //         Context                 URL              ImageView
             Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
         }

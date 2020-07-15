@@ -71,7 +71,6 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
         public void onClick(View v) {
 
             if (v.getId() == R.id.post_write_Btn_Submit) {
-
                 // 에디트 텍스트값 받아오기
                 EditText title_Edit_Post_Write = findViewById(R.id.post_write_Edit_Title);
                 EditText content_Edit_Post_Write = findViewById(R.id.post_write_Edit_Content);
@@ -86,9 +85,17 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
                 // JSP 서버 IP
                 String IP = "192.168.0.82";
 
-                // Get 방식 URL 세팅
-                String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Insert.jsp?userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
-                Log.v("JhjPostWrite", urlAddr);
+                String urlAddr = "";
+
+                Intent intent = getIntent();
+                if (intent.getStringExtra("Type").equals("NW")) {
+                    String Seqno = intent.getStringExtra("Seqno");
+                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Update.jsp?seqno=" + Seqno + "&userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
+                } else {
+                    // Get 방식 URL 세팅
+                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Insert.jsp?userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
+                }
+
                 connectionInsertData(urlAddr);
             }
 
