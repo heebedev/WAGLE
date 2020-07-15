@@ -11,34 +11,46 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/bjm_head"
-            android:layout_margin="10dp"
+        <LinearLayout
+            android:id="@+id/ll_bjmadd_layout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/white_rounded_background"
-            android:hint="서문을 입력하세요"
-            android:gravity="center" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/bjm_question"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/white_rounded_background"
-            android:hint="질문1"
-            android:gravity="center" />
+            <EditText
+                android:id="@+id/et_bjmadd_head"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_height="150dp"
+                android:textSize="16dp"
+                android:background="@drawable/white_rounded_background"
+                android:hint="서문을 입력하세요"
+                android:gravity="center" />
 
-
-<!--        //디자인의 수정이 필요함... 그림자를 주고싶다...-->
+        </LinearLayout>
 
         <Button
-            android:id="@+id/bt_bjmAdd"
+            android:id="@+id/bt_bjmadd_questadd"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_add_circle_24"
-            />
+            android:background="@drawable/ic_add_circle_24"/>
+
+
+
+        <Button
+            android:id="@+id/bt_bjmadd_bjmRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_gravity="center"
+            android:text="발제문 등록"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/mainColor"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
 
     </LinearLayout>
 

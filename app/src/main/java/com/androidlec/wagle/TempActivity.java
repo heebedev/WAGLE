@@ -11,10 +11,11 @@ import android.widget.Button;
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
+import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 
 public class TempActivity extends AppCompatActivity {
 
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
     private KakaoLogin kakaoLogin;
     private NaverLogin naverLogin;
     private GoogleLogin googleLogin;
@@ -35,6 +36,7 @@ public class TempActivity extends AppCompatActivity {
         btn5 = findViewById(R.id.btn5);
         btn6 = findViewById(R.id.btn6);
         btn7 = findViewById(R.id.btn7);
+        btn8 = findViewById(R.id.btn8);
 
         btn1.setOnClickListener(onClickListener);
         btn2.setOnClickListener(onClickListener);
@@ -43,6 +45,7 @@ public class TempActivity extends AppCompatActivity {
         btn5.setOnClickListener(onClickListener);
         btn6.setOnClickListener(onClickListener);
         btn7.setOnClickListener(onClickListener);
+        btn8.setOnClickListener(onClickListener);
 
         Log.e("Chance", "uSeq : "+UserInfo.USEQNO);
         Log.e("Chance", "uId : "+UserInfo.UID);
@@ -77,6 +80,10 @@ public class TempActivity extends AppCompatActivity {
                 case R.id.btn7:
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     break;
+                case R.id.btn8:
+                    startActivity(new Intent(TempActivity.this, AddBJMActivity.class));
+                    break;
+
             }
         }
     };

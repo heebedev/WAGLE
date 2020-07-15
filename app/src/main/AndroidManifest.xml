@@ -22,7 +22,14 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ViewDetailWagleActivity"></activity>
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
-        <activity android:name=".TempActivity" />
+        <activity android:name=".TempActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />
@@ -38,11 +45,7 @@
         <activity android:name=".activity.user.LoginActivity" >
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
