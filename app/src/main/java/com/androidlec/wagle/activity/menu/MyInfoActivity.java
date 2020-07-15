@@ -1,11 +1,5 @@
 package com.androidlec.wagle.activity.menu;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -23,6 +17,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
@@ -54,12 +54,12 @@ public class MyInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
 
-        et_name      = findViewById(R.id.myInfo_et_name);
+        et_name = findViewById(R.id.myInfo_et_name);
         et_birthDate = findViewById(R.id.myInfo_et_birthDate);
         et_emailAddress = findViewById(R.id.myInfo_et_EmailAddress);
 
-        iv_photo     = findViewById(R.id.myInfo_iv_photo);
-        startBtn     = findViewById(R.id.myInfo_btn_start);
+        iv_photo = findViewById(R.id.myInfo_iv_photo);
+        startBtn = findViewById(R.id.myInfo_btn_start);
 
         et_birthDate.setOnClickListener(onClickListener);
         iv_photo.setOnClickListener(onClickListener);
@@ -73,7 +73,7 @@ public class MyInfoActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
                     break;
@@ -89,7 +89,7 @@ public class MyInfoActivity extends AppCompatActivity {
     };
 
 
-    private void chooseBirthDate(){
+    private void chooseBirthDate() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
 
@@ -131,7 +131,7 @@ public class MyInfoActivity extends AppCompatActivity {
         }
         if (!TextUtils.isEmpty(temp)) {
             // 권한 요청 다이얼로그
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "),PERMISSION_REQUST_CODE);
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "), PERMISSION_REQUST_CODE);
         } else {
             // 모두 허용 상태
             return true;
@@ -148,7 +148,7 @@ public class MyInfoActivity extends AppCompatActivity {
             for (int i = 0; i < length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // 동의
-                    if(mWhich == 0){
+                    if (mWhich == 0) {
                         pickFromCamera();
                     } else {
                         pickFromGallery();
@@ -169,8 +169,8 @@ public class MyInfoActivity extends AppCompatActivity {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(checkPermission()){
-                    if(which == 0){
+                if (checkPermission()) {
+                    if (which == 0) {
                         pickFromCamera();
                         mWhich = 0;
                     } else {
@@ -265,5 +265,5 @@ public class MyInfoActivity extends AppCompatActivity {
         }
     }
 
-    
+
 }//----

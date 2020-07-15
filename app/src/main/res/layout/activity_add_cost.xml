@@ -1,43 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.wagleSub.AddCostActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="사용 내역"
         android:textColor="#6A6A6A"
-        android:layout_margin="10dp"
-        android:textSize="15dp"
-        />
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/bt_costAdd"
-        android:layout_marginTop="50dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:background="@drawable/ic_add_circle_24"
-        />
+        android:layout_marginTop="50dp"
+        android:background="@drawable/ic_add_circle_24" />
 
 
     <TextView
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:text="등록 완료"
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="등록 완료"
         android:textColor="#5a5a5a"
-        android:textStyle="bold"
         android:textSize="15dp"
-        />
-
+        android:textStyle="bold" />
 
 
 </LinearLayout>

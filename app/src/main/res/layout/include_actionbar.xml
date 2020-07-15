@@ -3,13 +3,12 @@
     android:id="@+id/include_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
-    
+
     <ImageView
         android:id="@+id/include_ab_iv"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        />
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/include_ab_tv"
@@ -18,7 +17,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:text="Moim Name"
-        android:textSize="20sp">
-    </TextView>
+        android:textSize="20sp" />
 
 </androidx.appcompat.widget.Toolbar>

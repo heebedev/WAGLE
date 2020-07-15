@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
@@ -154,7 +153,7 @@ public class LoginActivity extends Activity {
             loginResult.setVisibility(View.GONE);
             String email = userid.getText().toString();
             String pw = userpw.getText().toString();
-            if(getUserData(email, pw)) {
+            if (getUserData(email, pw)) {
                 startActivity(new Intent(LoginActivity.this, MainMoimListActivity.class));
             } else {
                 loginResult.setVisibility(View.VISIBLE);
@@ -173,7 +172,7 @@ public class LoginActivity extends Activity {
 
     private boolean getUserData(String uEmail, String uPw) {
         String centIP = "192.168.0.138";
-        String urlAddr = "http://" + centIP + ":8080/test/wagle_genlogin.jsp?uEmail=" + uEmail + "&uPw="+uPw;
+        String urlAddr = "http://" + centIP + ":8080/test/wagle_genlogin.jsp?uEmail=" + uEmail + "&uPw=" + uPw;
         boolean result = false;
         try {
             NetworkTask_Login networkTask = new NetworkTask_Login(LoginActivity.this, urlAddr);

@@ -62,7 +62,7 @@ public class MainMoimListActivity extends Activity {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
             moimlistdata = (ArrayList<Moimlist>) obj;
-            if(moimlistdata.size() == 0){
+            if (moimlistdata.size() == 0) {
                 tv_noList.setVisibility(View.VISIBLE);
                 moimList.setVisibility(View.GONE);
             } else {

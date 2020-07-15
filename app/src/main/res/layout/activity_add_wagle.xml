@@ -16,59 +16,56 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="30dp"
-            android:hint="정규 와글의 제목을 입력해주세요."
-            android:textColorHint="#5A5A5A"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:gravity="center"
             android:background="@null"
-            android:singleLine="true" />
+            android:gravity="center"
+            android:hint="정규 와글의 제목을 입력해주세요."
+            android:singleLine="true"
+            android:textColorHint="#5A5A5A"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="1. 진행 기간"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            />
+            android:textStyle="bold" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/tintgrey_background"
             android:layout_margin="10dp"
+            android:background="@drawable/tintgrey_background"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_addwagle_wagleStartDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:text="시작 일자"
                 android:editable="false"
-                />
+                android:gravity="center"
+                android:text="시작 일자" />
 
             <EditText
                 android:id="@+id/et_addwagle_wagleEndDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:text="종료 일자"
                 android:editable="false"
-                />
+                android:gravity="center"
+                android:text="종료 일자" />
 
 
         </LinearLayout>
@@ -82,64 +79,62 @@
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="2. 모집 기간"
                     android:textColor="#5A5A5A"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_addwagle_wagleDueDate"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/tintgrey_background"
-                    android:layout_gravity="center"
+                    android:editable="false"
                     android:gravity="center"
-                    android:text="등록 마감일"
-                    android:editable="false" />
+                    android:text="등록 마감일" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="3. 참가비"
                     android:textColor="#5A5A5A"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_addwagle_wagleFee"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:inputType="number"
-                    android:background="@drawable/tintgrey_background"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/tintgrey_background"
                     android:gravity="center"
-                    android:text="0"/>
+                    android:inputType="number"
+                    android:text="0" />
 
             </LinearLayout>
 
@@ -149,27 +144,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:text="4. 장소"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_addwagle_waglePlace"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/tintgrey_background"
+            android:editable="false"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:background="@drawable/tintgrey_background"
-            android:text="등록하기"
-            android:editable="false"
-            />
+            android:text="등록하기" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -179,25 +172,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:text="5. 세부 내용"
                 android:textColor="#5A5A5A"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_addwagle_wagleAddBookInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="20dp"
                 android:text="도서 정보 등록하기"
                 android:textColor="#5A5A5A"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="150dp"
-                />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -206,32 +197,29 @@
             android:id="@+id/et_addwagle_wagleDetail"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/tintgrey_background"
-            />
+            android:background="@drawable/tintgrey_background" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:text="6. 동의 및 환불 규정"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_addwagle_wagleAgreeRefund"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/tintgrey_background"
-            />
+            android:background="@drawable/tintgrey_background" />
 
         <TextView
             android:id="@+id/tv_addwagle_wagleRegister"
@@ -239,7 +227,7 @@
             android:layout_height="match_parent"
             android:text="등록하기"
             android:textColor="#5A5A5A"
-            android:textSize="16dp"/>
+            android:textSize="16dp" />
 
     </LinearLayout>
 

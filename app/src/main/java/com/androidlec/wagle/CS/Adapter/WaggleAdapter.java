@@ -37,7 +37,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
     @Override
     public void onBindViewHolder(@NonNull mViewHolder holder, int position) {
         holder.tv_title.setText(data.get(position).getWcName());
-        if(data.get(position).getWcStartDate().equals(data.get(position).getWcEndDate())){
+        if (data.get(position).getWcStartDate().equals(data.get(position).getWcEndDate())) {
             holder.tv_date.setText("일시 : " + data.get(position).getWcStartDate());
         } else {
             holder.tv_date.setText("일시 : " + data.get(position).getWcStartDate() + " ~ " + data.get(position).getWcEndDate());

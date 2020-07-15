@@ -1,56 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    >
+    android:orientation="vertical">
 
     <ImageView
-        android:src="@drawable/waglenewlogo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
-        />
+        android:src="@drawable/waglenewlogo" />
 
     <TextView
         android:id="@+id/tv_login_loginresult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이메일과 비밀번호를 다시 확인해주세요."
         android:gravity="center"
+        android:text="이메일과 비밀번호를 다시 확인해주세요."
         android:textColor="@color/mainColor"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
     <!--    textinputEditText 써서.. 안내하기 -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="250dp"
-        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_login_loginID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="이메일"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        app:passwordToggleEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_login_loginPW"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="비밀번호"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <Button
@@ -60,10 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="18dp"
+        android:text="로그인"
         android:textColor="#5a5a5a"
-        android:textStyle="bold"
-        android:text="로그인" />
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 
     <include layout="@layout/include_socialloginbutton"></include>
@@ -71,8 +69,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -81,10 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:text="아이디/비밀번호 찾기"
             android:textColor="#5a5a5a"
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:text="아이디/비밀번호 찾기" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvbt_login_signup"
@@ -93,10 +91,10 @@
             android:layout_gravity="center"
             android:layout_marginLeft="40dp"
             android:gravity="center"
-            android:textSize="15dp"
+            android:text="회원가입"
             android:textColor="#5a5a5a"
-            android:textStyle="bold"
-            android:text="회원가입" />
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

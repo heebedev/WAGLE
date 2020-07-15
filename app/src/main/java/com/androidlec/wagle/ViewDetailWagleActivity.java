@@ -1,12 +1,12 @@
 package com.androidlec.wagle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
 
@@ -59,7 +59,7 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     }
 
     View.OnClickListener onClickListener = v -> {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.vdw_cs_tv_joinIn:
                 Toast.makeText(this, "가입하기", Toast.LENGTH_SHORT).show();
                 break;

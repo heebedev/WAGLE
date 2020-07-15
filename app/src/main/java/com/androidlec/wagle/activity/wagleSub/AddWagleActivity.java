@@ -1,15 +1,11 @@
 package com.androidlec.wagle.activity.wagleSub;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidlec.wagle.CS.Model.User;
-import com.androidlec.wagle.CS.Network.CSNetworkTask;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
@@ -88,12 +84,12 @@ public class AddWagleActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             String newMonth, newDay;
-            if(month+1 < 10){
-                newMonth = "" + 0 + (month+1);
+            if (month + 1 < 10) {
+                newMonth = "" + 0 + (month + 1);
             } else {
-                newMonth = "" + (month+1);
+                newMonth = "" + (month + 1);
             }
-            if(dayOfMonth < 10){
+            if (dayOfMonth < 10) {
                 newDay = "" + 0 + dayOfMonth;
             } else {
                 newDay = "" + dayOfMonth;

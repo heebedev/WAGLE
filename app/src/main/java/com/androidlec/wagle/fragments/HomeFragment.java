@@ -2,14 +2,13 @@ package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
@@ -91,7 +90,7 @@ public class HomeFragment extends Fragment {
             Log.v("HomeFragment", Integer.toString(v.getId()));
 
             switch (v.getId()) {
-                case R.id.fragment_home_Notice_Add :
+                case R.id.fragment_home_Notice_Add:
                     Intent intent = new Intent(getActivity(), Jhj_Post_Write_Notice.class);
                     intent.putExtra("postType", "N");
                     startActivity(intent);

@@ -8,8 +8,6 @@ import android.util.Log;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
-import com.androidlec.wagle.MakeMoimActivity;
-import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.UserInfo;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
@@ -51,7 +49,7 @@ public class KakaoLogin {
                 @Override
                 public void onSuccess(MeV2Response result) {
                     String userId = getUserId(result.toString());
-                    if(!findUserFromDB(userId)) {
+                    if (!findUserFromDB(userId)) {
                         InputUserDataToDB(result.toString());
                     } else {
                         setUserInfo(userId);
@@ -152,12 +150,12 @@ public class KakaoLogin {
             JSONObject kakao_account = jsonObject.getJSONObject("kakao_account");
             String emailOK = kakao_account.getString("email_needs_agreement");
             String uEmail = "";
-            if(!emailOK.equals("true")){
+            if (!emailOK.equals("true")) {
                 uEmail = kakao_account.getString("email");
             }
             String birthdayOK = kakao_account.getString("birthday_needs_agreement");
             String uBirthDate = "";
-            if(!birthdayOK.equals("true")){
+            if (!birthdayOK.equals("true")) {
                 uBirthDate = kakao_account.getString("birthday");
             }
 

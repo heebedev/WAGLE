@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.toolbar_menu_home:
                 break;
             case R.id.toolbar_menu_myInfo:

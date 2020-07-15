@@ -1,18 +1,15 @@
 package com.androidlec.wagle;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -145,7 +142,7 @@ public class FindLocationActivity extends AppCompatActivity {
             builder.setView(editText);
             builder.setPositiveButton("확인", (dialog, which) -> {
                 String name = editText.getText().toString().trim();
-                if(name.length()==0){
+                if (name.length() == 0) {
                     name = mapPOIItem.getItemName();
                 }
                 Intent intent = new Intent();
