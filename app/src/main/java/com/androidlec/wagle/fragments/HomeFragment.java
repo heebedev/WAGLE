@@ -20,6 +20,7 @@ import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
+import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 import com.bumptech.glide.Glide;
 
@@ -102,8 +103,12 @@ public class HomeFragment extends Fragment {
         // 버튼 이벤트 등록
         // --------------------------------------------------------------
 
+        // 추가 버튼
         rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
+
+        // 더보기 버튼
+        rootView.findViewById(R.id.fragment_home_Notice_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
 
         // --------------------------------------------------------------
         // --------------------------------------------------------------
@@ -173,6 +178,7 @@ public class HomeFragment extends Fragment {
     // --------------------------------------------------------------
     // + 버튼 이벤트
     // --------------------------------------------------------------
+
     Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -193,6 +199,18 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+
+    Button.OnClickListener plus_home_fragment_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fragment_home_Notice_Plus :
+                    Intent intent = new Intent(getActivity(), Jhj_Post_Notice_List.class);
+                    startActivity(intent);
+            }
+        }
+    };
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
 
