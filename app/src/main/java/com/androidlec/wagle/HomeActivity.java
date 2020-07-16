@@ -1,5 +1,6 @@
 package com.androidlec.wagle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_menu_home:
+                startActivity(new Intent(HomeActivity.this, MainMoimListActivity.class));
                 break;
             case R.id.toolbar_menu_myInfo:
                 break;
