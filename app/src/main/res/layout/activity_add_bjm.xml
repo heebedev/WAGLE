@@ -11,15 +11,22 @@
         android:orientation="vertical">
 
 
-        <EditText
-            android:id="@+id/bjm_head"
+        <LinearLayout
+            android:id="@+id/ll_bjmadd_layout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/white_rounded_background"
-            android:gravity="center"
-            android:hint="서문을 입력하세요" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/et_bjmadd_head"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_rounded_background"
+                android:gravity="center"
+                android:hint="서문을 입력하세요" />
+
+        </LinearLayout>
 
 
         <Button
