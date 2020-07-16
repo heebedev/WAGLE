@@ -61,13 +61,17 @@
 
     </LinearLayout>
 
-    <ImageView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_mymoiminfo_list"
         android:background="@drawable/white_rounded_background"
         android:layout_width="320dp"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        ></ImageView>
+        android:padding="10dp"
+        android:scrollbars="none"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,6 +98,7 @@
             />
 
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv_mymoim_boardlist"
