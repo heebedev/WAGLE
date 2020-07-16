@@ -9,8 +9,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.MainMoimListActivity;
+import com.androidlec.wagle.MakeMoimActivity;
 import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,13 +21,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Arrays;
-
 public class GoogleLogin {
 
     public static final int RC_SIGN_IN = 100;
 
     private Context mContext;
+
+    private String strResult;
 
     @SuppressLint("StaticFieldLeak")
     public static GoogleSignInClient mGoogleSignInClient;
@@ -52,9 +54,11 @@ public class GoogleLogin {
             String userId = getUserId();
             if(!findUserFromDB(userId)) {
                 InputUserDataToDB();
+            } else {
+                setUserInfo(userId);
             }
 
-            mContext.startActivity(new Intent(mContext, TempActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            mContext.startActivity(new Intent(mContext, MainMoimListActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -75,7 +79,8 @@ public class GoogleLogin {
 
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            result = strResult.length() != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,9 +95,32 @@ public class GoogleLogin {
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
             csNetworkTask.execute().get();
+            setUserInfo(account.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setUserInfo(String userId) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "userId=" + userId;
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+
+            String[] user = strResult.split(", ");
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void signOut() {

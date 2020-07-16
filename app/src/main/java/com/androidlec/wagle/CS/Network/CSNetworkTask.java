@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CSNetworkTask extends AsyncTask<Integer, String, Boolean> {
+public class CSNetworkTask extends AsyncTask<Integer, String, String> {
 
     private Context context;
     private String mAddr;
@@ -40,7 +40,7 @@ public class CSNetworkTask extends AsyncTask<Integer, String, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean aVoid) {
+    protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
 //        progressDialog.dismiss();
     }
@@ -51,8 +51,8 @@ public class CSNetworkTask extends AsyncTask<Integer, String, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Integer... integers) {
-        boolean result = false;
+    protected String doInBackground(Integer... integers) {
+        String result = "";
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream;
@@ -74,7 +74,7 @@ public class CSNetworkTask extends AsyncTask<Integer, String, Boolean> {
                     stringBuffer.append(strline + "\n");
                 }
 
-                result = stringBuffer.toString().trim().length() != 0;
+                result = stringBuffer.toString().trim();
 
             }
 

@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.MainMoimListActivity;
+import com.androidlec.wagle.MakeMoimActivity;
 import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.UserInfo;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -27,7 +27,7 @@ public class KakaoLogin {
 
     private Context mContext;
 
-    private String resultJson;
+    private String strResult;
 
     public KakaoLogin(Context mContext) {
         this.mContext = mContext;
@@ -53,9 +53,11 @@ public class KakaoLogin {
                     String userId = getUserId(result.toString());
                     if(!findUserFromDB(userId)) {
                         InputUserDataToDB(result.toString());
+                    } else {
+                        setUserInfo(userId);
                     }
 
-                    Intent intent = new Intent(mContext, TempActivity.class);
+                    Intent intent = new Intent(mContext, MainMoimListActivity.class);
                     mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
@@ -70,18 +72,6 @@ public class KakaoLogin {
         return kakaoJsonParsing(json);
     }
 
-    private String kakaoJsonParsing(String json) {
-        String id = "";
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            id = jsonObject.getString("id");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
     private boolean findUserFromDB(String userId) {
         boolean result = false;
 
@@ -91,7 +81,8 @@ public class KakaoLogin {
 
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            result = strResult.length() != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,13 +98,48 @@ public class KakaoLogin {
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
             csNetworkTask.execute().get();
+            setUserInfo(user.getuId());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void setUserInfo(String userId) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "userId=" + userId;
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+
+            String[] user = strResult.split(", ");
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String kakaoJsonParsing(String json) {
+        String id = "";
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            id = jsonObject.getString("id");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     private User jsonParsing(String json) {
-//        Log.e("Chance", "kakao : "+json);
         User result = null;
         try {
             JSONObject jsonObject = new JSONObject(json);

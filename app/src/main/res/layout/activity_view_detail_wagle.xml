@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.wagleSub.AddWagleActivity">
+    tools:context=".ViewDetailWagleActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_addwagle_wagleName"
+        <TextView
+            android:id="@+id/vdw_cs_tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="정규 와글의 제목을 입력해주세요."
+            android:text="정규 와글의 제목을 입력해주세요."
             android:textColorHint="#5A5A5A"
             android:textStyle="bold"
             android:textSize="25dp"
@@ -22,8 +22,6 @@
             android:gravity="center"
             android:background="@null" />
 
-
-        // 진행 기간  -> 선택은 달력으로 할 수 있게
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,8 +41,8 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_addwagle_wagleStartDate"
+            <TextView
+                android:id="@+id/vdw_cs_tv_startDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -56,8 +54,8 @@
                 android:text="시작 일자"
                 />
 
-            <EditText
-                android:id="@+id/et_addwagle_wagleEndDate"
+            <TextView
+                android:id="@+id/vdw_cs_tv_endDate"
                 android:layout_width="0px"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -74,8 +72,6 @@
 
 
 
-
-        // 모집 기간  -> 선택은 달력으로 할 수 있게
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,8 +95,8 @@
                     android:layout_marginLeft="10dp"
                     />
 
-                <EditText
-                    android:id="@+id/et_addwagle_wagleDueDate"
+                <TextView
+                    android:id="@+id/vdw_cs_tv_dueDate"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -130,8 +126,8 @@
                     android:layout_marginLeft="10dp"
                     />
 
-                <EditText
-                    android:id="@+id/et_addwagle_waglePlace"
+                <TextView
+                    android:id="@+id/vdw_cs_tv_location"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
@@ -148,7 +144,6 @@
         </LinearLayout>
 
 
-        //4. 참가비
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -160,18 +155,16 @@
             android:layout_marginLeft="10dp"
             />
 
-        <EditText
+        <TextView
+            android:id="@+id/vdw_cs_tv_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:inputType="number"
             android:background="@drawable/tintgrey_background"
             />
 
-
-        //5. 세부내용
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,8 +197,8 @@
         </LinearLayout>
 
 
-        <EditText
-            android:id="@+id/et_addwagle_wagleDetail"
+        <TextView
+            android:id="@+id/vdw_cs_tv_wagleDetail"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
@@ -215,7 +208,6 @@
             />
 
 
-        //6. 동의 및 환불 규정
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -227,8 +219,8 @@
             android:layout_marginLeft="10dp"
             />
 
-        <EditText
-            android:id="@+id/et_addwagle_wagleAgreeRefund"
+        <TextView
+            android:id="@+id/vdw_cs_tv_wagleAgreeRefund"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
@@ -238,10 +230,10 @@
             />
 
         <TextView
-            android:id="@+id/tv_addwagle_wagleRegister"
+            android:id="@+id/vdw_cs_tv_joinIn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="등록하기"
+            android:text="신청하기"
             android:textColor="#5A5A5A"
             android:textSize="16dp"/>
 
