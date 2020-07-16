@@ -5,14 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< HEAD
-
 import androidx.appcompat.app.AppCompatActivity;
-
-=======
 import android.widget.LinearLayout;
-
->>>>>>> 66ef1480a180db1d44516f6dffce9d4e7a604e9a
 import com.androidlec.wagle.R;
 
 public class Jhj_Post_Write_Notice extends AppCompatActivity {
