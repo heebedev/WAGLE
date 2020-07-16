@@ -12,7 +12,7 @@
         android:background="@drawable/ic_outline_emptyimage"
         />
 
-    
+
     <TextView
         android:id="@+id/include_ab_tv"
         android:layout_width="wrap_content"

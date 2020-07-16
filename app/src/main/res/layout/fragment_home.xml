@@ -52,7 +52,8 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    />
 
                 <Button
                     android:id="@+id/fragment_home_Notice2"
@@ -125,6 +126,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/ic_add_circle_24" />
+
 
                 </LinearLayout>
 
@@ -305,6 +307,7 @@
                         android:textSize="30dp"
                         android:textStyle="bold" />
 
+
                     <Button
                         android:id="@+id/fragment_home_BookReport_Add"
                         android:layout_width="30dp"
@@ -312,6 +315,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/ic_add_circle_24" />
+
 
                 </LinearLayout>
 
