@@ -12,15 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:text="회원가입"
-<<<<<<< HEAD
         android:textSize="24dp"
         android:textStyle="bold"
         android:textColor="@color/mainColor" />
-=======
-        android:textColor="#FFB3B3"
-        android:textSize="40dp"
-        android:textStyle="bold" />
->>>>>>> e9d51dbe1f46d5d7deb056e723bfcede70124af2
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="250dp"
@@ -67,16 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#FFB3B3"
         android:text="회원가입"
         android:textSize="15dp"
-<<<<<<< HEAD
         android:textStyle="bold"
-        android:backgroundTint="@color/mainColor"
-        style="@style/Widget.AppCompat.Button.Colored"/>
-=======
-        android:textStyle="bold" />
->>>>>>> e9d51dbe1f46d5d7deb056e723bfcede70124af2
+        android:backgroundTint="@color/mainColor" />
+
 
     <TextView
         android:id="@+id/signup_tv_login"
