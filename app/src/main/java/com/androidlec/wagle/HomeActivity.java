@@ -1,9 +1,12 @@
 package com.androidlec.wagle;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,11 +15,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
+import com.androidlec.wagle.CS.Network.MINetworkTask;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
 import com.androidlec.wagle.fragments.WaggleFragment;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kakao.network.NetworkTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -42,11 +50,45 @@ public class HomeActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        setActionBar();
 
         // 하단 네비게이션바
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bottom);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
+    }
+
+    private void setActionBar() {
+        ImageView include_ab_iv = findViewById(R.id.include_ab_iv);
+        TextView include_ab_tv = findViewById(R.id.include_ab_tv);
+
+        String[] data = getMoimData();
+        String imageUri = UserInfo.MOIM_BASE_URL + data[0];
+        Log.e("Chacne", imageUri);
+
+        Glide.with(this)
+                .load(imageUri)
+                .apply(new RequestOptions().circleCrop())
+                .placeholder(R.drawable.ic_outline_emptyimage)
+                .into(include_ab_iv);
+
+        include_ab_tv.setText(data[1]);
+    }
+
+    private String[] getMoimData() {
+        String[] result = new String[2];
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetMoimWAGLE.jsp?";
+
+        urlAddr = urlAddr + "mSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            MINetworkTask miNetworkTask = new MINetworkTask(HomeActivity.this, urlAddr);
+            result = miNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
