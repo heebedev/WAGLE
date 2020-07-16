@@ -4,23 +4,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     >
 
     <ImageView
         android:src="@drawable/waglenewlogo"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         />
 
+    <TextView
+        android:id="@+id/tv_login_loginresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이메일과 비밀번호를 다시 확인해주세요."
+        android:gravity="center"
+        android:textColor="@color/mainColor"
+        android:visibility="gone"
+        />
     <!--    textinputEditText 써서.. 안내하기 -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="250dp"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginID"
+            android:id="@+id/et_login_loginID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="이메일"
@@ -33,7 +44,7 @@
         app:passwordToggleEnabled="true"
         android:layout_gravity="center">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginPW"
+            android:id="@+id/et_login_loginPW"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="비밀번호"
@@ -43,6 +54,7 @@
 
 
     <Button
+        android:id="@+id/bt_login_login"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

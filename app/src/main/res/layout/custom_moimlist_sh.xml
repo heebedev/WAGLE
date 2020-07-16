@@ -17,10 +17,12 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textAlignment="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:text="홍길동"
-        android:textColor="#494848"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textColor="@color/mainColor"
+        android:textSize="16dp"
+         />
 
 
 </LinearLayout>

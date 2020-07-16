@@ -1,9 +1,12 @@
 package com.androidlec.wagle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +19,10 @@ import java.util.ArrayList;
 public class MainMoimListActivity extends Activity {
 
     private String urlAddr, centIP;
+    private TextView tv_noList;
+
+    //사용자정보
+    UserInfo userinfo;
 
     //모임리스트뷰
     private ArrayList<Moimlist> moimlistdata;
@@ -23,14 +30,15 @@ public class MainMoimListActivity extends Activity {
     private ListView moimList;
 
     //모임 더하기 버튼
-    private TextView addMoim;
+    private Button addMoim;
 
     private void init() {
         moimList = findViewById(R.id.lv_mainMoim_moimlist);
-        addMoim = findViewById(R.id.tv_mainMoim_addmoim);
+        addMoim = findViewById(R.id.bt_mainMoim_addmoim);
+        tv_noList = findViewById(R.id.tv_mainMoim_noList);
 
         centIP = "192.168.0.138";
-        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + 1;
+        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.USEQNO;
 
         connectGetData();
     }
@@ -43,6 +51,9 @@ public class MainMoimListActivity extends Activity {
 
         init();
 
+        addMoim.setOnClickListener(addMoimClickListener);
+        moimList.setOnItemClickListener(moimItemClickListener);
+
 
     }
 
@@ -51,11 +62,34 @@ public class MainMoimListActivity extends Activity {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
             moimlistdata = (ArrayList<Moimlist>) obj;
-            adapter = new MoimListAdapter(MainMoimListActivity.this, R.layout.custom_moimlist_sh, moimlistdata);
-            moimList.setAdapter(adapter);
+            if(moimlistdata.size() == 0){
+                tv_noList.setVisibility(View.VISIBLE);
+                moimList.setVisibility(View.GONE);
+            } else {
+                tv_noList.setVisibility(View.GONE);
+                moimList.setVisibility(View.VISIBLE);
+                adapter = new MoimListAdapter(MainMoimListActivity.this, R.layout.custom_moimlist_sh, moimlistdata);
+                moimList.setAdapter(adapter);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }  // connectGetData
+
+    Button.OnClickListener addMoimClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(MainMoimListActivity.this, MakeMoimActivity.class));
+        }
+    };
+
+    final ListView.OnItemClickListener moimItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            UserInfo.MOIMSEQNO = parent.getItemAtPosition(position).toString();
+            Log.v("status", "moimseq : " + UserInfo.MOIMSEQNO);
+            //startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
+        }
+    };
 }

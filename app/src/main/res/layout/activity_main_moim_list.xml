@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgrad"
-    tools:context=".MakeMoimActivity">
+    android:gravity="center"
+    android:background="#fff"
+    tools:context=".MainMoimListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         android:background="#20ffffff">
 
 
@@ -21,33 +23,44 @@
             android:textSize="15dp"
             android:textColor="#4E4A4A"
             android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:text="모임을 선택하세요"
             />
 
         <ListView
             android:id="@+id/lv_mainMoim_moimlist"
-            android:layout_margin="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
-            android:layout_height="0px"
+            android:layout_height="250dp"
             android:dividerHeight="0px"
-            android:layout_weight="3"
             android:divider="#ffffff"
-            ></ListView>
+            />
 
         <TextView
-            android:id="@+id/tv_mainMoim_addmoim"
-            android:layout_width="wrap_content"
-            android:layout_height="0px"
-            android:layout_weight="2"
-            android:text="내 모임 개설하기"
-            android:layout_marginBottom="150dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:id="@+id/tv_mainMoim_noList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="40dp"
+            android:text="내 모임이 없습니다."
             android:gravity="center"
-            android:textColor="#80ffffff"></TextView>
+            android:textSize="24sp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bt_mainMoim_addmoim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="160dp"
+            android:text="내 모임 만들기"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:backgroundTint="#FFB3B3"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
 
 

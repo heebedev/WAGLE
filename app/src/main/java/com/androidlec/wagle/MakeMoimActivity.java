@@ -142,6 +142,7 @@ public class MakeMoimActivity extends Activity {
                 // 모임 개설
                 case R.id.make_moim_viewFliper_Complete :
                     moimInsert();
+                    startActivity(new Intent(MakeMoimActivity.this, MainMoimListActivity.class));
                     break;
             }
         }
@@ -171,7 +172,7 @@ public class MakeMoimActivity extends Activity {
         String formatDate = sdfNow.format(date);
 
         // 지워야할것
-        String seqno = "1";
+        int seqno = UserInfo.USEQNO;
 
         String imgName = name + formatDate + ".jpg";
 
