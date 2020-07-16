@@ -3,6 +3,7 @@ package com.androidlec.wagle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -58,6 +59,7 @@ public class MainMoimListActivity extends Activity {
     }
 
     private void connectGetData() {
+        Log.e("status", urlAddr);
         try {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
