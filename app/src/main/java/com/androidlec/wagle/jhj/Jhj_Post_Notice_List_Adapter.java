@@ -1,15 +1,11 @@
 package com.androidlec.wagle.jhj;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.R;
@@ -18,11 +14,29 @@ import java.util.ArrayList;
 
 public class Jhj_Post_Notice_List_Adapter extends RecyclerView.Adapter<Jhj_Post_Notice_List_Adapter.ViewHolder> {
 
-    // 지워야할것.
-    String seqno = "1";
-
     Context context;
     private ArrayList<Jhj_Notice_DTO> data;
+
+    // Activity에서 클릭이벤트를 사용하기위한 준비
+    public interface OnItemClickListener {
+        void onItemClickListener(View v, int position);
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClickListener(View v, int position);
+    }
+
+    private OnItemClickListener mListener = null;
+    private OnItemLongClickListener mLongListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.mLongListener = listener;
+    }
+
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,17 +48,28 @@ public class Jhj_Post_Notice_List_Adapter extends RecyclerView.Adapter<Jhj_Post_
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // 선택한 position 값 구하기 (번호)
                     int position = getAdapterPosition();
-                    Intent intent = new Intent(context, Jhj_Post_Write_Notice.class);
-                    intent.putExtra("Title", data.get(position).getNoticeTitle());
-                    intent.putExtra("Content", data.get(position).getNoticeContent());
-                    if (data.get(position).getPostUserSeqno().equals(seqno)) {
-                        intent.putExtra("Type", "NW");
-                        intent.putExtra("Seqno", data.get(position).getNoticeSeqno());
-                    } else {
-                        intent.putExtra("Type", "NR");
+                    if (position != RecyclerView.NO_POSITION) {
+                        if (mListener != null) {
+                            mListener.onItemClickListener(v, position);
+                        }
                     }
-                    context.startActivity(intent);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        if (mLongListener != null) {
+                            mLongListener.onItemLongClickListener(v, position);
+                            return true;
+                        }
+                    }
+
+                    return false;
                 }
             });
 
@@ -82,5 +107,7 @@ public class Jhj_Post_Notice_List_Adapter extends RecyclerView.Adapter<Jhj_Post_
     public int getItemCount() {
         return data.size() ;
     }
+
+
 
 }
