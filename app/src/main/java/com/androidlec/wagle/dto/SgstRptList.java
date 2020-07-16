@@ -34,7 +34,7 @@ public class SgstRptList {
     }
 
     public String getRContent() {
-        return sContent;
+        return rContent;
     }
 
     public void setRContent(String rContent) {

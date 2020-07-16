@@ -2,13 +2,13 @@ package com.androidlec.wagle;
 
 public class UserInfo {
 
-    public static int USEQNO = 1;
+    public static int USEQNO;
     public static String UID;
     public static String UEMAIL;
     public static String UNAME;
     public static String ULOGINTYPE;
     public static String MOIMSEQNO;
-    public static String WAGLESEQNO = "1";
+    public static String WAGLESEQNO;
 
 
 }
