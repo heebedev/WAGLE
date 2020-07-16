@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         // 하단 네비게이션바
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bottom);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        //bottomNavigationView.setItemIconTintList(null);
 
     }
 
