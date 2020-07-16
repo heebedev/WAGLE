@@ -10,33 +10,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/bjm_head"
+
+        <LinearLayout
+            android:id="@+id/ll_bjmadd_layout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/white_rounded_background"
-            android:gravity="center"
-            android:hint="서문을 입력하세요" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/bjm_question"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/white_rounded_background"
-            android:gravity="center"
-            android:hint="질문1" />
+            <EditText
+                android:id="@+id/et_bjmadd_head"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/white_rounded_background"
+                android:gravity="center"
+                android:hint="서문을 입력하세요" />
 
+        </LinearLayout>
 
-        <!--        //디자인의 수정이 필요함... 그림자를 주고싶다...-->
 
         <Button
-            android:id="@+id/bt_bjmAdd"
+            android:id="@+id/bt_bjmadd_questadd"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_add_circle_24" />
+            android:background="@drawable/ic_add_circle_24"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_bjmadd_bjmRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="저장"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/mainColor"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+            <Button
+                android:id="@+id/bt_bjmadd_bjmCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:text="취소"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/mainColor"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -79,8 +79,10 @@
             android:id="@+id/tvbt_mymoiminfo_updateboardlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="200dp"
-            android:text="수정" />
+            android:layout_marginLeft="220dp"
+            android:text="수정"
+            />
+
 
     </LinearLayout>
 
@@ -89,8 +91,8 @@
         android:layout_width="320dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/white_rounded_background"></ListView>
+        android:layout_marginTop="16dp"
+        ></ListView>
 
 
 </LinearLayout>

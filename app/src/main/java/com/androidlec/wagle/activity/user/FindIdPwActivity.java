@@ -1,5 +1,7 @@
 package com.androidlec.wagle.activity.user;
 
+
+import androidx.appcompat.app.AlertDialog;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +12,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
-
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.network_sh.NetworkTask_FindIDPW;
 
