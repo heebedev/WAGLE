@@ -11,7 +11,7 @@ public class UserInfo {
 
     // 모임
     public static String MOIMSEQNO;
-    public static String MOIM_BASE_URL = "http://192.168.0.82:8080/wagle/moimImgs/";
+    public static final String MOIM_BASE_URL = "http://192.168.0.82:8080/wagle/moimImgs/";
 
     // 와글
     public static String WAGLESEQNO;

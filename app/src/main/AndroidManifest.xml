@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
@@ -33,8 +34,7 @@
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
         <activity android:name=".MakeMoimActivity" />
-        <activity android:name=".HomeActivity" >
-        </activity>
+        <activity android:name=".HomeActivity" />
         <activity android:name=".activity.user.SignUpActivity" />
         <activity android:name=".activity.user.FindIdPwActivity" />
         <activity android:name=".activity.user.LoginActivity" />
