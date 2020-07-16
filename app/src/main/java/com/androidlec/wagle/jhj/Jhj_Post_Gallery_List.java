@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.androidlec.wagle.R;
@@ -15,10 +16,15 @@ import java.util.ArrayList;
 
 public class Jhj_Post_Gallery_List extends AppCompatActivity {
 
+    // Adapter 에서 사용하기위해 선언
+    public static Context Gallery_List_Context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jhj__post__gallery__list);
+
+        Gallery_List_Context = Jhj_Post_Gallery_List.this;
     }
 
     @Override
@@ -28,7 +34,7 @@ public class Jhj_Post_Gallery_List extends AppCompatActivity {
         String IP = "192.168.0.82";
 
         // Data 받을 URL
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_SelectAll.jsp";
         String Gallery_JsonString = Post_Select_All(urlAddr);
         ArrayList<Jhj_Gallery_DTO> Gdata = Gallery_parser(Gallery_JsonString);
 

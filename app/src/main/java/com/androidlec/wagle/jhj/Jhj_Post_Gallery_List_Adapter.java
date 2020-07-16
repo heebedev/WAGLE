@@ -1,10 +1,12 @@
 package com.androidlec.wagle.jhj;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +22,9 @@ import java.util.ArrayList;
 
 public class Jhj_Post_Gallery_List_Adapter extends RecyclerView.Adapter<Jhj_Post_Gallery_List_Adapter.ViewHolder> {
 
-    private Context context;
     private ArrayList<Jhj_Gallery_DTO> data = null ;
     // Glide 라이브러리를 사용전에 전역변수로 선언
     private RequestManager manager;
-
-    // Dialog를 사용하기위해 Activity 선언
-    Activity parent_Activity;
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -43,17 +41,20 @@ public class Jhj_Post_Gallery_List_Adapter extends RecyclerView.Adapter<Jhj_Post
                 public void onClick(View v) {
                     int position = getAdapterPosition();
 
-                    new AlertDialog.Builder(parent_Activity)
+                    new AlertDialog.Builder(Jhj_Post_Gallery_List.Gallery_List_Context)
                             .setTitle("이미지 삭제하기")
                             .setIcon(R.drawable.waglelogo)
                             .setCancelable(false)   // 배경 눌러도 안닫힘
                             .setNegativeButton("삭제",new DialogInterface.OnClickListener() {
+                                @SuppressLint("LongLogTag")
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     String Seqno = data.get(position).getSeqno();
                                     String url = "http://192.168.0.82:8080/wagle/Post_Gallery_Delete.jsp?seqno=" + Seqno;
 
                                     connectionDeleteData(url);
+                                    // 리스트 새로고침
+                                    ((Jhj_Post_Gallery_List)Jhj_Post_Gallery_List.Gallery_List_Context).onResume();
                                 }
                             })
                             .setPositiveButton("닫기", null)   // 닫기 누르면 사라짐
@@ -66,7 +67,6 @@ public class Jhj_Post_Gallery_List_Adapter extends RecyclerView.Adapter<Jhj_Post
     // 생성자에서 데이터 리스트 객체를 전달받음.
     Jhj_Post_Gallery_List_Adapter(ArrayList<Jhj_Gallery_DTO> list, Activity activity) {
         data = list ;
-        parent_Activity = activity;
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -102,7 +102,7 @@ public class Jhj_Post_Gallery_List_Adapter extends RecyclerView.Adapter<Jhj_Post
     private void connectionDeleteData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(parent_Activity, urlAddr);
+            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(Jhj_Post_Gallery_List.Gallery_List_Context, urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {
