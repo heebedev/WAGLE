@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +100,7 @@ public class Jhj_Post_Gallery_List_Adapter extends RecyclerView.Adapter<Jhj_Post
     private void connectionDeleteData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(Jhj_Post_Gallery_List.Gallery_List_Context, urlAddr);
+            Jhj_MySql_Insert_Delete_Update_NetworkTask insNetworkTask = new Jhj_MySql_Insert_Delete_Update_NetworkTask(Jhj_Post_Gallery_List.Gallery_List_Context, urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {

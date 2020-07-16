@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import android.widget.ImageView;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
-import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
@@ -414,7 +413,7 @@ public class HomeFragment extends Fragment {
     protected void connectionInsertData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(getActivity(), urlAddr);
+            Jhj_MySql_Insert_Delete_Update_NetworkTask insNetworkTask = new Jhj_MySql_Insert_Delete_Update_NetworkTask(getActivity(), urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {

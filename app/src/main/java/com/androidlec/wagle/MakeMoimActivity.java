@@ -17,7 +17,7 @@ import android.widget.ViewFlipper;
 
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Make_Moim_Spinner_Adapter;
-import com.androidlec.wagle.jhj.Jhj_MySql_Insert_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -195,7 +195,7 @@ public class MakeMoimActivity extends Activity {
     private void connectionInsertData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(MakeMoimActivity.this, urlAddr);
+            Jhj_MySql_Insert_Delete_Update_NetworkTask insNetworkTask = new Jhj_MySql_Insert_Delete_Update_NetworkTask(MakeMoimActivity.this, urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {

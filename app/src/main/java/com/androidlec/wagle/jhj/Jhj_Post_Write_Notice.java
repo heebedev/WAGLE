@@ -3,9 +3,7 @@ package com.androidlec.wagle.jhj;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,7 +104,7 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
     private void connectionInsertData(String urlAddr) {
         // Jsp 서버 전송
         try {
-            Jhj_MySql_Insert_NetworkTask insNetworkTask = new Jhj_MySql_Insert_NetworkTask(Jhj_Post_Write_Notice.this, urlAddr);
+            Jhj_MySql_Insert_Delete_Update_NetworkTask insNetworkTask = new Jhj_MySql_Insert_Delete_Update_NetworkTask(Jhj_Post_Write_Notice.this, urlAddr);
             insNetworkTask.execute();
 
         } catch (Exception e) {
