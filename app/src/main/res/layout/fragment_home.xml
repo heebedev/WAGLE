@@ -58,6 +58,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
+                    android:padding="10dp"
                     />
                 <Button
                     android:layout_width="match_parent"
@@ -126,16 +127,6 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="15dp"
                         />
-
-                    <Button
-                        android:id="@+id/fragment_home_Wagle_Add"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/ic_add_circle_24"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="50dp"
-                        />
-
                 </LinearLayout>
 
                 <Button
@@ -325,15 +316,6 @@
                         android:textStyle="bold"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="15dp"
-                        />
-
-                    <Button
-                        android:id="@+id/fragment_home_BookReport_Add"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/ic_add_circle_24"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="50dp"
                         />
 
                 </LinearLayout>
