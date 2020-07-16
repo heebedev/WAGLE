@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
@@ -49,17 +49,13 @@ public class KakaoLogin {
                 @Override
                 public void onSuccess(MeV2Response result) {
                     String userId = getUserId(result.toString());
-                    if(!findUserFromDB(userId)) {
+                    if (!findUserFromDB(userId)) {
                         InputUserDataToDB(result.toString());
+                    } else {
+                        setUserInfo(userId);
                     }
-                    String[] user = strResult.split(", ");
-                    UserInfo.USEQNO = Integer.parseInt(user[0]);
-                    UserInfo.UID = user[1];
-                    UserInfo.UEMAIL = user[2];
-                    UserInfo.UNAME = user[3];
-                    UserInfo.ULOGINTYPE = user[4];
 
-                    Intent intent = new Intent(mContext, TempActivity.class);
+                    Intent intent = new Intent(mContext, MainMoimListActivity.class);
                     mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
@@ -72,18 +68,6 @@ public class KakaoLogin {
 
     private String getUserId(String json) {
         return kakaoJsonParsing(json);
-    }
-
-    private String kakaoJsonParsing(String json) {
-        String id = "";
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            id = jsonObject.getString("id");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return id;
     }
 
     private boolean findUserFromDB(String userId) {
@@ -127,10 +111,30 @@ public class KakaoLogin {
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
             strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+
+            String[] user = strResult.split(", ");
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private String kakaoJsonParsing(String json) {
+        String id = "";
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            id = jsonObject.getString("id");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     private User jsonParsing(String json) {
@@ -146,12 +150,12 @@ public class KakaoLogin {
             JSONObject kakao_account = jsonObject.getJSONObject("kakao_account");
             String emailOK = kakao_account.getString("email_needs_agreement");
             String uEmail = "";
-            if(!emailOK.equals("true")){
+            if (!emailOK.equals("true")) {
                 uEmail = kakao_account.getString("email");
             }
             String birthdayOK = kakao_account.getString("birthday_needs_agreement");
             String uBirthDate = "";
-            if(!birthdayOK.equals("true")){
+            if (!birthdayOK.equals("true")) {
                 uBirthDate = kakao_account.getString("birthday");
             }
 

@@ -1,9 +1,9 @@
 package com.androidlec.wagle.activity.wagleSub;
 
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
+
 
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;

@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -61,17 +61,13 @@ public class NaverLogin {
 
                 String accessToken = mOAuthLoginInstance.getAccessToken(mContext);
                 String userId = getUserId(accessToken);
-                if(!findUserFromDB(userId)) {
+                if (!findUserFromDB(userId)) {
                     InputUserDataToDB();
+                } else {
+                    setUserInfo(userId);
                 }
-                String[] user = strResult.split(", ");
-                UserInfo.USEQNO = Integer.parseInt(user[0]);
-                UserInfo.UID = user[1];
-                UserInfo.UEMAIL = user[2];
-                UserInfo.UNAME = user[3];
-                UserInfo.ULOGINTYPE = user[4];
 
-                Intent intent = new Intent(mContext, TempActivity.class);
+                Intent intent = new Intent(mContext, MainMoimListActivity.class);
                 mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(mContext).getCode();
@@ -81,64 +77,6 @@ public class NaverLogin {
         }
 
     };
-
-    private void InputUserDataToDB() {
-        User user = jsonParsing(responseBody);
-        String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
-
-        urlAddr = urlAddr + "uId=" + user.getuId() + "&uEmail=" + user.getuEmail() + "&uName=" + user.getuName() + "&uImageName=" + user.getuImageName() + "&uBirthDate=" + user.getuBirthDate() + "&uLoginType=NAVER";
-
-        try {
-            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            csNetworkTask.execute().get();
-            setUserInfo(user.getuId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setUserInfo(String userId) {
-        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
-
-        urlAddr = urlAddr + "userId=" + userId;
-
-        try {
-            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private boolean findUserFromDB(String userId) {
-        boolean result = false;
-
-        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
-
-        urlAddr = urlAddr + "userId=" + userId;
-
-        try {
-            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
-            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
-            result = strResult.length() != 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private String getUserId(String token) {
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-
-        String apiURL = "https://openapi.naver.com/v1/nid/me";
-
-        Map<String, String> requestHeaders = new HashMap<>();
-        requestHeaders.put("Authorization", header);
-        responseBody = get(apiURL, requestHeaders);
-
-        return naverJsonParsing(responseBody);
-    }
 
     private static String get(final String apiUrl, final Map<String, String> requestHeaders) {
         String result = null;
@@ -204,6 +142,72 @@ public class NaverLogin {
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
+    }
+
+    private String getUserId(String token) {
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+
+        String apiURL = "https://openapi.naver.com/v1/nid/me";
+
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Authorization", header);
+        responseBody = get(apiURL, requestHeaders);
+
+        return naverJsonParsing(responseBody);
+    }
+
+    private boolean findUserFromDB(String userId) {
+        boolean result = false;
+
+        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "userId=" + userId;
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+            result = strResult.length() != 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private void InputUserDataToDB() {
+        User user = jsonParsing(responseBody);
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "uId=" + user.getuId() + "&uEmail=" + user.getuEmail() + "&uName=" + user.getuName() + "&uImageName=" + user.getuImageName() + "&uBirthDate=" + user.getuBirthDate() + "&uLoginType=NAVER";
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            csNetworkTask.execute().get();
+            setUserInfo(user.getuId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setUserInfo(String userId) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csFindUserWAGLE.jsp?";
+
+        urlAddr = urlAddr + "userId=" + userId;
+
+        try {
+            CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
+            strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+
+            String[] user = strResult.split(", ");
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private String naverJsonParsing(String json) {

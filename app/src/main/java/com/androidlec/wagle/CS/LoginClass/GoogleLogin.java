@@ -9,7 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
-import com.androidlec.wagle.TempActivity;
+import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -50,17 +50,13 @@ public class GoogleLogin {
             account = completedTask.getResult(ApiException.class);
 
             String userId = getUserId();
-            if(!findUserFromDB(userId)) {
+            if (!findUserFromDB(userId)) {
                 InputUserDataToDB();
+            } else {
+                setUserInfo(userId);
             }
-            String[] user = strResult.split(", ");
-            UserInfo.USEQNO = Integer.parseInt(user[0]);
-            UserInfo.UID = user[1];
-            UserInfo.UEMAIL = user[2];
-            UserInfo.UNAME = user[3];
-            UserInfo.ULOGINTYPE = user[4];
 
-            mContext.startActivity(new Intent(mContext, TempActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            mContext.startActivity(new Intent(mContext, MainMoimListActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -92,7 +88,7 @@ public class GoogleLogin {
     private void InputUserDataToDB() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
 
-        urlAddr = urlAddr + "uId=" + account.getId() + "&uEmail=" + account.getEmail() + "&uName=" + account.getFamilyName()+account.getGivenName() + "&uImageName=" + account.getPhotoUrl() + "&uBirthDate=" + "" + "&uLoginType=GOOGLE";
+        urlAddr = urlAddr + "uId=" + account.getId() + "&uEmail=" + account.getEmail() + "&uName=" + account.getFamilyName() + account.getGivenName() + "&uImageName=" + account.getPhotoUrl() + "&uBirthDate=" + "" + "&uLoginType=GOOGLE";
 
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
@@ -111,6 +107,14 @@ public class GoogleLogin {
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);
             strResult = csNetworkTask.execute().get(); // doInBackground 의 리턴값
+
+            String[] user = strResult.split(", ");
+            UserInfo.USEQNO = Integer.parseInt(user[0]);
+            UserInfo.UID = user[1];
+            UserInfo.UEMAIL = user[2];
+            UserInfo.UNAME = user[3];
+            UserInfo.ULOGINTYPE = user[4];
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".activity.menu.MyInfoActivity">
 
     <TextView
@@ -23,46 +21,47 @@
         android:src="@drawable/ic_outline_emptyimage"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
-        />
+        android:layout_marginBottom="20dp"
+        android:textColor="#FFB3B3"
+        android:textSize="40dp"
+        android:textStyle="bold" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/myInfo_et_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="이름"
             android:gravity="center"
-            />
+            android:hint="이름" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/myInfo_et_birthDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="생년월일"
             android:gravity="center"
-            />
+            android:hint="생년월일" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/myInfo_et_EmailAddress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="이메일주소"
             android:gravity="center"
-            android:inputType="textEmailAddress"
-            />
+            android:hint="이메일주소"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -76,5 +75,6 @@
         android:textStyle="bold"
         android:backgroundTint="@color/mainColor"
         style="@style/Widget.AppCompat.Button.Colored"/>
+
 
 </LinearLayout>

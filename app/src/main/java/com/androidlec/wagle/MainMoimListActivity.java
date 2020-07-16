@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.MoimList;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class MainMoimListActivity extends Activity {
 
     private String urlAddr, centIP;
+    private TextView tv_noList;
 
     //사용자정보
     UserInfo userinfo;
@@ -33,6 +35,7 @@ public class MainMoimListActivity extends Activity {
     private void init() {
         moimList = findViewById(R.id.lv_mainMoim_moimlist);
         addMoim = findViewById(R.id.bt_mainMoim_addmoim);
+        tv_noList = findViewById(R.id.tv_mainMoim_noList);
 
         centIP = "192.168.0.138";
         urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.USEQNO;
@@ -58,9 +61,21 @@ public class MainMoimListActivity extends Activity {
         try {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
-            moimlistdata = (ArrayList<MoimList>) obj;
+
             adapter = new MoimListAdapter(MainMoimListActivity.this, R.layout.custom_moimlist_sh, moimlistdata);
             moimList.setAdapter(adapter);
+
+            moimlistdata = (ArrayList<MoimList>) obj;
+            if (moimlistdata.size() == 0) {
+                tv_noList.setVisibility(View.VISIBLE);
+                moimList.setVisibility(View.GONE);
+            } else {
+                tv_noList.setVisibility(View.GONE);
+                moimList.setVisibility(View.VISIBLE);
+                adapter = new MoimListAdapter(MainMoimListActivity.this, R.layout.custom_moimlist_sh, moimlistdata);
+                moimList.setAdapter(adapter);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

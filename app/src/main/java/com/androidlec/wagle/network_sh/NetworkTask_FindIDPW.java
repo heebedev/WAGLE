@@ -39,7 +39,7 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 // 잇풋 스트림으로 가져온 것을 인풋스트림 리더로 가져온다.
@@ -48,7 +48,7 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
 
                 while (true) {
                     String strline = bufferedReader.readLine();
-                    if(strline == null) break;
+                    if (strline == null) break;
                     stringBuffer.append(strline + "\n");
                 }
 
@@ -62,9 +62,9 @@ public class NetworkTask_FindIDPW extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         } finally {
             try {
-                if(bufferedReader != null) bufferedReader.close();
-                if(inputStreamReader != null) inputStreamReader.close();
-                if(inputStream != null) inputStream.close();
+                if (bufferedReader != null) bufferedReader.close();
+                if (inputStreamReader != null) inputStreamReader.close();
+                if (inputStream != null) inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

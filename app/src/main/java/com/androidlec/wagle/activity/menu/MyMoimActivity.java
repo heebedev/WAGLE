@@ -1,8 +1,8 @@
 package com.androidlec.wagle.activity.menu;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
 
