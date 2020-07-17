@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 
 import java.util.ArrayList;
 
@@ -48,9 +50,15 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ViewDetailWagleActivity.class);
-                intent.putExtra("data", data.get(position));
-                mContext.startActivity(intent);
+
+                if(chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno())) == 2){
+                    Intent intent = new Intent(mContext, ViewDetailWagleActivity.class);
+                    intent.putExtra("data", data.get(position));
+                    mContext.startActivity(intent);
+                } else {
+                    // 와글 홈 페이지() // 여기 수정해야함!@!!!!!!!!! 종학 !!!!!
+                }
+
             }
         });
 
@@ -76,4 +84,25 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
             tv_fee = itemView.findViewById(R.id.item_waggle_cs_tv_fee);
         }
     }
-}
+
+    private int chkJoinIn(int wcSeqno){
+        int chkJoinIn = 3;
+        String uSeqno = String.valueOf(UserInfo.USEQNO);
+        String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
+        try {
+            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(mContext, urlAddr);
+            networkTask.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return chkJoinIn;
+    }
+
+
+
+
+}//------
+
+
