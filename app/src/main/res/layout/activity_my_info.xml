@@ -64,17 +64,49 @@
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/myInfo_btn_start"
+    <TextView
+        android:id="@+id/myInfo_tv_changePw"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="16dp"
-        android:text="확인"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/mainColor"
-        style="@style/Widget.AppCompat.Button.Colored"/>
+        android:layout_height="wrap_content"
+        android:text="| 비밀번호 변경하기 |"
+        android:layout_gravity="center"
+        android:paddingTop="10dp"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/myInfo_btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
+            android:text="저장"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/mainColor"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/myInfo_btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
+            android:text="수정"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/mainColor"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
 
 
 </LinearLayout>
