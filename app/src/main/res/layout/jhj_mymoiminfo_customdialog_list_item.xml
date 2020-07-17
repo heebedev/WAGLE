@@ -13,11 +13,12 @@
         android:orientation="horizontal"
         >
 
-        <ImageView
+        <com.androidlec.wagle.CircularImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:id="@+id/jhj_mymoiminfo_customdialog_list_item_Image_Icon"
             android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
             />
 
         <LinearLayout

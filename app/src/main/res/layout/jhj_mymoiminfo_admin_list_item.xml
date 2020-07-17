@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         >
-        <com.makeramen.roundedimageview.RoundedImageView
+        <com.androidlec.wagle.CircularImageView
             android:id="@+id/mymoiminfo_admin_list_item_user_image"
             android:layout_width="80dp"
             android:layout_height="match_parent"

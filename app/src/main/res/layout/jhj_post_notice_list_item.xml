@@ -7,14 +7,16 @@
     >
 
     <TextView
+        android:id="@+id/Post_Notice_List_Item_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Post_Notice_List_Item_TextView"
-        android:textSize="25dp"
+        android:textSize="16dp"
         android:gravity="left"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
         android:background="@drawable/jhj_wagle_btn_loundary"
         android:padding="10dp"
         />

@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
@@ -33,6 +35,7 @@ import java.util.Date;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -45,7 +48,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     // 지워야할것.
-    String seqno = "1";
+    String seqno = Integer.toString(UserInfo.USEQNO);
 
     // Post_Notice_Json Data (Json 파싱)
     ArrayList<Jhj_Notice_DTO> Ndata;
@@ -88,6 +91,7 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -421,4 +425,5 @@ public class HomeFragment extends Fragment {
     // -------------------------------------------------------------------------------------
     // 갤러리 끝
     // -------------------------------------------------------------------------------------
+
 }

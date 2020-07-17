@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
-
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
 
@@ -44,6 +43,8 @@
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
 
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
+        <activity android:name=".activity.wagleSub.AddNormWagleActivity" />
+        <activity android:name=".activity.wagleSub.AddTodayWagleActivity" />
 
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
 

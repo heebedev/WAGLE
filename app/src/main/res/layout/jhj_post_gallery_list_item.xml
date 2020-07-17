@@ -8,12 +8,13 @@
     card_view:cardUseCompatPadding="true"
     >
 
-    <ImageView
+    <com.androidlec.wagle.GallaryImageView
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:id="@+id/Post_Gallery_List_Item_ImageView"
         android:layout_margin="20dp"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         />
 
 </androidx.cardview.widget.CardView>

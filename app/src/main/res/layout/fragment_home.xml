@@ -27,18 +27,18 @@
                     <TextView
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="공지 사항"
-                        android:textSize="30dp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/fragment_home_Notice_Add"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="16dp"
                         android:background="@drawable/ic_add_circle_24" />
 
                 </LinearLayout>
@@ -113,17 +113,17 @@
                     <TextView
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="진행중인 와글"
-                        android:textSize="30dp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/fragment_home_Wagle_Add"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/ic_add_circle_24" />
 
@@ -198,17 +198,17 @@
                     <TextView
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="갤러리"
-                        android:textSize="30dp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/fragment_home_Gallery_Add"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/ic_add_circle_24" />
 
@@ -301,10 +301,10 @@
                     <TextView
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="독후감"
-                        android:textSize="30dp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
 
 
@@ -312,7 +312,7 @@
                         android:id="@+id/fragment_home_BookReport_Add"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/ic_add_circle_24" />
 
