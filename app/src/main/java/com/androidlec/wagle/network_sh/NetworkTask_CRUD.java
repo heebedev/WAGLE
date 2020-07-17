@@ -24,7 +24,7 @@ public class NetworkTask_CRUD extends AsyncTask<Integer, String, Object> {
         boolean result = false;
         try {
             URL url = new URL(mAddr);
-            Log.e("status", "CRUD TASK : " + mAddr);
+            //Log.e("status", "CRUD TASK : " + mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

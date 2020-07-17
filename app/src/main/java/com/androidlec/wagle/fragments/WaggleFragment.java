@@ -15,6 +15,8 @@ import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.CS.Network.WGNetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.wagleSub.AddNormWagleActivity;
+import com.androidlec.wagle.activity.wagleSub.AddTodayWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddWagleActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -92,7 +94,11 @@ public class WaggleFragment extends Fragment {
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.wagle_fab_addwagle:
-                startActivity(new Intent(getActivity(), AddWagleActivity.class));
+                if (UserInfo.WAGLEMAGRADE.equals("O") || UserInfo.WAGLEMAGRADE.equals("S")) {
+                    startActivity(new Intent(getActivity(), AddWagleActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), AddTodayWagleActivity.class));
+                }
                 break;
             case R.id.tvFindMyWaggle:
                 break;

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.network_sh.NetworkTask_CRUD;
 import com.androidlec.wagle.network_sh.NetworkTask_FindIDPW;
 
 public class FindIdPwActivity extends Activity {
@@ -94,20 +95,9 @@ public class FindIdPwActivity extends Activity {
                             AlertDialog.Builder builder = new AlertDialog.Builder(FindIdPwActivity.this);
                             builder.setTitle("비밀번호 변경")
                                     .setView(linear)
-                                    .setPositiveButton("OK", null) //onClick오버라이딩할거니까 null로해줘요.
-                                    .setNegativeButton("취소", null)
-                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                    .setPositiveButton("확인", null) //onClick오버라이딩할거니까 null로해줘요.
+                                    .setNegativeButton("취소", null);
 
-                                        }
-                                    })
-                                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    });
 
                             AlertDialog dialog = builder.create();
                             dialog.show();
@@ -124,7 +114,7 @@ public class FindIdPwActivity extends Activity {
 
                                     if (newPwStr.equals(newPwCkStr) && newPwStr.length() >= 6) {
                                         urlAddr = "http://" + centIP + ":8080/test/wagle_changePw.jsp?email=" + findData + "&pw=" + newPw.getText().toString().trim();
-                                        connectGetData();
+                                        connectSetData();
                                         Toast.makeText(FindIdPwActivity.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
                                         intent = new Intent(FindIdPwActivity.this, LoginActivity.class);
                                         startActivity(intent);
@@ -173,6 +163,16 @@ public class FindIdPwActivity extends Activity {
         }
 
     }  // connectGetData
+
+    private void connectSetData() {
+        try {
+            NetworkTask_CRUD networkTask = new NetworkTask_CRUD(FindIdPwActivity.this, urlAddr);
+            networkTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }  // connectSetData
 
 
 }
