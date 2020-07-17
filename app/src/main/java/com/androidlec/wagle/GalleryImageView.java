@@ -42,8 +42,7 @@ public class GalleryImageView extends androidx.appcompat.widget.AppCompatImageVi
         int h = getHeight();
 
 
-        Bitmap roundBitmap = getRectArcCroppedBitmap(bitmap, w, h);
-        canvas.drawBitmap(roundBitmap, 0, 0, null);
+        canvas.drawBitmap(bitmap, 0, 0, null);
     }
 
 
@@ -66,7 +65,7 @@ public class GalleryImageView extends androidx.appcompat.widget.AppCompatImageVi
 
 
         paint.setColor(Color.parseColor("#5a5a5a"));
-        canvas.drawRoundRect(rectF, 300, 300, paint);
+        canvas.drawRoundRect(rectF, 40, 40, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rectF, paint);
 

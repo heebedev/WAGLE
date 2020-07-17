@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import com.androidlec.wagle.GalleryImageView;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
@@ -354,7 +352,7 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         // 갤러리 정보 6개 보여주기
         // --------------------------------------------------------------
-        GalleryImageView[] gallery_Frag_Btn = new GalleryImageView[6];
+        ImageView[] gallery_Frag_Btn = new ImageView[6];
         Integer[] gallery_Frag_Btn_Id = {
                 R.id.fragment_home_Gallery1, R.id.fragment_home_Gallery2, R.id.fragment_home_Gallery3,
                 R.id.fragment_home_Gallery4, R.id.fragment_home_Gallery5, R.id.fragment_home_Gallery6
@@ -367,7 +365,6 @@ public class HomeFragment extends Fragment {
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
             //         Context                 URL              ImageView
             Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
-            Log.e("status",imgUrl + Gdata.get(i).getImageName());
         }
 
         // --------------------------------------------------------------
@@ -385,7 +382,6 @@ public class HomeFragment extends Fragment {
             dtos.clear();
 
             for (int i = 0 ; i < jsonArray.length() ; i++) {
-                // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 String seqno = jsonObject1.getString("seqno");

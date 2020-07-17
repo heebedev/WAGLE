@@ -233,6 +233,7 @@
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/jhj_wagle_image_loundary" />
 
                     <com.androidlec.wagle.GalleryImageView
@@ -241,6 +242,7 @@
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/jhj_wagle_image_loundary" />
 
                     <com.androidlec.wagle.GalleryImageView
@@ -249,6 +251,7 @@
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/jhj_wagle_image_loundary" />
 
                 </LinearLayout>
@@ -263,6 +266,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
+                        android:scaleType="centerCrop"
                         android:layout_weight="1"
                         android:background="@drawable/jhj_wagle_image_loundary" />
 
@@ -280,6 +284,7 @@
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/jhj_wagle_image_loundary" />
 
                 </LinearLayout>
