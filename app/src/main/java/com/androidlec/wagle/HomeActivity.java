@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
+import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
 import com.androidlec.wagle.fragments.HomeFragment;
@@ -73,7 +75,6 @@ public class HomeActivity extends AppCompatActivity {
 
         String[] data = getMoimData();
         String imageUri = UserInfo.MOIM_BASE_URL + data[0];
-        Log.e("Chacne", imageUri);
 
         Glide.with(this)
                 .load(imageUri)
@@ -109,17 +110,28 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
+        Intent intent = null;
+
+        switch (item.getItemId()){
             case R.id.toolbar_menu_home:
                 startActivity(new Intent(HomeActivity.this, MainMoimListActivity.class));
                 break;
             case R.id.toolbar_menu_myInfo:
+                startActivity(new Intent(HomeActivity.this, MainMoimListActivity.class));
                 break;
             case R.id.toolbar_menu_myMoim:
+                if (!UserInfo.WAGLEMAGRADE.equals("O")) {
+                    return false;
+                }
+                intent = new Intent(HomeActivity.this, MyMoimActivity.class);
                 break;
             case R.id.toolbar_menu_settings:
+
                 break;
         }
+
+        startActivity(intent);
+
         return super.onOptionsItemSelected(item);
     }
 
