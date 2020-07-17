@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +35,7 @@ public class Jhj_Post_Gallery_List extends AppCompatActivity {
         String IP = "192.168.0.82";
 
         // Data 받을 URL
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_SelectAll.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_SelectAll.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Gallery_JsonString = Post_Select_All(urlAddr);
         ArrayList<Jhj_Gallery_DTO> Gdata = Gallery_parser(Gallery_JsonString);
 
