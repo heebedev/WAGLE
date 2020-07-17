@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
@@ -80,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                 .placeholder(R.drawable.ic_outline_emptyimage)
                 .into(include_ab_iv);
 
-        include_ab_tv.setText(data[1]);
+//        include_ab_tv.setText(data[1]);
     }
 
     private String[] getMoimData() {
@@ -115,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
                 break;
             case R.id.toolbar_menu_myInfo:
+                MyInfoActivity.previousXML = "edit";
                 intent = new Intent(HomeActivity.this, MyInfoActivity.class);
                 break;
             case R.id.toolbar_menu_myMoim:

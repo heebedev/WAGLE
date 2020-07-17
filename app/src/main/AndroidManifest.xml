@@ -50,6 +50,7 @@
 
         <activity android:name=".MakeMoimActivity" />
 
+
         <activity android:name=".HomeActivity">
         </activity>
 
