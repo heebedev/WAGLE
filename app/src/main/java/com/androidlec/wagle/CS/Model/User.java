@@ -2,7 +2,7 @@ package com.androidlec.wagle.CS.Model;
 
 public class User {
 
-    private String uId, uEmail, uName, uImageName, uBirthDate, uLoginType;
+    private String uSeqno, uId, uEmail, uName, uImageName, uBirthDate, uLoginType, uPassword, uDate;
 
     public User(String uId, String uEmail, String uName, String uImageName, String uBirthDate, String uLoginType) {
         this.uId = uId;
@@ -19,6 +19,26 @@ public class User {
         this.uName = uName;
         this.uImageName = uImageName;
         this.uBirthDate = uBirthDate;
+    }
+
+    public User(String uSeqno, String uId, String uEmail, String uName, String uImageName, String uBirthDate, String uLoginType, String uPassword, String uDate) {
+        this.uSeqno = uSeqno;
+        this.uId = uId;
+        this.uEmail = uEmail;
+        this.uName = uName;
+        this.uImageName = uImageName;
+        this.uBirthDate = uBirthDate;
+        this.uLoginType = uLoginType;
+        this.uPassword = uPassword;
+        this.uDate = uDate;
+    }
+
+    public String getuSeqno() {
+        return uSeqno;
+    }
+
+    public void setuSeqno(String uSeqno) {
+        this.uSeqno = uSeqno;
     }
 
     public String getuId() {
@@ -67,5 +87,21 @@ public class User {
 
     public void setuLoginType(String uLoginType) {
         this.uLoginType = uLoginType;
+    }
+
+    public String getuPassword() {
+        return uPassword;
+    }
+
+    public void setuPassword(String uPassword) {
+        this.uPassword = uPassword;
+    }
+
+    public String getuDate() {
+        return uDate;
+    }
+
+    public void setuDate(String uDate) {
+        this.uDate = uDate;
     }
 }
