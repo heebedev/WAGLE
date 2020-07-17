@@ -1,5 +1,6 @@
 package com.androidlec.wagle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
+import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
@@ -26,6 +29,10 @@ public class HomeActivity extends AppCompatActivity {
     private WaggleFragment waggleFragment = new WaggleFragment();
     private PlanFragment planFragment = new PlanFragment();
     private MyPageFragment myPageFragment = new MyPageFragment();
+
+    // 지워야할것
+    int userSeqno = 1;
+    String maGrade = "O";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +65,26 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = null;
+
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
                 break;
             case R.id.toolbar_menu_myInfo:
                 break;
             case R.id.toolbar_menu_myMoim:
+                if (!maGrade.equals("O")) {
+                    return false;
+                }
+                intent = new Intent(HomeActivity.this, MyMoimActivity.class);
                 break;
             case R.id.toolbar_menu_settings:
+
                 break;
         }
+
+        startActivity(intent);
+
         return super.onOptionsItemSelected(item);
     }
 

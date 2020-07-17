@@ -52,7 +52,7 @@
 
 
         <Button
-            android:id="@+id/bt_mymoiminfo_addAdmin"
+            android:id="@+id/bt_mymoiminfo_Admin_Sub"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="240dp"
@@ -61,13 +61,17 @@
 
     </LinearLayout>
 
-    <ImageView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_mymoiminfo_list"
         android:background="@drawable/white_rounded_background"
         android:layout_width="320dp"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        ></ImageView>
+        android:padding="10dp"
+        android:scrollbars="none"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,15 +89,16 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/tvbt_mymoiminfo_updateboardlist"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="200dp"
-            android:text="수정"
+        <Button
+            android:id="@+id/bt_mymoiminfo_Admin_Add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="215dp"
+            android:background="@drawable/ic_add_circle_24"
             />
 
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv_mymoim_boardlist"
