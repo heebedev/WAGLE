@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
@@ -66,19 +65,19 @@ public class LoginActivity extends Activity {
         userpw = findViewById(R.id.et_login_loginPW);
         loginResult = findViewById(R.id.tv_login_loginresult);
         // 카카오
-        kakaoLogin = new KakaoLogin(getApplicationContext());
+        kakaoLogin = new KakaoLogin(LoginActivity.this);
         kakaoLoginButton = findViewById(R.id.lvbt_login_kakaologin);
         kakaoLoginButton.setOnClickListener(loginButtonClickListener);
         loginButton = findViewById(R.id.login_btn_socialKaKao_provided);
         Session.getCurrentSession().addCallback(kakaoLogin.sessionCallback);
         // 네이버
-        naverLogin = new NaverLogin(getApplicationContext());
+        naverLogin = new NaverLogin(LoginActivity.this);
         naverLoginButton = findViewById(R.id.lvbt_login_naverlogin);
         naverLoginButton.setOnClickListener(loginButtonClickListener);
         mOAuthLoginButton = findViewById(R.id.login_btn_socialNaver_provided);
         mOAuthLoginButton.setOAuthLoginHandler(naverLogin.mOAuthLoginHandler);
         // 구글
-        googleLogin = new GoogleLogin(getApplicationContext());
+        googleLogin = new GoogleLogin(LoginActivity.this);
         googleLoginButton = findViewById(R.id.lvbt_login_googlelogin);
         googleLoginButton.setOnClickListener(loginButtonClickListener);
         signInButton = findViewById(R.id.login_btn_socialGoogle_provided);
@@ -154,7 +153,7 @@ public class LoginActivity extends Activity {
             loginResult.setVisibility(View.GONE);
             String email = userid.getText().toString();
             String pw = userpw.getText().toString();
-            if(getUserData(email, pw)) {
+            if (getUserData(email, pw)) {
                 startActivity(new Intent(LoginActivity.this, MainMoimListActivity.class));
             } else {
                 loginResult.setVisibility(View.VISIBLE);
@@ -173,7 +172,7 @@ public class LoginActivity extends Activity {
 
     private boolean getUserData(String uEmail, String uPw) {
         String centIP = "192.168.0.138";
-        String urlAddr = "http://" + centIP + ":8080/test/wagle_genlogin.jsp?uEmail=" + uEmail + "&uPw="+uPw;
+        String urlAddr = "http://" + centIP + ":8080/test/wagle_genlogin.jsp?uEmail=" + uEmail + "&uPw=" + uPw;
         boolean result = false;
         try {
             NetworkTask_Login networkTask = new NetworkTask_Login(LoginActivity.this, urlAddr);

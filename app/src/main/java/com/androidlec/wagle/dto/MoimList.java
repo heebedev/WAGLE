@@ -1,11 +1,11 @@
 package com.androidlec.wagle.dto;
 
-public class Moimlist {
+public class MoimList {
 
     int moimseq;
     String moimName;
 
-    public Moimlist(int moimseq, String moimName) {
+    public MoimList(int moimseq, String moimName) {
         this.moimseq = moimseq;
         this.moimName = moimName;
     }

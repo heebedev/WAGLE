@@ -47,12 +47,12 @@ public class JH_VoidNetworkTask extends AsyncTask<Integer, String, Void> { // <P
 
     @Override
     protected Void doInBackground(Integer... integers) {
-        try{
+        try {
             URL url = new URL(mAddr); // 타고 나가야지.
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); // cast.
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){ // 실행 됨.
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) { // 실행 됨.
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

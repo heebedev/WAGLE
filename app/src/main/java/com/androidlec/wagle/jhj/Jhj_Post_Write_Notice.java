@@ -1,14 +1,12 @@
 package com.androidlec.wagle.jhj;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.LinearLayout;
-
 import com.androidlec.wagle.R;
 
 public class Jhj_Post_Write_Notice extends AppCompatActivity {

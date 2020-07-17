@@ -73,5 +73,4 @@ public class CircularImageView extends androidx.appcompat.widget.AppCompatImageV
     }
 
 
-
 }

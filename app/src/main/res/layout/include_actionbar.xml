@@ -3,22 +3,25 @@
     android:id="@+id/include_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
+
     
     <ImageView
         android:id="@+id/include_ab_iv"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/ic_outline_emptyimage"
         />
+
 
     <TextView
         android:id="@+id/include_ab_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="4dp"
         android:text="Moim Name"
-        android:textSize="20sp">
+        android:textSize="20dp">
     </TextView>
+
 
 </androidx.appcompat.widget.Toolbar>

@@ -1,18 +1,18 @@
 package com.androidlec.wagle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidlec.wagle.CS.Model.WagleList;
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
-    private TextView tv_title, tv_startDate, tv_endDate, tv_dueDate, tv_location, tv_fee, tv_wagleDetail, tv_wagleAgreeRefund, tv_joinIn;
+    private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +25,14 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     }
 
     private void init() {
-        tv_title = findViewById(R.id.vdw_cs_tv_title);
-        tv_startDate = findViewById(R.id.vdw_cs_tv_startDate);
-        tv_endDate = findViewById(R.id.vdw_cs_tv_endDate);
-        tv_dueDate = findViewById(R.id.vdw_cs_tv_dueDate);
-        tv_location = findViewById(R.id.vdw_cs_tv_location);
-        tv_fee = findViewById(R.id.vdw_cs_tv_fee);
-        tv_wagleDetail = findViewById(R.id.vdw_cs_tv_wagleDetail);
-        tv_wagleAgreeRefund = findViewById(R.id.vdw_cs_tv_wagleAgreeRefund);
+        et_title = findViewById(R.id.vdw_cs_et_title);
+        et_startDate = findViewById(R.id.vdw_cs_et_startDate);
+        et_endDate = findViewById(R.id.vdw_cs_et_endDate);
+        et_dueDate = findViewById(R.id.vdw_cs_et_dueDate);
+        et_location = findViewById(R.id.vdw_cs_et_location);
+        et_fee = findViewById(R.id.vdw_cs_et_fee);
+        et_wagleDetail = findViewById(R.id.vdw_cs_et_wagleDetail);
+        et_wagleAgreeRefund = findViewById(R.id.vdw_cs_et_wagleAgreeRefund);
         tv_joinIn = findViewById(R.id.vdw_cs_tv_joinIn);
 
         tv_joinIn.setOnClickListener(onClickListener);
@@ -48,18 +48,18 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     }
 
     private void setData(WagleList data) {
-        tv_title.setText(data.getWcName());
-        tv_startDate.setText(data.getWcStartDate());
-        tv_endDate.setText(data.getWcEndDate());
-        tv_dueDate.setText(data.getWcDueDate());
-        tv_location.setText(data.getWcLocate());
-        tv_fee.setText(data.getWcEntryFee());
-        tv_wagleDetail.setText(data.getWcWagleDetail());
-        tv_wagleAgreeRefund.setText(data.getWcWagleAgreeRefund());
+        et_title.setText(data.getWcName());
+        et_startDate.setText(data.getWcStartDate());
+        et_endDate.setText(data.getWcEndDate());
+        et_dueDate.setText(data.getWcDueDate());
+        et_location.setText(data.getWcLocate());
+        et_fee.setText(data.getWcEntryFee());
+        et_wagleDetail.setText(data.getWcWagleDetail());
+        et_wagleAgreeRefund.setText(data.getWcWagleAgreeRefund());
     }
 
     View.OnClickListener onClickListener = v -> {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.vdw_cs_tv_joinIn:
                 Toast.makeText(this, "가입하기", Toast.LENGTH_SHORT).show();
                 break;

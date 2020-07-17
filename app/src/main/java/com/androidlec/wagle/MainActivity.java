@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         ImageView iv_splash = findViewById(R.id.iv_splash);
 
         Glide.with(this)
-                .load(R.drawable.wagleintro)
+                .load(R.drawable.waglenewlogo)
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                 .into(new DrawableImageViewTarget(iv_splash));
 
@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
-        }, 3200);
+        }, 1500);
 
     }
 

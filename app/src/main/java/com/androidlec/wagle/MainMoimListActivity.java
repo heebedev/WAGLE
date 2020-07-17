@@ -7,11 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.androidlec.wagle.adapter.MoimListAdapter;
-import com.androidlec.wagle.dto.Moimlist;
+import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MainMoimListActivity extends Activity {
     UserInfo userinfo;
 
     //모임리스트뷰
-    private ArrayList<Moimlist> moimlistdata;
+    private ArrayList<MoimList> moimlistdata;
     private MoimListAdapter adapter;
     private ListView moimList;
 
@@ -58,11 +59,13 @@ public class MainMoimListActivity extends Activity {
     }
 
     private void connectGetData() {
+        Log.e("status", urlAddr);
         try {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
-            moimlistdata = (ArrayList<Moimlist>) obj;
-            if(moimlistdata.size() == 0){
+
+            moimlistdata = (ArrayList<MoimList>) obj;
+            if (moimlistdata.size() == 0) {
                 tv_noList.setVisibility(View.VISIBLE);
                 moimList.setVisibility(View.GONE);
             } else {
@@ -88,8 +91,7 @@ public class MainMoimListActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             UserInfo.MOIMSEQNO = parent.getItemAtPosition(position).toString();
-            Log.v("status", "moimseq : " + UserInfo.MOIMSEQNO);
-            //startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
+            startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
         }
     };
 }

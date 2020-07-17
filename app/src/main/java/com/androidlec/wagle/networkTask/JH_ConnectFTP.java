@@ -1,4 +1,5 @@
 package com.androidlec.wagle.networkTask;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -52,7 +53,7 @@ public class JH_ConnectFTP extends AsyncTask<Integer, String, String> {
             formatDate = sdfNow.format(date);
 
             // 파일 업로드시
-            if (ftpUploadFile(file, formatDate+".jpg", currentPath)) {
+            if (ftpUploadFile(file, formatDate + ".jpg", currentPath)) {
                 Log.v("ConnectFTP", "Success");
             }
         }
@@ -61,7 +62,7 @@ public class JH_ConnectFTP extends AsyncTask<Integer, String, String> {
             ftpDisconnect();
         }
 
-        return formatDate+".jpg";
+        return formatDate + ".jpg";
     }
 
     public boolean ftpConnect(String host, String username, String password, int port) {

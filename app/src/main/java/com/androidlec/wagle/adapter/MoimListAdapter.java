@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.dto.Moimlist;
+import com.androidlec.wagle.dto.MoimList;
 
 import java.util.ArrayList;
 
@@ -16,12 +16,12 @@ public class MoimListAdapter extends BaseAdapter {
 
     private Context mContext = null;
     private int layout = 0;
-    private ArrayList<Moimlist> data = null;
+    private ArrayList<MoimList> data = null;
     private LayoutInflater inflater = null;
 
     public TextView moimName;
 
-    public MoimListAdapter(Context mContext, int layout, ArrayList<Moimlist> data) {
+    public MoimListAdapter(Context mContext, int layout, ArrayList<MoimList> data) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
@@ -45,7 +45,7 @@ public class MoimListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
 
         }

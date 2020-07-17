@@ -2,12 +2,7 @@ package com.androidlec.wagle.CS.Network;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.location.Address;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -28,10 +23,10 @@ public class CSNetworkTask extends AsyncTask<Integer, String, String> {
 
     @Override
     protected void onPreExecute() {
-//        progressDialog = new ProgressDialog(context);
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setMessage("Please Wait...");
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
     }
 
     @Override
@@ -42,7 +37,7 @@ public class CSNetworkTask extends AsyncTask<Integer, String, String> {
     @Override
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
     @Override
@@ -63,7 +58,7 @@ public class CSNetworkTask extends AsyncTask<Integer, String, String> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 bufferedReader = new BufferedReader(inputStreamReader);

@@ -1,7 +1,5 @@
 package com.androidlec.wagle;
 
-import androidx.annotation.Nullable;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import androidx.annotation.Nullable;
 
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Make_Moim_Spinner_Adapter;
@@ -29,6 +29,7 @@ public class MakeMoimActivity extends Activity {
     final static String IP = "192.168.0.82";
 
     Uri file = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,18 +110,18 @@ public class MakeMoimActivity extends Activity {
 
             switch (v.getId()) {
                 // Image 선택 버튼
-                case R.id.tvaddMoimImage :
+                case R.id.tvaddMoimImage:
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent, 1001);
                     break;
                 // 취소 버튼
-                case R.id.tvMakemoimCancle :
+                case R.id.tvMakemoimCancle:
                     finish();
                     break;
                 // 다음 화면 이동
-                case R.id.tvMakemoimNext :
+                case R.id.tvMakemoimNext:
                     EditText make_Moim_Edit_Name = findViewById(R.id.etMoimName);
 
                     // 모임 이름 체크
@@ -136,11 +137,11 @@ public class MakeMoimActivity extends Activity {
                     make_moim_ViewFliper.showNext();
                     break;
                 // 전 화면으로 이동
-                case R.id.make_moim_viewFliper_Previous :
+                case R.id.make_moim_viewFliper_Previous:
                     make_moim_ViewFliper.showPrevious();
                     break;
                 // 모임 개설
-                case R.id.make_moim_viewFliper_Complete :
+                case R.id.make_moim_viewFliper_Complete:
                     moimInsert();
                     startActivity(new Intent(MakeMoimActivity.this, MainMoimListActivity.class));
                     break;

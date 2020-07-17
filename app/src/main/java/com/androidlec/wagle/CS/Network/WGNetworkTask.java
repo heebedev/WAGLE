@@ -56,7 +56,6 @@ public class WGNetworkTask extends AsyncTask<Integer, String, ArrayList<WagleLis
 
     @Override
     protected ArrayList<WagleList> doInBackground(Integer... integers) {
-        ArrayList<WagleList> result = null;
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream;
@@ -65,9 +64,9 @@ public class WGNetworkTask extends AsyncTask<Integer, String, ArrayList<WagleLis
         try {
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setConnectTimeout(30000);
+            httpURLConnection.setConnectTimeout(10000);
 
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 bufferedReader = new BufferedReader(inputStreamReader);
@@ -94,7 +93,7 @@ public class WGNetworkTask extends AsyncTask<Integer, String, ArrayList<WagleLis
             JSONArray jsonArray = new JSONArray(jsonObject.getString("wagle_list"));
             data.clear();
 
-            for (int i = 0 ; i < jsonArray.length() ; i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
