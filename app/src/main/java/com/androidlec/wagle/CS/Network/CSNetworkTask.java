@@ -23,10 +23,10 @@ public class CSNetworkTask extends AsyncTask<Integer, String, String> {
 
     @Override
     protected void onPreExecute() {
-//        progressDialog = new ProgressDialog(context);
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setMessage("Please Wait...");
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.show();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CSNetworkTask extends AsyncTask<Integer, String, String> {
     @Override
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
     @NonNull
     @Override
     public mViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.item_waggle, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_waggle_cs, parent, false);
         return new mViewHolder(v);
     }
 

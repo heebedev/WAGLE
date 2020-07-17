@@ -13,12 +13,14 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.androidlec.wagle.CircularImageView
             android:id="@+id/iv_mymoiminfo_moimimage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_outline_emptyimage"></ImageView>
+            android:background="@drawable/ic_outline_emptyimage"
+            android:scaleType="centerCrop">
+        </com.androidlec.wagle.CircularImageView>
 
         <TextView
             android:id="@+id/tv_mymoiminfo_moimname"
@@ -34,64 +36,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="50dp">
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="운영진" />
 
 
         <Button
-            android:id="@+id/bt_mymoiminfo_addAdmin"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="240dp"
+            android:id="@+id/bt_mymoiminfo_Admin_Sub"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/ic_add_circle_24" />
 
     </LinearLayout>
 
-    <ImageView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_mymoiminfo_list"
+        android:background="@drawable/white_rounded_background"
         android:layout_width="320dp"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:background="@drawable/white_rounded_background"></ImageView>
+        android:padding="10dp"
+        android:scrollbars="none"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal">
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="게시판 목록" />
+            android:gravity="left|center_vertical"
+            android:text="회원 목록" />
 
-        <TextView
-            android:id="@+id/tvbt_mymoiminfo_updateboardlist"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="220dp"
-            android:text="수정"
+        <Button
+            android:id="@+id/bt_mymoiminfo_Admin_Add"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ic_add_circle_24"
             />
 
 
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv_mymoim_boardlist"
         android:layout_width="320dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         ></ListView>
 
 
