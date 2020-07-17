@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     // 지워야할것.
-    String seqno = "1";
+    String seqno = Integer.toString(UserInfo.USEQNO);
 
     // Post_Notice_Json Data (Json 파싱)
     ArrayList<Jhj_Notice_DTO> Ndata;

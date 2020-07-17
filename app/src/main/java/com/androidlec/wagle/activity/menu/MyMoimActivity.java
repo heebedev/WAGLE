@@ -68,7 +68,6 @@ public class MyMoimActivity extends AppCompatActivity {
         workerData.clear();
 
         // Data 받을 URL
-        Log.e("status", UserInfo.MOIMSEQNO);
         String urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_SelectAll.jsp?moimseqno=" + UserInfo.MOIMSEQNO;
         // Json Data 받기
         String MyMoim_JsonString = Post_Select_All(urlAddr);

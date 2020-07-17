@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
-import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
@@ -28,7 +27,6 @@ import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.kakao.network.NetworkTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -114,10 +112,10 @@ public class HomeActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
-                startActivity(new Intent(HomeActivity.this, MainMoimListActivity.class));
+                intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
                 break;
             case R.id.toolbar_menu_myInfo:
-                startActivity(new Intent(HomeActivity.this, MainMoimListActivity.class));
+                intent = new Intent(HomeActivity.this, MyInfoActivity.class);
                 break;
             case R.id.toolbar_menu_myMoim:
                 if (!UserInfo.WAGLEMAGRADE.equals("O")) {
@@ -125,8 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 intent = new Intent(HomeActivity.this, MyMoimActivity.class);
                 break;
-            case R.id.toolbar_menu_settings:
-
+            case R.id.toolbar_menu_logout:
                 break;
         }
 
