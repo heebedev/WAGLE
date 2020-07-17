@@ -52,7 +52,7 @@
 
 
         <Button
-            android:id="@+id/bt_mymoiminfo_addAdmin"
+            android:id="@+id/bt_mymoiminfo_Admin_Sub"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="240dp"
@@ -89,12 +89,12 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/tvbt_mymoiminfo_updateboardlist"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="200dp"
-            android:text="수정"
+        <Button
+            android:id="@+id/bt_mymoiminfo_Admin_Add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="215dp"
+            android:background="@drawable/ic_add_circle_24"
             />
 
     </LinearLayout>

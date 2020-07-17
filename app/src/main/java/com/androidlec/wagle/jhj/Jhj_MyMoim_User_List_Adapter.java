@@ -1,7 +1,6 @@
 package com.androidlec.wagle.jhj;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ public class Jhj_MyMoim_User_List_Adapter extends BaseAdapter {
     private ArrayList<Jhj_MyMoim_DTO> data = null;
     private LayoutInflater inflater = null;
 
-
     // JSP 연결 IP
     private final static String IP = "192.168.0.82";
 
@@ -35,7 +33,6 @@ public class Jhj_MyMoim_User_List_Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        Log.v("MoimListAdapter", String.valueOf(data.size()));
         return data.size();
     }
 

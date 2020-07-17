@@ -30,6 +30,10 @@ public class HomeActivity extends AppCompatActivity {
     private PlanFragment planFragment = new PlanFragment();
     private MyPageFragment myPageFragment = new MyPageFragment();
 
+    // 지워야할것
+    int userSeqno = 1;
+    String maGrade = "O";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,9 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.toolbar_menu_myInfo:
                 break;
             case R.id.toolbar_menu_myMoim:
+                if (!maGrade.equals("O")) {
+                    return false;
+                }
                 intent = new Intent(HomeActivity.this, MyMoimActivity.class);
                 break;
             case R.id.toolbar_menu_settings:
