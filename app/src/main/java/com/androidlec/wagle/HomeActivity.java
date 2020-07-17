@@ -22,12 +22,16 @@ import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
 import com.androidlec.wagle.fragments.WaggleFragment;
+import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kakao.network.NetworkTask;
 
 public class HomeActivity extends AppCompatActivity {
+
+    //grade check
+    String urlAddr;
 
     // Fragment 초기화
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -57,6 +61,9 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bottom);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         //bottomNavigationView.setItemIconTintList(null);
+
+        //GradeCheck
+        ckGrade();
 
     }
 
@@ -138,5 +145,26 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    //Grade Check
+    private void ckGrade() {
+        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO ;
+        UserInfo.WAGLEMAGRADE = getOSData();
+    }
+
+    private String getOSData() {
+        String result = "W";
+        try {
+            NetworkTask_ckGrade networkTask = new NetworkTask_ckGrade(HomeActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+            result = obj.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }  // connectGetData
 
 }

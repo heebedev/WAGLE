@@ -96,7 +96,7 @@ public class Jhj_MySql_Select_NetworkTask extends AsyncTask<Integer, String, Str
             }
         }
 
-        Log.v("Jhj_MySql_Select_NetworkTask", "JsonData = " + Json_Data);
+        //Log.v("Jhj_MySql_Select_NetworkTask", "JsonData = " + Json_Data);
 
         return Json_Data;
     }
