@@ -18,14 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
-        <activity android:name=".jhj.Jhj_Post_Gallery_List"></activity>
+        <activity android:name=".jhj.Jhj_Post_Gallery_List" />
         <activity android:name=".jhj.Jhj_Post_Notice_List" />
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
-        <activity android:name=".TempActivity" >
-
-        </activity>
+        <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
         <activity android:name=".activity.menu.MyMoimActivity" />

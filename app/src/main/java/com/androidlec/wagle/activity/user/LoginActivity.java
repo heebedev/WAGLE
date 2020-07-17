@@ -65,19 +65,19 @@ public class LoginActivity extends Activity {
         userpw = findViewById(R.id.et_login_loginPW);
         loginResult = findViewById(R.id.tv_login_loginresult);
         // 카카오
-        kakaoLogin = new KakaoLogin(getApplicationContext());
+        kakaoLogin = new KakaoLogin(LoginActivity.this);
         kakaoLoginButton = findViewById(R.id.lvbt_login_kakaologin);
         kakaoLoginButton.setOnClickListener(loginButtonClickListener);
         loginButton = findViewById(R.id.login_btn_socialKaKao_provided);
         Session.getCurrentSession().addCallback(kakaoLogin.sessionCallback);
         // 네이버
-        naverLogin = new NaverLogin(getApplicationContext());
+        naverLogin = new NaverLogin(LoginActivity.this);
         naverLoginButton = findViewById(R.id.lvbt_login_naverlogin);
         naverLoginButton.setOnClickListener(loginButtonClickListener);
         mOAuthLoginButton = findViewById(R.id.login_btn_socialNaver_provided);
         mOAuthLoginButton.setOAuthLoginHandler(naverLogin.mOAuthLoginHandler);
         // 구글
-        googleLogin = new GoogleLogin(getApplicationContext());
+        googleLogin = new GoogleLogin(LoginActivity.this);
         googleLoginButton = findViewById(R.id.lvbt_login_googlelogin);
         googleLoginButton.setOnClickListener(loginButtonClickListener);
         signInButton = findViewById(R.id.login_btn_socialGoogle_provided);

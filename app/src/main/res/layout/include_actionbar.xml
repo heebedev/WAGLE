@@ -5,7 +5,7 @@
     android:layout_height="?attr/actionBarSize">
 
     
-    <com.androidlec.wagle.CircularImageView
+    <ImageView
         android:id="@+id/include_ab_iv"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
