@@ -233,7 +233,7 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         // 공지사항 정보 4개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Noitce_JsonString = Post_Select_All(urlAddr);
         Ndata = Notice_parser(Noitce_JsonString);
         // --------------------------------------------------------------
@@ -343,16 +343,16 @@ public class HomeFragment extends Fragment {
     // 갤러리 세팅
     protected void Gallery_Setting(ViewGroup rootView, String IP) {
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 가져오기
+        // 갤러리 정보 6개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Gallery_JsonString = Post_Select_All(urlAddr);
         Gdata = Gallery_parser(Gallery_JsonString);
         // --------------------------------------------------------------
         // --------------------------------------------------------------
 
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 보여주기
+        // 갤러리 정보 6개 보여주기
         // --------------------------------------------------------------
         GalleryImageView[] gallery_Frag_Btn = new GalleryImageView[6];
         Integer[] gallery_Frag_Btn_Id = {

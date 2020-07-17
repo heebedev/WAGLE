@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,9 +34,6 @@ public class Jhj_Post_Notice_List extends AppCompatActivity {
     Jhj_Post_Notice_List_Adapter adapter;
     RecyclerView recyclerView;
 
-    // 지워야할것.
-    String seqno = "1";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +45,7 @@ public class Jhj_Post_Notice_List extends AppCompatActivity {
         super.onResume();
 
         // Data 받을 URL
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_SelectAll.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_SelectAll.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         // Json Data 받기
         String Notice_JsonString = Post_Select_All(urlAddr);
         // Json KeyName
@@ -75,7 +73,7 @@ public class Jhj_Post_Notice_List extends AppCompatActivity {
                     Intent intent = new Intent(Jhj_Post_Notice_List.this, Jhj_Post_Write_Notice.class);
                     intent.putExtra("Title", jsonData.get(position).getNoticeTitle());
                     intent.putExtra("Content", jsonData.get(position).getNoticeContent());
-                    if (jsonData.get(position).getPostUserSeqno().equals(seqno)) {
+                    if (jsonData.get(position).getPostUserSeqno().equals(UserInfo.USEQNO)) {
                         intent.putExtra("Type", "NW");
                         intent.putExtra("Seqno", jsonData.get(position).getNoticeSeqno());
                     } else {
