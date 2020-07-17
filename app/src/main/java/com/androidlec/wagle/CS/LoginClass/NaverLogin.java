@@ -12,8 +12,6 @@ import androidx.annotation.RequiresApi;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
-import com.androidlec.wagle.MakeMoimActivity;
-import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.UserInfo;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -63,7 +61,7 @@ public class NaverLogin {
 
                 String accessToken = mOAuthLoginInstance.getAccessToken(mContext);
                 String userId = getUserId(accessToken);
-                if(!findUserFromDB(userId)) {
+                if (!findUserFromDB(userId)) {
                     InputUserDataToDB();
                 } else {
                     setUserInfo(userId);

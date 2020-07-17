@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
-import com.androidlec.wagle.MakeMoimActivity;
-import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -52,7 +50,7 @@ public class GoogleLogin {
             account = completedTask.getResult(ApiException.class);
 
             String userId = getUserId();
-            if(!findUserFromDB(userId)) {
+            if (!findUserFromDB(userId)) {
                 InputUserDataToDB();
             } else {
                 setUserInfo(userId);
@@ -90,7 +88,7 @@ public class GoogleLogin {
     private void InputUserDataToDB() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
 
-        urlAddr = urlAddr + "uId=" + account.getId() + "&uEmail=" + account.getEmail() + "&uName=" + account.getFamilyName()+account.getGivenName() + "&uImageName=" + account.getPhotoUrl() + "&uBirthDate=" + "" + "&uLoginType=GOOGLE";
+        urlAddr = urlAddr + "uId=" + account.getId() + "&uEmail=" + account.getEmail() + "&uName=" + account.getFamilyName() + account.getGivenName() + "&uImageName=" + account.getPhotoUrl() + "&uBirthDate=" + "" + "&uLoginType=GOOGLE";
 
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(mContext, urlAddr);

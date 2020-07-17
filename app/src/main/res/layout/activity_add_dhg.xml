@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.wagleSub.AddDHGActivity">
 
+
     <ListView
-        android:id="@+id/questionList"
+        android:id="@+id/lv_dhglist_questionList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+        android:layout_height="0px"
+        android:layout_weight="12"
+        android:dividerHeight="0px"
+        android:divider="#ffffff"
         />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_dhgadd_dgmRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="저장"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/mainColor"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+        <Button
+            android:id="@+id/bt_dhgadd_dhgCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="취소"
+            android:textSize="16dp"
+            android:layout_marginLeft="50dp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/mainColor"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

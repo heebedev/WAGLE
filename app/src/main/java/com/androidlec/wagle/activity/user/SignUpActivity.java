@@ -1,7 +1,5 @@
 package com.androidlec.wagle.activity.user;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.signup_tv_login:
                     startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                     break;
@@ -88,18 +88,17 @@ public class SignUpActivity extends AppCompatActivity {
             // -------------------------------------------------------------------------------------
             et_signupPw.setError("비밀번호 확인!");
             et_signupPw.setFocusable(true);
-        } else
-            {
+        } else {
             pwOkChk(); // 패스워드 일치 확인.
         }
     }
 
 
-    private void pwOkChk(){
-        if(pw.equals(pwOk)){
+    private void pwOkChk() {
+        if (pw.equals(pwOk)) {
             urlAddrDivider("idDoubleChk", id, pw); // 아이디 중복 체크.
             // connectRegData(); // 회원가입 DB 연결.
-        }else {
+        } else {
             // --------------- 대화상자 띄우기 ---------------------------------------------------------
             new AlertDialog.Builder(SignUpActivity.this)
                     .setTitle("비밀번호가 일치하지 않습니다.")
@@ -126,8 +125,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private void urlAddrDivider(String function, String id, String pw){
-        switch (function){
+    private void urlAddrDivider(String function, String id, String pw) {
+        switch (function) {
             case "idDoubleChk":
                 urlAddr = "http://192.168.0.178:8080/wagle/idDoubleChk.jsp?";
                 urlAddr = urlAddr + "id=" + id;
@@ -141,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private void connectDB(String function){
+    private void connectDB(String function) {
         try {
             switch (function) {
                 case "idDoubleChk":
@@ -163,13 +162,6 @@ public class SignUpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
 
 }//----

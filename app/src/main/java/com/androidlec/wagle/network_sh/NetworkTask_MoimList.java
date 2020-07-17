@@ -3,8 +3,9 @@ package com.androidlec.wagle.network_sh;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.androidlec.wagle.dto.Moimlist;
+import com.androidlec.wagle.dto.MoimList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,14 +21,14 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
 
     Context context;
     String mAddr;
-    ArrayList<Moimlist> moimlistdata;
+    ArrayList<MoimList> moimlistdata;
 
     ProgressDialog progressDialog;
 
     public NetworkTask_MoimList(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.moimlistdata = new ArrayList<Moimlist>();
+        this.moimlistdata = new ArrayList<MoimList>();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
-            if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 inputStreamReader = new InputStreamReader(inputStream);
                 // 잇풋 스트림으로 가져온 것을 인풋스트림 리더로 가져온다.
@@ -52,7 +53,7 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
 
                 while (true) {
                     String strline = bufferedReader.readLine();
-                    if(strline == null) break;
+                    if (strline == null) break;
                     stringBuffer.append(strline + "\n");
                 }
 
@@ -66,9 +67,9 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
             e.printStackTrace();
         } finally {
             try {
-                if(bufferedReader != null) bufferedReader.close();
-                if(inputStreamReader != null) inputStreamReader.close();
-                if(inputStream != null) inputStream.close();
+                if (bufferedReader != null) bufferedReader.close();
+                if (inputStreamReader != null) inputStreamReader.close();
+                if (inputStream != null) inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,12 +83,12 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
             JSONArray jsonArray = new JSONArray(jsonObject.getString("moim_list"));
             //students_info 에 속해있는 Array를 가져와라.
 
-            for(int i = 0 ; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
                 int moimseqno = Integer.parseInt(jsonObject1.getString("mSeqno"));
                 String moimname = jsonObject1.getString("mName");
 
-                Moimlist moimlist = new Moimlist(moimseqno, moimname);
+                MoimList moimlist = new MoimList(moimseqno, moimname);
 
                 moimlistdata.add(moimlist);
             }

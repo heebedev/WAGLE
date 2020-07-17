@@ -2,14 +2,13 @@ package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.CS.Adapter.WaggleAdapter;
 import com.androidlec.wagle.CS.Model.WagleList;
@@ -40,24 +39,6 @@ public class WaggleFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static WaggleFragment newInstance(String param1, String param2) {
-        WaggleFragment fragment = new WaggleFragment();
-        Bundle args = new Bundle();
-        args.putString("ARG_PARAM1", param1);
-        args.putString("ARG_PARAM2", param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,9 +46,16 @@ public class WaggleFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_waggle, container, false);
 
         init(v);
-        getData();
 
-        if(data.size() == 0){
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getData();
+        if (data.size() == 0) {
             tv_noWagleList.setVisibility(View.VISIBLE);
             rv_wagleList.setVisibility(View.GONE);
         } else {
@@ -77,7 +65,6 @@ public class WaggleFragment extends Fragment {
             rv_wagleList.setAdapter(adapter);
         }
 
-        return v;
     }
 
     private void getData() {
@@ -103,7 +90,7 @@ public class WaggleFragment extends Fragment {
     }
 
     View.OnClickListener onClickListener = v -> {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.wagle_fab_addwagle:
                 startActivity(new Intent(getActivity(), AddWagleActivity.class));
                 break;
