@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //grade check
     String urlAddr;
+    String test;
 
     // Fragment 초기화
     private FragmentManager fragmentManager = getSupportFragmentManager();
