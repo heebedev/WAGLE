@@ -11,13 +11,15 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
+import android.util.Log;
 
 
-public class GallaryImageView extends androidx.appcompat.widget.AppCompatImageView {
+public class GalleryImageView extends androidx.appcompat.widget.AppCompatImageView {
 
 
-    public GallaryImageView(Context context, AttributeSet attrs) {
+    public GalleryImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -36,38 +38,39 @@ public class GallaryImageView extends androidx.appcompat.widget.AppCompatImageVi
         Bitmap b = ((BitmapDrawable) drawable).getBitmap();
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
 
-        int w = getWidth(), h = getHeight();
+        int w = getWidth();
+        int h = getHeight();
 
-        Bitmap roundBitmap = getRoundedCroppedBitmap(bitmap, w);
+
+        Bitmap roundBitmap = getRectArcCroppedBitmap(bitmap, w, h);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
     }
 
 
-    public static Bitmap getRoundedCroppedBitmap(Bitmap bitmap, int radius) {
-        Bitmap
-                finalBitmap;
-        if (bitmap.getWidth() != radius || bitmap.getHeight() != radius)
-            finalBitmap = Bitmap.createScaledBitmap(bitmap, radius, radius,
-                    false);
-        else {
-            finalBitmap = bitmap;
-        }
-        Bitmap output = Bitmap.createBitmap(finalBitmap.getWidth(),
-                finalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+    public static Bitmap getRectArcCroppedBitmap(Bitmap bitmap, int width, int height) {
+
+        //이미지와 같은 크기의 비트맵 생성
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        //빈 비트맵을 캔버스 재료로 사용
         Canvas canvas = new Canvas(output);
 
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, finalBitmap.getWidth(),
-                finalBitmap.getHeight());
+        Paint paint = new Paint();
+        Rect rect = new Rect(0, 0, width, height);
+        RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
         paint.setFilterBitmap(true);
         paint.setDither(true);
         canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(Color.parseColor("#BAB399"));
-        canvas.drawRoundRect(new RectF(150, 150, 150, 150), 10, 10, paint);
+
+
+        paint.setColor(Color.parseColor("#5a5a5a"));
+        canvas.drawRoundRect(rectF, 300, 300, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(finalBitmap, rect, rect, paint);
+        canvas.drawBitmap(bitmap, rect, rectF, paint);
+
+
 
         return output;
     }
