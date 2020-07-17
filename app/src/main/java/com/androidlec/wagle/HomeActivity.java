@@ -18,18 +18,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
-import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
 import com.androidlec.wagle.fragments.WaggleFragment;
+import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.kakao.network.NetworkTask;
 
 public class HomeActivity extends AppCompatActivity {
+
+    //grade check
+    String urlAddr;
 
     // Fragment 초기화
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -37,10 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     private WaggleFragment waggleFragment = new WaggleFragment();
     private PlanFragment planFragment = new PlanFragment();
     private MyPageFragment myPageFragment = new MyPageFragment();
-
-    // 지워야할것
-    int userSeqno = 1;
-    String maGrade = "O";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +60,10 @@ public class HomeActivity extends AppCompatActivity {
         // 하단 네비게이션바
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bottom);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        //bottomNavigationView.setItemIconTintList(null);
+
+        //GradeCheck
+        ckGrade();
 
     }
 
@@ -71,7 +73,6 @@ public class HomeActivity extends AppCompatActivity {
 
         String[] data = getMoimData();
         String imageUri = UserInfo.MOIM_BASE_URL + data[0];
-        Log.e("Chacne", imageUri);
 
         Glide.with(this)
                 .load(imageUri)
@@ -111,17 +112,18 @@ public class HomeActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
+                intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
                 break;
             case R.id.toolbar_menu_myInfo:
+                intent = new Intent(HomeActivity.this, MyInfoActivity.class);
                 break;
             case R.id.toolbar_menu_myMoim:
-                if (!maGrade.equals("O")) {
+                if (!UserInfo.WAGLEMAGRADE.equals("O")) {
                     return false;
                 }
                 intent = new Intent(HomeActivity.this, MyMoimActivity.class);
                 break;
-            case R.id.toolbar_menu_settings:
-
+            case R.id.toolbar_menu_logout:
                 break;
         }
 
@@ -152,5 +154,26 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    //Grade Check
+    private void ckGrade() {
+        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO ;
+        UserInfo.WAGLEMAGRADE = getOSData();
+    }
+
+    private String getOSData() {
+        String result = "W";
+        try {
+            NetworkTask_ckGrade networkTask = new NetworkTask_ckGrade(HomeActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+            result = obj.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }  // connectGetData
 
 }

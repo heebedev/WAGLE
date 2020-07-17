@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
@@ -42,9 +43,6 @@ public class MyMoimActivity extends AppCompatActivity {
     // moim Data .. 0 -> moimSeqno, 1 -> moimName, 2 -> moimImage
     String[] moimData;
 
-    // 지워야할것
-    int userSeqno = 1;
-    int moimSeqno = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +68,7 @@ public class MyMoimActivity extends AppCompatActivity {
         workerData.clear();
 
         // Data 받을 URL
-        String urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_SelectAll.jsp?moimseqno=" + moimSeqno;
+        String urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_SelectAll.jsp?moimseqno=" + UserInfo.MOIMSEQNO;
         // Json Data 받기
         String MyMoim_JsonString = Post_Select_All(urlAddr);
         // Json KeyName
@@ -92,7 +90,7 @@ public class MyMoimActivity extends AppCompatActivity {
         // -----------------------------------------------------------------------------------------
 
         for (int i = 0 ; i < jsonData.size() ; i++) {
-            if (jsonData.get(i).getMaGrade().equals("S")) {
+            if (UserInfo.WAGLEMAGRADE.equals("S")) {
                 adminData.add(jsonData.get(i));
             }
         }

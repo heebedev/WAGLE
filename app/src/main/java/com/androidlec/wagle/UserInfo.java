@@ -16,4 +16,7 @@ public class UserInfo {
     // 와글
     public static String WAGLESEQNO;
 
+    // 운영진 여부
+    public static String WAGLEMAGRADE;
+
 }
