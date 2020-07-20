@@ -280,6 +280,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
+                        android:scaleType="centerCrop"
                         android:layout_weight="1"
                         android:background="@drawable/ic_baseline_crop_din_24" />
 

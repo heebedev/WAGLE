@@ -146,8 +146,7 @@ public class MyInfoActivity extends AppCompatActivity {
     };
 
     private void getmyInfo(){
-//       uSeqno =  UserInfo.USEQNO;
-        uSeqno = "33";
+        uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();

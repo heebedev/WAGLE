@@ -23,6 +23,7 @@ import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -364,7 +365,11 @@ public class HomeFragment extends Fragment {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
             //         Context                 URL              ImageView
-            Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            Glide.with(getActivity())
+                    .load(imgUrl + Gdata.get(i).getImageName())
+                    .placeholder(R.drawable.ic_baseline_crop_din_24)
+                    .into(gallery_Frag_Btn[i]);
         }
 
         // --------------------------------------------------------------

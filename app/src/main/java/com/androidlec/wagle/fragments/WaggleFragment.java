@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -29,6 +31,12 @@ import java.util.ArrayList;
  */
 public class WaggleFragment extends Fragment {
 
+    //스피너
+    private Spinner spinSearch;
+    private ArrayList<String> spinList;
+    private ArrayAdapter<String> spinArrayAdapt;
+
+    //와글 목록
     private RecyclerView rv_wagleList;
     private TextView tv_noWagleList;
     private TextView tvFindMyWaggle;
@@ -36,6 +44,8 @@ public class WaggleFragment extends Fragment {
 
     private WaggleAdapter adapter;
     private ArrayList<WagleList> data;
+
+
 
     public WaggleFragment() {
         // Required empty public constructor
@@ -89,6 +99,17 @@ public class WaggleFragment extends Fragment {
         fab_addWagle = v.findViewById(R.id.wagle_fab_addwagle);
 
         fab_addWagle.setOnClickListener(onClickListener);
+
+        spinSearch = v.findViewById(R.id.sp_Wagle_ArrangeSpinner);
+
+        spinList = new ArrayList<String>();
+        spinList.add("최신순");
+        spinList.add("인기순");
+
+        spinArrayAdapt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinList);
+        spinSearch.setAdapter(spinArrayAdapt);
+
+
     }
 
     View.OnClickListener onClickListener = v -> {

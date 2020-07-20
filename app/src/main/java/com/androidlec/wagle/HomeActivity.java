@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
@@ -82,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                 .into(include_ab_iv);
 
         include_ab_tv.setText(data[1]);
+
     }
 
     private String[] getMoimData() {
@@ -103,7 +105,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+        if(UserInfo.WAGLEMAGRADE.equals("O")) {
+            menuInflater.inflate(R.menu.toolbar_menu, menu);
+        } else {
+            menuInflater.inflate(R.menu.toolbar_menu_general, menu);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
