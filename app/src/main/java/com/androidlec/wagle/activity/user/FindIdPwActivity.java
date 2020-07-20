@@ -68,7 +68,7 @@ public class FindIdPwActivity extends Activity {
                         Toast.makeText(FindIdPwActivity.this, "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         urlAddr = "http://" + centIP + ":8080/test/wagle_findidpw.jsp?find=email&name=" + name.getText().toString().trim() + "&birth=" + birth.getText().toString().trim();
-                        connectGetData();
+//                        connectGetData();
 
                         if (findData == null) {
                             result.setVisibility(View.VISIBLE);

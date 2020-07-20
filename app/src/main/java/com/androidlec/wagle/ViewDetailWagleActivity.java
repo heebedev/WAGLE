@@ -9,10 +9,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
     private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,10 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         WagleList data = intent.getParcelableExtra("data");
 
         setData(data);
-
     }
 
     private void setData(WagleList data) {
+        title = data.getWcName();
         et_title.setText(data.getWcName());
         et_startDate.setText(data.getWcStartDate());
         et_endDate.setText(data.getWcEndDate());
@@ -61,9 +63,25 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.vdw_cs_tv_joinIn:
-                Toast.makeText(this, "가입하기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, title + " 와글에 가입되었습니다.", Toast.LENGTH_SHORT).show();
+                joinInWagle();
                 break;
         }
     };
 
-}
+
+    private void joinInWagle() {
+        String wcSeqno = "1"; // 받아와야함. 임시절대값.
+        String uSeqno = String.valueOf(UserInfo.USEQNO);
+        String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
+        try {
+            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(ViewDetailWagleActivity.this, urlAddr);
+            networkTask.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finish();
+    }
+
+}//---
