@@ -2,19 +2,23 @@ package com.androidlec.wagle.CS.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 
 import java.util.ArrayList;
@@ -50,15 +54,23 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = null;
 
-                if(chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno())) == 2){
-                    Intent intent = new Intent(mContext, ViewDetailWagleActivity.class);
-                    intent.putExtra("data", data.get(position));
-                    mContext.startActivity(intent);
-                } else {
-                    // 와글 홈 페이지() // 여기 수정해야함!@!!!!!!!!! 종학 !!!!!
+                switch (chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno()))){
+                    case 1: // 와글 신청이 되었을 때.
+                        intent = new Intent(mContext, MyWagleActivity.class);
+                        intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
+                        mContext.startActivity(intent);
+                        break;
+                    case 2: // 와글 신청이 안되었을 때.
+                        intent = new Intent(mContext, ViewDetailWagleActivity.class);
+                        intent.putExtra("data", data.get(position));
+                        mContext.startActivity(intent);
+                        break;
+                    case 0: // 데이터베이스 연결이 안되었을 때.
+                        Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-
             }
         });
 
@@ -85,21 +97,22 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         }
     }
 
+    // ----------------------수정된 부분입니다.---------------------------------
     private int chkJoinIn(int wcSeqno){
-        int chkJoinIn = 3;
+        int chk = 3;
         String uSeqno = String.valueOf(UserInfo.USEQNO);
-        String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
-        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
+        //uSeqno = "1"; // 임시 절대값. 위에꺼 쓰면 됨.
+        String urlAddr = "http://192.168.0.178:8080/wagle/joininChk.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&User_uSeqno=" + uSeqno;
         try {
-            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(mContext, urlAddr);
-            networkTask.execute().get();
+            JH_IntNetworkTask networkTask = new JH_IntNetworkTask(mContext, urlAddr);
+            chk = networkTask.execute().get();
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        return chkJoinIn;
+        return chk;
     }
-
+    //----------------------------------------------------------------------
 
 
 

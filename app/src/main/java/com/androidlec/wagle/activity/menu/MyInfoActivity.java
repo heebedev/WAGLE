@@ -32,7 +32,7 @@ import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
-import com.androidlec.wagle.networkTask.ObjectNetworkTask_MyInfo;
+import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
 import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
@@ -146,8 +146,7 @@ public class MyInfoActivity extends AppCompatActivity {
     };
 
     private void getmyInfo(){
-//       uSeqno =  UserInfo.USEQNO;
-        uSeqno = "33";
+        uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();
@@ -156,7 +155,7 @@ public class MyInfoActivity extends AppCompatActivity {
 
     private void connectGetMyInfo() {
         try {
-            ObjectNetworkTask_MyInfo objectNetworkTask_myInfo = new ObjectNetworkTask_MyInfo(MyInfoActivity.this, urlAddr);
+            JH_ObjectNetworkTask_MyInfo objectNetworkTask_myInfo = new JH_ObjectNetworkTask_MyInfo(MyInfoActivity.this, urlAddr);
             Object obj = objectNetworkTask_myInfo.execute().get();
             userInfo = (ArrayList<User>) obj;
 

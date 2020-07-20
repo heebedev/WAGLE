@@ -5,12 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
@@ -22,6 +23,7 @@ import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -363,8 +365,13 @@ public class HomeFragment extends Fragment {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
             //         Context                 URL              ImageView
-            Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            Glide.with(getActivity())
+                    .load(imgUrl + Gdata.get(i).getImageName())
+                    .placeholder(R.drawable.ic_baseline_crop_din_24)
+                    .into(gallery_Frag_Btn[i]);
         }
+
         // --------------------------------------------------------------
         //
         // --------------------------------------------------------------
@@ -380,7 +387,6 @@ public class HomeFragment extends Fragment {
             dtos.clear();
 
             for (int i = 0 ; i < jsonArray.length() ; i++) {
-                // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 String seqno = jsonObject1.getString("seqno");

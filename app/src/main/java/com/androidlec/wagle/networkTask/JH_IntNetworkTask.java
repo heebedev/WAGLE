@@ -3,6 +3,7 @@ package com.androidlec.wagle.networkTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,12 +16,12 @@ public class JH_IntNetworkTask extends AsyncTask<Integer, String, Integer> {
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
-    int loginChk;
+    int intChk;
 
     public JH_IntNetworkTask(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
-        this.loginChk = loginChk;
+        this.intChk = intChk;
     }
 
     @Override
@@ -48,7 +49,6 @@ public class JH_IntNetworkTask extends AsyncTask<Integer, String, Integer> {
         super.onCancelled();
     }
 
-    // 중요한 건, doInBackground 죠.
     @Override
     protected Integer doInBackground(Integer... integers) {
         StringBuffer stringBuffer = new StringBuffer();
@@ -59,21 +59,21 @@ public class JH_IntNetworkTask extends AsyncTask<Integer, String, Integer> {
         try {
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setConnectTimeout(10000); // 10 seconds.
+            httpURLConnection.setConnectTimeout(10000);
 
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
-                inputStream = httpURLConnection.getInputStream(); // 이때 데이터 가져오는 겁니다.
-                inputStreamReader = new InputStreamReader(inputStream); // 가져온거를 리더에 넣어야겠죠.
-                bufferedReader = new BufferedReader(inputStreamReader); // 버퍼드리더에 넣어야합니다.
+                inputStream = httpURLConnection.getInputStream();
+                inputStreamReader = new InputStreamReader(inputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
 
                 while (true) {
                     String strline = bufferedReader.readLine();
-                    if (strline == null) break; // 브레이크 만나면 와일문 빠져나간다.
+                    if (strline == null) break;
                     stringBuffer.append(strline + "\n");
-                } // 와일문 끝나면 다 가져왔다~.
+                }
 
-                loginChk = Integer.parseInt(stringBuffer.toString().trim());
+                intChk = Integer.parseInt(stringBuffer.toString().trim());
 
             }
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class JH_IntNetworkTask extends AsyncTask<Integer, String, Integer> {
             }
         }
 
-        return loginChk; // 다 해놓고 리턴 안하면 꽝이죠~. 이제 parser에 대해서 정리만 해주면 됨.
+        return intChk;
     }
 
 

@@ -3,6 +3,9 @@ package com.androidlec.wagle.activity.menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -211,6 +214,7 @@ public class MyMoimActivity extends AppCompatActivity {
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
         customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
     }
 }

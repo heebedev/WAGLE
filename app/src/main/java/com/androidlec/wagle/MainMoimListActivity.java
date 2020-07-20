@@ -37,7 +37,6 @@ public class MainMoimListActivity extends Activity {
         tv_noList = findViewById(R.id.tv_mainMoim_noList);
 
         centIP = "192.168.0.138";
-        Log.e("status", "내 seq : " + UserInfo.USEQNO);
         urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + UserInfo.USEQNO;
 
         connectGetData();
@@ -58,7 +57,6 @@ public class MainMoimListActivity extends Activity {
     }
 
     private void connectGetData() {
-        Log.e("status", urlAddr);
         try {
             NetworkTask_MoimList networkTask = new NetworkTask_MoimList(MainMoimListActivity.this, urlAddr);
             Object obj = networkTask.execute().get();

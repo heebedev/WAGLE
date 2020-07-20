@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,12 +16,6 @@ import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
-import com.kakao.message.template.ButtonObject;
-import com.kakao.message.template.ContentObject;
-import com.kakao.message.template.FeedTemplate;
-import com.kakao.message.template.LinkObject;
-import com.kakao.message.template.SocialObject;
-import com.kakao.message.template.TemplateParams;
 import com.kakao.network.ErrorResult;
 import com.kakao.network.callback.ResponseCallback;
 
@@ -29,6 +26,10 @@ public class MyPageFragment extends Fragment {
 
     Button btn_sendMessage;
 
+    // Layout (findViewById 를 사용하기위해) 선언
+    ViewGroup rootView;
+    String IP = "192.168.0.82";
+
     public MyPageFragment() {
         // Required empty public constructor
     }
@@ -36,18 +37,33 @@ public class MyPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
+        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_my_page, container, false);
 
-        init(v);
-
-        return v;
+        return rootView;
     }
 
-    private void init(View v) {
-        btn_sendMessage = v.findViewById(R.id.myPage_btn_sendMessage);
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        btn_sendMessage = rootView.findViewById(R.id.myPage_btn_sendMessage);
         btn_sendMessage.setOnClickListener(onClickListener);
+
+        ImageView rankingIcon = rootView.findViewById(R.id.fragment_my_page_RankingIcon);
+        TextView myName = rootView.findViewById(R.id.fragment_my_page_Text_Name);
+        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
+
+        TextView wagleNum = rootView.findViewById(R.id.fragment_my_page_Text_WagleNum);
+        TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
+
+        TextView rankNum1 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num1);
+        TextView rankNum2 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num2);
+        TextView rankNum3 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num3);
+        TextView rankNum4 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num4);
+        TextView rankNum5 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num5);
+
+        ListView wagleListView = rootView.findViewById(R.id.fragment_my_page_Wagle_ListVIew);
+        ListView bookReportListView = rootView.findViewById(R.id.fragment_my_page_BookReport_ListVIew);
     }
 
     View.OnClickListener onClickListener = v -> {
