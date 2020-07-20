@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                 .placeholder(R.drawable.ic_outline_emptyimage)
                 .into(include_ab_iv);
 
-//        include_ab_tv.setText(data[1]);
+        include_ab_tv.setText(data[1]);
     }
 
     private String[] getMoimData() {
