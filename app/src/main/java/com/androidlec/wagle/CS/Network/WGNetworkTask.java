@@ -93,6 +93,7 @@ public class WGNetworkTask extends AsyncTask<Integer, String, ArrayList<WagleLis
             JSONArray jsonArray = new JSONArray(jsonObject.getString("wagle_list"));
             data.clear();
 
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);

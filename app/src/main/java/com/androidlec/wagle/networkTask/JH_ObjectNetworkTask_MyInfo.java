@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
+public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
     final static String TAG = "Log check : ";
@@ -27,7 +27,7 @@ public class ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Object>
     ArrayList<User> myInfo;
 
     // Constructor
-    public ObjectNetworkTask_MyInfo(Context context, String mAddr) {
+    public JH_ObjectNetworkTask_MyInfo(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
         this.myInfo = new ArrayList<User>();
