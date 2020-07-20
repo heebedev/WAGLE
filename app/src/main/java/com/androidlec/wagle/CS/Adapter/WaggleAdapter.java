@@ -101,7 +101,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
     private int chkJoinIn(int wcSeqno){
         int chk = 3;
         String uSeqno = String.valueOf(UserInfo.USEQNO);
-        uSeqno = "1"; // 임시 절대값. 위에꺼 쓰면 됨.
+        //uSeqno = "1"; // 임시 절대값. 위에꺼 쓰면 됨.
         String urlAddr = "http://192.168.0.178:8080/wagle/joininChk.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&User_uSeqno=" + uSeqno;
         try {
