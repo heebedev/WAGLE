@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
