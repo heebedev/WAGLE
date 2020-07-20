@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
 
         String[] data = getMoimData();
         String imageUri = UserInfo.MOIM_BASE_URL + data[0];
-        Log.e("Chacne", imageUri);
+        Log.e("Chance", imageUri);
 
         Glide.with(this)
                 .load(imageUri)
