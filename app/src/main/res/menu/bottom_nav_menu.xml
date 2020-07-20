@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_unselected_home_24"
+        android:icon="@drawable/navibar_ic_home"
         android:title="홈" />
 
     <item
         android:id="@+id/navigation_wagle"
-        android:icon="@drawable/ic_unselected_dashboard_24"
+        android:icon="@drawable/navibar_ic_wagle"
         android:title="와글" />
 
     <item
         android:id="@+id/navigation_plan"
-        android:icon="@drawable/ic_unselected_calendar_24"
+        android:icon="@drawable/navibar_ic_calendar"
         android:title="일정" />
 
     <item
         android:id="@+id/navigation_myPage"
-        android:icon="@drawable/ic_unselected_person_24"
+        android:icon="@drawable/navibar_ic_myaction"
         android:title="나의 활동" />
 
 </menu>

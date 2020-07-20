@@ -39,6 +39,8 @@ public class WagleList implements Parcelable {
         wcWagleAgreeRefund = in.readString();
     }
 
+
+
     public static final Creator<WagleList> CREATOR = new Creator<WagleList>() {
         @Override
         public WagleList createFromParcel(Parcel in) {

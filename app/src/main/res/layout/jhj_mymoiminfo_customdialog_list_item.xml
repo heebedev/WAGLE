@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.androidlec.wagle.CircularImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/jhj_mymoiminfo_customdialog_list_item_Image_Icon"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/jhj_mymoiminfo_customdialog_list_item_Text_Name"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/jhj_mymoiminfo_customdialog_list_item_Text_Grade"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/jhj_mymoiminfo_customdialog_list_item_Text_Email"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

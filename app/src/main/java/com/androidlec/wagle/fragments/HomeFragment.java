@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
@@ -33,6 +35,7 @@ import java.util.Date;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -45,7 +48,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     // 지워야할것.
-    String seqno = "1";
+    String seqno = Integer.toString(UserInfo.USEQNO);
 
     // Post_Notice_Json Data (Json 파싱)
     ArrayList<Jhj_Notice_DTO> Ndata;
@@ -88,6 +91,7 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -226,7 +230,7 @@ public class HomeFragment extends Fragment {
         // --------------------------------------------------------------
         // 공지사항 정보 4개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Noitce_JsonString = Post_Select_All(urlAddr);
         Ndata = Notice_parser(Noitce_JsonString);
         // --------------------------------------------------------------
@@ -336,16 +340,16 @@ public class HomeFragment extends Fragment {
     // 갤러리 세팅
     protected void Gallery_Setting(ViewGroup rootView, String IP) {
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 가져오기
+        // 갤러리 정보 6개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Gallery_JsonString = Post_Select_All(urlAddr);
         Gdata = Gallery_parser(Gallery_JsonString);
         // --------------------------------------------------------------
         // --------------------------------------------------------------
 
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 보여주기
+        // 갤러리 정보 6개 보여주기
         // --------------------------------------------------------------
         ImageView[] gallery_Frag_Btn = new ImageView[6];
         Integer[] gallery_Frag_Btn_Id = {
@@ -421,4 +425,5 @@ public class HomeFragment extends Fragment {
     // -------------------------------------------------------------------------------------
     // 갤러리 끝
     // -------------------------------------------------------------------------------------
+
 }

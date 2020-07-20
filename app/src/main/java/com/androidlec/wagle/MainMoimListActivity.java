@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
+import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,6 @@ public class MainMoimListActivity extends Activity {
 
     private String urlAddr, centIP;
     private TextView tv_noList;
-
-    //사용자정보
-    UserInfo userinfo;
 
     //모임리스트뷰
     private ArrayList<MoimList> moimlistdata;
@@ -39,7 +37,8 @@ public class MainMoimListActivity extends Activity {
         tv_noList = findViewById(R.id.tv_mainMoim_noList);
 
         centIP = "192.168.0.138";
-        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + userinfo.USEQNO;
+        Log.e("status", "내 seq : " + UserInfo.USEQNO);
+        urlAddr = "http://" + centIP + ":8080/test/wagle_my_moim_list.jsp?userseqno=" + UserInfo.USEQNO;
 
         connectGetData();
     }
@@ -94,4 +93,6 @@ public class MainMoimListActivity extends Activity {
             startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
         }
     };
+
+
 }

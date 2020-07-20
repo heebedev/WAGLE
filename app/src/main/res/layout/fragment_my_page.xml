@@ -11,4 +11,10 @@
         android:layout_height="match_parent"
         android:text="myPage Fragment" />
 
+    <Button
+        android:id="@+id/myPage_btn_sendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="초대장 보내기" />
+
 </FrameLayout>
