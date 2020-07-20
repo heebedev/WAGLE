@@ -31,14 +31,14 @@ public class AddTodayWagleActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
 
     /////////////////////////// 정규 와글//////////////////////////////
-    private EditText wagleName, wagleDate, wagleDueD, waglePlace, wagleDetail;
-    private TextView wagleRegister;
+    private EditText wagleName, wagleDetail;
+    private TextView wagleRegister, wagleDate, wagleDueD, waglePlace;
 
     // 화폐단위표시
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
     private String result = "";
 
-    private EditText calendarStatus;
+    private TextView calendarStatus;
 
     private void init() {
 
@@ -107,7 +107,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
                             SelectDate.get(Calendar.MONTH),
                             SelectDate.get(Calendar.DAY_OF_MONTH)).show();
                     break;
-                case R.id.et_addwagle_wagleDueDate:
+                case R.id.et_addwagletoday_wagleDueDate:
                     calendarStatus = wagleDueD;
                     new DatePickerDialog(AddTodayWagleActivity.this, d,
                             SelectDate.get(Calendar.YEAR),
@@ -129,7 +129,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                    case R.id.tv_addwagle_wagleRegister:
+                    case R.id.tv_addwagletoday_wagleRegister:
                     InputWagleCreateData();
                     break;
             }
@@ -158,7 +158,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         String wcEndDate = wagleDate.getText().toString().trim();
         String wcDueDate = wagleDueD.getText().toString().trim();
         String wcLocate;
-        if (waglePlace.getText().toString().trim().equals("등록하기")) {
+        if (waglePlace.getText().toString().trim().equals("와글 장소를 등록해주세요.")) {
             wcLocate = "";
         } else {
             wcLocate = waglePlace.getText().toString().trim();

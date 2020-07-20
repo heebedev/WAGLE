@@ -16,9 +16,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
@@ -81,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                 .into(include_ab_iv);
 
         include_ab_tv.setText(data[1]);
+
     }
 
     private String[] getMoimData() {
@@ -102,7 +105,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+        if(UserInfo.WAGLEMAGRADE.equals("O")) {
+            menuInflater.inflate(R.menu.toolbar_menu, menu);
+        } else {
+            menuInflater.inflate(R.menu.toolbar_menu_general, menu);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,6 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                 intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
                 break;
             case R.id.toolbar_menu_myInfo:
+                MyInfoActivity.previousXML = "edit";
                 intent = new Intent(HomeActivity.this, MyInfoActivity.class);
                 break;
             case R.id.toolbar_menu_myMoim:

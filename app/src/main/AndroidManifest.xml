@@ -19,11 +19,11 @@
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".FindLocationActivity" />
+
         <activity android:name=".ViewDetailWagleActivity" />
 
-        <activity android:name=".jhj.Jhj_Post_Gallery_List">
+        <activity android:name=".jhj.Jhj_Post_Gallery_List"/>
 
-        </activity>
         <activity android:name=".jhj.Jhj_Post_Notice_List" />
 
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
@@ -50,14 +50,19 @@
 
         <activity android:name=".MakeMoimActivity" />
 
-        <activity android:name=".HomeActivity">
-        </activity>
+        <activity android:name=".HomeActivity"/>
 
         <activity android:name=".activity.user.SignUpActivity" />
 
         <activity android:name=".activity.user.FindIdPwActivity" />
 
         <activity android:name=".activity.user.LoginActivity" />
+
+        <activity android:name=".JH.MyWagleActivity" />
+
+        <activity android:name=".JH.PaymentActivity" />
+
+
 
         <activity android:name=".MainActivity">
             <intent-filter>

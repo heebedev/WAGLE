@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,13 +26,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
+import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
 import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -39,36 +45,78 @@ public class MyInfoActivity extends AppCompatActivity {
 
     EditText et_name, et_birthDate, et_emailAddress;
     ImageView iv_photo;
-    Button startBtn;
+    Button startBtn, editBtn;
+    TextView tv_changePw;
 
+    public static String previousXML = ""; // 어떤 경로에서 왔는지.
     private int mWhich;
     private Uri image_uri;
+    String urlAddr;
+
+    ArrayList<User> userInfo;
+    String uSeqno, uId, uPassword, uLoginType, uName, uImageName, uEmail, uBirthDate, uDate;
+
 
     // 카메라 관련
     private static final int PERMISSION_REQUST_CODE = 100;
     private static final int IMAGE_PICK_CAMERA_CODE = 101;
     private static final int IMAGE_PICK_GALLERY_CODE = 102;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_info);
+    private void init(){
+        iv_photo = findViewById(R.id.myInfo_iv_photo);
 
         et_name = findViewById(R.id.myInfo_et_name);
         et_birthDate = findViewById(R.id.myInfo_et_birthDate);
         et_emailAddress = findViewById(R.id.myInfo_et_EmailAddress);
 
-        iv_photo = findViewById(R.id.myInfo_iv_photo);
-        startBtn = findViewById(R.id.myInfo_btn_start);
+        tv_changePw = findViewById(R.id.myInfo_tv_changePw);
 
-        et_birthDate.setOnClickListener(onClickListener);
+        startBtn = findViewById(R.id.myInfo_btn_start);
+        editBtn = findViewById(R.id.myInfo_btn_edit);
+    }
+
+    private void chkPreviousXML(){
+        if(previousXML.equals("edit")){
+            tv_changePw.setVisibility(View.VISIBLE);
+            startBtn.setVisibility(View.INVISIBLE);
+            editBtn.setVisibility(View.VISIBLE);
+        } else {
+            tv_changePw.setVisibility(View.INVISIBLE);
+            startBtn.setVisibility(View.VISIBLE);
+            editBtn.setVisibility(View.INVISIBLE);
+            previousXML="";
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_info);
+
+        init();
+        chkPreviousXML();
+
         iv_photo.setOnClickListener(onClickListener);
+        et_birthDate.setOnClickListener(onClickListener);
+        tv_changePw.setOnClickListener(onClickListener);
         startBtn.setOnClickListener(onClickListener);
+        editBtn.setOnClickListener(onClickListener);
 
         Intent intent = getIntent();
         et_emailAddress.setText(intent.getStringExtra("uId"));
+
+        if(previousXML.equals("edit")) getmyInfo();
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!uLoginType.equals("wagle")){
+            iv_photo.setClickable(false);
+            tv_changePw.setVisibility(View.INVISIBLE);
+        }
+    }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -80,13 +128,136 @@ public class MyInfoActivity extends AppCompatActivity {
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();
                     break;
+                case R.id.myInfo_tv_changePw:
+                    changePw();
+                    break;
                 case R.id.myInfo_btn_start:
-//                    saveMyInfo();
+                    inputNewData();
                     startActivity(new Intent(MyInfoActivity.this, HomeActivity.class));
                     break;
+                case R.id.myInfo_btn_edit:
+                    Toast.makeText(MyInfoActivity.this, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    editMyInfo();
+//                    finish();
+                    break;
+
             }
         }
     };
+
+    private void getmyInfo(){
+        uSeqno = Integer.toString(UserInfo.USEQNO);
+        urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
+        urlAddr += "uSeqno=" + uSeqno;
+        connectGetMyInfo();
+
+    }
+
+    private void connectGetMyInfo() {
+        try {
+            JH_ObjectNetworkTask_MyInfo objectNetworkTask_myInfo = new JH_ObjectNetworkTask_MyInfo(MyInfoActivity.this, urlAddr);
+            Object obj = objectNetworkTask_myInfo.execute().get();
+            userInfo = (ArrayList<User>) obj;
+
+            uSeqno = userInfo.get(0).getuSeqno();
+            uId = userInfo.get(0).getuId();
+            uEmail = userInfo.get(0).getuEmail();
+            uName = userInfo.get(0).getuName();
+            uImageName = userInfo.get(0).getuImageName();
+            uBirthDate = userInfo.get(0).getuBirthDate();
+            uLoginType = userInfo.get(0).getuLoginType();
+            uPassword = userInfo.get(0).getuPassword();
+            uDate = userInfo.get(0).getuDate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        setText();
+    }
+
+    private void setText(){
+
+        if(uLoginType.equals("wagle")){
+            Glide.with(this)
+                    .load("http://192.168.0.82:8080/wagle/userImgs/" + uImageName)
+//                    .apply(new RequestOptions().circleCrop())
+                    .placeholder(R.drawable.ic_outline_emptyimage)
+                    .into(iv_photo);
+        } else {
+            Glide.with(this)
+                    .load(uImageName)
+//                    .apply(new RequestOptions().circleCrop())
+                    .placeholder(R.drawable.ic_outline_emptyimage)
+                    .into(iv_photo);
+        }
+        et_name.setText(uName);
+        et_birthDate.setText(uBirthDate);
+        et_emailAddress.setText(uEmail);
+    }
+
+
+    private void changePw() {
+        final LinearLayout ll = (LinearLayout) View.inflate(MyInfoActivity.this, R.layout.custom_newpw_sh, null);
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyInfoActivity.this);
+        builder.setTitle("비밀번호 변경")
+                .setView(ll)
+                .setPositiveButton("OK", null) //onClick오버라이딩할거니까 null로해줘요.
+                .setNegativeButton("취소", null)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newPw = ll.findViewById(R.id.newpw_pw);
+                EditText newPwcheck = ll.findViewById(R.id.newpw_pwcheck);
+                TextView newPwCmt = ll.findViewById(R.id.newpw_comment);
+
+                String newPwStr = newPw.getText().toString().trim();
+                String newPwCkStr = newPwcheck.getText().toString().trim();
+
+                if (newPwStr.equals(newPwCkStr) && newPwStr.length() >= 6) {
+                    String centIP = "192.168.0.138";
+//                    String uId = UserInfo.UID; 임시로 절대값.
+                    String uId = "test@test.com";
+                    urlAddr = "http://" + centIP + ":8080/test/wagle_changePw.jsp?email=" + uId + "&pw=" + newPw.getText().toString().trim();
+//                    connectGetData();
+                    Toast.makeText(MyInfoActivity.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
+                } else if (newPwStr.length() < 6) {
+                    newPwCmt.setText("비밀번호는 6자리 이상입니다.");
+                    newPwCmt.setVisibility(View.VISIBLE);
+                } else {
+                    newPwCmt.setText("비밀번호를 다시 확인해주세요.");
+                    newPwCmt.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+//    private void connectGetData() {
+//        try {
+//            NetworkTask_FindIDPW networkTask = new NetworkTask_FindIDPW(MyInfoActivity.this, urlAddr);
+//            Object obj = networkTask.execute().get();
+//            String findData = (String) obj;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private void chooseBirthDate() {
@@ -138,6 +309,7 @@ public class MyInfoActivity extends AppCompatActivity {
         }
         return false;
     }
+
 
     //권한에 대한 응답이 있을때 작동하는 함수
     @Override
@@ -254,12 +426,52 @@ public class MyInfoActivity extends AppCompatActivity {
 
 
     private void connectDB(String name, String birthDate, String emailAddress, String fileName, String uId) {
-        String urlAddr = "http://192.168.0.178:8080/wagle/saveMyInfo.jsp?";
+        urlAddr = "http://192.168.0.178:8080/wagle/saveMyInfo.jsp?";
         urlAddr = urlAddr + "name=" + name + "&birthDate=" + birthDate + "&emailAddress=" + emailAddress + "&fileName=" + fileName + "&uId=" + uId;
         try {
             JH_VoidNetworkTask myInfoNetworkTask = new JH_VoidNetworkTask(MyInfoActivity.this, urlAddr);
             myInfoNetworkTask.execute().get();
             finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void editMyInfo(){
+
+        uName = et_name.getText().toString().trim();
+        uEmail = et_emailAddress.getText().toString().trim();
+        uBirthDate = et_birthDate.getText().toString().trim();
+
+        if (TextUtils.isEmpty(uName)) {
+            Toast.makeText(this, "이름을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(uBirthDate)) {
+            Toast.makeText(this, "생년월일을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(uEmail)) {
+            Toast.makeText(this, "이메일주소를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        } else if (image_uri == null) {
+            connectEditDB(uName, uEmail, uBirthDate, "");
+        } else {
+            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri);
+            String fileName = "";
+            try {
+                fileName = mConnectFTP.execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            connectEditDB(uName, uEmail, uBirthDate, fileName);
+        }
+    }
+
+    private void connectEditDB(String name, String email, String birthDate, String fileName){
+        urlAddr = "http://192.168.0.178:8080/wagle/editMyInfo.jsp?";
+        urlAddr = urlAddr + "uSeqno=" + uSeqno + "&uId=" + uId + "&uEmail=" + email + "&uName=" + name + "&uImageName=" + fileName + "&uBirthDate=" + birthDate + "&uLoginType=" + uLoginType + "&uPassword=" + uPassword;
+        try {
+            JH_VoidNetworkTask myInfoNetworkTask = new JH_VoidNetworkTask(MyInfoActivity.this, urlAddr);
+            myInfoNetworkTask.execute().get();
         } catch (Exception e) {
             e.printStackTrace();
         }
