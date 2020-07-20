@@ -67,8 +67,6 @@ public class MyMoimActivity extends AppCompatActivity {
         adminData.clear();
         workerData.clear();
 
-        Log.v("MyMoimActivity", UserInfo.MOIMSEQNO);
-
         // Data 받을 URL
         String urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_SelectAll.jsp?moimseqno=" + UserInfo.MOIMSEQNO;
         // Json Data 받기
@@ -92,7 +90,7 @@ public class MyMoimActivity extends AppCompatActivity {
         // -----------------------------------------------------------------------------------------
 
         for (int i = 0 ; i < jsonData.size() ; i++) {
-            if (jsonData.get(i).equals("S")) {
+            if (jsonData.get(i).getMaGrade().equals("S")) {
                 adminData.add(jsonData.get(i));
             }
         }
@@ -116,9 +114,11 @@ public class MyMoimActivity extends AppCompatActivity {
         // User 리스트 뷰
         // -----------------------------------------------------------------------------------------
 
+        int count = 0;
         for (int i = 0 ; i < jsonData.size() ; i++) {
             if (jsonData.get(i).getMaGrade().equals("W")) {
                 workerData.add(jsonData.get(i));
+                Log.v("hjhjh0", "1234 = " + workerData.get(count++).getuImageName());
             }
         }
 
