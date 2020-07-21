@@ -60,8 +60,6 @@
 
         <activity android:name=".JH.MyWagleActivity" />
 
-        <activity android:name=".JH.PaymentActivity" />
-
 
 
         <activity android:name=".MainActivity">
