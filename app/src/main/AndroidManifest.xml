@@ -62,8 +62,6 @@
 
         <activity android:name=".JH.PaymentActivity" />
 
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
