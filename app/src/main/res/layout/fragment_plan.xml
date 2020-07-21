@@ -19,6 +19,7 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             app:type="one_day_picker"
+            app:headerColor="@color/mainColor"
             app:eventsEnabled="true" />
 
         <LinearLayout
