@@ -4,6 +4,7 @@ package com.androidlec.wagle.activity.wagleSub;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -43,7 +44,6 @@ public class AddDHGActivity extends Activity {
 
 
     private void init() {
-
         questionList = findViewById(R.id.lv_dhglist_questionList);
         registDhg = findViewById(R.id.bt_dhgadd_dgmRegister);
         cancelDhg = findViewById(R.id.bt_dhgadd_dhgCancel);
@@ -52,7 +52,6 @@ public class AddDHGActivity extends Activity {
         urlAddr = "http://" + centIP + ":8080/test/wagle_questionlist.jsp?useqno=" + UserInfo.USEQNO + "&wcseqno=" + UserInfo.WAGLESEQNO;
 
         connectGetData();
-
     }
 
     @Override
@@ -66,14 +65,13 @@ public class AddDHGActivity extends Activity {
 
         registDhg.setOnClickListener(dhgRegCanClickListener);
         cancelDhg.setOnClickListener(dhgRegCanClickListener);
-
     }
 
     ListView.OnItemClickListener questionClickListener = new AdapterView.OnItemClickListener() {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            int seqno = 0;
+            int seqno;
 
             if(position != 0) {
                 if (preseq != -1) {

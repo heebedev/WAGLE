@@ -107,6 +107,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         try {
             JH_IntNetworkTask networkTask = new JH_IntNetworkTask(mContext, urlAddr);
             chk = networkTask.execute().get();
+            UserInfo.WAGLESEQNO = String.valueOf(wcSeqno);
         }catch (Exception e){
             e.printStackTrace();
         }
