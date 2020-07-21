@@ -185,4 +185,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }  // connectGetData
 
+    // Fragment 이동 (home -> wagle)
+    public void fragmentMove() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrame, waggleFragment).commitAllowingStateLoss();
+    }
+
 }
