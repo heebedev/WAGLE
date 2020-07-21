@@ -55,6 +55,21 @@ public class LoginActivity extends Activity {
 
         init();
 
+
+        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getUserData("test@test.com", "123123")) {
+                    startActivity(new Intent(LoginActivity.this, MainMoimListActivity.class));
+                } else {
+                    loginResult.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+
+
     }
 
     private void init() {
@@ -158,7 +173,6 @@ public class LoginActivity extends Activity {
             } else {
                 loginResult.setVisibility(View.VISIBLE);
             }
-
         }
     };
 
