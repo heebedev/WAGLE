@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
-    final static String TAG = "Log check : ";
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
@@ -61,7 +60,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
     // 중요한 건, doInBackground 죠.
     @Override
     protected Object doInBackground(Integer... integers) {
-        Log.v(TAG, "doInBackground()");
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
@@ -72,8 +70,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
              URL url = new URL(mAddr);
              HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
              httpURLConnection.setConnectTimeout(10000); // 10 seconds.
-
-             Log.v(TAG, "Accept : " + httpURLConnection.getResponseCode());
 
              if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
 
@@ -87,7 +83,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
                      stringBuffer.append(strline + "\n");
                  } // 와일문 끝나면 다 가져왔다~.
 
-                 Log.v(TAG, stringBuffer.toString());
                  // 파싱.
                  parser(stringBuffer.toString()); // 아직 안만들었어요~~~ But, 파씽 하겠다~.
 
@@ -100,7 +95,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
                  if(inputStreamReader != null) inputStreamReader.close();
                  if(inputStream != null) inputStream.close();
              }catch (Exception e){
-                 Log.v(TAG, "Network Error");
                  e.printStackTrace();
              }
          }
@@ -110,7 +104,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
 
 
     private void parser(String s){ // 스트링 하나만 가져오죠.
-        Log.v(TAG, "parse()");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -128,16 +121,6 @@ public class JH_ObjectNetworkTask_MyInfo extends AsyncTask<Integer, String, Obje
                 String uLoginType = jsonObject1.getString("uLoginType");
                 String uPassword = jsonObject1.getString("uPassword");
                 String uDate = jsonObject1.getString("uDate");
-
-                Log.v(TAG, uSeqno);
-                Log.v(TAG, uId);
-                Log.v(TAG, uName);
-                Log.v(TAG, uBirthDate);
-                Log.v(TAG, uEmail);
-                Log.v(TAG, uImageName);
-                Log.v(TAG, uLoginType);
-                Log.v(TAG, uPassword);
-                Log.v(TAG, uDate);
 
                 User info = new User(uSeqno, uId, uEmail, uName, uImageName, uBirthDate, uLoginType, uPassword, uDate);
                 myInfo.add(info);

@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
-    final static String TAG = "Log check : ";
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
@@ -61,7 +60,6 @@ public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Obj
     // 중요한 건, doInBackground 죠.
     @Override
     protected Object doInBackground(Integer... integers) {
-        Log.v(TAG, "doInBackground()");
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
@@ -72,8 +70,6 @@ public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Obj
              URL url = new URL(mAddr);
              HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
              httpURLConnection.setConnectTimeout(10000); // 10 seconds.
-
-             Log.v(TAG, "Accept : " + httpURLConnection.getResponseCode());
 
              if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
 
@@ -87,7 +83,6 @@ public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Obj
                      stringBuffer.append(strline + "\n");
                  } // 와일문 끝나면 다 가져왔다~.
 
-                 Log.v(TAG, stringBuffer.toString());
                  // 파싱.
                  parser(stringBuffer.toString()); // 아직 안만들었어요~~~ But, 파씽 하겠다~.
 
@@ -100,7 +95,6 @@ public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Obj
                  if(inputStreamReader != null) inputStreamReader.close();
                  if(inputStream != null) inputStream.close();
              }catch (Exception e){
-                 Log.v(TAG, "Network Error");
                  e.printStackTrace();
              }
          }
@@ -110,8 +104,6 @@ public class JH_ObjectNetworkTask_Payment extends AsyncTask<Integer, String, Obj
 
 
     private void parser(String s){ // 스트링 하나만 가져오죠.
-        Log.v(TAG, "parse()");
-
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("WaglePayment")); // students_info 에 있는걸 가져와라.
