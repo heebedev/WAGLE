@@ -35,7 +35,6 @@ public class NetworkTask_QuestionReportList extends AsyncTask<Integer, String, O
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
-        //log.v("status", "doinBackground start");
 
         try {
             URL url = new URL(mAddr);
@@ -80,15 +79,15 @@ public class NetworkTask_QuestionReportList extends AsyncTask<Integer, String, O
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("suggestion_list"));
-            //students_info 에 속해있는 Array를 가져와라.
 
             for(int i = 0 ; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int seqno = Integer.parseInt(jsonObject1.getString("seqno"));
-                String scontent = jsonObject1.getString("scontent");
-                String rcontent = jsonObject1.getString("rcontent");
+                int sSeqno = Integer.parseInt(jsonObject1.getString("sSeqno"));
+                String wcSeqno = jsonObject1.getString("wcSeqno");
+                String sType = jsonObject1.getString("sType");
+                String sContent = jsonObject1.getString("sContent");
 
-                SgstRptList sgstRptList = new SgstRptList(seqno, scontent, rcontent);
+                SgstRptList sgstRptList = new SgstRptList(sSeqno, wcSeqno, sType, sContent);
 
                 questionlist.add(sgstRptList);
             }
