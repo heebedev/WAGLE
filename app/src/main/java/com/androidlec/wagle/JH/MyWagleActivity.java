@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    //final static String TAG = "Log check : ";
+    final static String TAG = "Log check : ";
     String urlAddr;
     ListView lv_itemlist;
     String item;
@@ -158,7 +158,7 @@ public class MyWagleActivity extends AppCompatActivity {
         imageViews = new ArrayList<ImageView>();
 
         for(int i = 0; i < size; i++) {
-Log.v(TAG, "----***size:---"+size);
+            Log.v(TAG, "----***size:---"+size);
 
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
@@ -191,13 +191,8 @@ Log.v(TAG, "----***size:---"+size);
             imageViews.get(i).getLayoutParams().width = dpToPx(30, rl_images);
             imageViews.get(i).setScaleType(ImageView.ScaleType.FIT_XY); // Set the scale type for ImageView image scaling
 
-            int wpReadPage = progressdata.get(i).getWpReadPage(); // 유저의 읽은 페이지 수만큼 이미지 이동.
-            int wbMaxPage = totalpage; // 필요 할당량 (ex 책의 최대 페이지)
-            float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-            int moveProgressBar = (int) (deviceWidth / movePage); // 비율 구한것을 화면 기기에 넣는다.
-                if(wpReadPage >= wbMaxPage){
-            // 유저의 읽은 페이지 수만큼 이미지 이동.
-            int wpReadPage = progressdata.get(i).getWpReadPage();
+
+            int wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
             //Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
             int wbMaxPage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
             int movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
