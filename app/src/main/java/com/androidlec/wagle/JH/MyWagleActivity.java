@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    final static String TAG = "Log check : ";
+    //final static String TAG = "Log check : ";
     String urlAddr;
     ListView lv_itemlist;
     String item;
@@ -71,7 +71,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void init() {
         // 독후감 파트.
-        Button btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
+        TextView btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         Button btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
         ListView listView = findViewById(R.id.mywagle_lv_bookreport);
         btn_bookreportAdd.setOnClickListener(onClickListener);
@@ -158,7 +158,7 @@ public class MyWagleActivity extends AppCompatActivity {
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
 
-            Log.v(TAG, "-------"+progressdata.get(i).getuSeqno());
+            //Log.v(TAG, "-------"+progressdata.get(i).getuSeqno());
 
             imageViews.get(i).setId(progressdata.get(i).getuSeqno());
 
@@ -192,7 +192,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
             // 유저의 읽은 페이지 수만큼 이미지 이동.
             int wpReadPage = progressdata.get(i).getWpReadPage();
-            Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
+            //Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
             int wbMaxPage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
             int movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
             int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
@@ -211,7 +211,7 @@ public class MyWagleActivity extends AppCompatActivity {
                 pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
                 int wpReadPage = Integer.parseInt(et_wpReadPage.getText().toString()); // 움직일 만큼 EditText로 입력받는다. (읽은 책의 양)
                 int maxpage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
-                Log.v(TAG, String.valueOf(maxpage));
+                //Log.v(TAG, String.valueOf(maxpage));
                 int movePage = maxpage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
                 int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
 

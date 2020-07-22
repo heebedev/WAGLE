@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
-    final static String TAG = "Log check : ";
+    //final static String TAG = "Log check : ";
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
@@ -62,7 +62,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
     // 중요한 건, doInBackground 죠.
     @Override
     protected Object doInBackground(Integer... integers) {
-        Log.v(TAG, "doInBackground()");
+        //Log.v(TAG, "doInBackground()");
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
@@ -74,7 +74,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
              HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
              httpURLConnection.setConnectTimeout(10000); // 10 seconds.
 
-             Log.v(TAG, "Accept : " + httpURLConnection.getResponseCode());
+             //Log.v(TAG, "Accept : " + httpURLConnection.getResponseCode());
 
              if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
 
@@ -88,7 +88,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                      stringBuffer.append(strline + "\n");
                  } // 와일문 끝나면 다 가져왔다~.
 
-                 Log.v(TAG, stringBuffer.toString());
+                 //Log.v(TAG, stringBuffer.toString());
                  // 파싱.
                  parser(stringBuffer.toString()); // 아직 안만들었어요~~~ But, 파씽 하겠다~.
 
@@ -101,7 +101,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                  if(inputStreamReader != null) inputStreamReader.close();
                  if(inputStream != null) inputStream.close();
              }catch (Exception e){
-                 Log.v(TAG, "Network Error");
+                 //Log.v(TAG, "Network Error");
                  e.printStackTrace();
              }
          }
@@ -111,7 +111,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
 
 
     private void parser(String s){ // 스트링 하나만 가져오죠.
-        Log.v(TAG, "parse()");
+        //Log.v(TAG, "parse()");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -125,10 +125,10 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                 int uSeqno = jsonObject1.getInt("uSeqno");
                 String uLoginType = jsonObject1.getString("uLoginType");
 
-                Log.v(TAG, uImageName);
-                Log.v(TAG, String.valueOf(wpReadPage));
-                Log.v(TAG, String.valueOf(uSeqno));
-                Log.v(TAG, uLoginType);
+//                Log.v(TAG, uImageName);
+//                Log.v(TAG, String.valueOf(wpReadPage));
+//                Log.v(TAG, String.valueOf(uSeqno));
+//                Log.v(TAG, uLoginType);
 
                 Progress data = new Progress(uImageName, wpReadPage, uSeqno, uLoginType);
                 progressdata.add(data);
