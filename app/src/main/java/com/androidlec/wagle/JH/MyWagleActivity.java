@@ -23,11 +23,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -44,8 +46,7 @@ public class MyWagleActivity extends AppCompatActivity {
     ArrayList<Payment> lists;
     ArrayList<Progress> progressdata;
     ArrayList<ImageView> imageViews;
-
-
+    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,34 +149,35 @@ public class MyWagleActivity extends AppCompatActivity {
         int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
         pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
 
+
+        int size = progressdata.size();
+        int totalpage= getwbMaxPage();
         imageViews = new ArrayList<ImageView>();
-        for (int i = 0; i < progressdata.size(); i++) {
+
+        for(int i = 0; i < size; i++) {
+Log.v(TAG, "----***size:---"+size);
 
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
 
-            Log.v(TAG, "-------"+progressdata.get(i).getuSeqno());
+Log.v(TAG, "----seqno---"+progressdata.get(i).getuSeqno());
 
             imageViews.get(i).setId(progressdata.get(i).getuSeqno());
 
             if(progressdata.get(i).getuLoginType().equals("wagle")){
                 Glide.with(this)
                         .load("http://192.168.0.82:8080/wagle/userImgs/" + progressdata.get(i).getuImageName())
-//                    .apply(new RequestOptions().circleCrop())
+                      .apply(new RequestOptions().circleCrop())
                         .override(30,30)
                         .placeholder(R.drawable.ic_outline_emptyimage)
                         .into(imageViews.get(i));
             } else {
                 Glide.with(this)
                         .load(progressdata.get(i).getuImageName())
-//                    .apply(new RequestOptions().circleCrop())
+                        .apply(new RequestOptions().circleCrop())
                         .placeholder(R.drawable.ic_outline_emptyimage)
                         .into(imageViews.get(i));
             }
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                iv.setImageDrawable(getDrawable(R.drawable.img_0214)); // Set an image for ImageView
-//            }
 
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT); // Create layout parameters for ImageView
             layoutParams.addRule(RelativeLayout.ABOVE, pb_book.getId()); // Add rule to layout parameters // Add the ImageView below to Button
@@ -186,30 +188,42 @@ public class MyWagleActivity extends AppCompatActivity {
             imageViews.get(i).getLayoutParams().width = dpToPx(30, rl_images);
             imageViews.get(i).setScaleType(ImageView.ScaleType.FIT_XY); // Set the scale type for ImageView image scaling
 
-            // 유저의 읽은 페이지 수만큼 이미지 이동.
-            int wpReadPage = progressdata.get(i).getWpReadPage();
-            Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
-            int wbMaxPage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
-            int movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-            int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
-                if(moveProgressBar >= wbMaxPage){
+            int wpReadPage = progressdata.get(i).getWpReadPage(); // 유저의 읽은 페이지 수만큼 이미지 이동.
+Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
+            int wbMaxPage = totalpage; // 필요 할당량 (ex 책의 최대 페이지)
+            float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+Log.v(TAG, "movePage : "+movePage);
+            int moveProgressBar = (int) (deviceWidth / movePage); // 비율 구한것을 화면 기기에 넣는다.
+Log.v(TAG, "moveProgressBar : "+moveProgressBar);
+                if(wpReadPage >= wbMaxPage){
                     imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
                 }else{
                     imageViews.get(i).setX(moveProgressBar);
                 }
-                pb_book.incrementProgressBy(moveProgressBar); // 프로그레스바 비율에따른 이동
+
+                if(progressdata.get(i).getuSeqno() == 1){ // 프로그레스바는 내가 읽은 부분까지 채워줌. ****** UserInfo.USEQNO ********
+                    index = i;
+                    pb_book.incrementProgressBy(moveProgressBar); // 프로그레스바 비율에따른 이동
+                }
         }
 
         btn_move.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
-                pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
-                int wpReadPage = Integer.parseInt(et_wpReadPage.getText().toString()); // 움직일 만큼 EditText로 입력받는다. (읽은 책의 양)
-                int maxpage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
-                Log.v(TAG, String.valueOf(maxpage));
-                int movePage = maxpage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-                int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
+
+****** 여기서부터 수정해야함!!
+//                et_wpReadPage.getText().toString();
+//
+//
+//
+//                initProgressBar();
+//
+//                int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
+//                pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
+//                int wpReadPage = Integer.parseInt(et_wpReadPage.getText().toString()); // 움직일 만큼 EditText로 입력받는다. (읽은 책의 양)
+//                int maxpage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
+//                int movePage = maxpage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+//                int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
 
 //                if(moveProgressBar >= maxpage){
 //                    imageCharacter2.setX(deviceWidth - imageCharacter2.getWidth()); // 맨 오른쪽 으로 이동
@@ -220,6 +234,20 @@ public class MyWagleActivity extends AppCompatActivity {
             }
         });
     }
+
+
+//    private void recordPage() {
+//        int wcSeqno = 1; // 임시 절대값.
+//        urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
+//        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+//        try {
+//            JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
+//            Object obj = networkTask6.execute().get();
+//            progressdata = (ArrayList<Progress>) obj;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
 
     public static int dpToPx(int dp, RelativeLayout context) {
