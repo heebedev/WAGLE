@@ -2,44 +2,56 @@ package com.androidlec.wagle.dto;
 
 public class SgstRptList {
 
-    int srSeqno;
+    int sSeqno;
+    String wcSeqno;
+    String sType;
     String sContent;
-    String rContent;
+    String aContent;
 
-    public SgstRptList(int srSeqno, String sContent, String rContent) {
-        this.srSeqno = srSeqno;
-        this.sContent = sContent;
-        this.rContent = rContent;
-    }
-
-    public SgstRptList(int srSeqno, String sContent) {
-        this.srSeqno = srSeqno;
+    public SgstRptList(int sSeqno, String wcSeqno, String sType, String sContent) {
+        this.sSeqno = sSeqno;
+        this.wcSeqno = wcSeqno;
+        this.sType = sType;
         this.sContent = sContent;
     }
 
-    public int getSrSeqno() {
-        return srSeqno;
+    public int getsSeqno() {
+        return sSeqno;
     }
 
-    public void setSrSeqno(int srSeqno) {
-        this.srSeqno = srSeqno;
+    public void setsSeqno(int sSeqno) {
+        this.sSeqno = sSeqno;
     }
 
-    public String getSContent() {
+    public String getWcSeqno() {
+        return wcSeqno;
+    }
+
+    public void setWcSeqno(String wcSeqno) {
+        this.wcSeqno = wcSeqno;
+    }
+
+    public String getsType() {
+        return sType;
+    }
+
+    public void setsType(String sType) {
+        this.sType = sType;
+    }
+
+    public String getsContent() {
         return sContent;
     }
 
-    public void setSContent(String sContent) {
+    public void setsContent(String sContent) {
         this.sContent = sContent;
     }
 
-    public String getRContent() {
-        return rContent;
+    public String getaContent() {
+        return aContent;
     }
 
-    public void setRContent(String rContent) {
-        this.rContent = rContent;
+    public void setaContent(String aContent) {
+        this.aContent = aContent;
     }
-
-
 }
