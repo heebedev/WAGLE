@@ -2,12 +2,14 @@ package com.androidlec.wagle.jhj;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 public class Jhj_Post_Write_Notice extends AppCompatActivity {
 
@@ -44,7 +46,8 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
 
         } else if (intent.getStringExtra("Type").equals("NW")) {
             title_Edit_Post_Write.setText(intent.getStringExtra("Title"));
-            content_Edit_Post_Write.setText(intent.getStringExtra("Content"));
+            String content = intent.getStringExtra("Content");
+            content_Edit_Post_Write.setText(content.replaceAll("/n", "\n"));
         } else {
             NW_linearLayout.setVisibility(View.VISIBLE);
             NR_linearLayout.setVisibility(View.INVISIBLE);
@@ -74,6 +77,7 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
                 // 에디트 텍스트값 저장하기
                 String title = title_Edit_Post_Write.getText().toString();
                 String content = content_Edit_Post_Write.getText().toString();
+                content = content.replaceAll(System.getProperty("line.separator"), "/n");
 
                 // Type 지정
                 String type = "N";
@@ -86,10 +90,10 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
                 Intent intent = getIntent();
                 if (intent.getStringExtra("Type").equals("NW")) {
                     String Seqno = intent.getStringExtra("Seqno");
-                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Update.jsp?seqno=" + Seqno + "&userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
+                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Update.jsp?seqno=" + Seqno + "&userSeqno=" + seqno + "&MoimSeqno=" + UserInfo.MOIMSEQNO + "&title=" + title + "&content=" + content + "&type=" + type;
                 } else {
                     // Get 방식 URL 세팅
-                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Insert.jsp?userSeqno=" + seqno + "&title=" + title + "&content=" + content + "&type=" + type;
+                    urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Insert.jsp?userSeqno=" + seqno + "&MoimSeqno=" + UserInfo.MOIMSEQNO + "&title=" + title + "&content=" + content + "&type=" + type;
                 }
 
                 connectionInsertData(urlAddr);

@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textColor="@color/mainColor" />
 
-    <ImageView
+    <com.androidlec.wagle.CircularImageView
         android:id="@+id/myInfo_iv_photo"
         android:src="@drawable/ic_outline_emptyimage"
         android:layout_width="120dp"

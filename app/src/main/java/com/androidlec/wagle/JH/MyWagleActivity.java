@@ -23,7 +23,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
+import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
@@ -122,8 +123,10 @@ public class MyWagleActivity extends AppCompatActivity {
 
             switch (view.getId()){
                 case R.id.mywagle_btn_bookreportAdd:
+                    startActivity(new Intent(MyWagleActivity.this, AddDHGActivity.class));
                     break;
                 case R.id.mywagle_btn_suggestionAdd:
+                    startActivity(new Intent(MyWagleActivity.this, AddBJMActivity.class));
                     break;
                 case R.id.mywagle_btn_galleryAdd:
                     break;
@@ -211,7 +214,7 @@ Log.v(TAG, "moveProgressBar : "+moveProgressBar);
             @Override
             public void onClick(View view) {
 
-****** 여기서부터 수정해야함!!
+// ****** 여기서부터 수정해야함!!
 //                et_wpReadPage.getText().toString();
 //
 //
