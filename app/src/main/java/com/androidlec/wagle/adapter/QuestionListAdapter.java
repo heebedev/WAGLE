@@ -55,7 +55,7 @@ public class QuestionListAdapter extends BaseAdapter {
 
         question = convertView.findViewById(R.id.tv_dhglist_suggestion);
         answer = convertView.findViewById(R.id.et_dhglist_report);
-
+        answer.setTag(position);
 
         if (position == 0) {
             question.setText("<서문> " + data.get(position).getSContent());

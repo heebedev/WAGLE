@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class PaymentAdapter extends BaseAdapter {
 
-    final static String TAG = "Log check : ";
+    //final static String TAG = "Log check : ";
 
     private Context mContext = null;
     private int layout = 0;

@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    final static String TAG = "Log check : ";
+    //final static String TAG = "Log check : ";
     String urlAddr;
     ListView lv_itemlist;
     String item;
@@ -71,7 +71,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void init() {
         // 독후감 파트.
-        Button btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
+        TextView btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         Button btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
         ListView listView = findViewById(R.id.mywagle_lv_bookreport);
         btn_bookreportAdd.setOnClickListener(onClickListener);
@@ -163,7 +163,7 @@ Log.v(TAG, "----***size:---"+size);
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
 
-Log.v(TAG, "----seqno---"+progressdata.get(i).getuSeqno());
+
 
             imageViews.get(i).setId(progressdata.get(i).getuSeqno());
 
@@ -192,13 +192,17 @@ Log.v(TAG, "----seqno---"+progressdata.get(i).getuSeqno());
             imageViews.get(i).setScaleType(ImageView.ScaleType.FIT_XY); // Set the scale type for ImageView image scaling
 
             int wpReadPage = progressdata.get(i).getWpReadPage(); // 유저의 읽은 페이지 수만큼 이미지 이동.
-Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
             int wbMaxPage = totalpage; // 필요 할당량 (ex 책의 최대 페이지)
             float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-Log.v(TAG, "movePage : "+movePage);
             int moveProgressBar = (int) (deviceWidth / movePage); // 비율 구한것을 화면 기기에 넣는다.
-Log.v(TAG, "moveProgressBar : "+moveProgressBar);
                 if(wpReadPage >= wbMaxPage){
+            // 유저의 읽은 페이지 수만큼 이미지 이동.
+            int wpReadPage = progressdata.get(i).getWpReadPage();
+            //Log.v(TAG, String.valueOf(progressdata.get(i).getWpReadPage()));
+            int wbMaxPage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
+            int movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+            int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
+                if(moveProgressBar >= wbMaxPage){
                     imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
                 }else{
                     imageViews.get(i).setX(moveProgressBar);
@@ -213,7 +217,7 @@ Log.v(TAG, "moveProgressBar : "+moveProgressBar);
         btn_move.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+              
 // ****** 여기서부터 수정해야함!!
 //                et_wpReadPage.getText().toString();
 //
@@ -227,6 +231,13 @@ Log.v(TAG, "moveProgressBar : "+moveProgressBar);
 //                int maxpage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
 //                int movePage = maxpage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
 //                int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
+                int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
+                pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
+                int wpReadPage = Integer.parseInt(et_wpReadPage.getText().toString()); // 움직일 만큼 EditText로 입력받는다. (읽은 책의 양)
+                int maxpage = getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
+                //Log.v(TAG, String.valueOf(maxpage));
+                int movePage = maxpage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+                int moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
 
 //                if(moveProgressBar >= maxpage){
 //                    imageCharacter2.setX(deviceWidth - imageCharacter2.getWidth()); // 맨 오른쪽 으로 이동

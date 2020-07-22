@@ -60,8 +60,6 @@
 
         <activity android:name=".JH.MyWagleActivity" />
 
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

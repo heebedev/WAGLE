@@ -71,6 +71,7 @@ public class JH_IntNetworkTask extends AsyncTask<Integer, String, Integer> {
                     String strline = bufferedReader.readLine();
                     if (strline == null) break;
                     stringBuffer.append(strline + "\n");
+                    //Log.e("status", "checkintCheck : " + stringBuffer.toString().trim());
                 }
 
                 intChk = Integer.parseInt(stringBuffer.toString().trim());
