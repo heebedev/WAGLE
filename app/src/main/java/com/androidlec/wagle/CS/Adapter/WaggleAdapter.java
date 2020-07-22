@@ -59,6 +59,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                 switch (chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno()))){
                     case 1: // 와글 신청이 되었을 때.
                         intent = new Intent(mContext, MyWagleActivity.class);
+                        UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
                         intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
                         mContext.startActivity(intent);
                         break;
