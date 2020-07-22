@@ -83,7 +83,6 @@ public class HomeActivity extends AppCompatActivity {
                 .into(include_ab_iv);
 
         include_ab_tv.setText(data[1]);
-
     }
 
     private String[] getMoimData() {
@@ -185,5 +184,11 @@ public class HomeActivity extends AppCompatActivity {
         return result;
 
     }  // connectGetData
+
+    // Fragment 이동 (home -> wagle)
+    public void fragmentMove() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mainFrame, waggleFragment).commitAllowingStateLoss();
+    }
 
 }
