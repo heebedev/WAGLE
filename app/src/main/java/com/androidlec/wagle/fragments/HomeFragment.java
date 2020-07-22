@@ -107,22 +107,25 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
-        // --------------------------------------------------------------
-        // 버튼 이벤트 등록
-        // --------------------------------------------------------------
+        Button NoticeBtnAdd = rootView.findViewById(R.id.fragment_home_Notice_Add);
+        Button WagleBtnAdd = rootView.findViewById(R.id.fragment_home_Wagle_Add);
+        Button GalleryBtnAdd = rootView.findViewById(R.id.fragment_home_Gallery_Add);
 
+        // 일반인일때 공지사항 버튼 안보이기
+        if (UserInfo.WAGLEMAGRADE.equals("W")) {
+            NoticeBtnAdd.setVisibility(View.INVISIBLE);
+        }
+
+        // 버튼 이벤트 등록
         // 추가 버튼
-        rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
-        rootView.findViewById(R.id.fragment_home_Wagle_Add).setOnClickListener(add_home_fragment_OnClickListener);
-        rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
+        NoticeBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
+        WagleBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
+        GalleryBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
 
         // 더보기 버튼
         rootView.findViewById(R.id.fragment_home_Notice_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Wagle_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Gallery_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
-
-        // --------------------------------------------------------------
-        // --------------------------------------------------------------
 
         // Inflate the layout for this fragment
         return rootView;

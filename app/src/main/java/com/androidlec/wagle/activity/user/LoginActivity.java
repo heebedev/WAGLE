@@ -14,6 +14,7 @@ import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
 import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.network_sh.NetworkTask_Login;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -60,7 +61,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (getUserData("test@test.com", "123123")) {
-                    startActivity(new Intent(LoginActivity.this, MainMoimListActivity.class));
+                    startActivity(new Intent(LoginActivity.this, TempActivity.class));
                 } else {
                     loginResult.setVisibility(View.VISIBLE);
                 }

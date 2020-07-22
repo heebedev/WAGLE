@@ -75,7 +75,7 @@ public class TempActivity extends AppCompatActivity {
                     googleLogin.revokeAccess();
                     break;
                 case R.id.btn7:
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    startActivity(new Intent(TempActivity.this, MainMoimListActivity.class));
                     break;
                 case R.id.btn8:
                     startActivity(new Intent(TempActivity.this, AddBJMActivity.class));

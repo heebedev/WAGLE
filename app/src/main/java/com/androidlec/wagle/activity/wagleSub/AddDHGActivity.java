@@ -25,8 +25,9 @@ import java.util.ArrayList;
 
 public class AddDHGActivity extends Activity {
 
+    private final static String TAG = "AddDHGActivity";
 
-    private String urlAddr, centIP;
+    private String centIP = "192.168.0.82";
 
     //질문리스트뷰
     private ArrayList<SgstRptList> questionListData;
@@ -41,17 +42,14 @@ public class AddDHGActivity extends Activity {
 
     private EditText report;
 
-
-
+    // 초기화
     private void init() {
         questionList = findViewById(R.id.lv_dhglist_questionList);
         registDhg = findViewById(R.id.bt_dhgadd_dgmRegister);
         cancelDhg = findViewById(R.id.bt_dhgadd_dhgCancel);
 
-        centIP = "192.168.0.138";
-        urlAddr = "http://" + centIP + ":8080/test/wagle_questionlist.jsp?useqno=" + UserInfo.USEQNO + "&wcseqno=" + UserInfo.WAGLESEQNO;
-
-        connectGetData();
+        String urlAddr = "http://" + centIP + ":8080/wagle/wagle_questionlist.jsp?&wcseqno=" + UserInfo.WAGLESEQNO;
+        connectGetData(urlAddr);
     }
 
     @Override
@@ -67,8 +65,8 @@ public class AddDHGActivity extends Activity {
         cancelDhg.setOnClickListener(dhgRegCanClickListener);
     }
 
+    // ListView 클릭 이벤트
     ListView.OnItemClickListener questionClickListener = new AdapterView.OnItemClickListener() {
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             int seqno;
@@ -93,9 +91,7 @@ public class AddDHGActivity extends Activity {
                     preet = report;
                 }
             }
-
         }
-
     };
 
 
@@ -103,48 +99,24 @@ public class AddDHGActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                // 저장
                 case R.id.bt_dhgadd_dgmRegister :
-//                    String rcont;
-//
-//
-//                    Log.e("status", "size : " + questionListData.size());
-//                    urlAddr = "http://" + centIP + ":8080/test/wagle_updatereport.jsp?useqno=" + UserInfo.USEQNO + "&size=" + questionListData.size() + "&seqcontent=";
-//
-//
-//                    for (int i = 0; i < questionListData.size(); i++) {
-//
-//                        Log.e("status", "위치 : " + (i-questionList.getFirstVisiblePosition()));
-//
-//                       report =  (EditText) questionList.getChildAt(i-questionList.getFirstVisiblePosition()).findViewById(R.id.et_dhglist_report);
-//
-//
-//                        if ( i == 0) {
-//                            rcont = "head";
-//                            urlAddr += "sseqno" + questionListData.get(i).getSrSeqno() + "=" + rcont;
-//                        } else {
-//                            rcont = report.getText().toString();
-//                            urlAddr += "sseqno" + questionListData.get(i).getSrSeqno() + "=" + rcont;
-//                        }
-//
-//                    }
-//
-//                    connectSetData();
 
                     break;
+                // 취소
                 case R.id.bt_dhgadd_dhgCancel :
                     new AlertDialog.Builder(AddDHGActivity.this)
                             .setTitle("정말 취소하시겠습니까?")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //startActivity(new Intent(AddBJMActivity.this, HomeActivity.class));
-
+                                    finish();
                                 }
                             })
                             .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                    return;
                                 }
                             })
                             .show();
@@ -155,7 +127,8 @@ public class AddDHGActivity extends Activity {
         }
     };
 
-    private void connectGetData() {
+    // Json Data 저장 밑 List 데이터 뿌리기
+    private void connectGetData(String urlAddr) {
         try {
             NetworkTask_QuestionReportList networkTask = new NetworkTask_QuestionReportList(AddDHGActivity.this, urlAddr);
             Object obj = networkTask.execute().get();
@@ -169,7 +142,7 @@ public class AddDHGActivity extends Activity {
 
     }  // connectGetData
 
-    private boolean connectSetData() {
+    private boolean connectSetData(String urlAddr) {
         boolean result = false;
         try {
             NetworkTask_CRUD networkTask = new NetworkTask_CRUD(AddDHGActivity.this, urlAddr);

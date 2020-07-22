@@ -328,16 +328,6 @@
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
-
-                    <Button
-                        android:id="@+id/fragment_home_BookReport_Add"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="48dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/ic_add_circle_24" />
-
-
                 </LinearLayout>
 
                 <Button
