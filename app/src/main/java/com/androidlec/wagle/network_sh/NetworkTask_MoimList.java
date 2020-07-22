@@ -23,8 +23,6 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
     String mAddr;
     ArrayList<MoimList> moimlistdata;
 
-    ProgressDialog progressDialog;
-
     public NetworkTask_MoimList(Context context, String mAddr) {
         this.context = context;
         this.mAddr = mAddr;
@@ -37,7 +35,6 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
-        //log.v("status", "doinBackground start");
 
         try {
             URL url = new URL(mAddr);
@@ -81,7 +78,6 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("moim_list"));
-            //students_info 에 속해있는 Array를 가져와라.
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);

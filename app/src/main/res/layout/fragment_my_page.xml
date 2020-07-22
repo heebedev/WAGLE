@@ -1,14 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MyPageFragment">
+    tools:context=".fragments.MyPageFragment"
+    android:padding="15dp"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="myPage Fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <com.androidlec.wagle.CircularImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:id="@+id/fragment_my_page_RankingIcon"
+                    />
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/fragment_my_page_Text_Name"
+                    android:text="하이"
+                    android:textSize="30dp"
+                    android:gravity="right|center"
+                    />
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/fragment_my_page_Text_Rank_Grade"
+                    android:text="(골드)"
+                    android:textSize="30dp"
+                    android:gravity="left|center"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_page_Text_WagleNum"
+                android:text="참여한 총 와글 : 10 개 / 32개 (00%)"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_page_Text_BookReportNum"
+                android:text="참여한 총 독후감 : 10개 / 32개 (00%)"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_page_Text_TotalScore"
+                android:text="총 102 점"
+                android:textSize="60dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="우리 모임 랭킹"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:layout_marginTop="15dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_my_page_Text_Rank_Num1"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_my_page_Text_Rank_Num2"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_my_page_Text_Rank_Num3"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_my_page_Text_Rank_Num4"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_my_page_Text_Rank_Num5"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수를 올리고 싶으시다면?"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아래 와글을 참가해보세요!"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_page_Wagle_ListVIew"
+                android:background="@drawable/white_rounded_background"
+                android:layout_marginTop="15dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="어서 독후감을 작성하세요!"
+                android:textSize="18dp"
+                android:layout_marginTop="25dp"
+                />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_page_BookReport_ListVIew"
+                android:background="@drawable/white_rounded_background"
+                android:layout_marginTop="15dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/myPage_btn_sendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="초대장 보내기" />
 
 </FrameLayout>

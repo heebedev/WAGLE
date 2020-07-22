@@ -23,6 +23,8 @@ import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
@@ -31,14 +33,14 @@ public class AddNormWagleActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
 
     /////////////////////////// 정규 와글//////////////////////////////
-    private EditText wagleName, wagleStartD, wagleEndD, wagleFee, wagleDueD, waglePlace, wagleDetail, wagleAgreeRefund;
-    private TextView wagleAddBookInfo, wagleRegister;
+    private EditText wagleName, wagleFee, wagleDetail, wagleAgreeRefund;
+    private TextView wagleAddBookInfo, wagleRegister, wagleStartD, wagleEndD, wagleDueD, waglePlace;
 
     // 화폐단위표시
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
     private String result = "";
 
-    private EditText calendarStatus;
+    private TextView calendarStatus;
 
     private void init() {
 
@@ -176,7 +178,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         String wcEndDate = wagleEndD.getText().toString().trim();
         String wcDueDate = wagleDueD.getText().toString().trim();
         String wcLocate;
-        if (waglePlace.getText().toString().trim().equals("등록하기")) {
+        if (waglePlace.getText().toString().trim().equals("와글 장소를 등록해주세요.")) {
             wcLocate = "";
         } else {
             wcLocate = waglePlace.getText().toString().trim();
