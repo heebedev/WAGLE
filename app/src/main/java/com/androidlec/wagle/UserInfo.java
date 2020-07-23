@@ -17,9 +17,11 @@ public class UserInfo {
     public static String WAGLESEQNO;
     public static String WAGLENAME;
     public static String WAGLETYPE;
-    public static String WAGLESUGGESTIONREGIS;
+    public static String WAGLEBOOKSEQ;
 
     // 운영진 여부
     public static String WAGLEMAGRADE;
+
+
 
 }

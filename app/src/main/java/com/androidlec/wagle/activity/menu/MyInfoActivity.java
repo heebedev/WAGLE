@@ -124,7 +124,7 @@ public class MyInfoActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
-                    Toast.makeText(MyInfoActivity.this, "testest", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyInfoActivity.this, "이미지가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();

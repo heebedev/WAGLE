@@ -25,7 +25,7 @@ import java.util.Date;
 
 public class MakeMoimActivity extends Activity {
 
-    final static String TAG = "MakeMoimActivity";
+    //final static String TAG = "MakeMoimActivity";
     final static String IP = "192.168.0.82";
 
     Uri file = null;

@@ -145,6 +145,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_addwagle_wagleAddBookInfo:
+                    startActivity(new Intent(AddNormWagleActivity.this, AddBookActivity.class));
                     break;
                 case R.id.tv_addwagle_wagleRegister:
                     InputWagleCreateData();
@@ -189,7 +190,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
 
 
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + 1 +
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + UserInfo.WAGLEBOOKSEQ +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
                 "&wcEndDate=" + wcEndDate + "&wcDueDate=" + wcDueDate +
                 "&wcLocate=" + wcLocate + "&wcEntryFee=" + wcEntryFee +
