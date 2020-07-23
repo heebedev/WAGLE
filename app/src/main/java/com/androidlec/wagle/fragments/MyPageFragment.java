@@ -77,7 +77,7 @@ public class MyPageFragment extends Fragment {
         // 템플릿에 입력된 Argument에 채워질 값
         Map<String, String> templateArgs = new HashMap<>();
         templateArgs.put("USER_NAME", UserInfo.UNAME);
-        templateArgs.put("MOIM_NAME", UserInfo.MOIM_NAME); // 귀찮..
+        templateArgs.put("MOIM_NAME", UserInfo.MOIM_NAME);
 
         // 링크 콜백에서 함께 수신할 커스텀 파라미터를 설정합니다.
         Map<String, String> serverCallbackArgs = new HashMap<>();
