@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                 .into(include_ab_iv);
 
         include_ab_tv.setText(data[1]);
+        UserInfo.MOIM_NAME = data[1];
     }
 
     private String[] getMoimData() {
