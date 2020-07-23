@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.androidlec.wagle.CS.Network.NetworkTask;
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -218,7 +217,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
 
         try {
-            NetworkTask networkTask = new NetworkTask(AddNormWagleActivity.this, urlAddr);
+            CSNetworkTask networkTask = new CSNetworkTask(AddNormWagleActivity.this, urlAddr);
             networkTask.execute();
             finish();
         } catch (Exception e) {
