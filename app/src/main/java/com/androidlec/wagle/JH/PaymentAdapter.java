@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.androidlec.wagle.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PaymentAdapter extends BaseAdapter {
@@ -19,6 +20,9 @@ public class PaymentAdapter extends BaseAdapter {
     private int layout = 0;
     private ArrayList<Payment> data = null;
     private LayoutInflater inflater = null;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    private String result = "";
 
     public PaymentAdapter(Context mContext, int layout, ArrayList<Payment> data) {
         this.mContext = mContext;
@@ -53,13 +57,14 @@ public class PaymentAdapter extends BaseAdapter {
         TextView tv_item = view.findViewById(R.id.payment_tv_item);
         TextView tv_price = view.findViewById(R.id.payment_tv_price);
 
-        tv_item.setText(data.get(i).getItem());
-        tv_price.setText(data.get(i).getPrice() + "원");
+        result = decimalFormat.format(Double.parseDouble(Integer.toString(data.get(i).getPrice())));
 
-        if(i % 2 == 0){
-            view.setBackgroundColor(0x10FF0000);
-        }
+        tv_item.setText(data.get(i).getItem());
+        tv_price.setText(result + " 원");
+
 
         return view;
     }
+
+
 }//----

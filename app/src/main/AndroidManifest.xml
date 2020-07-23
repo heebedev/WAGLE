@@ -19,48 +19,29 @@
         android:theme="@style/WAGLETheme"
         android:windowSoftInputMode="adjustPan"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.wagleSub.AddBookActivity"></activity>
         <activity android:name=".FindLocationActivity" />
-
         <activity android:name=".ViewDetailWagleActivity" />
-
-        <activity android:name=".jhj.Jhj_Post_Gallery_List"/>
-
+        <activity android:name=".jhj.Jhj_Post_Gallery_List" />
         <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
-
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
-
         <activity android:name=".TempActivity" />
-
         <activity android:name=".MainMoimListActivity" />
-
         <activity android:name=".activity.wagleSub.AddImageActivity" />
-
         <activity android:name=".activity.menu.MyMoimActivity" />
-
         <activity android:name=".activity.menu.MyInfoActivity" />
-
         <activity android:name=".activity.wagleSub.AddCostActivity" />
-
         <activity android:name=".activity.wagleSub.AddDHGActivity" />
-
         <activity android:name=".activity.wagleSub.AddBJMActivity" />
         <activity android:name=".activity.wagleSub.AddNormWagleActivity" />
         <activity android:name=".activity.wagleSub.AddTodayWagleActivity" />
-
         <activity android:name=".activity.wagleSub.AddWagleActivity" />
-
         <activity android:name=".MakeMoimActivity" />
-
-        <activity android:name=".HomeActivity"/>
-
+        <activity android:name=".HomeActivity" />
         <activity android:name=".activity.user.SignUpActivity" />
-
         <activity android:name=".activity.user.FindIdPwActivity" />
-
         <activity android:name=".activity.user.LoginActivity" />
-
         <activity android:name=".JH.MyWagleActivity" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

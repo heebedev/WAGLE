@@ -82,9 +82,11 @@ public class PlanFragment extends Fragment {
         for (int i = 0; i < data.size(); i++) {
             if(selectedDay.equals(data.get(i).getWcStartDate())){
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 시작일\n");
-            } else if(selectedDay.equals(data.get(i).getWcDueDate())){
+            }
+            if(selectedDay.equals(data.get(i).getWcDueDate())){
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 마감일\n");
-            } else if(selectedDay.equals(data.get(i).getWcEndDate()))
+            }
+            if(selectedDay.equals(data.get(i).getWcEndDate()))
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 종료일\n");
         }
         return planList.toString();
@@ -104,36 +106,29 @@ public class PlanFragment extends Fragment {
     }
 
     private void setEvents() {
+        Calendar calendar;
+        String[] date;
         for (int i = 0; i < data.size(); i++) {
-            Calendar startCalendar = Calendar.getInstance();
-            String[] startDate = data.get(i).getWcStartDate().split("\\.");
-            startCalendar.set(Calendar.YEAR, Integer.parseInt(startDate[0]));
-            startCalendar.set(Calendar.MONTH, Integer.parseInt(startDate[1]) - 1);
-            startCalendar.set(Calendar.DATE, Integer.parseInt(startDate[2]));
-            startCalendar.set(Calendar.HOUR, 0);
-            startCalendar.set(Calendar.MINUTE, 0);
-            startCalendar.set(Calendar.SECOND, 0);
-            events.add(new EventDay(startCalendar, CSDrawableUtils.getCircleDrawableWithTextStart(getActivity())));
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcStartDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
+            events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextStart(getActivity())));
 
-            Calendar dueCalendar = Calendar.getInstance();
-            String[] dueDate = data.get(i).getWcDueDate().split("\\.");
-            dueCalendar.set(Calendar.YEAR, Integer.parseInt(dueDate[0]));
-            dueCalendar.set(Calendar.MONTH, Integer.parseInt(dueDate[1]) - 1);
-            dueCalendar.set(Calendar.DATE, Integer.parseInt(dueDate[2]));
-            dueCalendar.set(Calendar.HOUR, 0);
-            dueCalendar.set(Calendar.MINUTE, 0);
-            dueCalendar.set(Calendar.SECOND, 0);
-            events.add(new EventDay(dueCalendar, CSDrawableUtils.getCircleDrawableWithTextDue(getActivity())));
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcDueDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
+            events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextDue(getActivity())));
 
-            Calendar endCalendar = Calendar.getInstance();
-            String[] endDate = data.get(i).getWcEndDate().split("\\.");
-            endCalendar.set(Calendar.YEAR, Integer.parseInt(endDate[0]));
-            endCalendar.set(Calendar.MONTH, Integer.parseInt(endDate[1]) - 1);
-            endCalendar.set(Calendar.DATE, Integer.parseInt(endDate[2]));
-            endCalendar.set(Calendar.HOUR, 0);
-            endCalendar.set(Calendar.MINUTE, 0);
-            endCalendar.set(Calendar.SECOND, 0);
-            events.add(new EventDay(endCalendar, CSDrawableUtils.getCircleDrawableWithTextEnd(getActivity())));
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcEndDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
+            events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextEnd(getActivity())));
         }
 
         calendarView.setEvents(events);

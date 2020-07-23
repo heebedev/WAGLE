@@ -8,10 +8,13 @@
     <color name="mainColor">#A25990</color>
     <color name="subColor">#4b3c6c</color>
 
+    <color name="gray">#5000</color>
+
 
     <color name="colorNaver">#00BF34</color>
     <color name="colorNaverHighlighted">#137100</color>
 
     <color name="generalText">#5A5A5A</color>
+    <color name="generalTextLight">#8A8A8A</color>
 
 </resources>

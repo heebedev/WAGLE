@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
-    //final static String TAG = "Log check : ";
+    final static String TAG = "Log check : ";
     Context context;
     String mAddr;
     ProgressDialog progressDialog;
@@ -124,13 +124,16 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                 int wpReadPage = jsonObject1.getInt("wpReadPage");
                 int uSeqno = jsonObject1.getInt("uSeqno");
                 String uLoginType = jsonObject1.getString("uLoginType");
+                int wpSeqno = jsonObject1.getInt("wpSeqno");
 
-//                Log.v(TAG, uImageName);
-//                Log.v(TAG, String.valueOf(wpReadPage));
-//                Log.v(TAG, String.valueOf(uSeqno));
-//                Log.v(TAG, uLoginType);
+                Log.v(TAG, uImageName);
+                Log.v(TAG, String.valueOf(wpReadPage));
+                Log.v(TAG, String.valueOf(uSeqno));
+                Log.v(TAG, uLoginType);
+                Log.v(TAG, String.valueOf(wpSeqno));
 
-                Progress data = new Progress(uImageName, wpReadPage, uSeqno, uLoginType);
+                Progress data = new Progress(uImageName, wpReadPage, uSeqno, uLoginType, wpSeqno);
+
                 progressdata.add(data);
             }
 

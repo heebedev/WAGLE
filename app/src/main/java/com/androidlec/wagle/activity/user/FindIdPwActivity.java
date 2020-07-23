@@ -3,7 +3,6 @@ package com.androidlec.wagle.activity.user;
 
 import androidx.appcompat.app.AlertDialog;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.network_sh.NetworkTask_CRUD;
-import com.androidlec.wagle.network_sh.NetworkTask_FindIDPW;
+import com.androidlec.wagle.network_sh.NetworkTask_GetInfo;
 
 public class FindIdPwActivity extends Activity {
 
@@ -155,7 +154,7 @@ public class FindIdPwActivity extends Activity {
 
     private void connectGetData() {
         try {
-            NetworkTask_FindIDPW networkTask = new NetworkTask_FindIDPW(FindIdPwActivity.this, urlAddr);
+            NetworkTask_GetInfo networkTask = new NetworkTask_GetInfo(FindIdPwActivity.this, urlAddr, "findidpw");
             Object obj = networkTask.execute().get();
             findData = (String) obj;
         } catch (Exception e) {

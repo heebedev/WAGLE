@@ -25,8 +25,7 @@
             android:layout_gravity="center"
             android:text="7월 자유독서 모임"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/mainColor"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/item_waggle_cs_tv_date"

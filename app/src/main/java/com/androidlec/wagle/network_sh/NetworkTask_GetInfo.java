@@ -3,7 +3,6 @@ package com.androidlec.wagle.network_sh;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,17 +13,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NetworkTask_ckGrade extends AsyncTask<Integer, String, Object> {
+public class NetworkTask_GetInfo extends AsyncTask<Integer, String, Object> {
 
     Context context;
     String mAddr;
     String result;
+    String codeType;
 
     ProgressDialog progressDialog;
 
-    public NetworkTask_ckGrade(Context context, String mAddr) {
+    public NetworkTask_GetInfo(Context context, String mAddr, String codeType) {
         this.context = context;
         this.mAddr = mAddr;
+        this.codeType = codeType;
     }
 
     @Override
@@ -51,7 +52,6 @@ public class NetworkTask_ckGrade extends AsyncTask<Integer, String, Object> {
                     String strline = bufferedReader.readLine();
                     if (strline == null) break;
                     stringBuffer.append(strline + "\n");
-                    Log.e("status", strline);
                 }
 
                 Parser(stringBuffer.toString());
@@ -77,9 +77,15 @@ public class NetworkTask_ckGrade extends AsyncTask<Integer, String, Object> {
     private void Parser(String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("magrade_check"));
-            JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
-            result = jsonObject1.getString("maGrade");
+            if (codeType.equals("findidpw")) {
+                JSONArray jsonArray = new JSONArray(jsonObject.getString("find_idpw"));
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+                result = jsonObject1.getString("findidpw");
+            } else if (codeType.equals("bookseq")) {
+                JSONArray jsonArray = new JSONArray(jsonObject.getString("book_seq"));
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+                result = jsonObject1.getString("bookseq");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
