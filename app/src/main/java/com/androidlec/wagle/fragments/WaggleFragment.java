@@ -57,14 +57,6 @@ public class WaggleFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getDataQueryDue();
-
-    }
-
     private void getDataQueryDue() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
 
