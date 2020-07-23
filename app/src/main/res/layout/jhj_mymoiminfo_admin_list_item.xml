@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     android:layout_width="wrap_content"
     android:layout_height="80dp"
-    card_view:cardCornerRadius="20dp"
+    card_view:cardCornerRadius="16dp"
     card_view:cardUseCompatPadding="true"
     >
     <LinearLayout
@@ -16,9 +16,11 @@
         >
         <com.androidlec.wagle.CircularImageView
             android:id="@+id/mymoiminfo_admin_list_item_user_image"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:scaleType="centerCrop"
+            android:layout_gravity="center"
             />
 
         <LinearLayout
