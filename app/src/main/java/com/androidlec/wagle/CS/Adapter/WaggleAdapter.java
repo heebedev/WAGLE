@@ -66,8 +66,10 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                         break;
                     case 2: // 와글 신청이 안되었을 때.
                         intent = new Intent(mContext, ViewDetailWagleActivity.class);
+
                         intent.putExtra("data", data.get(position));
                         intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
+
                         mContext.startActivity(intent);
                         break;
                     case 0: // 데이터베이스 연결이 안되었을 때.

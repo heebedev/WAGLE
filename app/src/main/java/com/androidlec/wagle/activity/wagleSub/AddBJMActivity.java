@@ -113,7 +113,7 @@ public class AddBJMActivity extends AppCompatActivity {
                 case R.id.bt_bjmadd_bjmRegister :
                     // 데이터베이스 저장
                     centIP = "192.168.0.82";
-                    urlAddr = "http://" + centIP + ":8080/wagle/wagle_bjmadd.jsp?wseqno=" + UserInfo.WAGLESEQNO + "&count=" + bjmQuestCount + "&head=" + bjmHead.getText().toString();
+                    urlAddr = "http://" + centIP + ":8080/wagle/wagle_bjmadd.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&wseqno=" + UserInfo.WAGLESEQNO + "&count=" + bjmQuestCount + "&head=" + bjmHead.getText().toString();
 
                     for (int i = 1; i <= bjmQuestCount; i++) {
                         EditText text = findViewById(i);
@@ -130,6 +130,7 @@ public class AddBJMActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    finish();
                     break;
                 case R.id.bt_bjmadd_bjmCancel :
                     // 취소

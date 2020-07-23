@@ -1,6 +1,9 @@
 package com.androidlec.wagle.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +21,23 @@ public class QuestionListAdapter extends BaseAdapter {
     private Context mContext = null;
     private int layout = 0;
     private ArrayList<SgstRptList> data = null;
+    public ArrayList<SgstRptList> EditData = null;
     private LayoutInflater inflater = null;
 
-    TextView question;
-    EditText answer;
+    // 뷰 홀더 선언
+    public class ViewHolder {
+        TextView question;
+        EditText answer;
+        int ref;
+    }
 
     public QuestionListAdapter(Context mContext, int layout, ArrayList<SgstRptList> data) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
+        EditData = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
 
     @Override
     public int getCount() {
@@ -38,7 +46,7 @@ public class QuestionListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return data.get(position).getSrSeqno();
+        return data.get(position).getsSeqno();
     }
 
     @Override
@@ -48,30 +56,48 @@ public class QuestionListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
         if(convertView == null) {
+            holder = new ViewHolder();
+            //                           내가 그린 레이아웃, 부모의 리스트뷰
             convertView = inflater.inflate(this.layout, parent, false);
 
+            holder.question = convertView.findViewById(R.id.tv_dhglist_suggestion);
+            holder.answer = convertView.findViewById(R.id.et_dhglist_report);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder)convertView.getTag();
         }
 
-        question = convertView.findViewById(R.id.tv_dhglist_suggestion);
-        answer = convertView.findViewById(R.id.et_dhglist_report);
-        answer.setTag(position);
+        holder.ref = position;
+
 
         if (position == 0) {
-            question.setText("<서문> " + data.get(position).getSContent());
-            question.setEnabled(true);
+            holder.question.setText("<서문> " + data.get(position).getsContent());
+            holder.question.setEnabled(true);
         } else {
-            question.setText("질문 "+ position + ") " + data.get(position).getSContent());
-            if (data.get(position).getRContent().equals("null") == false) {
-                answer.setText(data.get(position).getRContent());
-            }
+            holder.question.setText("질문 "+ position + ") " + data.get(position).getsContent());
         }
 
-        return convertView;
-    }
+        holder.answer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    public String getPost(int position) {
-        String post = answer.getText().toString();
-        return post;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                EditData.get(holder.ref).setaContent(s.toString());
+            }
+        });
+
+        return convertView;
     }
 }
