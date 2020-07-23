@@ -91,7 +91,7 @@ public class AddDHGActivity extends Activity {
                     ArrayList<SgstRptList> EditData = adapter.EditData;
 
                     // 저장한 URL
-                    String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&num=" + EditData.size();
+                    String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&num=" + EditData.size();
 
                     // URL 에 EditText 넣기
                     for (int i = 1 ; i < EditData.size() ; i++) {

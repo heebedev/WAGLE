@@ -24,11 +24,11 @@ import java.util.Map;
 
 public class MyPageFragment extends Fragment {
 
-    Button btn_sendMessage;
+    private static Button btn_sendMessage;
 
     // Layout (findViewById 를 사용하기위해) 선언
-    ViewGroup rootView;
-    String IP = "192.168.0.82";
+    private static ViewGroup rootView;
+    private static String IP = "192.168.0.82";
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -62,10 +62,24 @@ public class MyPageFragment extends Fragment {
         TextView rankNum4 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num4);
         TextView rankNum5 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num5);
 
-        ListView wagleListView = rootView.findViewById(R.id.fragment_my_page_Wagle_ListVIew);
-        ListView bookReportListView = rootView.findViewById(R.id.fragment_my_page_BookReport_ListVIew);
+        Button wagleBtn1 = rootView.findViewById(R.id.fragment_my_page_Wagle1);
+        Button wagleBtn2 = rootView.findViewById(R.id.fragment_my_page_Wagle2);
+        Button wagleBtn3 = rootView.findViewById(R.id.fragment_my_page_Wagle3);
+        Button wagleBtn4 = rootView.findViewById(R.id.fragment_my_page_Wagle4);
+
+        TextView waglePlusBtn = rootView.findViewById(R.id.fragment_my_page_Wagle_Plus);
+
+        Button bookReportBtn1 = rootView.findViewById(R.id.fragment_my_page_BookReport1);
+        Button bookReportBtn2 = rootView.findViewById(R.id.fragment_my_page_BookReport2);
+        Button bookReportBtn3 = rootView.findViewById(R.id.fragment_my_page_BookReport3);
+        Button bookReportBtn4 = rootView.findViewById(R.id.fragment_my_page_BookReport4);
+
+        TextView bookReportPlusBtn = rootView.findViewById(R.id.fragment_my_page_BookReport_Plus);
     }
 
+
+
+    // 카카오톡 이벤트
     View.OnClickListener onClickListener = v -> {
         kakaoLink();
     };
@@ -102,5 +116,6 @@ public class MyPageFragment extends Fragment {
                     }
                 });
     }
+    // 카카오톡 이벤트 끝
 
 }
