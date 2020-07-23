@@ -22,16 +22,8 @@
         <activity android:name=".activity.wagleSub.AddBookActivity"></activity>
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
-<<<<<<< HEAD
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
-        <activity android:name=".jhj.Jhj_Post_Notice_List" />
-=======
-
-        <activity android:name=".jhj.Jhj_Post_Gallery_List"/>
-
         <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
-
->>>>>>> 2daae40d9c8b606151abe2a1649289d1c51c3402
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
         <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
