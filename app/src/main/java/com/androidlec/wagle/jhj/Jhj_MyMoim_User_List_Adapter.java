@@ -61,7 +61,7 @@ public class Jhj_MyMoim_User_List_Adapter extends BaseAdapter {
         Glide.with(convertView).load("http://" + IP + ":8080/wagle/userImgs/" + data.get(position).getuImageName()).into(mymoiminfo_user_imageIcon);
 
         mymoiminfo_user_name.setText(data.get(position).getuName());
-        mymoiminfo_user_grade.setText(data.get(position).getMaGrade());
+        mymoiminfo_user_grade.setText("일반");
 
         return convertView;
     }

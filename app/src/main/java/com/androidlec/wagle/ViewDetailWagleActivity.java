@@ -15,6 +15,7 @@ import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
     private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
+    private TextView tv_bookInfo, tv_num6Name;
     private CheckBox cb_agreement;
     String title;
     Intent intent;
@@ -42,6 +43,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         et_wagleAgreeRefund = findViewById(R.id.vdw_cs_et_wagleAgreeRefund);
         tv_joinIn = findViewById(R.id.vdw_cs_tv_joinIn);
         cb_agreement = findViewById(R.id.vdw_cs_cb_agreement);
+        tv_bookInfo = findViewById(R.id.vdw_cs_tv_bookInfo);
+        tv_num6Name = findViewById(R.id.vdw_cs_tv_num6name);
 
         tv_joinIn.setOnClickListener(onClickListener);
 
@@ -65,6 +68,13 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         et_fee.setText(data.getWcEntryFee());
         et_wagleDetail.setText(data.getWcWagleDetail());
         et_wagleAgreeRefund.setText(data.getWcWagleAgreeRefund());
+
+        if (data.getWcType().equals("투데이")) {
+            et_wagleAgreeRefund.setVisibility(View.GONE);
+            tv_bookInfo.setVisibility(View.GONE);
+            tv_num6Name.setVisibility(View.GONE);
+
+        }
     }
 
     View.OnClickListener onClickListener = v -> {

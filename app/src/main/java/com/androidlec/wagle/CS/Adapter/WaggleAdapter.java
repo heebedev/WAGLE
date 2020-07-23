@@ -20,6 +20,7 @@ import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.ViewDetailWagleActivity;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
+import com.google.android.gms.common.api.internal.IStatusCallback;
 
 import java.util.ArrayList;
 
@@ -55,12 +56,12 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
             @Override
             public void onClick(View v) {
                 Intent intent = null;
-
                 switch (chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno()))){
                     case 1: // 와글 신청이 되었을 때.
                         intent = new Intent(mContext, MyWagleActivity.class);
                         UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
-                        intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
+                        UserInfo.WAGLENAME = data.get(position).getWcName();
+                        UserInfo.WAGLETYPE = data.get(position).getWcType();
                         mContext.startActivity(intent);
                         break;
                     case 2: // 와글 신청이 안되었을 때.

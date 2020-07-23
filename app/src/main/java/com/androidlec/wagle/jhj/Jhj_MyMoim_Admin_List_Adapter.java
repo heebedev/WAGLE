@@ -61,7 +61,8 @@ public class Jhj_MyMoim_Admin_List_Adapter extends RecyclerView.Adapter<Jhj_MyMo
     public void onBindViewHolder(@NonNull Jhj_MyMoim_Admin_List_Adapter.ViewHolder holder, int position) {
         manager.load("http://" + IP + ":8080/wagle/userImgs/" + data.get(position).getuImageName()).into(holder.mymoim_icon_image);
         holder.mymoim_user_name.setText(data.get(position).getuName());
-        holder.mymoim_user_grade.setText(data.get(position).getMaGrade());
+        holder.mymoim_user_grade.setText("운영진");
+
     }
 
     @Override

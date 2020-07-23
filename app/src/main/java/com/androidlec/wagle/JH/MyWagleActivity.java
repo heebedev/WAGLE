@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
@@ -38,24 +39,49 @@ import java.util.ArrayList;
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    final static String TAG = "Log check : ";
-    String urlAddr;
-    ListView lv_itemlist;
-    String item;
-    int price, paymentcnt;
-    PaymentAdapter adapter;
-    ArrayList<Payment> lists;
-    ArrayList<Progress> progressdata;
-    ArrayList<ImageView> imageViews;
-    int index = 0;
+    //final static String TAG = "Log check : ";
+    private String urlAddr;
+    private ListView lv_itemlist;
+    private String item;
+    private String wcSeqno;
+    private int price, paymentcnt;
+    private PaymentAdapter adapter;
+    private ArrayList<Payment> lists;
+    private ArrayList<Progress> progressdata;
+    private ArrayList<ImageView> imageViews;
+    private int index = 0;
+
+    // 와글 이름
+    private TextView wagleName;
+
+    // 독후감
+    private TextView btn_bookreportAdd, tv_viewBJM;
+    private Button btn_suggestionAdd;
+    private ListView listView;
+
+    // 프로그레스바 파트.
+    private RelativeLayout rl_images;
+    private ProgressBar pb_book;
+    private Button btn_move;
+    private EditText et_wpReadPage;
+
+    // 갤러리 파트.
+    private Button btn_galleryAdd;
+    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
+    private TextView tv_galleryPlus;
+
+    // 정산 파트.
+    private Button btn_paymentAdd;
+    private LinearLayout layout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wagle);
 
-        getProfileReadPage();
         init();
+        getProfileReadPage();
         getData();
     }
 
@@ -70,15 +96,40 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void init() {
+        // 와글 이름
+        wagleName = findViewById(R.id.tv_mywagle_wagleName);
+        wagleName.setText(UserInfo.WAGLENAME);
+
         // 독후감 파트.
-        TextView btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
-        Button btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        ListView listView = findViewById(R.id.mywagle_lv_bookreport);
+        btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
+        btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
+        tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
+        listView = findViewById(R.id.mywagle_lv_bookreport);
+
         btn_bookreportAdd.setOnClickListener(onClickListener);
         btn_suggestionAdd.setOnClickListener(onClickListener);
 
         // 프로그레스바 파트.
-        initProgressBar();
+        rl_images = findViewById(R.id.mywagle_rl_images);
+        pb_book = findViewById(R.id.mywagle_pb_book);
+        btn_move = findViewById(R.id.mywagle_btn_move);
+        et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
+
+
+
+
+        if (UserInfo.WAGLETYPE.equals("투데이")) {
+            tv_viewBJM.setVisibility(View.GONE);
+            btn_bookreportAdd.setVisibility(View.GONE);
+            btn_suggestionAdd.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
+            rl_images.setVisibility(View.GONE);
+            pb_book.setVisibility(View.GONE);
+            btn_move.setVisibility(View.GONE);
+            et_wpReadPage.setVisibility(View.GONE);
+        } else {
+            initProgressBar();
+        }
 
         // 갤러리 파트.
         Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
@@ -144,11 +195,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void initProgressBar(){
 
-        RelativeLayout rl_images = findViewById(R.id.mywagle_rl_images);
-        ProgressBar pb_book = findViewById(R.id.mywagle_pb_book);
-        Button btn_move = findViewById(R.id.mywagle_btn_move);
-        EditText et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
-
         int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
         pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
 
@@ -158,7 +204,7 @@ public class MyWagleActivity extends AppCompatActivity {
         imageViews = new ArrayList<ImageView>();
 
         for(int i = 0; i < size; i++) {
-            Log.v(TAG, "----***size:---"+size);
+            //Log.v(TAG, "----***size:---"+size);
 
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
@@ -275,7 +321,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void getProfileReadPage() {
-        int wcSeqno = 1; // 임시 절대값.
+        wcSeqno = UserInfo.WAGLESEQNO;
         urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
@@ -290,7 +336,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private int getwbMaxPage() {
         int wbMaxPage = 0;
-        int wcSeqno = 1; // 임시 절대값.
+        wcSeqno = UserInfo.WAGLESEQNO;
         urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
@@ -319,7 +365,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private int paymentCnt(){
-        int wcSeqno = 1; // 임시 절대값.
+        wcSeqno = UserInfo.WAGLESEQNO;
         paymentcnt = 3;
         urlAddr = "http://192.168.0.178:8080/wagle/paymentCnt.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
@@ -329,7 +375,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void urlDivider(String function, int wpSeqno, String wpItem, int wpPrice){
-        String wcSeqno = "1"; // 임의로 절대값 넣음.
+        wcSeqno = UserInfo.WAGLESEQNO;
         switch(function){
             case "wpItemAdd":
                 urlAddr = "http://192.168.0.178:8080/wagle/wpItemAdd.jsp?";
