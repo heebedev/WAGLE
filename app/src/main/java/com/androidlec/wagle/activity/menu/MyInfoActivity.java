@@ -113,7 +113,7 @@ public class MyInfoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!uLoginType.equals("wagle")){
-            iv_photo.setClickable(false);
+//            iv_photo.setClickable(false);
             tv_changePw.setVisibility(View.INVISIBLE);
         }
     }
@@ -124,6 +124,7 @@ public class MyInfoActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
+                    Toast.makeText(MyInfoActivity.this, "testest", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();
@@ -146,7 +147,9 @@ public class MyInfoActivity extends AppCompatActivity {
     };
 
     private void getmyInfo(){
-        uSeqno = Integer.toString(UserInfo.USEQNO);
+//       uSeqno =  UserInfo.USEQNO;
+        uSeqno = "1"; //******  절대값 수정해주세요!! ******
+//         uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();

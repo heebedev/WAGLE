@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0.75dp"
     app:cardMaxElevation="2dp">
 
     <LinearLayout
@@ -24,8 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="7월 자유독서 모임"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/mainColor"/>
 
         <TextView
             android:id="@+id/item_waggle_cs_tv_date"

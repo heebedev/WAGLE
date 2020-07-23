@@ -58,9 +58,9 @@
                 android:id="@+id/wagle_fab_addwagle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
+                android:layout_gravity="right|bottom"
                 android:textColor="@color/mainColor"
-                android:layout_margin="20dp"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_baseline_add_24"
                  />
 
