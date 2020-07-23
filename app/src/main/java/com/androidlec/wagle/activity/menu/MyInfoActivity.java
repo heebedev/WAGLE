@@ -29,7 +29,6 @@ import androidx.core.content.ContextCompat;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
@@ -58,7 +57,7 @@ public class MyInfoActivity extends AppCompatActivity {
 
 
     // 카메라 관련
-    private static final int PERMISSION_REQUST_CODE = 100;
+    private static final int PERMISSION_REQUEST_CODE = 100;
     private static final int IMAGE_PICK_CAMERA_CODE = 101;
     private static final int IMAGE_PICK_GALLERY_CODE = 102;
 
@@ -124,7 +123,7 @@ public class MyInfoActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
-                    Toast.makeText(MyInfoActivity.this, "testest", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyInfoActivity.this, "이미지가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();
@@ -305,7 +304,7 @@ public class MyInfoActivity extends AppCompatActivity {
         }
         if (!TextUtils.isEmpty(temp)) {
             // 권한 요청 다이얼로그
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "), PERMISSION_REQUST_CODE);
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "), PERMISSION_REQUEST_CODE);
         } else {
             // 모두 허용 상태
             return true;
@@ -318,7 +317,7 @@ public class MyInfoActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //권한을 허용 했을 경우
-        if (requestCode == PERMISSION_REQUST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             int length = permissions.length;
             for (int i = 0; i < length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {

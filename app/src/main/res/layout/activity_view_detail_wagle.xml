@@ -18,7 +18,7 @@
             android:layout_marginBottom="30dp"
             android:background="@null"
             android:gravity="center"
-            android:hint="정규 와글의 제목을 입력해주세요."
+            android:hint="와글 이름"
             android:singleLine="true"
             android:textColorHint="#605A5A5A"
             android:textSize="25dp"
@@ -176,7 +176,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_addwagle_wagleAddBookInfo"
+                android:id="@+id/vdw_cs_tv_bookInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="180dp"
@@ -201,6 +201,7 @@
 
 
         <TextView
+            android:id="@+id/vdw_cs_tv_num6name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

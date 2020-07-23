@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
+                    android:padding="5dp"
                     android:background="@drawable/white_rounded_background"
                     android:gravity="center"
                     android:hint="서문을 입력하세요" />

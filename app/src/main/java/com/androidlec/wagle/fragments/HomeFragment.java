@@ -250,7 +250,7 @@ public class HomeFragment extends Fragment {
                     intent = new Intent(getActivity(), Jhj_Post_Gallery_List.class);
                     break;
                 case R.id.fragment_home_Wagle_Plus :
-                    ((HomeActivity)getActivity()).fragmentMove();
+                    getActivity().findViewById(R.id.navigation_wagle).performClick();
                     return;
                 case R.id.fragment_home_BookReport_Plus :
                     intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);

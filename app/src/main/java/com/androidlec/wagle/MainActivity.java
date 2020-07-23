@@ -48,22 +48,4 @@ public class MainActivity extends Activity {
         }, 1500);
 
     }
-
-    public String getKeyHash(final Context context) {
-        PackageInfo packageInfo = Utility.getPackageInfo(context, PackageManager.GET_SIGNATURES);
-        if (packageInfo == null)
-            return null;
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-
-                return Base64.encodeToString(md.digest(), Base64.NO_WRAP);
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("TAG", "디버그 keyHash" + signature);
-            }
-        }
-        return null;
-    }
 }
