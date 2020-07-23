@@ -7,6 +7,7 @@ public class Jhj_BookReport_DTO {
     String brContent;
     String wcSeqno;
 
+    // 독서감상문 에서 사용하는 DTO
     public Jhj_BookReport_DTO(String brSeqno, String uSeqno, String brContent, String wcSeqno) {
         this.brSeqno = brSeqno;
         this.uSeqno = uSeqno;
