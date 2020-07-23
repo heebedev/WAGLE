@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
+        android:windowSoftInputMode="adjustPan"
         android:usesCleartextTraffic="true">
         <activity android:name=".FindLocationActivity" />
 

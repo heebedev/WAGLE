@@ -4,7 +4,6 @@ package com.androidlec.wagle.activity.wagleSub;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
-
 
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -27,28 +25,32 @@ public class AddDHGActivity extends Activity {
 
     private final static String TAG = "AddDHGActivity";
 
-    private String centIP = "192.168.0.82";
+    private static String centIP = "192.168.0.82";
 
     //질문리스트뷰
-    private ArrayList<SgstRptList> questionListData;
-    private QuestionListAdapter adapter;
-    private ListView questionList;
+    private static ArrayList<SgstRptList> questionListData;
+    private static QuestionListAdapter adapter;
+    private static ListView questionList;
 
-    private int preseq = -1;
-    private EditText preet;
+    // 저장, 취소 버튼
+    private static Button registDhg;
+    private static Button cancelDhg;
 
-    private Button registDhg;
-    private Button cancelDhg;
-
-    private EditText report;
+    // ListView 숨겨진 EditText
+    private static EditText report;
 
     // 초기화
     private void init() {
+        // 초기선언
         questionList = findViewById(R.id.lv_dhglist_questionList);
+
+        // 저장, 취소 버튼
         registDhg = findViewById(R.id.bt_dhgadd_dgmRegister);
         cancelDhg = findViewById(R.id.bt_dhgadd_dhgCancel);
 
-        String urlAddr = "http://" + centIP + ":8080/wagle/wagle_questionlist.jsp?&wcseqno=" + UserInfo.WAGLESEQNO;
+        // Data 불러오는 URL
+        String urlAddr = "http://" + centIP + ":8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
+
         connectGetData(urlAddr);
     }
 
@@ -64,8 +66,10 @@ public class AddDHGActivity extends Activity {
 
         init();
 
+        // ListView 이벤트
         questionList.setOnItemClickListener(questionClickListener);
 
+        // 버튼 이벤트
         registDhg.setOnClickListener(dhgRegCanClickListener);
         cancelDhg.setOnClickListener(dhgRegCanClickListener);
     }
@@ -74,31 +78,13 @@ public class AddDHGActivity extends Activity {
     ListView.OnItemClickListener questionClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            int seqno;
 
-            if(position != 0) {
-                if (preseq != -1) {
-                    //                SgstRptList sgstRptList = new SgstRptList(preseq, preet.getText().toString());
-                    //                reportAddData.add(sgstRptList);
-                    seqno = (int) questionList.getItemAtPosition(position);
-                    report = view.findViewById(R.id.et_dhglist_report);
-                    report.setVisibility(View.VISIBLE);
-
-                    preseq = seqno;
-                    preet = report;
-
-                } else {
-                    seqno = (int) questionList.getItemAtPosition(position);
-                    report = view.findViewById(R.id.et_dhglist_report);
-                    report.setVisibility(View.VISIBLE);
-
-                    preseq = seqno;
-                    preet = report;
-                }
+            if (position != 0) {
+                report = view.findViewById(R.id.et_dhglist_report);
+                report.setVisibility(View.VISIBLE);
             }
         }
     };
-
 
     Button.OnClickListener dhgRegCanClickListener = new View.OnClickListener() {
         @Override
@@ -106,6 +92,19 @@ public class AddDHGActivity extends Activity {
             switch (v.getId()) {
                 // 저장
                 case R.id.bt_dhgadd_dgmRegister :
+                    // EditText 가 저장된 Data
+                    ArrayList<SgstRptList> EditData = adapter.EditData;
+
+                    // 저장한 URL
+                    String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&num=" + EditData.size();
+
+                    // URL 에 EditText 넣기
+                    for (int i = 1 ; i < EditData.size() ; i++) {
+                        urlAddr = urlAddr + "&sSeqno" + i + "=" + questionListData.get(i).getsSeqno() + "&bContent" + i + "=" + EditData.get(i).getaContent();
+                    }
+
+                    // 보내기
+                    connectSetData(urlAddr);
 
                     break;
                 // 취소
@@ -126,8 +125,6 @@ public class AddDHGActivity extends Activity {
                             })
                             .show();
                     break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + v.getId());
             }
         }
     };
@@ -152,7 +149,6 @@ public class AddDHGActivity extends Activity {
         try {
             NetworkTask_CRUD networkTask = new NetworkTask_CRUD(AddDHGActivity.this, urlAddr);
             networkTask.execute();
-            result = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
