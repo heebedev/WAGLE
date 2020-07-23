@@ -9,6 +9,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_mywagle_wagleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="내가 선택한 와글"
+            android:textSize="20dp"
+            android:textColor="@color/mainColor"
+            android:textStyle="bold"/>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,11 +64,12 @@
                 android:id="@+id/mywagle_pb_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="36dp"
                 android:max="200"
                 android:progress="0"
                 android:secondaryProgress="0"
-                style="?android:attr/progressBarStyleHorizontal"
-                />
+                style="?android:attr/progressBarStyleHorizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="페이지"
+                    android:hint="현재까지 읽은 페이지 수"
                     android:inputType="numberDecimal"
                     />
 
@@ -105,7 +119,7 @@
             <ListView
                 android:id="@+id/mywagle_lv_bookreport"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -138,7 +152,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -146,7 +160,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/jhj_wagle_image_loundary" />
 
-            <ImageView
+            <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -154,7 +168,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/jhj_wagle_image_loundary" />
 
-            <ImageView
+            <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery3"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -181,7 +195,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="비용정산" />
+                android:text="" />
 
             <FrameLayout
                 android:layout_width="match_parent"

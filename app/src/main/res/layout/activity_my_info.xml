@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.menu.MyInfoActivity">
@@ -16,12 +17,13 @@
         android:textStyle="bold"
         android:textColor="@color/mainColor" />
 
-    <com.androidlec.wagle.CircularImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/myInfo_iv_photo"
         android:background="@drawable/ic_outline_emptyimage"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginBottom="20dp"
+        app:civ_border="false"
          />
 
 

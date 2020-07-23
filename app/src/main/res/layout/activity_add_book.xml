@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.wagleSub.AddBookActivity"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/addbookinfo_ll_addbookimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.androidlec.wagle.GalleryImageView
+            android:id="@+id/addbookinfo_iv_bookImage"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/ic_baseline_crop_din_24"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이미지 등록하기"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/mainColor"
+            android:layout_marginBottom="24dp"
+            />
+
+    </LinearLayout>
+
+
+
+    <EditText
+        android:id="@+id/addbookinfo_et_bookname"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="책 이름"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+    <EditText
+        android:id="@+id/addbookinfo_et_bookwriter"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="저자"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+    <EditText
+        android:id="@+id/addbookinfo_et_bookmaxpage"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="총 페이지 수"
+        android:layout_marginTop="10dp"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+    <EditText
+        android:id="@+id/addbookinfo_et_bookinfo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:minHeight="100dp"
+        android:layout_marginTop="10dp"
+        android:hint="책 소개"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+    <EditText
+        android:id="@+id/addbookinfo_et_bookdata"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:minHeight="100dp"
+        android:layout_marginTop="10dp"
+        android:hint="책 추가 정보"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="28dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/addbookinfo_tv_cancleBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="취소"/>
+
+        <TextView
+            android:id="@+id/addbookinfo_tv_registerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:text="등록"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -25,8 +22,6 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
-import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;

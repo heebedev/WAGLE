@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:ignore="MissingDefaultResource">
+
+
+
+    <com.androidlec.wagle.GalleryImageView
+        android:id="@+id/bookinfo_iv_bookImage"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:background="@drawable/ic_baseline_crop_din_24"
+        />
+
+    <TextView
+        android:id="@+id/bookinfo_tv_bookname"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="책 이름"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+    <TextView
+        android:id="@+id/bookinfo_tv_bookwriter"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="저자"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+    <TextView
+        android:id="@+id/bookinfo_tv_bookmaxpage"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="총 페이지 수"
+        android:layout_marginTop="10dp"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+    <TextView
+        android:id="@+id/bookinfo_tv_bookinfo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="책 소개"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+    <TextView
+        android:id="@+id/bookinfo_tv_bookdata"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="책 추가 정보"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/white_rounded_background"/>
+
+
+    <TextView
+        android:id="@+id/bookinfo_tv_checkBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="닫기"/>
+
+
+
+</LinearLayout>

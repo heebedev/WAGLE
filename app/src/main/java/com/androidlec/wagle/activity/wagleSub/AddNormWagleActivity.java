@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -145,6 +145,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_addwagle_wagleAddBookInfo:
+                    startActivity(new Intent(AddNormWagleActivity.this, AddBookActivity.class));
                     break;
                 case R.id.tv_addwagle_wagleRegister:
                     InputWagleCreateData();
@@ -188,8 +189,13 @@ public class AddNormWagleActivity extends AppCompatActivity {
         String wcWagleAgreeRefund = wagleAgreeRefund.getText().toString().trim();
 
 
+        createWagleNetwork(wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund);
+
+    }
+
+    private void createWagleNetwork(String wcName, String wcType, String wcStartDate, String wcEndDate, String wcDueDate, String wcLocate, String wcEntryFee, String wcWagleDetail, String wcWagleAgreeRefund) {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + 1 +
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + UserInfo.WAGLEBOOKSEQ +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
                 "&wcEndDate=" + wcEndDate + "&wcDueDate=" + wcDueDate +
                 "&wcLocate=" + wcLocate + "&wcEntryFee=" + wcEntryFee +
@@ -200,12 +206,24 @@ public class AddNormWagleActivity extends AppCompatActivity {
 
         try {
             WCNetworkTask wcNetworkTask = new WCNetworkTask(AddNormWagleActivity.this, urlAddr);
-            wcNetworkTask.execute().get();
+            String seq = wcNetworkTask.execute().get();
+            inputWagleUserNetwork(seq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void inputWagleUserNetwork(String seq) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
+        urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
+
+        try {
+            NetworkTask networkTask = new NetworkTask(AddNormWagleActivity.this, urlAddr);
+            networkTask.execute();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.MyPageFragment"
-    android:padding="15dp"
-    >
+    android:padding="15dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,12 +23,13 @@
                 android:orientation="horizontal"
                 >
 
-                <com.androidlec.wagle.CircularImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="40dp"
                     android:id="@+id/fragment_my_page_RankingIcon"
                     android:background="@drawable/ic_outline_emptyimage"
+                    app:civ_border="false"
                     />
 
                 <TextView
@@ -169,13 +169,64 @@
                 android:layout_marginTop="5dp"
                 />
 
-            <ListView
+            <Button
+                android:id="@+id/fragment_my_page_Wagle1"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp"/>
+
+
+            <Button
+                android:id="@+id/fragment_my_page_Wagle2"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/fragment_my_page_Wagle3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/fragment_my_page_Wagle4"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/fragment_my_page_Wagle_Plus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_my_page_Wagle_ListVIew"
-                android:background="@drawable/white_rounded_background"
-                android:layout_marginTop="8dp"
-                />
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="더보기"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -185,13 +236,63 @@
                 android:layout_marginTop="25dp"
                 />
 
-            <ListView
+            <Button
+                android:id="@+id/fragment_my_page_BookReport1"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/fragment_my_page_BookReport2"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/fragment_my_page_BookReport3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/fragment_my_page_BookReport4"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/jhj_wagle_btn_loundary"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/fragment_my_page_BookReport_Plus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_my_page_BookReport_ListVIew"
-                android:background="@drawable/white_rounded_background"
-                android:layout_marginTop="8dp"
-                />
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="더보기"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
 
 
             <Button
@@ -208,9 +309,7 @@
 
         </LinearLayout>
 
-
     </ScrollView>
-
 
 
 </FrameLayout>

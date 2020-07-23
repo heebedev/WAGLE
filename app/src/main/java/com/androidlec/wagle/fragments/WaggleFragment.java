@@ -2,9 +2,11 @@ package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,11 +26,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WaggleFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WaggleFragment extends Fragment {
 
     //스피너
@@ -45,8 +42,6 @@ public class WaggleFragment extends Fragment {
     private WaggleAdapter adapter;
     private ArrayList<WagleList> data;
 
-
-
     public WaggleFragment() {
         // Required empty public constructor
     }
@@ -62,11 +57,35 @@ public class WaggleFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void getDataQueryDue() {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
 
-        getData();
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
+            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
+            setAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } // 마감순 정렬
+
+    private void getDataQueryPopular() {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListPopularWAGLE.jsp?";
+
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
+            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
+            setAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } // 인기순 정렬
+
+    private void setAdapter() {
         if (data.size() == 0) {
             tv_noWagleList.setVisibility(View.VISIBLE);
             rv_wagleList.setVisibility(View.GONE);
@@ -75,20 +94,6 @@ public class WaggleFragment extends Fragment {
             rv_wagleList.setVisibility(View.VISIBLE);
             adapter = new WaggleAdapter(getActivity(), data);
             rv_wagleList.setAdapter(adapter);
-        }
-
-    }
-
-    private void getData() {
-        String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
-
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
-
-        try {
-            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
-            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -102,15 +107,35 @@ public class WaggleFragment extends Fragment {
 
         spinSearch = v.findViewById(R.id.sp_Wagle_ArrangeSpinner);
 
-        spinList = new ArrayList<String>();
-        spinList.add("최신순");
+        spinList = new ArrayList<>();
+        spinList.add("마감순");
         spinList.add("인기순");
 
         spinArrayAdapt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinList);
         spinSearch.setAdapter(spinArrayAdapt);
 
+        spinSearch.setOnItemSelectedListener(onItemSelectedListener);
 
     }
+
+    AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            switch (position){
+                case 0: // 마감순 정렬
+                    getDataQueryDue();
+                    break;
+                case 1: // 인기순 정렬
+                    getDataQueryPopular();
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
-    >
+    android:layout_margin="5dp">
 
-    <com.androidlec.wagle.CircularImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="8dp"
         android:id="@+id/mymoiminfo_user_list_item_image"
         android:scaleType="centerCrop"
+        app:civ_border="false"
         />
 
     <LinearLayout

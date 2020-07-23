@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class WCNetworkTask extends AsyncTask<Integer, String, Void> {
+public class WCNetworkTask extends AsyncTask<Integer, String, String> {
 
     private Context context;
     private String mAddr;
@@ -32,7 +35,7 @@ public class WCNetworkTask extends AsyncTask<Integer, String, Void> {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
+    protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
         progressDialog.dismiss();
     }
@@ -43,20 +46,37 @@ public class WCNetworkTask extends AsyncTask<Integer, String, Void> {
     }
 
     @Override
-    protected Void doInBackground(Integer... integers) {
+    protected String doInBackground(Integer... integers) {
+        String result = "";
+
+        StringBuffer stringBuffer = new StringBuffer();
+        InputStream inputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader;
         try {
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
 
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                inputStream = httpURLConnection.getInputStream();
+                inputStreamReader = new InputStreamReader(inputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
+
+                while (true) {
+                    String strline = bufferedReader.readLine();
+                    if (strline == null) break;
+                    stringBuffer.append(strline + "\n");
+                }
+
+                result = stringBuffer.toString().trim();
 
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 
 }
