@@ -31,6 +31,9 @@ public class MainActivity extends Activity {
 
         ImageView iv_splash = findViewById(R.id.iv_splash);
 
+        Log.e("Chance", getKeyHash(MainActivity.this));
+        //getKeyHash(MainActivity.this);
+
         Glide.with(this)
                 .load(R.drawable.waglenewlogo)
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))

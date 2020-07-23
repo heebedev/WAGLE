@@ -75,6 +75,16 @@ public class MyWagleActivity extends AppCompatActivity {
     private Button btn_paymentAdd;
     private LinearLayout layout;
 
+    final static String TAG = "Log check : ";
+    String urlAddr;
+    ListView lv_itemlist;
+    String item;
+    int price, paymentcnt;
+    PaymentAdapter adapter;
+    ArrayList<Payment> lists;
+    ArrayList<Progress> progressdata;
+    ArrayList<ImageView> imageViews;
+    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,7 @@ public class MyWagleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_wagle);
 
         getProfileReadPage();
+
         getData();
         init();
     }
@@ -91,8 +102,8 @@ public class MyWagleActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // 리스트 가져오기.
-        urlDivider("paymentList", 0, null,0);
-        getTotal();
+//        urlDivider("paymentList", 0, null,0);
+//        getTotal();
     }
 
 
@@ -102,7 +113,6 @@ public class MyWagleActivity extends AppCompatActivity {
         wagleName.setText(UserInfo.WAGLENAME);
 
         // 독후감 파트.
-
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
         tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
@@ -214,7 +224,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void initProgressBar(){
 
-
         int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
         pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
 
@@ -291,7 +300,6 @@ public class MyWagleActivity extends AppCompatActivity {
         }
     }
 
-
     public static int dpToPx(int dp, RelativeLayout context) {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
@@ -300,7 +308,35 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void getData(){
         // 리스트 가져오기.
-        urlDivider("paymentList", 0, null,0);
+//        urlDivider("paymentList", 0, null,0);
+    }
+  
+    private void getProfileReadPage() {
+        int wcSeqno = 1; // 임시 절대값.
+        urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+        try {
+            JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
+            Object obj = networkTask6.execute().get();
+            progressdata = (ArrayList<Progress>) obj;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    private int getwbMaxPage() {
+        int wbMaxPage = 0;
+        int wcSeqno = 1; // 임시 절대값.
+        urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+        try {
+            JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
+            wbMaxPage = networkTask4.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return wbMaxPage;
     }
 
 

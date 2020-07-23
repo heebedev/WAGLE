@@ -18,7 +18,9 @@ import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
     private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
+
     private TextView tv_bookInfo, tv_num6Name;
+
     private CheckBox cb_agreement;
     String title;
     Intent intent;
@@ -28,7 +30,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     //BookInfo
     private TextView bk_title, bk_writer, bk_maxpage, bk_intro, bk_data, bk_checkOk;
     private BookInfo bookinfo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
 
         tv_joinIn.setOnClickListener(onClickListener);
         tv_bookInfo.setOnClickListener(onClickListener);
+
+        intent = getIntent();
 
         intent = getIntent();
 

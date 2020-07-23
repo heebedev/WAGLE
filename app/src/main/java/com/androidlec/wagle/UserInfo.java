@@ -3,7 +3,7 @@ package com.androidlec.wagle;
 public class UserInfo {
 
     // 유저
-    public static int USEQNO;
+    public static int USEQNO = 1;
     public static String UID;
     public static String UEMAIL;
     public static String UNAME;

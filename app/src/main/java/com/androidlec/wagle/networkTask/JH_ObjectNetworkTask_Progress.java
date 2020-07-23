@@ -133,6 +133,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                 Log.v(TAG, String.valueOf(wpSeqno));
 
                 Progress data = new Progress(uImageName, wpReadPage, uSeqno, uLoginType, wpSeqno);
+
                 progressdata.add(data);
             }
 
