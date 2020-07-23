@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".jhj.Jhj_Post_Notice_List">
+    tools:context=".jhj.Jhj_Post_Notice_DHG_List">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

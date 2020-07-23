@@ -101,6 +101,7 @@ public class AddDHGActivity extends Activity {
                     // 보내기
                     connectSetData(urlAddr);
 
+                    finish();
                     break;
                 // 취소
                 case R.id.bt_dhgadd_dhgCancel :

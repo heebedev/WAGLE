@@ -25,7 +25,7 @@
 
         <activity android:name=".jhj.Jhj_Post_Gallery_List"/>
 
-        <activity android:name=".jhj.Jhj_Post_Notice_List" />
+        <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
 
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
 
