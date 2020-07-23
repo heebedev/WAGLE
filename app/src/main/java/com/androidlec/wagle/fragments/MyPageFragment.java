@@ -70,11 +70,8 @@ public class MyPageFragment extends Fragment {
         btn_sendMessage.setOnClickListener(onClickListener);
 
         ImageView rankingIcon = rootView.findViewById(R.id.fragment_my_page_RankingIcon);
-        TextView myName = rootView.findViewById(R.id.fragment_my_page_Text_Name);
-        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
 
-        TextView wagleNum = rootView.findViewById(R.id.fragment_my_page_Text_WagleNum);
-        TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
+        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
 
         TextView rankNum1 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num1);
         TextView rankNum2 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num2);
@@ -92,6 +89,22 @@ public class MyPageFragment extends Fragment {
         Log.v(TAG, "urlAddr = " + urlAddr);
         String MyPage_JsonString = MyPage_Select_All(urlAddr);
         data = MyPage_parser(MyPage_JsonString);
+
+        // 유저 이름 넣기
+        TextView myName = rootView.findViewById(R.id.fragment_my_page_Text_Name);
+        myName.setText(UserInfo.UNAME);
+
+
+        // 참여한 총 와글 00개 / 00개 ( 00 % )
+        TextView wagleNum = rootView.findViewById(R.id.fragment_my_page_Text_WagleNum);
+        double result = Double.parseDouble(data.getWagleNum()) / Double.parseDouble(data.getTotalWagle());
+        int percentage = (int) (result * 100);
+        wagleNum.setText("참여한 총 와글 : " + data.getWagleNum() + " 개 / " + data.getTotalWagle() + "개 (" + percentage + "%)");
+        // 참여한 총 독후감 00개 / 00개 ( 00 % )
+        result = Double.parseDouble(data.getWagleBookReportNum()) / Double.parseDouble(data.getTotalBookReport());
+        percentage = (int) (result * 100);
+        TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
+        bookReportNum.setText("참여한 총 독후감 : " + data.getWagleBookReportNum() + " 개 / " + data.getTotalBookReport() + "개 (" + percentage + "%)");
 
         // 와글 버튼 텍스트, 이벤트 설정
         Button[] wagleBtn = new Button[4];
@@ -194,16 +207,16 @@ public class MyPageFragment extends Fragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.fragment_home_Wagle1 :
+                case R.id.fragment_my_page_Wagle1 :
                     chkWagleCheck(0);
                     break;
-                case R.id.fragment_home_Wagle2 :
+                case R.id.fragment_my_page_Wagle2 :
                     chkWagleCheck(1);
                     break;
-                case R.id.fragment_home_Wagle3 :
+                case R.id.fragment_my_page_Wagle3 :
                     chkWagleCheck(2);
                     break;
-                case R.id.fragment_home_Wagle4 :
+                case R.id.fragment_my_page_Wagle4 :
                     chkWagleCheck(3);
                     break;
             }
