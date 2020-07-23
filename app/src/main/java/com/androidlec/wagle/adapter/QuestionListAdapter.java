@@ -73,7 +73,6 @@ public class QuestionListAdapter extends BaseAdapter {
 
         holder.ref = position;
 
-
         if (position == 0) {
             holder.question.setText("<서문> " + data.get(position).getsContent());
             holder.question.setEnabled(true);
