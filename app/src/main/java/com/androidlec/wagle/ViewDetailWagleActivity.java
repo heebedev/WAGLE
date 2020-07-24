@@ -161,7 +161,7 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         String wcSeqno = intent.getStringExtra("wcSeqno");
         String uSeqno = String.valueOf(UserInfo.USEQNO);
         String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
-        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
+        urlAddr = urlAddr + "Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
         try {
             JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(ViewDetailWagleActivity.this, urlAddr);
             networkTask.execute().get();
