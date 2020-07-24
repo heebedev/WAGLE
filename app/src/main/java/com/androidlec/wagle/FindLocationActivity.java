@@ -59,11 +59,8 @@ public class FindLocationActivity extends AppCompatActivity {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses != null) {
                 Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder();
 
-                strReturnedAddress.append(returnedAddress.getAddressLine(0));
-
-                strAdd = strReturnedAddress.toString();
+                strAdd = returnedAddress.getAddressLine(0);
                 // "대한민국 " 글자 지워버림
                 strAdd = strAdd.substring(5);
 
