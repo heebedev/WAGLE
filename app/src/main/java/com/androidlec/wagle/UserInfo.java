@@ -13,6 +13,7 @@ public class UserInfo {
     public static String MOIMSEQNO;
     public static String MOIM_NAME;
     public static final String MOIM_BASE_URL = "http://192.168.0.82:8080/wagle/moimImgs/";
+    public static final String BOOK_BASE_URL = "http://192.168.0.82:8080/wagle/bookImgs/";
 
     // 와글
     public static String WAGLESEQNO;

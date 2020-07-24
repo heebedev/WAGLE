@@ -24,15 +24,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.ViewDetailWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
+import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -59,6 +64,8 @@ public class MyWagleActivity extends AppCompatActivity {
     private TextView btn_bookreportAdd, tv_viewBJM;
     private Button btn_suggestionAdd;
     private ListView listView;
+    private BookInfo bookinfo;
+    private View ic_bookinfo;
 
     // 프로그레스바 파트.
     private RelativeLayout rl_images;
@@ -91,9 +98,12 @@ public class MyWagleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // 리스트 가져오기.
-//        urlDivider("paymentList", 0, null,0);
-//        getTotal();
+
+        String centIP = "192.168.0.138";
+        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
+        //Log.e("ViewDetailWagle", url);
+        bookinfo = getBookinfo(url);
+
     }
 
 
@@ -110,6 +120,32 @@ public class MyWagleActivity extends AppCompatActivity {
 
         btn_bookreportAdd.setOnClickListener(onClickListener);
         btn_suggestionAdd.setOnClickListener(onClickListener);
+
+        //책 정보 확인
+         if(bookinfo.getTitle() != null) {
+             ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
+             ic_bookinfo.setVisibility(View.VISIBLE);
+
+             TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
+             TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
+             TextView bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
+             TextView bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
+             TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
+             ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
+
+             bkname.setText(bookinfo.getTitle());
+             bkwriter.setText(bookinfo.getWriter());
+             bkmaxpate.setText(bookinfo.getMaxpage());
+             bkIntro.setText(bookinfo.getIntro());
+             bkData.setText(bookinfo.getData());
+
+             Glide.with(this)
+                     .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
+                     .apply(new RequestOptions().centerCrop())
+                     .placeholder(R.drawable.ic_outline_emptyimage)
+                     .into(bookimage);
+
+         }
 
 
         // 프로그레스바 파트.
@@ -297,8 +333,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void getData(){
-        // 리스트 가져오기.
-//        urlDivider("paymentList", 0, null,0);
+
     }
   
     private void getProfileReadPage() {
@@ -507,6 +542,21 @@ public class MyWagleActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .show();
         // -------------------------------------------------------------------------------------
+    }
+
+    private BookInfo getBookinfo(String urlAddr) {
+        BookInfo result = null;
+        try {
+            NetworkTask_BookInfo networkTask = new NetworkTask_BookInfo(MyWagleActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+
+            result = (BookInfo) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 

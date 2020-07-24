@@ -302,6 +302,7 @@ public class HomeFragment extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
 
+        if (!jsonObject.isNull("PostSeqno0")) {
             for (int i = 0 ; i < 4 ; i++) {
                 Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
                         jsonObject.getString("PostTitle" + i),
@@ -310,6 +311,7 @@ public class HomeFragment extends Fragment {
 
                 dtos.add(dto);
             }
+        }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -401,7 +403,7 @@ public class HomeFragment extends Fragment {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
-            JSONArray jsonArray = new JSONArray(jsonObject.getString("wagle"));
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("wagle_list"));
             dtos.clear();
 
             for (int i = 0 ; i < jsonArray.length() ; i++) {
@@ -591,10 +593,12 @@ public class HomeFragment extends Fragment {
                 R.id.fragment_home_BookReport1, R.id.fragment_home_BookReport2, R.id.fragment_home_BookReport3, R.id.fragment_home_BookReport4
         };
 
-        for (int i = 0 ; i < Wdata.size() ; i++) {
-            BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
-            BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
-            BookReport_Frag_Btn[i].setText(Bdata.get(i).getBrContent());
+        if(Bdata.size() != 0) {
+            for (int i = 0; i < Wdata.size(); i++) {
+                BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
+                BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
+                BookReport_Frag_Btn[i].setText(Bdata.get(i).getBrContent());
+            }
         }
     }
 

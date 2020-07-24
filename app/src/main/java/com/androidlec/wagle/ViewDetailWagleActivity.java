@@ -1,19 +1,29 @@
 package com.androidlec.wagle;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
@@ -29,7 +39,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     private Boolean cbClick = false;
 
     //BookInfo
-    private TextView bk_title, bk_writer, bk_maxpage, bk_intro, bk_data, bk_checkOk;
+    private TextView bk_title, bk_writer, bk_maxpage, bk_intro, bk_data;
+    private ImageView bk_bookImage;
     private BookInfo bookinfo;
 
     @Override
@@ -61,8 +72,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
 
         intent = getIntent();
 
-        intent = getIntent();
-
     }
 
     private void getData() {
@@ -72,7 +81,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
 
         String centIP = "192.168.0.138";
         String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + intent.getStringExtra("wcSeqno");
-        Log.e("ViewDetailWagle", url);
         bookinfo = getBookinfo(url);
     }
 
@@ -112,28 +120,33 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.vdw_cs_tv_bookInfo:
-                setContentView(R.layout.custom_bookinfo_sh);
 
-                bk_title = findViewById(R.id.bookinfo_tv_bookname);
-                bk_writer = findViewById(R.id.bookinfo_tv_bookwriter);
-                bk_maxpage = findViewById(R.id.bookinfo_tv_bookmaxpage);
-                bk_intro = findViewById(R.id.bookinfo_tv_bookinfo);
-                bk_data = findViewById(R.id.bookinfo_tv_bookdata);
+                Context mContext = getApplicationContext();
+                Dialog dialog = new Dialog(mContext);
+                dialog.setContentView( R.layout.custom_bookinfo_sh);
+                // custom_dialog.xml 로 저장된 layout 설정 파일을 view 설정한다.
+                bk_title = dialog.findViewById(R.id.bookinfo_tv_bookname);
+                bk_writer = dialog.findViewById(R.id.bookinfo_tv_bookwriter);
+                bk_maxpage = dialog.findViewById(R.id.bookinfo_tv_bookmaxpage);
+                bk_intro = dialog.findViewById(R.id.bookinfo_tv_bookinfo);
+                bk_data = dialog.findViewById(R.id.bookinfo_tv_bookdata);
+                bk_bookImage = dialog.findViewById(R.id.bookinfo_iv_bookImage);
 
-                bk_checkOk = findViewById(R.id.bookinfo_tv_checkBtn);
+                dialog.show();
 
-                bk_title.setText(bookinfo.getTitle());
-                bk_writer.setText(bookinfo.getWriter());
-                bk_maxpage.setText(Integer.toString(bookinfo.getMaxpage()));
-                bk_intro.setText(bookinfo.getIntro());
-                bk_data.setText(bookinfo.getData());
+                Log.e("ViewDetatilWagle", bookinfo.getTitle());
 
-                bk_checkOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
+                bk_title.setText("타이틀");
+//                bk_writer.setText(bookinfo.getWriter());
+//                bk_maxpage.setText(Integer.toString(bookinfo.getMaxpage()));
+//                bk_intro.setText(bookinfo.getIntro());
+//                bk_data.setText(bookinfo.getData());
+
+//                Glide.with(this)
+//                        .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
+//                        .apply(new RequestOptions().centerCrop())
+//                        .placeholder(R.drawable.ic_outline_emptyimage)
+//                        .into(bk_bookImage);
 
 
         }
