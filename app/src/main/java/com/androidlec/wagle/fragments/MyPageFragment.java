@@ -27,6 +27,7 @@ import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
 import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
+import com.bumptech.glide.Glide;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.network.ErrorResult;
@@ -85,6 +86,20 @@ public class MyPageFragment extends Fragment {
         TextView bookReportPlusBtn = rootView.findViewById(R.id.fragment_my_page_BookReport_Plus);
 
 
+        // 프로필 사진 가져오기
+        if(UserInfo.ULOGINTYPE.equals("wagle")){
+            Glide.with(this)
+                    .load("http://192.168.0.82:8080/wagle/userImgs/" + UserInfo.UIMAGENAME)
+                    .placeholder(R.drawable.ic_outline_emptyimage)
+                    .into(rankingIcon);
+        } else {
+            Glide.with(this)
+                    .load(UserInfo.UIMAGENAME)
+                    .placeholder(R.drawable.ic_outline_emptyimage)
+                    .into(rankingIcon);
+        }
+
+
         // 페이지 정보 가져오기
         String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
         Log.v(TAG, "urlAddr = " + urlAddr);
@@ -114,9 +129,9 @@ public class MyPageFragment extends Fragment {
         };
 
         for (int i = 0 ; i < data.getWagle().size() ; i++) {
-                wagleBtn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
-                wagleBtn[i].setOnClickListener(wagle_MyPage_OnClickListener);
-                wagleBtn[i].setText(data.getWagle().get(i).getWcName());
+            wagleBtn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
+            wagleBtn[i].setOnClickListener(wagle_MyPage_OnClickListener);
+            wagleBtn[i].setText(data.getWagle().get(i).getWcName());
         }
 
         // 독후감 버튼 텍스트, 이벤트 설정
