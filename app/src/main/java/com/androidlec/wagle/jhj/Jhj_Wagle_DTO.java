@@ -5,6 +5,7 @@ public class Jhj_Wagle_DTO {
     String wcSeqno;
     String wcName;
     String wcDueDate;
+    String wcType;
 
     String wcStartDate;
     String wcEndDate;
@@ -12,10 +13,11 @@ public class Jhj_Wagle_DTO {
     String wcEntryFee;
 
     // HomeFragment 에서 사용하는 와글 생성자
-    public Jhj_Wagle_DTO(String wcSeqno, String wcName, String wcDueDate) {
+    public Jhj_Wagle_DTO(String wcSeqno, String wcName, String wcDueDate, String wcType) {
         this.wcSeqno = wcSeqno;
         this.wcName = wcName;
         this.wcDueDate = wcDueDate;
+        this.wcType = wcType;
     }
 
     // MyPage 에서 사용하는 와글 생성자
@@ -50,6 +52,14 @@ public class Jhj_Wagle_DTO {
 
     public void setWcDueDate(String wcDueDate) {
         this.wcDueDate = wcDueDate;
+    }
+
+    public String getWcType() {
+        return wcType;
+    }
+
+    public void setWcType(String wcType) {
+        this.wcType = wcType;
     }
 
     public String getWcStartDate() {
