@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.menu.MyMoimActivity">
 
@@ -13,14 +14,14 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
-        <com.androidlec.wagle.CircularImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/iv_mymoiminfo_moimimage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_outline_emptyimage"
-            android:scaleType="centerCrop">
-        </com.androidlec.wagle.CircularImageView>
+            app:civ_border="false"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tv_mymoiminfo_moimname"

@@ -42,9 +42,11 @@ public class AddWagleActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.bt_addwaglehome_normwaglebtn:
                     startActivity(new Intent(AddWagleActivity.this, AddNormWagleActivity.class));
+                    finish();
                     break;
                 case R.id.bt_addwaglehome_todaywaglebtn:
                     startActivity(new Intent(AddWagleActivity.this, AddTodayWagleActivity.class));
+                    finish();
                     break;
                 case R.id.tv_addwaglehome_goback:
                     finish();

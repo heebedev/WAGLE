@@ -18,10 +18,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -31,14 +33,14 @@ public class AddTodayWagleActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
 
     /////////////////////////// 정규 와글//////////////////////////////
-    private EditText wagleName, wagleDate, wagleDueD, waglePlace, wagleDetail;
-    private TextView wagleRegister;
+    private EditText wagleName, wagleDetail;
+    private TextView wagleRegister, wagleDate, wagleDueD, waglePlace;
 
     // 화폐단위표시
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
     private String result = "";
 
-    private EditText calendarStatus;
+    private TextView calendarStatus;
 
     private void init() {
 
@@ -107,7 +109,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
                             SelectDate.get(Calendar.MONTH),
                             SelectDate.get(Calendar.DAY_OF_MONTH)).show();
                     break;
-                case R.id.et_addwagle_wagleDueDate:
+                case R.id.et_addwagletoday_wagleDueDate:
                     calendarStatus = wagleDueD;
                     new DatePickerDialog(AddTodayWagleActivity.this, d,
                             SelectDate.get(Calendar.YEAR),
@@ -129,7 +131,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                    case R.id.tv_addwagle_wagleRegister:
+                    case R.id.tv_addwagletoday_wagleRegister:
                     InputWagleCreateData();
                     break;
             }
@@ -158,7 +160,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         String wcEndDate = wagleDate.getText().toString().trim();
         String wcDueDate = wagleDueD.getText().toString().trim();
         String wcLocate;
-        if (waglePlace.getText().toString().trim().equals("등록하기")) {
+        if (waglePlace.getText().toString().trim().equals("와글 장소를 등록해주세요.")) {
             wcLocate = "";
         } else {
             wcLocate = waglePlace.getText().toString().trim();
@@ -168,6 +170,11 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         String wcWagleAgreeRefund = "today";
 
 
+        createWaglenetwork(wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund);
+
+    }
+
+    private void createWaglenetwork(String wcName, String wcType, String wcStartDate, String wcEndDate, String wcDueDate, String wcLocate, String wcEntryFee, String wcWagleDetail, String wcWagleAgreeRefund) {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + 1 +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
@@ -180,12 +187,24 @@ public class AddTodayWagleActivity extends AppCompatActivity {
 
         try {
             WCNetworkTask wcNetworkTask = new WCNetworkTask(AddTodayWagleActivity.this, urlAddr);
-            wcNetworkTask.execute().get();
+            String seq = wcNetworkTask.execute().get();
+            inputWagleUserNetwork(seq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void inputWagleUserNetwork(String seq) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
+        urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
+
+        try {
+            CSNetworkTask networkTask = new CSNetworkTask(AddTodayWagleActivity.this, urlAddr);
+            networkTask.execute();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

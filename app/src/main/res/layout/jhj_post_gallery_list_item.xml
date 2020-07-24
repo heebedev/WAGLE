@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="20dp"
+    card_view:cardElevation="0.6dp"
     card_view:cardUseCompatPadding="true"
     >
 
-    <com.androidlec.wagle.GallaryImageView
+    <com.androidlec.wagle.GalleryImageView
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:id="@+id/Post_Gallery_List_Item_ImageView"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         />

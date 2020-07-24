@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
@@ -89,7 +90,8 @@ public class HomeActivity extends AppCompatActivity {
                 .placeholder(R.drawable.ic_outline_emptyimage)
                 .into(include_ab_iv);
 
-//        include_ab_tv.setText(data[1]);
+        include_ab_tv.setText(data[1]);
+        UserInfo.MOIM_NAME = data[1];
     }
 
     private String[] getMoimData() {
@@ -111,7 +113,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+        if(UserInfo.WAGLEMAGRADE.equals("O")) {
+            menuInflater.inflate(R.menu.toolbar_menu, menu);
+        } else {
+            menuInflater.inflate(R.menu.toolbar_menu_general, menu);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -119,20 +127,20 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = null;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
-                intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
+                //intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
+                finish();
                 break;
             case R.id.toolbar_menu_myInfo:
                 MyInfoActivity.previousXML = "edit";
-                intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+                startActivity(new Intent(HomeActivity.this, MyInfoActivity.class));
                 break;
             case R.id.toolbar_menu_myMoim:
                 if (!UserInfo.WAGLEMAGRADE.equals("O")) {
                     return false;
                 }
-                intent = new Intent(HomeActivity.this, MyMoimActivity.class);
+                startActivity(new Intent(HomeActivity.this, MyMoimActivity.class));
                 break;
             case R.id.toolbar_menu_logout:
                 break;
@@ -143,9 +151,6 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
         }
-
-        startActivity(intent);
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -174,7 +179,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //Grade Check
     private void ckGrade() {
-        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO ;
+        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO;
         UserInfo.WAGLEMAGRADE = getOSData();
     }
 
@@ -194,9 +199,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }  // connectGetData
 
-<<<<<<< Updated upstream
-}
-=======
 
     // Fragment 이동 (home -> wagle)
     public void fragmentMove() {
@@ -204,9 +206,4 @@ public class HomeActivity extends AppCompatActivity {
         transaction.replace(R.id.mainFrame, waggleFragment).commitAllowingStateLoss();
     }
 
-
-
-
-
 }//----
->>>>>>> Stashed changes

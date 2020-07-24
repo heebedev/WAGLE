@@ -1,5 +1,7 @@
 package com.androidlec.wagle.fragments;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -41,15 +43,13 @@ public class PlanFragment extends Fragment {
 
     private List<EventDay> events;
     private CalendarView calendarView;
-    private TextView tv_date, tv_plan;
-    private LinearLayout ll_plan;
     private ArrayList<WagleList> data;
 
     public PlanFragment() {
         // Required empty public constructor
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,29 +62,34 @@ public class PlanFragment extends Fragment {
         setEvents();
 
         calendarView.setOnDayClickListener(eventDay -> {
-            ll_plan.setVisibility(View.VISIBLE);
             int month = eventDay.getCalendar().getTime().getMonth()+1;
             int date = eventDay.getCalendar().getTime().getDate();
-            tv_date.setText(month+"월 "+date+"일");
-            setPlanTextView(eventDay.getCalendar().getTime());
+            if(eventDay.getImageDrawable() != null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(month+"월 "+date+"일");
+                builder.setMessage(setPlanTextView(eventDay.getCalendar().getTime()));
+                builder.show();
+            }
         });
 
         return v;
     }
 
-    private void setPlanTextView(Date date) {
+    private String setPlanTextView(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String selectedDay = sdf.format(date);
         StringBuilder planList = new StringBuilder();
         for (int i = 0; i < data.size(); i++) {
             if(selectedDay.equals(data.get(i).getWcStartDate())){
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 시작일\n");
-            } else if(selectedDay.equals(data.get(i).getWcDueDate())){
+            }
+            if(selectedDay.equals(data.get(i).getWcDueDate())){
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 마감일\n");
-            } else if(selectedDay.equals(data.get(i).getWcEndDate()))
+            }
+            if(selectedDay.equals(data.get(i).getWcEndDate()))
                 planList.append("✔︎ ").append(data.get(i).getWcName()).append(" 종료일\n");
         }
-        tv_plan.setText(planList.toString());
+        return planList.toString();
     }
 
     private void getEventData() {
@@ -101,37 +106,29 @@ public class PlanFragment extends Fragment {
     }
 
     private void setEvents() {
-
+        Calendar calendar;
+        String[] date;
         for (int i = 0; i < data.size(); i++) {
-            Calendar startCalendar = Calendar.getInstance();
-            String[] startDate = data.get(i).getWcStartDate().split("\\.");
-            startCalendar.set(Calendar.YEAR, Integer.parseInt(startDate[0]));
-            startCalendar.set(Calendar.MONTH, Integer.parseInt(startDate[1]) - 1);
-            startCalendar.set(Calendar.DATE, Integer.parseInt(startDate[2]));
-            startCalendar.set(Calendar.HOUR, 0);
-            startCalendar.set(Calendar.MINUTE, 0);
-            startCalendar.set(Calendar.SECOND, 0);
-            events.add(new EventDay(startCalendar, CSDrawableUtils.getCircleDrawableWithTextStart(getActivity())));
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcStartDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
+            events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextStart(getActivity())));
 
-            Calendar calendar = Calendar.getInstance();
-            String[] dueDate = data.get(i).getWcDueDate().split("\\.");
-            calendar.set(Calendar.YEAR, Integer.parseInt(dueDate[0]));
-            calendar.set(Calendar.MONTH, Integer.parseInt(dueDate[1]) - 1);
-            calendar.set(Calendar.DATE, Integer.parseInt(dueDate[2]));
-            calendar.set(Calendar.HOUR, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcDueDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
             events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextDue(getActivity())));
 
-            Calendar endCalendar = Calendar.getInstance();
-            String[] endDate = data.get(i).getWcEndDate().split("\\.");
-            endCalendar.set(Calendar.YEAR, Integer.parseInt(endDate[0]));
-            endCalendar.set(Calendar.MONTH, Integer.parseInt(endDate[1]) - 1);
-            endCalendar.set(Calendar.DATE, Integer.parseInt(endDate[2]));
-            endCalendar.set(Calendar.HOUR, 0);
-            endCalendar.set(Calendar.MINUTE, 0);
-            endCalendar.set(Calendar.SECOND, 0);
-            events.add(new EventDay(endCalendar, CSDrawableUtils.getCircleDrawableWithTextEnd(getActivity())));
+            calendar = Calendar.getInstance();
+            date = data.get(i).getWcEndDate().split("\\.");
+            calendar.set(Calendar.YEAR, Integer.parseInt(date[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(date[1]) - 1);
+            calendar.set(Calendar.DATE, Integer.parseInt(date[2]));
+            events.add(new EventDay(calendar, CSDrawableUtils.getCircleDrawableWithTextEnd(getActivity())));
         }
 
         calendarView.setEvents(events);
@@ -139,11 +136,6 @@ public class PlanFragment extends Fragment {
 
     private void init(View v) {
         calendarView = v.findViewById(R.id.calendarView);
-        tv_date = v.findViewById(R.id.plan_tv_date);
-        tv_plan = v.findViewById(R.id.plan_tv_plan);
-        ll_plan = v.findViewById(R.id.plan_ll_plan);
-
-        ll_plan.setVisibility(View.GONE);
 
         events = new ArrayList<>();
     }

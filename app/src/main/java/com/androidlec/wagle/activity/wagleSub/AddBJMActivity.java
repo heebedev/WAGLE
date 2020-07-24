@@ -8,10 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -43,13 +45,17 @@ public class AddBJMActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bjm);
 
+        // 키보드 자동으로 올라가기
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         //초기화
         init();
 
         //발제문 질문 항목 추가
         questionAddBtn.setOnClickListener(bjmAddClickListener);
-        //발제문 등록 취소
+        //발제문 등록, 취소
         registerbjmBtn.setOnClickListener(bjmRegCanClickListener);
+        cancelbjmBtn.setOnClickListener(bjmRegCanClickListener);
         //발제문 서문 터치리스너 - 터치시 텍스트 정렬 변경
         bjmHead.setOnTouchListener(bjmKeyInListener);
     }
@@ -105,8 +111,9 @@ public class AddBJMActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_bjmadd_bjmRegister :
-                    centIP = "192.168.0.138";
-                    urlAddr = "http://" + centIP + ":8080/test/wagle_bjmadd.jsp?wseqno=" + UserInfo.WAGLESEQNO + "&count=" + bjmQuestCount + "&head=" + bjmHead.getText().toString();
+                    // 데이터베이스 저장
+                    centIP = "192.168.0.82";
+                    urlAddr = "http://" + centIP + ":8080/wagle/wagle_bjmadd.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&wseqno=" + UserInfo.WAGLESEQNO + "&count=" + bjmQuestCount + "&head=" + bjmHead.getText().toString();
 
                     for (int i = 1; i <= bjmQuestCount; i++) {
                         EditText text = findViewById(i);
@@ -116,28 +123,29 @@ public class AddBJMActivity extends AppCompatActivity {
 
                     try {
                         NetworkTask_CRUD networkTask = new NetworkTask_CRUD(AddBJMActivity.this, urlAddr);
-                        startActivity(new Intent(AddBJMActivity.this, HomeActivity.class));
+                        networkTask.execute();
+                        Log.v("AddBJMActivity", "Success");
+                        //startActivity(new Intent(AddBJMActivity.this, HomeActivity.class));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
+                    finish();
                     break;
-
                 case R.id.bt_bjmadd_bjmCancel :
-
+                    // 취소
                     new AlertDialog.Builder(AddBJMActivity.this)
                             .setTitle("정말 취소하시겠습니까?")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //startActivity(new Intent(AddBJMActivity.this, HomeActivity.class));
-
+                                    finish();
                                 }
                             })
                             .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                    return;
                                 }
                             })
                             .show();

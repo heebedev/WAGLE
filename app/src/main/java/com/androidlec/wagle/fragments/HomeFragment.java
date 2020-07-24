@@ -5,22 +5,34 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.androidlec.wagle.HomeActivity;
+import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.activity.wagleSub.AddTodayWagleActivity;
+import com.androidlec.wagle.activity.wagleSub.AddWagleActivity;
+import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
+import com.androidlec.wagle.jhj.Jhj_Post_Notice_DHG_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
+import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
+import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
@@ -48,15 +60,17 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     // 지워야할것.
-    String seqno = Integer.toString(UserInfo.USEQNO);
+    private static String seqno = Integer.toString(UserInfo.USEQNO);
 
     // Post_Notice_Json Data (Json 파싱)
-    ArrayList<Jhj_Notice_DTO> Ndata;
-    ArrayList<Jhj_Gallery_DTO> Gdata;
+    private static ArrayList<Jhj_Notice_DTO> Ndata;
+    private static ArrayList<Jhj_Wagle_DTO> Wdata;
+    private static ArrayList<Jhj_Gallery_DTO> Gdata;
+    private static ArrayList<Jhj_BookReport_DTO> Bdata;
 
     // Layout (findViewById 를 사용하기위해) 선언
-    ViewGroup rootView;
-    String IP = "192.168.0.82";
+    private static ViewGroup rootView;
+    private static String IP = "192.168.0.82";
 
 
     private static final String TAG = "HomeFragment";
@@ -100,20 +114,26 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
-        // --------------------------------------------------------------
-        // 버튼 이벤트 등록
-        // --------------------------------------------------------------
+        Button NoticeBtnAdd = rootView.findViewById(R.id.fragment_home_Notice_Add);
+        Button WagleBtnAdd = rootView.findViewById(R.id.fragment_home_Wagle_Add);
+        Button GalleryBtnAdd = rootView.findViewById(R.id.fragment_home_Gallery_Add);
 
+        // 일반인일때 공지사항 버튼 안보이기
+        if (UserInfo.WAGLEMAGRADE.equals("W")) {
+            NoticeBtnAdd.setVisibility(View.INVISIBLE);
+        }
+
+        // 버튼 이벤트 등록
         // 추가 버튼
-        rootView.findViewById(R.id.fragment_home_Notice_Add).setOnClickListener(add_home_fragment_OnClickListener);
-        rootView.findViewById(R.id.fragment_home_Gallery_Add).setOnClickListener(add_home_fragment_OnClickListener);
+        NoticeBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
+        WagleBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
+        GalleryBtnAdd.setOnClickListener(add_home_fragment_OnClickListener);
 
         // 더보기 버튼
         rootView.findViewById(R.id.fragment_home_Notice_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
+        rootView.findViewById(R.id.fragment_home_Wagle_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
         rootView.findViewById(R.id.fragment_home_Gallery_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
-
-        // --------------------------------------------------------------
-        // --------------------------------------------------------------
+        rootView.findViewById(R.id.fragment_home_BookReport_Plus).setOnClickListener(plus_home_fragment_OnClickListener);
 
         // Inflate the layout for this fragment
         return rootView;
@@ -124,9 +144,13 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         // 공지사항 세팅
-        Notice_Setting(rootView, IP);
+        Notice_Setting();
+        // 진행중인 와글 세팅
+        Wagle_Setting();
         // 갤러리 세팅
-        Gallery_Setting(rootView, IP);
+        Gallery_Setting();
+        // 독후감 세팅
+        BookReport_Setting();
     }
 
     protected String Post_Select_All(String urlAddr) {
@@ -165,13 +189,14 @@ public class HomeFragment extends Fragment {
                 String formatDate = sdfNow.format(date);
 
                 // 파일이름 , 파일 경로
-                String fileName = "userName" + formatDate + ".jpg";
+                String fileName = UserInfo.UNAME + formatDate + ".jpg";
 
                 // FTP File Upload
                 GalleryFTPUpload(file, fileName);
 
                 // Get 방식 URL 세팅
-                String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Insert.jsp?userSeqno=" + seqno + "&type=G&fileName=" + fileName;
+                String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Insert.jsp?userSeqno=" + seqno + "&type=G&fileName=" + fileName + "&MoimSeqno=" + UserInfo.MOIMSEQNO;
+                Log.v("qwerasdf", urlAddr);
                 connectionInsertData(urlAddr);
             }
         }
@@ -181,6 +206,7 @@ public class HomeFragment extends Fragment {
     // + 버튼 이벤트
     // --------------------------------------------------------------
 
+    // 추가 버튼 이벤트
     Button.OnClickListener add_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -197,11 +223,19 @@ public class HomeFragment extends Fragment {
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent, 1002);
                     break;
-
+                case R.id.fragment_home_Wagle_Add :
+                    if (UserInfo.WAGLEMAGRADE.equals("O") || UserInfo.WAGLEMAGRADE.equals("S")) {
+                        intent = new Intent(getActivity(), AddWagleActivity.class);
+                    } else {
+                        intent = new Intent(getActivity(), AddTodayWagleActivity.class);
+                    }
+                    startActivity(intent);
+                    break;
             }
         }
     };
 
+    // 더보기 버튼 이벤트
     Button.OnClickListener plus_home_fragment_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -209,10 +243,18 @@ public class HomeFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_List.class);
+                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent.putExtra("Type", "Notice");
                     break;
                 case R.id.fragment_home_Gallery_Plus :
                     intent = new Intent(getActivity(), Jhj_Post_Gallery_List.class);
+                    break;
+                case R.id.fragment_home_Wagle_Plus :
+                    getActivity().findViewById(R.id.navigation_wagle).performClick();
+                    return;
+                case R.id.fragment_home_BookReport_Plus :
+                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent.putExtra("Type", "BookReport");
                     break;
             }
             startActivity(intent);
@@ -226,11 +268,11 @@ public class HomeFragment extends Fragment {
     // 공지사항 메소드
     // -------------------------------------------------------------------------------------
 
-    protected void Notice_Setting(ViewGroup rootView, String IP) {
+    protected void Notice_Setting() {
         // --------------------------------------------------------------
         // 공지사항 정보 4개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Notice_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Noitce_JsonString = Post_Select_All(urlAddr);
         Ndata = Notice_parser(Noitce_JsonString);
         // --------------------------------------------------------------
@@ -332,24 +374,128 @@ public class HomeFragment extends Fragment {
     // 공지사항 메소드 끝
     // -------------------------------------------------------------------------------------
 
+    // -------------------------------------------------------------------------------------
+    // 진행중인 와글 시작
+    // -------------------------------------------------------------------------------------
+
+    protected void Wagle_Setting() {
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Wagle_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
+        String Wagle_JsonString = Post_Select_All(urlAddr);
+        Wdata = Wagle_Parser(Wagle_JsonString);
+
+        // 와글 정보 4개 보여주기
+        Button[] wagle_Frag_Btn = new Button[4];
+        Integer[] wagle_Frag_Btn_Id = {
+                R.id.fragment_home_Wagle1, R.id.fragment_home_Wagle2, R.id.fragment_home_Wagle3, R.id.fragment_home_Wagle4
+        };
+
+        for (int i = 0 ; i < Wdata.size() ; i++) {
+            wagle_Frag_Btn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
+            wagle_Frag_Btn[i].setOnClickListener(wagle_Frag_OnClickListener);
+            wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
+        }
+    }
+
+    protected ArrayList<Jhj_Wagle_DTO> Wagle_Parser(String jsonStr) {
+        ArrayList<Jhj_Wagle_DTO> dtos = new ArrayList<Jhj_Wagle_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("wagle"));
+            dtos.clear();
+
+            for (int i = 0 ; i < jsonArray.length() ; i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String wcSeqno = jsonObject1.getString("wcSeqno");
+                String wcName = jsonObject1.getString("wcName");
+                String wcDueDate = jsonObject1.getString("wcDueDate");
+
+                dtos.add(new Jhj_Wagle_DTO(wcSeqno, wcName, wcDueDate));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+    Button.OnClickListener wagle_Frag_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fragment_home_Wagle1 :
+                    chkWagleCheck(0);
+                    break;
+                case R.id.fragment_home_Wagle2 :
+                    chkWagleCheck(1);
+                    break;
+                case R.id.fragment_home_Wagle3 :
+                    chkWagleCheck(2);
+                    break;
+                case R.id.fragment_home_Wagle4 :
+                    chkWagleCheck(3);
+                    break;
+            }
+        }
+    };
+
+    protected void chkWagleCheck(int position) {
+        Intent intent;
+        switch (chkJoinIn(Wdata.get(position).getWcSeqno())){
+            case 1: // 와글 신청이 되었을 때.
+                intent = new Intent(getActivity(), MyWagleActivity.class);
+                UserInfo.WAGLESEQNO = Wdata.get(position).getWcSeqno();
+                intent.putExtra("wcSeqno", Wdata.get(position).getWcSeqno());
+                startActivity(intent);
+                break;
+            case 2: // 와글 신청이 안되었을 때.
+                intent = new Intent(getActivity(), ViewDetailWagleActivity.class);
+                intent.putExtra("data", Wdata.get(position).getWcSeqno());
+                startActivity(intent);
+                break;
+            case 0: // 데이터베이스 연결이 안되었을 때.
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    protected int chkJoinIn(String wcSeqno){
+        int chk = 3;
+        String uSeqno = String.valueOf(UserInfo.USEQNO);
+        //uSeqno = "1"; // 임시 절대값. 위에꺼 쓰면 됨.
+        String urlAddr = "http://192.168.0.178:8080/wagle/joininChk.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&User_uSeqno=" + uSeqno;
+        try {
+            JH_IntNetworkTask networkTask = new JH_IntNetworkTask(getContext(), urlAddr);
+            chk = networkTask.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return chk;
+    }
+
+    // -------------------------------------------------------------------------------------
+    // 진행중인 와글 끝
+    // -------------------------------------------------------------------------------------
 
     // -------------------------------------------------------------------------------------
     // 갤러리 시작
     // -------------------------------------------------------------------------------------
 
     // 갤러리 세팅
-    protected void Gallery_Setting(ViewGroup rootView, String IP) {
+    protected void Gallery_Setting() {
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 가져오기
+        // 갤러리 정보 6개 가져오기
         // --------------------------------------------------------------
-        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
         String Gallery_JsonString = Post_Select_All(urlAddr);
         Gdata = Gallery_parser(Gallery_JsonString);
         // --------------------------------------------------------------
         // --------------------------------------------------------------
 
         // --------------------------------------------------------------
-        // 공지사항 정보 4개 보여주기
+        // 갤러리 정보 6개 보여주기
         // --------------------------------------------------------------
         ImageView[] gallery_Frag_Btn = new ImageView[6];
         Integer[] gallery_Frag_Btn_Id = {
@@ -363,8 +509,13 @@ public class HomeFragment extends Fragment {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
             gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
             //         Context                 URL              ImageView
-            Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            Glide.with(getActivity())
+                    .load(imgUrl + Gdata.get(i).getImageName())
+                    .placeholder(R.drawable.ic_baseline_crop_din_24)
+                    .into(gallery_Frag_Btn[i]);
         }
+
         // --------------------------------------------------------------
         //
         // --------------------------------------------------------------
@@ -380,7 +531,6 @@ public class HomeFragment extends Fragment {
             dtos.clear();
 
             for (int i = 0 ; i < jsonArray.length() ; i++) {
-                // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 String seqno = jsonObject1.getString("seqno");
@@ -424,6 +574,85 @@ public class HomeFragment extends Fragment {
 
     // -------------------------------------------------------------------------------------
     // 갤러리 끝
+    // -------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------
+    // 독후감 시작
+    // -------------------------------------------------------------------------------------
+
+    protected void BookReport_Setting() {
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_BookReport_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
+        String BookReport_JsonString = Post_Select_All(urlAddr);
+        Bdata = BookReport_Parser(BookReport_JsonString);
+
+        // 공지사항 정보 4개 보여주기
+        Button[] BookReport_Frag_Btn = new Button[4];
+        Integer[] BookReport_Frag_Btn_Id = {
+                R.id.fragment_home_BookReport1, R.id.fragment_home_BookReport2, R.id.fragment_home_BookReport3, R.id.fragment_home_BookReport4
+        };
+
+        for (int i = 0 ; i < Wdata.size() ; i++) {
+            BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
+            BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
+            BookReport_Frag_Btn[i].setText(Bdata.get(i).getBrContent());
+        }
+    }
+
+    protected ArrayList<Jhj_BookReport_DTO> BookReport_Parser(String jsonStr) {
+        ArrayList<Jhj_BookReport_DTO> dtos = new ArrayList<Jhj_BookReport_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("bookreport"));
+            dtos.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String brSeqno = jsonObject1.getString("brSeqno");
+                String uSeqno = jsonObject1.getString("uSeqno");
+                String brContent = jsonObject1.getString("brContent");
+                String wcSeqno = jsonObject1.getString("wcSeqno");
+
+                dtos.add(new Jhj_BookReport_DTO(brSeqno, uSeqno, brContent, wcSeqno));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+    Button.OnClickListener bookReport_Frag_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fragment_home_BookReport1 :
+                    BookReportMove(0);
+                    break;
+                case R.id.fragment_home_BookReport2 :
+                    BookReportMove(1);
+                    break;
+                case R.id.fragment_home_BookReport3 :
+                    BookReportMove(2);
+                    break;
+                case R.id.fragment_home_BookReport4 :
+                    BookReportMove(3);
+                    break;
+            }
+        }
+    };
+
+    protected void BookReportMove(int position) {
+        UserInfo.WAGLESEQNO = Bdata.get(position).getWcSeqno();
+
+        Intent intent = new Intent(getActivity(), AddDHGActivity.class);
+        startActivity(intent);
+    }
+
+    // -------------------------------------------------------------------------------------
+    // 독후감 끝
     // -------------------------------------------------------------------------------------
 
 }

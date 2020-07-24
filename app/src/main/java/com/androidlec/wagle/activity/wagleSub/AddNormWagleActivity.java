@@ -14,14 +14,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -31,14 +32,14 @@ public class AddNormWagleActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
 
     /////////////////////////// 정규 와글//////////////////////////////
-    private EditText wagleName, wagleStartD, wagleEndD, wagleFee, wagleDueD, waglePlace, wagleDetail, wagleAgreeRefund;
-    private TextView wagleAddBookInfo, wagleRegister;
+    private EditText wagleName, wagleFee, wagleDetail, wagleAgreeRefund;
+    private TextView wagleAddBookInfo, wagleRegister, wagleStartD, wagleEndD, wagleDueD, waglePlace;
 
     // 화폐단위표시
     private DecimalFormat decimalFormat = new DecimalFormat("#,###");
     private String result = "";
 
-    private EditText calendarStatus;
+    private TextView calendarStatus;
 
     private void init() {
 
@@ -143,6 +144,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_addwagle_wagleAddBookInfo:
+                    startActivity(new Intent(AddNormWagleActivity.this, AddBookActivity.class));
                     break;
                 case R.id.tv_addwagle_wagleRegister:
                     InputWagleCreateData();
@@ -176,7 +178,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         String wcEndDate = wagleEndD.getText().toString().trim();
         String wcDueDate = wagleDueD.getText().toString().trim();
         String wcLocate;
-        if (waglePlace.getText().toString().trim().equals("등록하기")) {
+        if (waglePlace.getText().toString().trim().equals("와글 장소를 등록해주세요.")) {
             wcLocate = "";
         } else {
             wcLocate = waglePlace.getText().toString().trim();
@@ -186,8 +188,13 @@ public class AddNormWagleActivity extends AppCompatActivity {
         String wcWagleAgreeRefund = wagleAgreeRefund.getText().toString().trim();
 
 
+        createWagleNetwork(wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund);
+
+    }
+
+    private void createWagleNetwork(String wcName, String wcType, String wcStartDate, String wcEndDate, String wcDueDate, String wcLocate, String wcEntryFee, String wcWagleDetail, String wcWagleAgreeRefund) {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + 1 +
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + UserInfo.WAGLEBOOKSEQ +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
                 "&wcEndDate=" + wcEndDate + "&wcDueDate=" + wcDueDate +
                 "&wcLocate=" + wcLocate + "&wcEntryFee=" + wcEntryFee +
@@ -198,12 +205,24 @@ public class AddNormWagleActivity extends AppCompatActivity {
 
         try {
             WCNetworkTask wcNetworkTask = new WCNetworkTask(AddNormWagleActivity.this, urlAddr);
-            wcNetworkTask.execute().get();
+            String seq = wcNetworkTask.execute().get();
+            inputWagleUserNetwork(seq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void inputWagleUserNetwork(String seq) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
+        urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
+
+        try {
+            CSNetworkTask networkTask = new CSNetworkTask(AddNormWagleActivity.this, urlAddr);
+            networkTask.execute();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
