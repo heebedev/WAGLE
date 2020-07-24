@@ -73,28 +73,18 @@ public class MyWagleActivity extends AppCompatActivity {
 
     // 정산 파트.
     private Button btn_paymentAdd;
-    private LinearLayout layout;
 
-    final static String TAG = "Log check : ";
-    String urlAddr;
-    ListView lv_itemlist;
-    String item;
-    int price, paymentcnt;
-    PaymentAdapter adapter;
-    ArrayList<Payment> lists;
-    ArrayList<Progress> progressdata;
-    ArrayList<ImageView> imageViews;
-    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wagle);
 
-        getProfileReadPage();
 
+        getProfileReadPage();
         getData();
         init();
+
     }
 
 
@@ -312,14 +302,13 @@ public class MyWagleActivity extends AppCompatActivity {
     }
   
     private void getProfileReadPage() {
-        int wcSeqno = 1; // 임시 절대값.
         urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
             Object obj = networkTask6.execute().get();
             progressdata = (ArrayList<Progress>) obj;
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -327,7 +316,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private int getwbMaxPage() {
         int wbMaxPage = 0;
-        int wcSeqno = 1; // 임시 절대값.
         urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
@@ -339,34 +327,6 @@ public class MyWagleActivity extends AppCompatActivity {
         return wbMaxPage;
     }
 
-
-    private void getProfileReadPage() {
-
-        urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
-        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
-        try {
-            JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
-            Object obj = networkTask6.execute().get();
-            progressdata = (ArrayList<Progress>) obj;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-    private int getwbMaxPage() {
-        int wbMaxPage = 0;
-
-        urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
-        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
-        try {
-            JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
-            wbMaxPage = networkTask4.execute().get();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return wbMaxPage;
-    }
 
 
     private void getTotal(){

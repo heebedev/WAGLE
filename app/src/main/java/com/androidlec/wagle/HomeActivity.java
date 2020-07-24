@@ -163,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //Grade Check
     private void ckGrade() {
-        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO ;
+        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO;
         UserInfo.WAGLEMAGRADE = getOSData();
     }
 

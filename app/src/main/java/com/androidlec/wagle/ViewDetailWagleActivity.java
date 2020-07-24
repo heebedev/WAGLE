@@ -2,6 +2,7 @@ package com.androidlec.wagle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -70,7 +71,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         setData(data);
 
         String centIP = "192.168.0.138";
-        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + intent.getStringExtra("wcSeqno");;
+        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + intent.getStringExtra("wcSeqno");
+        Log.e("ViewDetailWagle", url);
         bookinfo = getBookinfo(url);
     }
 
@@ -110,6 +112,8 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.vdw_cs_tv_bookInfo:
+                setContentView(R.layout.custom_bookinfo_sh);
+
                 bk_title = findViewById(R.id.bookinfo_tv_bookname);
                 bk_writer = findViewById(R.id.bookinfo_tv_bookwriter);
                 bk_maxpage = findViewById(R.id.bookinfo_tv_bookmaxpage);

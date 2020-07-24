@@ -51,7 +51,6 @@ public class NetworkTask_ckGrade extends AsyncTask<Integer, String, Object> {
                     String strline = bufferedReader.readLine();
                     if (strline == null) break;
                     stringBuffer.append(strline + "\n");
-                    Log.e("status", strline);
                 }
 
                 Parser(stringBuffer.toString());
