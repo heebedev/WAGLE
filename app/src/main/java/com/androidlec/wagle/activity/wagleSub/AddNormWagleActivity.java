@@ -31,6 +31,8 @@ public class AddNormWagleActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 100;
 
+    private static final String CentIP = "192.168.0.79";
+
     /////////////////////////// 정규 와글//////////////////////////////
     private EditText wagleName, wagleFee, wagleDetail, wagleAgreeRefund;
     private TextView wagleAddBookInfo, wagleRegister, wagleStartD, wagleEndD, wagleDueD, waglePlace;
@@ -193,15 +195,12 @@ public class AddNormWagleActivity extends AppCompatActivity {
     }
 
     private void createWagleNetwork(String wcName, String wcType, String wcStartDate, String wcEndDate, String wcDueDate, String wcLocate, String wcEntryFee, String wcWagleDetail, String wcWagleAgreeRefund) {
-        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
+        String urlAddr = "http://" + CentIP + ":8080/wagle/csInputWagleCreateWAGLE.jsp?";
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + UserInfo.WAGLEBOOKSEQ +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
                 "&wcEndDate=" + wcEndDate + "&wcDueDate=" + wcDueDate +
                 "&wcLocate=" + wcLocate + "&wcEntryFee=" + wcEntryFee +
                 "&wcWagleDetail=" + wcWagleDetail + "&wcWagleAgreeRefund=" + wcWagleAgreeRefund;
-
-//        urlAddr = urlAddr.replace(" ", "%20");
-//        urlAddr = urlAddr.replace("\n", "%20");
 
         try {
             WCNetworkTask wcNetworkTask = new WCNetworkTask(AddNormWagleActivity.this, urlAddr);
@@ -213,7 +212,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
     }
 
     private void inputWagleUserNetwork(String seq) {
-        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
+        String urlAddr = "http://" + CentIP + ":8080/wagle/csInputWagleUserWAGLE.jsp?";
         urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
 
         try {
