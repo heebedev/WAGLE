@@ -3,6 +3,7 @@ package com.androidlec.wagle.CS.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,6 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             break;
                         case 2: // 와글 신청이 안되었을 때.
                             intent = new Intent(mContext, ViewDetailWagleActivity.class);
-
                             intent.putExtra("data", data.get(position));
                             intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
 

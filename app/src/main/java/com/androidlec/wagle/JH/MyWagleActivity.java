@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,7 +56,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private TextView btn_bookreportAdd, tv_viewBJM;
     private TextView btn_suggestionAdd;
     private ListView listView;
-    private BookInfo bookinfo;
+    private BookInfo bookInfo;
     private View ic_bookinfo;
 
     // 프로그레스바 파트.
@@ -87,12 +88,6 @@ public class MyWagleActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        String centIP = "192.168.0.138";
-        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
-        //Log.e("ViewDetailWagle", url);
-        bookinfo = getBookinfo(url);
-
-
         // 리스트 가져오기.
         urlDivider("paymentList", 0, null,0);
         getTotal();
@@ -118,7 +113,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
         //책 정보 확인
-         if(bookinfo != null) {
+         if(bookInfo != null) {
              ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
              ic_bookinfo.setVisibility(View.VISIBLE);
 
@@ -129,16 +124,16 @@ public class MyWagleActivity extends AppCompatActivity {
              TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
              ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
 
-             bkname.setText(bookinfo.getTitle());
-             bkwriter.setText(bookinfo.getWriter());
-             bkmaxpate.setText(bookinfo.getMaxpage());
-             bkIntro.setText(bookinfo.getIntro());
-             bkData.setText(bookinfo.getData());
+             bkname.setText(bookInfo.getTitle());
+             bkwriter.setText(bookInfo.getWriter());
+             bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
+             bkIntro.setText(bookInfo.getIntro());
+             bkData.setText(bookInfo.getData());
 
+             if (bookInfo.getImgName().length() > 0)
              Glide.with(this)
-                     .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
+                     .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
                      .apply(new RequestOptions().centerCrop())
-                     .placeholder(R.drawable.ic_outline_emptyimage)
                      .into(bookimage);
 
          }
@@ -309,6 +304,11 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void getData(){
+
+        String centIP = "192.168.0.138";
+        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
+
+        bookInfo = getBookinfo(url);
 
     }
   

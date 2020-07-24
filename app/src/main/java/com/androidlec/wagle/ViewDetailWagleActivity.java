@@ -1,29 +1,31 @@
 package com.androidlec.wagle;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.JH.MyWagleActivity;
+import com.androidlec.wagle.activity.user.FindIdPwActivity;
+import com.androidlec.wagle.activity.user.LoginActivity;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import java.util.ArrayList;
 
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
@@ -120,40 +122,49 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.vdw_cs_tv_bookInfo:
+                if (bookinfo != null) {
+                    final LinearLayout linear = (LinearLayout) View.inflate(ViewDetailWagleActivity.this, R.layout.custom_bookinfo_sh, null);
 
-                AlertDialog.Builder builder;
-                AlertDialog alertDialog;
-                Context mContext = getApplicationContext();
-                LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.custom_bookinfo_sh, (ViewGroup)findViewById(R.id.ic_mywagle_bookinfo));
+                    bk_title = linear.findViewById(R.id.bookinfo_tv_bookname);
+                    bk_writer = linear.findViewById(R.id.bookinfo_tv_bookwriter);
+                    bk_maxpage = linear.findViewById(R.id.bookinfo_tv_bookmaxpage);
+                    bk_intro = linear.findViewById(R.id.bookinfo_tv_bookinfo);
+                    bk_data = linear.findViewById(R.id.bookinfo_tv_bookdata);
+                    bk_bookImage = linear.findViewById(R.id.bookinfo_iv_bookImage);
 
-                bk_title = layout.findViewById(R.id.bookinfo_tv_bookname);
-                bk_writer = layout.findViewById(R.id.bookinfo_tv_bookwriter);
-                bk_maxpage = layout.findViewById(R.id.bookinfo_tv_bookmaxpage);
-                bk_intro = layout.findViewById(R.id.bookinfo_tv_bookinfo);
-                bk_data = layout.findViewById(R.id.bookinfo_tv_bookdata);
-                bk_bookImage = layout.findViewById(R.id.bookinfo_iv_bookImage);
+                    bk_title.setText(bookinfo.getTitle());
+                    bk_writer.setText(bookinfo.getWriter());
+                    bk_maxpage.setText(Integer.toString(bookinfo.getMaxpage()));
+                    bk_intro.setText(bookinfo.getIntro());
+                    bk_data.setText(bookinfo.getData());
 
-                builder = new AlertDialog.Builder(mContext);
-                builder.setView(layout);
-                alertDialog = builder.create();
+                    if (bookinfo.getImgName().length() > 0) {
+                        Glide.with(this)
+                                .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
+                                .apply(new RequestOptions().centerCrop())
+                                .placeholder(R.drawable.ic_outline_emptyimage)
+                                .into(bk_bookImage);
+                    }
 
-                Log.e("ViewDetatilWagle", bookinfo.getTitle());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ViewDetailWagleActivity.this);
+                    builder.setTitle("")
+                            .setView(linear)
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
 
-                bk_title.setText("타이틀");
-//                bk_writer.setText(bookinfo.getWriter());
-//                bk_maxpage.setText(Integer.toString(bookinfo.getMaxpage()));
-//                bk_intro.setText(bookinfo.getIntro());
-//                bk_data.setText(bookinfo.getData());
-
-//                Glide.with(this)
-//                        .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
-//                        .apply(new RequestOptions().centerCrop())
-//                        .placeholder(R.drawable.ic_outline_emptyimage)
-//                        .into(bk_bookImage);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
 
 
-        }
+                } else {
+                    Toast.makeText(ViewDetailWagleActivity.this, "등록된 도서 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            break;
+        } // switch
     };
 
 

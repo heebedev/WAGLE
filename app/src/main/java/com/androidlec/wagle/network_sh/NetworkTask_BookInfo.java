@@ -2,18 +2,15 @@ package com.androidlec.wagle.network_sh;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.androidlec.wagle.dto.BookInfo;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class NetworkTask_BookInfo extends AsyncTask<Integer, String, Object> {
 
@@ -69,6 +66,7 @@ public class NetworkTask_BookInfo extends AsyncTask<Integer, String, Object> {
                 e.printStackTrace();
             }
         }
+
         return bookinfoData;
     }
 
@@ -80,7 +78,7 @@ public class NetworkTask_BookInfo extends AsyncTask<Integer, String, Object> {
             if(!jsonObject.isNull("book_info")) {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                    int wbSeqno = Integer.parseInt(jsonObject1.getString("wbSeqno"));
+
                     String wbTitle = jsonObject1.getString("wbTitle");
                     String wbWriter = jsonObject1.getString("wbWriter");
                     int wbMaxPage = Integer.parseInt(jsonObject1.getString("wbMaxPage"));
@@ -88,13 +86,13 @@ public class NetworkTask_BookInfo extends AsyncTask<Integer, String, Object> {
                     String wbData = jsonObject1.getString("wbData");
                     String wbImage = jsonObject1.getString("wbImage");
 
-
                     bookinfoData.setTitle(wbTitle);
                     bookinfoData.setWriter(wbWriter);
                     bookinfoData.setMaxpage(wbMaxPage);
                     bookinfoData.setIntro(wbIntro);
                     bookinfoData.setData(wbData);
                     bookinfoData.setImgName(wbImage);
+
                 }
             }
         } catch (Exception e) {
