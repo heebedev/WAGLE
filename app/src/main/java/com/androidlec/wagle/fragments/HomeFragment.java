@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -304,6 +305,7 @@ public class HomeFragment extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
 
+        if (!jsonObject.isNull("PostSeqno0")) {
             for (int i = 0 ; i < 4 ; i++) {
                 Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
                         jsonObject.getString("PostTitle" + i),
@@ -312,6 +314,7 @@ public class HomeFragment extends Fragment {
 
                 dtos.add(dto);
             }
+        }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -624,6 +627,7 @@ public class HomeFragment extends Fragment {
             BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
             BookReport_Frag_Btn[i].setText(Bdata.get(i).getWcName() + " - " + Bdata.get(i).getuName());
         }
+
     }
 
     protected ArrayList<Jhj_BookReport_DTO> BookReport_Parser(String jsonStr) {
