@@ -6,11 +6,16 @@ public class UserInfo {
     public static int USEQNO = 1;
     public static String UID;
     public static String UEMAIL;
-    public static String UNAME;
     public static String ULOGINTYPE;
+    public static String UNAME;
+    public static String UIMAGENAME;
+    public static String UBIRTHDATE;
+    public static String UDATE;
+    public static String UPASSWORD;
 
     // 모임
     public static String MOIMSEQNO;
+    public static String MOIMSUBJECT;
     public static String MOIM_NAME;
     public static final String MOIM_BASE_URL = "http://192.168.0.82:8080/wagle/moimImgs/";
 

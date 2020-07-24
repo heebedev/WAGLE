@@ -2,6 +2,7 @@ package com.androidlec.wagle.network_sh;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.androidlec.wagle.UserInfo;
 
@@ -23,6 +24,10 @@ public class NetworkTask_Login extends AsyncTask<Integer, String, Object> {
     String uEmail;
     String uName;
     String uLoginType;
+    String uPassword;
+    String uImageName;
+    String uBirthDate;
+    String uDate;
     boolean result = false;
 
 
@@ -85,15 +90,23 @@ public class NetworkTask_Login extends AsyncTask<Integer, String, Object> {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
                 uSeqno = jsonObject1.getInt("uSeqno");
                 uId = jsonObject1.getString("uId");
+                uPassword = jsonObject1.getString("uPassword");
                 uEmail = jsonObject1.getString("uEmail");
-                uName = jsonObject1.getString("uName");
                 uLoginType = jsonObject1.getString("uLoginType");
+                uName = jsonObject1.getString("uName");
+                uImageName = jsonObject1.getString("uImageName");
+                uBirthDate = jsonObject1.getString("uBirthDate");
+                uDate = jsonObject1.getString("uDate");
 
                 UserInfo.USEQNO = uSeqno;
                 UserInfo.UID = uId;
+                UserInfo.UPASSWORD = uPassword;
                 UserInfo.UEMAIL = uEmail;
-                UserInfo.UNAME = uName;
                 UserInfo.ULOGINTYPE = uLoginType;
+                UserInfo.UNAME = uName;
+                UserInfo.UIMAGENAME = uImageName;
+                UserInfo.UBIRTHDATE = uBirthDate;
+                UserInfo.UDATE = uDate;
 
                 result = true;
             }
