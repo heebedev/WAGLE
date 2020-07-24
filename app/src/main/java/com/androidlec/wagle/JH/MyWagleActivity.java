@@ -119,21 +119,17 @@ public class MyWagleActivity extends AppCompatActivity {
 
         // 정산 파트.
         btn_paymentAdd = findViewById(R.id.mywagle_btn_paymentAdd);
-        layout = findViewById(R.id.payment_ll_paymentActivity);
 
         // 정산 해놓은거 있으면 영수증, 아니면 버튼 띄워줌.
         switch (paymentCnt()) {
             case 2:
                 btn_paymentAdd.setVisibility(View.VISIBLE);
-                layout.setVisibility(View.INVISIBLE);
                 break;
             case 1:
                 btn_paymentAdd.setVisibility(View.INVISIBLE);
-                layout.setVisibility(View.VISIBLE);
                 break;
             default:
                 btn_paymentAdd.setVisibility(View.INVISIBLE);
-                layout.setVisibility(View.INVISIBLE);
                 break;
         }
 
@@ -169,7 +165,6 @@ public class MyWagleActivity extends AppCompatActivity {
                     break;
                 case R.id.mywagle_btn_paymentAdd:
                     btn_paymentAdd.setVisibility(View.INVISIBLE);
-                    layout.setVisibility(View.VISIBLE);
                     // --------------- 대화상자 띄우기 -------------------------------------------------
                     new AlertDialog.Builder(MyWagleActivity.this)
                             .setTitle("더하기 버튼을 눌러 아이템을 추가하고,\n항목을 길게 눌러 삭제할 수 있습니다.")
@@ -232,16 +227,11 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
             float wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
-            Log.v(TAG, "뭐가 문제냐?1 " + wpReadPage);
             float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-            Log.v(TAG, "뭐가 문제냐?2 " + movePage);
             float moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
-            Log.v(TAG, "뭐가 문제냐?3 " + moveProgressBar);
             if(wpReadPage >= wbMaxPage){
-                Log.v(TAG, "뭐가 문제냐?4 " + (deviceWidth - imageViews.get(i).getWidth()));
                 imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
             }else{
-                Log.v(TAG, "뭐가 문제냐?5 " + i);
                 imageViews.get(i).setX(moveProgressBar);
             }
             if(progressdata.get(i).getuSeqno() == UserInfo.USEQNO){ // 프로그레스바는 내가 읽은 부분까지 채워줌.
@@ -259,7 +249,6 @@ public class MyWagleActivity extends AppCompatActivity {
         String page = et_wpReadPage.getText().toString();
         urlAddr = "http://192.168.0.178:8080/wagle/recordPage.jsp?";
         urlAddr = urlAddr + "wpSeqno=" + wpSeqno + "&wpReadPage=" + page;
-        Log.v(TAG, "입력완료");
         try {
             JH_VoidNetworkTask networkTask7 = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
             networkTask7.execute().get();

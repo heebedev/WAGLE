@@ -36,7 +36,8 @@ public class Jhj_Post_Write_Notice extends AppCompatActivity {
 
         if (intent.getStringExtra("Type").equals("NR")) {
             title_Edit_Post_Write.setText(intent.getStringExtra("Title"));
-            content_Edit_Post_Write.setText(intent.getStringExtra("Content"));
+            String content = intent.getStringExtra("Content");
+            content_Edit_Post_Write.setText(content.replaceAll("/n", "\n"));
 
             disableEditText(title_Edit_Post_Write);
             disableEditText(content_Edit_Post_Write);
