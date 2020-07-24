@@ -66,7 +66,6 @@ public class WaggleFragment extends Fragment {
             adapter = new WaggleAdapter(getActivity(), data);
             rv_wagleList.setAdapter(adapter);
         }
-
     }
 
     private void getData() {
