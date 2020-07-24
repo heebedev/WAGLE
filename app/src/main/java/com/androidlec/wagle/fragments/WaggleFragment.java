@@ -60,16 +60,28 @@ public class WaggleFragment extends Fragment {
     private void getDataQueryDue() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListWAGLE.jsp?";
 
-        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+//         getData();
+//         if (data.size() == 0) {
+//             tv_noWagleList.setVisibility(View.VISIBLE);
+//             rv_wagleList.setVisibility(View.GONE);
+//         } else {
+//             tv_noWagleList.setVisibility(View.GONE);
+//             rv_wagleList.setVisibility(View.VISIBLE);
+//             adapter = new WaggleAdapter(getActivity(), data);
+//             rv_wagleList.setAdapter(adapter);
+//         }
+//     }
+//         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
 
-        try {
-            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
-            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
-            setAdapter();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    } // 마감순 정렬
+      ㅇㅓ떻게 수정함?
+//         try {
+//             WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
+//             data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
+//             setAdapter();
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//     } // 마감순 정렬
 
     private void getDataQueryPopular() {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetWagleListPopularWAGLE.jsp?";

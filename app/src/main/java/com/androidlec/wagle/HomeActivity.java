@@ -1,13 +1,18 @@
 package com.androidlec.wagle;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -25,6 +30,7 @@ import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
 import com.androidlec.wagle.fragments.WaggleFragment;
+import com.androidlec.wagle.fragments.WebFragment;
 import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -41,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
     private WaggleFragment waggleFragment = new WaggleFragment();
     private PlanFragment planFragment = new PlanFragment();
     private MyPageFragment myPageFragment = new MyPageFragment();
+    private WebFragment webFragment = new WebFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         ckGrade();
 
     }
+
 
     private void setActionBar() {
         ImageView include_ab_iv = findViewById(R.id.include_ab_iv);
@@ -117,6 +125,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = null;
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
                 //intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
@@ -134,6 +144,12 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.toolbar_menu_logout:
                 break;
+            case R.id.toolbar_menu_cgv:
+            case R.id.toolbar_menu_lottecinema:
+            case R.id.toolbar_menu_megabox:
+                transaction.replace(R.id.mainFrame, webFragment).commitAllowingStateLoss();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -167,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
         UserInfo.WAGLEMAGRADE = getOSData();
     }
 
+
     private String getOSData() {
         String result = "W";
         try {
@@ -182,10 +199,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }  // connectGetData
 
+
     // Fragment 이동 (home -> wagle)
     public void fragmentMove() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.mainFrame, waggleFragment).commitAllowingStateLoss();
     }
 
-}
+}//----
