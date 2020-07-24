@@ -31,9 +31,8 @@ import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_DHG_List;
+import com.androidlec.wagle.jhj.Jhj_HomeAndMyPage_Plus_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.bumptech.glide.Glide;
 
@@ -247,7 +246,7 @@ public class HomeFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "Notice");
                     break;
                 case R.id.fragment_home_Gallery_Plus :
@@ -257,7 +256,7 @@ public class HomeFragment extends Fragment {
                     getActivity().findViewById(R.id.navigation_wagle).performClick();
                     return;
                 case R.id.fragment_home_BookReport_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "BookReport");
                     break;
             }
@@ -623,12 +622,10 @@ public class HomeFragment extends Fragment {
         };
 
         // 독후감 값 설정하기
-        if (Bdata.size() != 0) {
-            for (int i = 0; i < Wdata.size(); i++) {
-                BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
-                BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
-                BookReport_Frag_Btn[i].setText(Bdata.get(i).getWcName() + " - " + Bdata.get(i).getuName());
-            }
+        for (int i = 0 ; i < Bdata.size() ; i++) {
+            BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
+            BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
+            BookReport_Frag_Btn[i].setText(Bdata.get(i).getWcName() + " - " + Bdata.get(i).getuName());
         }
 
     }
