@@ -99,7 +99,7 @@ public class Jhj_Post_DHG_List_Adapter extends RecyclerView.Adapter<Jhj_Post_DHG
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     @Override
     public void onBindViewHolder(Jhj_Post_DHG_List_Adapter.ViewHolder holder, int position) {
-        String ListItem = data.get(position).getBrContent();
+        String ListItem = data.get(position).getWcName() + " - " + data.get(position).getuName();
         holder.textView1.setText(ListItem) ;
     }
 
