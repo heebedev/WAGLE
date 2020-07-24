@@ -4,10 +4,20 @@ public class MoimList {
 
     int moimseq;
     String moimName;
+    String moimSubject;
 
-    public MoimList(int moimseq, String moimName) {
+    public MoimList(int moimseq, String moimName, String moimSubject) {
         this.moimseq = moimseq;
         this.moimName = moimName;
+        this.moimSubject = moimSubject;
+    }
+
+    public String getMoimSubject() {
+        return moimSubject;
+    }
+
+    public void setMoimSubject(String moimSubject) {
+        this.moimSubject = moimSubject;
     }
 
     public int getMoimseq() {
