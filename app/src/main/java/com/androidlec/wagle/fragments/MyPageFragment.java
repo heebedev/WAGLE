@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.androidlec.wagle.CS.Model.User;
+import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -189,18 +190,26 @@ public class MyPageFragment extends Fragment {
             }
 
             JSONArray jsonArray2 = new JSONArray(jsonObject.getString("noWagle"));
-            ArrayList<Jhj_Wagle_DTO> wagle_Dtos = new ArrayList<Jhj_Wagle_DTO>();
+            ArrayList<WagleList> wagle_Dtos = new ArrayList<WagleList>();
             for (int i = 0 ; i < jsonArray2.length() ; i++) {
                 JSONObject jsonObject1 = (JSONObject) jsonArray2.get(i);
 
                 String wcSeqno = jsonObject1.getString("wcSeqno");
+                String Moim_wmSeqno = jsonObject1.getString("Moim_wmSeqno");
+                String MoimUser_muSeqno = jsonObject1.getString("MoimUser_muSeqno");
+                String WagleBook_wbSeqno = jsonObject1.getString("WagleBook_wbSeqno");
                 String wcName = jsonObject1.getString("wcName");
+                String wcType = jsonObject1.getString("wcType");
                 String wcStartDate = jsonObject1.getString("wcStartDate");
                 String wcEndDate = jsonObject1.getString("wcEndDate");
+                String wcDueDate = jsonObject1.getString("wcDueDate");
                 String wcLocate = jsonObject1.getString("wcLocate");
                 String wcEntryFee = jsonObject1.getString("wcEntryFee");
+                String wcWagleDetail = jsonObject1.getString("wcWagleDetail");
+                String wcWagleAgreeRefund = jsonObject1.getString("wcWagleAgreeRefund");
 
-                wagle_Dtos.add(new Jhj_Wagle_DTO(wcSeqno, wcName, wcStartDate, wcEndDate, wcLocate, wcEntryFee));
+                wagle_Dtos.add(new WagleList(wcSeqno, Moim_wmSeqno, MoimUser_muSeqno, WagleBook_wbSeqno, wcName, wcType,
+                        wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund));
             }
 
             dtos = new Jhj_MyPage_DTO(wagleNum, wagleBookReportNum, wagleScore, totalWagle, totalBookReport, wagle_Dtos, book_Dtos);
@@ -244,12 +253,14 @@ public class MyPageFragment extends Fragment {
             case 1: // 와글 신청이 되었을 때.
                 intent = new Intent(getActivity(), MyWagleActivity.class);
                 UserInfo.WAGLESEQNO = data.getWagle().get(position).getWcSeqno();
-                intent.putExtra("wcSeqno", data.getWagle().get(position).getWcSeqno());
+                UserInfo.WAGLENAME = data.getWagle().get(position).getWcName();
+                UserInfo.WAGLETYPE = data.getWagle().get(position).getWcType();
                 startActivity(intent);
                 break;
             case 2: // 와글 신청이 안되었을 때.
                 intent = new Intent(getActivity(), ViewDetailWagleActivity.class);
-                intent.putExtra("data", data.getWagle().get(position).getWcSeqno());
+                intent.putExtra("data", data.getWagle().get(position));
+                intent.putExtra("wcSeqno", data.getWagle().get(position).getWcSeqno());
                 startActivity(intent);
                 break;
             case 0: // 데이터베이스 연결이 안되었을 때.
