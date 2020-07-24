@@ -407,8 +407,6 @@ public class HomeFragment extends Fragment {
                 wagle_Frag_Btn[i].setPaintFlags(wagle_Frag_Btn[i].getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                 wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
             } else {
-                wagle_Frag_Btn[i].setTextColor(getResources().getColor(R.color.mainColor));
-                wagle_Frag_Btn[i].setPaintFlags(0);
                 wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
             }
         }
@@ -623,7 +621,7 @@ public class HomeFragment extends Fragment {
         };
 
         // 독후감 값 설정하기
-        for (int i = 0 ; i < Wdata.size() ; i++) {
+        for (int i = 0 ; i < Bdata.size() ; i++) {
             BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
             BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
             BookReport_Frag_Btn[i].setText(Bdata.get(i).getWcName() + " - " + Bdata.get(i).getuName());
