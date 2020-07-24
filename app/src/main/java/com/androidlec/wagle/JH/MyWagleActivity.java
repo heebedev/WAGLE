@@ -108,8 +108,6 @@ public class MyWagleActivity extends AppCompatActivity {
         //와글 이름 설정
         wagleName = findViewById(R.id.tv_mywagle_wagleName);
         wagleName.setText(UserInfo.WAGLENAME);
-
-
         // 독후감 파트.
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
@@ -118,6 +116,7 @@ public class MyWagleActivity extends AppCompatActivity {
         //발제문
         tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
         tv_viewBJM.setOnClickListener(onClickListener);
+
 
         btn_move = findViewById(R.id.mywagle_btn_move);
         btn_bookreportAdd.setOnClickListener(onClickListener);
@@ -128,6 +127,11 @@ public class MyWagleActivity extends AppCompatActivity {
          if(bookInfo != null) {
              ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
              ic_bookinfo.setVisibility(View.VISIBLE);
+             btn_suggestionAdd.setText("발제문 수정");
+
+             if(UserInfo.WAGLEMAGRADE.equals("W")) {  // ******************************** jsp 수정 후에 wagle 만든사람 userseq 랑 내 userseq 비교하도록 변경
+                 btn_suggestionAdd.setVisibility(View.GONE);
+             }
 
              TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
              TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
