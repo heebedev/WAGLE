@@ -3,6 +3,7 @@ package com.androidlec.wagle.CS.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
@@ -55,37 +58,9 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         holder.tv_location.setText("장소 : " + data.get(position).getWcLocate());
         holder.tv_fee.setText("참가비 : " + data.get(position).getWcEntryFee());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = null;
-
-                switch (chkJoinIn(Integer.parseInt(data.get(position).getWcSeqno()))){
-                    case 1: // 와글 신청이 되었을 때.
-                        intent = new Intent(mContext, MyWagleActivity.class);
-                        UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
-                        intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
-                        mContext.startActivity(intent);
-                        break;
-                    case 2: // 와글 신청이 안되었을 때.
-                        intent = new Intent(mContext, ViewDetailWagleActivity.class);
-                        intent.putExtra("data", data.get(position));
-                        intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
-                        mContext.startActivity(intent);
-                        break;
-                    case 0: // 데이터베이스 연결이 안되었을 때.
-                        Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-
-
-
         Date today = Calendar.getInstance().getTime();
         String todayStr = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(today);
         String dueDate = data.get(position).getWcDueDate().replaceAll("\\.", "");
-
 
         if(Integer.parseInt(todayStr) > Integer.parseInt(dueDate)){
             holder.tv_title.setTextColor(mContext.getResources().getColor(R.color.generalTextLight));
@@ -110,7 +85,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             break;
                         case 2: // 와글 신청이 안되었을 때.
                             intent = new Intent(mContext, ViewDetailWagleActivity.class);
-
+                            UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
                             intent.putExtra("data", data.get(position));
                             intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
 
