@@ -18,11 +18,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.androidlec.wagle.CS.Network.NetworkTask;
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -198,7 +199,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
 
         try {
-            NetworkTask networkTask = new NetworkTask(AddTodayWagleActivity.this, urlAddr);
+            CSNetworkTask networkTask = new CSNetworkTask(AddTodayWagleActivity.this, urlAddr);
             networkTask.execute();
             finish();
         } catch (Exception e) {

@@ -39,22 +39,39 @@ import java.util.ArrayList;
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    final static String TAG = "로그체크 : ";
-    String urlAddr;
+    //final static String TAG = "Log check : ";
+    private String urlAddr;
+    private ListView lv_itemlist;
+    private String item;
+    private int price, paymentcnt;
+    private PaymentAdapter adapter;
+    private ArrayList<Payment> lists;
+    private ArrayList<Progress> progressdata;
+    private ArrayList<ImageView> imageViews;
+    private int index = 0;
+    private int wcSeqno = Integer.parseInt(UserInfo.WAGLESEQNO);
 
-    Button btn_paymentAdd;
-    LinearLayout layout;
-    ListView lv_itemlist;
-    EditText et_wpReadPage;
+    // 와글 이름
+    private TextView wagleName;
 
-    String item;
-    int price, paymentcnt;
-    PaymentAdapter adapter;
-    ArrayList<Payment> lists;
-    ArrayList<Progress> progressdata;
-    ArrayList<ImageView> imageViews;
-    int index = 0;
-    int wcSeqno = Integer.parseInt(UserInfo.WAGLESEQNO);
+    // 독후감
+    private TextView btn_bookreportAdd, tv_viewBJM;
+    private Button btn_suggestionAdd;
+    private ListView listView;
+
+    // 프로그레스바 파트.
+    private RelativeLayout rl_images;
+    private ProgressBar pb_book;
+    private Button btn_move;
+    private EditText et_wpReadPage;
+
+    // 갤러리 파트.
+    private Button btn_galleryAdd;
+    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
+    private TextView tv_galleryPlus;
+
+    // 정산 파트.
+    private Button btn_paymentAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +79,8 @@ public class MyWagleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_wagle);
 
         getProfileReadPage();
-        init();
         getData();
+        init();
     }
 
 
@@ -260,19 +277,17 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void getData(){
         // 리스트 가져오기.
-        urlDivider("paymentList", 0, null,0);
+//        urlDivider("paymentList", 0, null,0);
     }
-
-
+  
     private void getProfileReadPage() {
-        String wcSeqno = UserInfo.WAGLESEQNO;
         urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
             Object obj = networkTask6.execute().get();
             progressdata = (ArrayList<Progress>) obj;
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -280,7 +295,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private int getwbMaxPage() {
         int wbMaxPage = 0;
-        String wcSeqno = UserInfo.WAGLESEQNO;
         urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
@@ -292,8 +306,7 @@ public class MyWagleActivity extends AppCompatActivity {
         return wbMaxPage;
     }
 
-
-    private void getTotal(){
+  private void getTotal(){
         int total = 0;
         for (int i = 0 ; i < lists.size() ; i++) {
             total += lists.get(i).getPrice();
