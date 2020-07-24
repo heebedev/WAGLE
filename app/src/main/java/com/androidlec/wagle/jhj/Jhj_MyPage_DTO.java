@@ -1,5 +1,7 @@
 package com.androidlec.wagle.jhj;
 
+import com.androidlec.wagle.CS.Model.WagleList;
+
 import java.util.ArrayList;
 
 public class Jhj_MyPage_DTO {
@@ -11,10 +13,10 @@ public class Jhj_MyPage_DTO {
     String totalWagle;
     String totalBookReport;
 
-    ArrayList<Jhj_Wagle_DTO> wagle;
+    ArrayList<WagleList> wagle;
     ArrayList<Jhj_Suggestion_DTO> suggestion;
 
-    public Jhj_MyPage_DTO(String wagleNum, String wagleBookReportNum, String wagleScore, String totalWagle, String totalBookReport, ArrayList<Jhj_Wagle_DTO> wagle, ArrayList<Jhj_Suggestion_DTO> suggestion) {
+    public Jhj_MyPage_DTO(String wagleNum, String wagleBookReportNum, String wagleScore, String totalWagle, String totalBookReport, ArrayList<WagleList> wagle, ArrayList<Jhj_Suggestion_DTO> suggestion) {
         this.wagleNum = wagleNum;
         this.wagleBookReportNum = wagleBookReportNum;
         this.wagleScore = wagleScore;
@@ -72,11 +74,11 @@ public class Jhj_MyPage_DTO {
         this.suggestion = suggestion;
     }
 
-    public ArrayList<Jhj_Wagle_DTO> getWagle() {
+    public ArrayList<WagleList> getWagle() {
         return wagle;
     }
 
-    public void setWagle(ArrayList<Jhj_Wagle_DTO> wagle) {
+    public void setWagle(ArrayList<WagleList> wagle) {
         this.wagle = wagle;
     }
 }

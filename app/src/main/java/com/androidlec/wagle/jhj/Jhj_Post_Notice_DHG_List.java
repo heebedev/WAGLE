@@ -229,7 +229,7 @@ public class Jhj_Post_Notice_DHG_List extends AppCompatActivity {
         // Json Data 받기
         String BookReport_JsonString = Post_Select_All(urlAddr);
         // Json KeyName
-        String[] keyName = {"brSeqno", "uSeqno", "brContent", "wcSeqno"};
+        String[] keyName = {"brSeqno", "wcSeqno", "wcName", "uName"};
         // JsonData Bean 형태로 저장
         BRData = JsonData_BookReport_Parser(BookReport_JsonString, "bookreport", keyName);
 
