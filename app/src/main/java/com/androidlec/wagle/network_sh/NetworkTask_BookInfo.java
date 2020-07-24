@@ -77,25 +77,26 @@ public class NetworkTask_BookInfo extends AsyncTask<Integer, String, Object> {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = new JSONArray(jsonObject.getString("book_info"));
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                int wbSeqno = Integer.parseInt(jsonObject1.getString("wbSeqno"));
-                String wbTitle = jsonObject1.getString("wbTitle");
-                String wbWriter = jsonObject1.getString("wbWriter");
-                int wbMaxPage = Integer.parseInt(jsonObject1.getString("wbMaxPage"));
-                String wbIntro = jsonObject1.getString("wbIntro");
-                String wbData = jsonObject1.getString("wbData");
-                String wbImage = jsonObject1.getString("wbImage");
+            if(!jsonObject.isNull("book_info")) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+                    int wbSeqno = Integer.parseInt(jsonObject1.getString("wbSeqno"));
+                    String wbTitle = jsonObject1.getString("wbTitle");
+                    String wbWriter = jsonObject1.getString("wbWriter");
+                    int wbMaxPage = Integer.parseInt(jsonObject1.getString("wbMaxPage"));
+                    String wbIntro = jsonObject1.getString("wbIntro");
+                    String wbData = jsonObject1.getString("wbData");
+                    String wbImage = jsonObject1.getString("wbImage");
 
-                bookinfoData.setTitle(wbTitle);
-                bookinfoData.setWriter(wbWriter);
-                bookinfoData.setMaxpage(wbMaxPage);
-                bookinfoData.setIntro(wbIntro);
-                bookinfoData.setData(wbData);
-                bookinfoData.setImgName(wbImage);
 
+                    bookinfoData.setTitle(wbTitle);
+                    bookinfoData.setWriter(wbWriter);
+                    bookinfoData.setMaxpage(wbMaxPage);
+                    bookinfoData.setIntro(wbIntro);
+                    bookinfoData.setData(wbData);
+                    bookinfoData.setImgName(wbImage);
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

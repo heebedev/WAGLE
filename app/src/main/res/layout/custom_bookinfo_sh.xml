@@ -3,70 +3,82 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <com.androidlec.wagle.GalleryImageView
         android:id="@+id/bookinfo_iv_bookImage"
         android:layout_width="150dp"
         android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
         android:background="@drawable/ic_baseline_crop_din_24"
         />
 
 
-    <TextView
-        android:id="@+id/bookinfo_tv_bookname"
-        android:layout_width="250dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:hint="책 이름"
-        android:padding="5dp"
-        android:textSize="12dp"
-        android:background="@drawable/white_rounded_background"/>
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookinfo_tv_bookname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="책 이름"
+            android:padding="5dp"
+            android:textSize="12dp"
+            android:background="@drawable/white_rounded_background"/>
 
 
-    <TextView
-        android:id="@+id/bookinfo_tv_bookwriter"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="저자"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:textSize="12dp"
-        android:background="@drawable/white_rounded_background"/>
+        <TextView
+            android:id="@+id/bookinfo_tv_bookwriter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="저자"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:textSize="12dp"
+            android:background="@drawable/white_rounded_background"/>
 
 
-    <TextView
-        android:id="@+id/bookinfo_tv_bookmaxpage"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="총 페이지 수"
-        android:layout_marginTop="10dp"
-        android:inputType="number"
-        android:padding="5dp"
-        android:textSize="12dp"
-        android:background="@drawable/white_rounded_background"/>
+        <TextView
+            android:id="@+id/bookinfo_tv_bookmaxpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="총 페이지 수"
+            android:layout_marginTop="10dp"
+            android:inputType="number"
+            android:padding="5dp"
+            android:textSize="12dp"
+            android:background="@drawable/white_rounded_background"/>
 
-    <TextView
-        android:id="@+id/bookinfo_tv_bookinfo"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="책 소개"
-        android:padding="5dp"
-        android:textSize="12dp"
-        android:background="@drawable/white_rounded_background"/>
+        <TextView
+            android:id="@+id/bookinfo_tv_bookinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="책 소개"
+            android:padding="5dp"
+            android:textSize="12dp"
+            android:background="@drawable/white_rounded_background"/>
 
-    <TextView
-        android:id="@+id/bookinfo_tv_bookdata"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="책 추가 정보"
-        android:padding="5dp"
-        android:textSize="12dp"
-        android:background="@drawable/white_rounded_background"/>
+        <TextView
+            android:id="@+id/bookinfo_tv_bookdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="책 추가 정보"
+            android:padding="5dp"
+            android:textSize="12dp"
+            android:background="@drawable/white_rounded_background"/>
+
+
+    </LinearLayout>
+
 
 
 

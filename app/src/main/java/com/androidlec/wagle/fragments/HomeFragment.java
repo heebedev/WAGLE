@@ -1,6 +1,7 @@
 package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
@@ -40,7 +42,9 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,7 +68,7 @@ public class HomeFragment extends Fragment {
 
     // Post_Notice_Json Data (Json 파싱)
     private static ArrayList<Jhj_Notice_DTO> Ndata;
-    private static ArrayList<Jhj_Wagle_DTO> Wdata;
+    private static ArrayList<WagleList> Wdata;
     private static ArrayList<Jhj_Gallery_DTO> Gdata;
     private static ArrayList<Jhj_BookReport_DTO> Bdata;
 
@@ -391,15 +395,27 @@ public class HomeFragment extends Fragment {
                 R.id.fragment_home_Wagle1, R.id.fragment_home_Wagle2, R.id.fragment_home_Wagle3, R.id.fragment_home_Wagle4
         };
 
+        Date today = Calendar.getInstance().getTime();
+        String todayStr = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(today);
+
         for (int i = 0 ; i < Wdata.size() ; i++) {
             wagle_Frag_Btn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
             wagle_Frag_Btn[i].setOnClickListener(wagle_Frag_OnClickListener);
-            wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
+
+            // 와글 이 종료되면 표시해주기
+            String dueDate = Wdata.get(i).getWcDueDate().replaceAll("\\.", "");
+            if(Integer.parseInt(todayStr) > Integer.parseInt(dueDate)) {
+                wagle_Frag_Btn[i].setTextColor(getResources().getColor(R.color.generalTextLight));
+                wagle_Frag_Btn[i].setPaintFlags(wagle_Frag_Btn[i].getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+                wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
+            } else {
+                wagle_Frag_Btn[i].setText(Wdata.get(i).getWcName());
+            }
         }
     }
 
-    protected ArrayList<Jhj_Wagle_DTO> Wagle_Parser(String jsonStr) {
-        ArrayList<Jhj_Wagle_DTO> dtos = new ArrayList<Jhj_Wagle_DTO>();
+    protected ArrayList<WagleList> Wagle_Parser(String jsonStr) {
+        ArrayList<WagleList> dtos = new ArrayList<WagleList>();
 
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
@@ -410,10 +426,21 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 String wcSeqno = jsonObject1.getString("wcSeqno");
+                String Moim_wmSeqno = jsonObject1.getString("Moim_wmSeqno");
+                String MoimUser_muSeqno = jsonObject1.getString("MoimUser_muSeqno");
+                String WagleBook_wbSeqno = jsonObject1.getString("WagleBook_wbSeqno");
                 String wcName = jsonObject1.getString("wcName");
+                String wcType = jsonObject1.getString("wcType");
+                String wcStartDate = jsonObject1.getString("wcStartDate");
+                String wcEndDate = jsonObject1.getString("wcEndDate");
                 String wcDueDate = jsonObject1.getString("wcDueDate");
+                String wcLocate = jsonObject1.getString("wcLocate");
+                String wcEntryFee = jsonObject1.getString("wcEntryFee");
+                String wcWagleDetail = jsonObject1.getString("wcWagleDetail");
+                String wcWagleAgreeRefund = jsonObject1.getString("wcWagleAgreeRefund");
 
-                dtos.add(new Jhj_Wagle_DTO(wcSeqno, wcName, wcDueDate));
+                dtos.add(new WagleList(wcSeqno, Moim_wmSeqno, MoimUser_muSeqno, WagleBook_wbSeqno, wcName, wcType,
+                        wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -448,12 +475,14 @@ public class HomeFragment extends Fragment {
             case 1: // 와글 신청이 되었을 때.
                 intent = new Intent(getActivity(), MyWagleActivity.class);
                 UserInfo.WAGLESEQNO = Wdata.get(position).getWcSeqno();
-                intent.putExtra("wcSeqno", Wdata.get(position).getWcSeqno());
+                UserInfo.WAGLENAME = Wdata.get(position).getWcName();
+                UserInfo.WAGLETYPE = Wdata.get(position).getWcType();
                 startActivity(intent);
                 break;
             case 2: // 와글 신청이 안되었을 때.
                 intent = new Intent(getActivity(), ViewDetailWagleActivity.class);
-                intent.putExtra("data", Wdata.get(position).getWcSeqno());
+                intent.putExtra("data", Wdata.get(position));
+                intent.putExtra("wcSeqno", Wdata.get(position).getWcSeqno());
                 startActivity(intent);
                 break;
             case 0: // 데이터베이스 연결이 안되었을 때.
@@ -587,19 +616,21 @@ public class HomeFragment extends Fragment {
         String BookReport_JsonString = Post_Select_All(urlAddr);
         Bdata = BookReport_Parser(BookReport_JsonString);
 
-        // 공지사항 정보 4개 보여주기
+        // 독후감 xml 가져오기
         Button[] BookReport_Frag_Btn = new Button[4];
         Integer[] BookReport_Frag_Btn_Id = {
                 R.id.fragment_home_BookReport1, R.id.fragment_home_BookReport2, R.id.fragment_home_BookReport3, R.id.fragment_home_BookReport4
         };
 
-        if(Bdata.size() != 0) {
+        // 독후감 값 설정하기
+        if (Bdata.size() != 0) {
             for (int i = 0; i < Wdata.size(); i++) {
                 BookReport_Frag_Btn[i] = rootView.findViewById(BookReport_Frag_Btn_Id[i]);
                 BookReport_Frag_Btn[i].setOnClickListener(bookReport_Frag_OnClickListener);
-                BookReport_Frag_Btn[i].setText(Bdata.get(i).getBrContent());
+                BookReport_Frag_Btn[i].setText(Bdata.get(i).getWcName() + " - " + Bdata.get(i).getuName());
             }
         }
+
     }
 
     protected ArrayList<Jhj_BookReport_DTO> BookReport_Parser(String jsonStr) {
@@ -614,11 +645,11 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
 
                 String brSeqno = jsonObject1.getString("brSeqno");
-                String uSeqno = jsonObject1.getString("uSeqno");
-                String brContent = jsonObject1.getString("brContent");
                 String wcSeqno = jsonObject1.getString("wcSeqno");
+                String wcName = jsonObject1.getString("wcName");
+                String uName = jsonObject1.getString("uName");
 
-                dtos.add(new Jhj_BookReport_DTO(brSeqno, uSeqno, brContent, wcSeqno));
+                dtos.add(new Jhj_BookReport_DTO(brSeqno, wcSeqno, wcName, uName));
             }
 
         } catch (Exception e) {

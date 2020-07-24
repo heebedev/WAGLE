@@ -121,18 +121,22 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                 break;
             case R.id.vdw_cs_tv_bookInfo:
 
+                AlertDialog.Builder builder;
+                AlertDialog alertDialog;
                 Context mContext = getApplicationContext();
-                Dialog dialog = new Dialog(mContext);
-                dialog.setContentView( R.layout.custom_bookinfo_sh);
-                // custom_dialog.xml 로 저장된 layout 설정 파일을 view 설정한다.
-                bk_title = dialog.findViewById(R.id.bookinfo_tv_bookname);
-                bk_writer = dialog.findViewById(R.id.bookinfo_tv_bookwriter);
-                bk_maxpage = dialog.findViewById(R.id.bookinfo_tv_bookmaxpage);
-                bk_intro = dialog.findViewById(R.id.bookinfo_tv_bookinfo);
-                bk_data = dialog.findViewById(R.id.bookinfo_tv_bookdata);
-                bk_bookImage = dialog.findViewById(R.id.bookinfo_iv_bookImage);
+                LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.custom_bookinfo_sh, (ViewGroup)findViewById(R.id.ic_mywagle_bookinfo));
 
-                dialog.show();
+                bk_title = layout.findViewById(R.id.bookinfo_tv_bookname);
+                bk_writer = layout.findViewById(R.id.bookinfo_tv_bookwriter);
+                bk_maxpage = layout.findViewById(R.id.bookinfo_tv_bookmaxpage);
+                bk_intro = layout.findViewById(R.id.bookinfo_tv_bookinfo);
+                bk_data = layout.findViewById(R.id.bookinfo_tv_bookdata);
+                bk_bookImage = layout.findViewById(R.id.bookinfo_iv_bookImage);
+
+                builder = new AlertDialog.Builder(mContext);
+                builder.setView(layout);
+                alertDialog = builder.create();
 
                 Log.e("ViewDetatilWagle", bookinfo.getTitle());
 
