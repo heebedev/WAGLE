@@ -136,7 +136,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                         Glide.with(this)
                                 .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
                                 .apply(new RequestOptions().centerCrop())
-                                .placeholder(R.drawable.ic_outline_emptyimage)
                                 .into(bk_bookImage);
                     }
 

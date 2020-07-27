@@ -3,9 +3,7 @@ package com.androidlec.wagle.JH;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
@@ -116,6 +112,7 @@ public class MyWagleActivity extends AppCompatActivity {
         tv_viewBJM.setOnClickListener(onClickListener);
 
         btn_move = findViewById(R.id.mywagle_btn_move);
+        btn_move.setOnClickListener(onClickListener);
         btn_bookreportAdd.setOnClickListener(onClickListener);
         btn_suggestionAdd.setOnClickListener(onClickListener);
 
@@ -126,15 +123,13 @@ public class MyWagleActivity extends AppCompatActivity {
             ic_bookinfo.setVisibility(View.VISIBLE);
             btn_suggestionAdd.setText("발제문 추가");
 
-            if(UserInfo.WAGLEMAKERSEQ.equals(UserInfo.USEQNO)) {
+
+            if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
                 btn_suggestionAdd.setVisibility(View.VISIBLE);
-
-
 
                 if (questionListData.size() > 0) {
                     btn_suggestionAdd.setText("발제문 수정");
                 }
-
             }
 
             TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
@@ -237,7 +232,6 @@ public class MyWagleActivity extends AppCompatActivity {
         }
     };
 
-
     private void initProgressBar(){
 
         RelativeLayout rl_images = findViewById(R.id.mywagle_rl_images);
@@ -302,7 +296,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void recordPage() {
-        String wpSeqno = Integer.toString(progressdata.get(index).getWpSeqno());
+        int wpSeqno = progressdata.get(index).getWpSeqno();
         String page = et_wpReadPage.getText().toString();
         urlAddr = "http://192.168.0.178:8080/wagle/recordPage.jsp?";
         urlAddr = urlAddr + "wpSeqno=" + wpSeqno + "&wpReadPage=" + page;
@@ -573,7 +567,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
             LinearLayout ll = linear.findViewById(R.id.bjmview_ll_bjmlayout);
-            TextView bjmDown = linear.findViewById(R.id.bjmview_tv_bjmdownload);
 
             for (int i = 0; i < questionListData.size(); i++) {
                 //질문 입력 EditText 추가
@@ -590,6 +583,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
                 ll.addView(textView);
             }
+
 
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyWagleActivity.this);
             builder.setTitle("")
