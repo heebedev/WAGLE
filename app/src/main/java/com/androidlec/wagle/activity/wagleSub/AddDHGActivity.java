@@ -4,6 +4,7 @@ package com.androidlec.wagle.activity.wagleSub;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,8 +17,14 @@ import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.adapter.QuestionListAdapter;
 import com.androidlec.wagle.dto.SgstRptList;
+import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
+import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
 import com.androidlec.wagle.network_sh.NetworkTask_CRUD;
 import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -28,7 +35,6 @@ public class AddDHGActivity extends Activity {
     private static String centIP = "192.168.0.82";
 
     //질문리스트뷰
-    private static ArrayList<SgstRptList> questionListData;
     private static QuestionListAdapter adapter;
     private static ListView questionList;
 
@@ -39,6 +45,9 @@ public class AddDHGActivity extends Activity {
     // ListView 숨겨진 EditText
     private static EditText report;
 
+    private static ArrayList<Jhj_BookReport_DTO> ListData;
+    public static String check;
+
     // 초기화
     private void init() {
         // 초기선언
@@ -48,10 +57,7 @@ public class AddDHGActivity extends Activity {
         registDhg = findViewById(R.id.bt_dhgadd_dgmRegister);
         cancelDhg = findViewById(R.id.bt_dhgadd_dhgCancel);
 
-        // Data 불러오는 URL
-        String urlAddr = "http://" + centIP + ":8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
-
-        connectGetData(urlAddr);
+        DHG_Update_Data();
     }
 
     @Override
@@ -93,16 +99,30 @@ public class AddDHGActivity extends Activity {
                 // 저장
                 case R.id.bt_dhgadd_dgmRegister :
                     // EditText 가 저장된 Data
-                    ArrayList<SgstRptList> EditData = adapter.EditData;
+                    ArrayList<Jhj_BookReport_DTO> EditData = adapter.EditData;
+                    String urlAddr = "";
 
-                    // 저장한 URL
-                    String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&num=" + EditData.size();
+                    if (check.equals("1")) {
+                        // 저장한 URL
+                        urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Update.jsp?brCount=" + ListData.size() + "&uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&num=" + EditData.size();
 
-                    // URL 에 EditText 넣기
-                    for (int i = 0 ; i < EditData.size() ; i++) {
-                        urlAddr = urlAddr + "&sSeqno" + i + "=" + questionListData.get(i).getsSeqno() + "&bContent" + i + "=" + EditData.get(i).getaContent();
+                        for (int i = 0 ; i < ListData.size() ; i++) {
+                            urlAddr = urlAddr + "&brSeqno" + i + "=" + ListData.get(i).getBrSeqno();
+                        }
+
+                        // URL 에 EditText 넣기
+                        for (int i = 0; i < EditData.size(); i++) {
+                            urlAddr = urlAddr + "&sSeqno" + i + "=" + ListData.get(i).getsSeqno() + "&bContent" + i + "=" + EditData.get(i).getBrContent();
+                        }
+                    } else {
+                        // 저장한 URL
+                        urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&num=" + EditData.size();
+
+                        // URL 에 EditText 넣기
+                        for (int i = 0; i < EditData.size(); i++) {
+                            urlAddr = urlAddr + "&sSeqno" + i + "=" + ListData.get(i).getsSeqno() + "&bContent" + i + "=" + EditData.get(i).getBrContent();
+                        }
                     }
-
                     // 보내기
                     connectSetData(urlAddr);
 
@@ -130,21 +150,6 @@ public class AddDHGActivity extends Activity {
         }
     };
 
-    // Json Data 저장 밑 List 데이터 뿌리기
-    private void connectGetData(String urlAddr) {
-        try {
-            NetworkTask_QuestionReportList networkTask = new NetworkTask_QuestionReportList(AddDHGActivity.this, urlAddr);
-            Object obj = networkTask.execute().get();
-            questionListData = (ArrayList<SgstRptList>) obj;
-            adapter = new QuestionListAdapter(AddDHGActivity.this, R.layout.custom_dhglist_sh, questionListData);
-            questionList.setAdapter(adapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }  // connectGetData
-
     private boolean connectSetData(String urlAddr) {
         boolean result = false;
         try {
@@ -155,5 +160,64 @@ public class AddDHGActivity extends Activity {
         }
         return result;
     }  // connectGetData
+
+    // 저장된 데이터 불러오기
+    protected void DHG_Update_Data() {
+        // Data 불러오는 URL
+        String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Select.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
+        Log.e(TAG, urlAddr);
+        String JsonData = DHG_Select(urlAddr);
+        String[] attrName = {"brSeqno", "User_uSeqno", "brContent", "sSeqno", "WagleCreate_wcSeqno", "sType", "sContent"};
+        ListData = JsonData_DHG_Parser(JsonData, "bookreport", attrName);
+
+        adapter = new QuestionListAdapter(AddDHGActivity.this, R.layout.custom_dhglist_sh, ListData);
+        questionList.setAdapter(adapter);
+    }
+
+    // JSP 파일 URL로 받아 JSON Data 받아오는 메소드
+    protected String DHG_Select(String urlAddr) {
+        String data = null;
+
+        try {
+            Jhj_MySql_Select_NetworkTask networkTask = new Jhj_MySql_Select_NetworkTask(AddDHGActivity.this, urlAddr);
+            // execute() java 파일안의 메소드 한번에 동작시키기, 메소드를 사용하면 HttpURLConnection 이 제대로 작동하지않는다.
+            Object obj = networkTask.execute().get();
+            data = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    // JsonData Dtos 에 저장하기
+    protected ArrayList<Jhj_BookReport_DTO> JsonData_DHG_Parser(String jsonStr, String keyName, String[] attrName) {
+        ArrayList<Jhj_BookReport_DTO> dtos = new ArrayList<Jhj_BookReport_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            check = jsonObject.getString("check");
+            JSONArray jsonArray = new JSONArray(jsonObject.getString(keyName));
+            dtos.clear();
+
+            String[] attrValue = new String[attrName.length];
+            for (int i = 0 ; i < jsonArray.length() ; i++) {
+                // JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                for (int j = 0 ; j < attrName.length ; j++) {
+                    attrValue[j] = jsonObject1.getString(attrName[j]);
+                }
+
+                dtos.add(new Jhj_BookReport_DTO(attrValue[0], attrValue[1], attrValue[2], attrValue[3], attrValue[4], attrValue[5], attrValue[6]));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
 
 }

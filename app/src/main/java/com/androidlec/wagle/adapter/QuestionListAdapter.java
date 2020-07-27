@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.dto.SgstRptList;
+import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
 
 import java.util.ArrayList;
 
@@ -20,8 +22,8 @@ public class QuestionListAdapter extends BaseAdapter {
 
     private Context mContext = null;
     private int layout = 0;
-    private ArrayList<SgstRptList> data = null;
-    public ArrayList<SgstRptList> EditData = null;
+    private ArrayList<Jhj_BookReport_DTO> data = null;
+    public ArrayList<Jhj_BookReport_DTO> EditData = null;
     private LayoutInflater inflater = null;
 
     // 뷰 홀더 선언
@@ -31,7 +33,7 @@ public class QuestionListAdapter extends BaseAdapter {
         int ref;
     }
 
-    public QuestionListAdapter(Context mContext, int layout, ArrayList<SgstRptList> data) {
+    public QuestionListAdapter(Context mContext, int layout, ArrayList<Jhj_BookReport_DTO> data) {
         this.mContext = mContext;
         this.layout = layout;
         this.data = data;
@@ -80,6 +82,11 @@ public class QuestionListAdapter extends BaseAdapter {
             holder.question.setText("질문 "+ position + ") " + data.get(position).getsContent());
         }
 
+        if (AddDHGActivity.check.equals("1") && position > 0) {
+            holder.answer.setVisibility(View.VISIBLE);
+            holder.answer.setText(data.get(position).getBrContent());
+        }
+
         holder.answer.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,7 +100,7 @@ public class QuestionListAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
-                EditData.get(holder.ref).setaContent(s.toString());
+                EditData.get(holder.ref).setBrContent(s.toString());
             }
         });
 

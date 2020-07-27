@@ -126,7 +126,7 @@ public class MyWagleActivity extends AppCompatActivity {
             ic_bookinfo.setVisibility(View.VISIBLE);
             btn_suggestionAdd.setText("발제문 추가");
 
-            if(UserInfo.WAGLEMAKERSEQ.equals(UserInfo.USEQNO)) {
+            if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
                 btn_suggestionAdd.setVisibility(View.VISIBLE);
 
 
@@ -205,7 +205,7 @@ public class MyWagleActivity extends AppCompatActivity {
                     startActivity(new Intent(MyWagleActivity.this, AddDHGActivity.class));
                     break;
                 case R.id.mywagle_btn_suggestionAdd:
-                    if (UserInfo.WAGLEMAGRADE.equals("W")) {
+                    if (UserInfo.MOIMMYGRADE.equals("W")) {
                         return;
                     }
                     intent = new Intent(MyWagleActivity.this, AddBJMActivity.class);
