@@ -1,6 +1,7 @@
 package com.androidlec.wagle;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -53,7 +54,7 @@ public class BoardFragment extends Fragment {
         ll_main.setOrientation(LinearLayout.VERTICAL);
         for (int i = 0; i < boardTitleLists.size(); i++) {
             String boardSeq = boardTitleLists.get(i).getbSeqno();
-            ArrayList<BoardList> boardLists = getBoardList(boardSeq);
+            boardLists = getBoardList(boardSeq);
 ////////////////////// Head LinearLayout /////////////////////
             LinearLayout ll_header = new LinearLayout(getActivity());
             LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -73,6 +74,8 @@ public class BoardFragment extends Fragment {
             btnHeaderParams.setMargins(convertPixelsToDp(48), convertPixelsToDp(15), 0, 0);
             btn_header.setLayoutParams(btnHeaderParams);
             btn_header.setBackgroundResource(R.drawable.ic_add_circle_24);
+            btn_header.setTag(i+"");
+            btn_header.setOnClickListener(addOnClickListener);
 
             ll_header.addView(tv_header);
             ll_header.addView(btn_header);
@@ -82,49 +85,20 @@ public class BoardFragment extends Fragment {
             LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, convertPixelsToDp(36));
             btnParams.setMargins(convertPixelsToDp(15), convertPixelsToDp(8), convertPixelsToDp(15), 0);
 
-            Button btn1 = new Button(getActivity());
-            btn1.setLayoutParams(btnParams);
-            btn1.setPadding(convertPixelsToDp(10),0,0,0);
-            btn1.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
-            btn1.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-            btn1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            if(boardLists.size()!=0){
-                btn1.setText(boardLists.get(0).getPcTitle());
+            for (int j = 0; j < 4; j++) {
+                Button btn = new Button(getActivity());
+                btn.setTag(i+","+j);
+                btn.setLayoutParams(btnParams);
+                btn.setPadding(convertPixelsToDp(10),0,0,0);
+                btn.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
+                btn.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+                btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                if(boardLists.size() > j){
+                    btn.setText(boardLists.get(j).getPcTitle());
+                    btn.setOnClickListener(onClickListener);
+                }
+                ll_main.addView(btn);
             }
-            ll_main.addView(btn1);
-
-            Button btn2 = new Button(getActivity());
-            btn2.setLayoutParams(btnParams);
-            btn2.setPadding(convertPixelsToDp(10),0,0,0);
-            btn2.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
-            btn2.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-            btn2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            if(boardLists.size()>1){
-                btn2.setText(boardLists.get(1).getPcTitle());
-            }
-            ll_main.addView(btn2);
-
-            Button btn3 = new Button(getActivity());
-            btn3.setLayoutParams(btnParams);
-            btn3.setPadding(convertPixelsToDp(10),0,0,0);
-            btn3.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
-            btn3.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-            btn3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            if(boardLists.size()>2){
-                btn3.setText(boardLists.get(2).getPcTitle());
-            }
-            ll_main.addView(btn3);
-
-            Button btn4 = new Button(getActivity());
-            btn4.setLayoutParams(btnParams);
-            btn4.setPadding(convertPixelsToDp(10),0,0,0);
-            btn4.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
-            btn4.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-            btn4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            if(boardLists.size()>3){
-                btn4.setText(boardLists.get(3).getPcTitle());
-            }
-            ll_main.addView(btn4);
 ////////////////////// 4 Buttons /////////////////////
 ////////////////////// More Button /////////////////////
             TextView tv_more = new TextView(getActivity());
@@ -134,6 +108,8 @@ public class BoardFragment extends Fragment {
             tv_more.setGravity(Gravity.CENTER);
             tv_more.setText("더보기");
             tv_more.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            tv_more.setTag(i+"");
+            tv_more.setOnClickListener(moreOnClickListener);
             ll_main.addView(tv_more);
 ////////////////////// More Button /////////////////////
 ////////////////////// Main LinearLayout /////////////////////
@@ -144,12 +120,53 @@ public class BoardFragment extends Fragment {
 
     }
 
+    View.OnClickListener addOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String tag = (String) v.getTag();
+            int seq = Integer.parseInt(tag);
+            Intent intent = new Intent(getActivity(), AddBoardActivity.class);
+            intent.putExtra("boardSeq", boardTitleLists.get(seq).getbSeqno());
+            intent.putExtra("boardTitle", boardTitleLists.get(seq).getbName());
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener moreOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String tag = (String) v.getTag();
+            int seq = Integer.parseInt(tag);
+            Intent intent = new Intent(getActivity(), BoardListActivity.class);
+            intent.putExtra("boardSeq", boardTitleLists.get(seq).getbSeqno());
+            intent.putExtra("boardTitle", boardTitleLists.get(seq).getbName());
+            startActivity(intent);
+        }
+    };
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String tag = (String) v.getTag();
+            String[] seq = tag.split(",");
+            int titleSeq = Integer.parseInt(seq[0]);
+            int boardSeq = Integer.parseInt(seq[1]);
+            ArrayList<BoardList> mBoardList = getBoardList(boardTitleLists.get(titleSeq).getbSeqno());
+            if(mBoardList.size() != 0){
+                Intent intent = new Intent(getActivity(), BoardActivity.class);
+                intent.putExtra("boardTitle", boardTitleLists.get(titleSeq).getbName());
+                intent.putExtra("title", mBoardList.get(boardSeq).getPcTitle());
+                intent.putExtra("contents", mBoardList.get(boardSeq).getPcContent());
+                startActivity(intent);
+            }
+        }
+    };
+
     private ArrayList<BoardList> getBoardList(String boardSeq) {
         ArrayList<BoardList> result = null;
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardListWAGLE.jsp?";
 
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&bSeqno=" + boardSeq;
-        Log.e("Chance", urlAddr);
 
         try {
             BDNetworkTask bdNetworkTask = new BDNetworkTask(getActivity(), urlAddr);
@@ -168,7 +185,6 @@ public class BoardFragment extends Fragment {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardTitleListWAGLE.jsp?";
 
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
-        Log.e("Chance", urlAddr);
 
         try {
             BDTNetworkTask bdtNetworkTask = new BDTNetworkTask(getActivity(), urlAddr);

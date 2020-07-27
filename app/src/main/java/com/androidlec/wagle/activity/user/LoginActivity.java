@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
@@ -48,6 +49,9 @@ public class LoginActivity extends Activity {
     private EditText userid, userpw;
     //회원가입
     private TextView signUpBtn;
+    // 뒤로가기 버튼
+    private long backPressedTime = 0;
+    public static final long FINISH_INTERVAL_TIME = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +157,18 @@ public class LoginActivity extends Activity {
         Session.getCurrentSession().removeCallback(kakaoLogin.sessionCallback);
     }
 
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && (FINISH_INTERVAL_TIME >= intervalTime)) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "뒤로가기를 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    } // 뒤로가기
 
     //아이디 찾기 버튼 클릭 이벤트
     TextView.OnClickListener findidpwClickListener = new View.OnClickListener() {
