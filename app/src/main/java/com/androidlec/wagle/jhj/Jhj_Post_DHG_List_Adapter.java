@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class Jhj_Post_DHG_List_Adapter extends RecyclerView.Adapter<Jhj_Post_DHG_List_Adapter.ViewHolder> {

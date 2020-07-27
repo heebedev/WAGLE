@@ -3,7 +3,6 @@ package com.androidlec.wagle.CS.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
@@ -88,7 +85,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             break;
                         case 2: // 와글 신청이 안되었을 때.
                             intent = new Intent(mContext, ViewDetailWagleActivity.class);
-                            UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
+
                             intent.putExtra("data", data.get(position));
                             intent.putExtra("wcSeqno", data.get(position).getWcSeqno());
 

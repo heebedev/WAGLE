@@ -3,9 +3,9 @@ package com.androidlec.wagle.JH;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,26 +19,21 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
-import com.androidlec.wagle.adapter.QuestionListAdapter;
-import com.androidlec.wagle.dto.BookInfo;
-import com.androidlec.wagle.dto.SgstRptList;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
-import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
-import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
@@ -64,17 +59,13 @@ public class MyWagleActivity extends AppCompatActivity {
 
     // 독후감
     private TextView btn_bookreportAdd, tv_viewBJM;
-    private TextView btn_suggestionAdd;
+    private Button btn_suggestionAdd;
     private ListView listView;
-    private BookInfo bookInfo;
-    private View ic_bookinfo;
-    //발제문
-    private static ArrayList<SgstRptList> questionListData;
 
     // 프로그레스바 파트.
     private RelativeLayout rl_images;
     private ProgressBar pb_book;
-    private TextView btn_move;
+    private Button btn_move;
     private EditText et_wpReadPage;
 
     // 갤러리 파트.
@@ -99,79 +90,33 @@ public class MyWagleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         // 리스트 가져오기.
         urlDivider("paymentList", 0, null,0);
         getTotal();
-
     }
 
 
     private void init() {
-        //와글 이름 설정
-        wagleName = findViewById(R.id.tv_mywagle_wagleName);
-        wagleName.setText(UserInfo.WAGLENAME);
         // 독후감 파트.
-        btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
-        btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        listView = findViewById(R.id.mywagle_lv_bookreport);
+        TextView btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
+        Button btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
+        ListView listView = findViewById(R.id.mywagle_lv_bookreport);
         et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
-        //발제문
-        tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
-        tv_viewBJM.setOnClickListener(onClickListener);
 
-
-        btn_move = findViewById(R.id.mywagle_btn_move);
+        Button btn_move = findViewById(R.id.mywagle_btn_move);
         btn_bookreportAdd.setOnClickListener(onClickListener);
         btn_suggestionAdd.setOnClickListener(onClickListener);
-
-
-        //책 정보 확인
-         if(bookInfo != null) {
-             ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
-             ic_bookinfo.setVisibility(View.VISIBLE);
-             btn_suggestionAdd.setText("발제문 수정");
-
-             if(UserInfo.WAGLEMAGRADE.equals("W")) {  // ******************************** jsp 수정 후에 wagle 만든사람 userseq 랑 내 userseq 비교하도록 변경
-                 btn_suggestionAdd.setVisibility(View.GONE);
-             }
-
-             TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
-             TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
-             TextView bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
-             TextView bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
-             TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
-             ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
-
-             bkname.setText(bookInfo.getTitle());
-             bkwriter.setText(bookInfo.getWriter());
-             bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
-             bkIntro.setText(bookInfo.getIntro());
-             bkData.setText(bookInfo.getData());
-
-             if (bookInfo.getImgName().length() > 0)
-             Glide.with(this)
-                     .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
-                     .apply(new RequestOptions().centerCrop())
-                     .into(bookimage);
-
-         }
-
+        btn_move.setOnClickListener(onClickListener);
 
         // 프로그레스바 파트.
-        rl_images = findViewById(R.id.mywagle_rl_images);
-        pb_book = findViewById(R.id.mywagle_pb_book);
-        btn_move = findViewById(R.id.mywagle_btn_move);
-        et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
-
         initProgressBar();
 
         // 갤러리 파트.
-        btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
-        iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
-        iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
-        iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
-        tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
+        Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
+        ImageView iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
+        ImageView iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
+        ImageView iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
+        TextView tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
         btn_galleryAdd.setOnClickListener(onClickListener);
         tv_galleryPlus.setOnClickListener(onClickListener);
 
@@ -205,23 +150,23 @@ public class MyWagleActivity extends AppCompatActivity {
             Intent intent = null;
 
             switch (view.getId()){
-                case R.id.mywagle_btn_bookreportAdd :
+                case R.id.mywagle_btn_bookreportAdd:
                     startActivity(new Intent(MyWagleActivity.this, AddDHGActivity.class));
                     break;
-                case R.id.mywagle_btn_suggestionAdd :
+                case R.id.mywagle_btn_suggestionAdd:
                     startActivity(new Intent(MyWagleActivity.this, AddBJMActivity.class));
                     break;
-                case R.id.mywagle_btn_move :
+                case R.id.mywagle_btn_move:
                     recordPage();
                     Intent intent1 = getIntent();
                     finish();
                     startActivity(intent1);
                     break;
-                case R.id.mywagle_btn_galleryAdd :
+                case R.id.mywagle_btn_galleryAdd:
                     break;
-                case R.id.mywagle_tv_galleryPlus :
+                case R.id.mywagle_tv_galleryPlus:
                     break;
-                case R.id.mywagle_btn_paymentAdd :
+                case R.id.mywagle_btn_paymentAdd:
                     btn_paymentAdd.setVisibility(View.INVISIBLE);
                     // --------------- 대화상자 띄우기 -------------------------------------------------
                     new AlertDialog.Builder(MyWagleActivity.this)
@@ -231,12 +176,9 @@ public class MyWagleActivity extends AppCompatActivity {
                             .show();
                     // -----------------------------------------------------------------------------
                     break;
-                case R.id.payment_btn_addItem :
+                case R.id.payment_btn_addItem:
                     popupAddItem();
                     break;
-                case R.id.tv_mywagle_readbjm :
-                    viewBJM();
-                break;
             }
         }
     };
@@ -244,8 +186,8 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void initProgressBar(){
 
-        rl_images = findViewById(R.id.mywagle_rl_images);
-        pb_book = findViewById(R.id.mywagle_pb_book);
+        RelativeLayout rl_images = findViewById(R.id.mywagle_rl_images);
+        ProgressBar pb_book = findViewById(R.id.mywagle_pb_book);
 
 
         int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
@@ -326,12 +268,8 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void getData(){
-
-        String centIP = "192.168.0.138";
-        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
-
-        bookInfo = getBookinfo(url);
-
+        // 리스트 가져오기.
+//        urlDivider("paymentList", 0, null,0);
     }
   
     private void getProfileReadPage() {
@@ -373,8 +311,11 @@ public class MyWagleActivity extends AppCompatActivity {
     }
 
     private int getWagleUsers(){
+
         int memNo=0;
         urlAddr = "http://" + JH_IP + ":8080/wagle/getWagleUsers.jsp?";
+
+
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_IntNetworkTask networkTask8 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
@@ -536,83 +477,6 @@ public class MyWagleActivity extends AppCompatActivity {
     }
 
 
-//    책 정보 가져오기 ------------------------------------------------------------
-    private BookInfo getBookinfo(String urlAddr) {
-        BookInfo result = null;
-        try {
-            NetworkTask_BookInfo networkTask = new NetworkTask_BookInfo(MyWagleActivity.this, urlAddr);
-            Object obj = networkTask.execute().get();
-
-            result = (BookInfo) obj;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-
-    //bjm 목록 가져오기
-    private void connectGetbjmData(String urlAddr) {
-
-        try {
-            NetworkTask_QuestionReportList networkTask = new NetworkTask_QuestionReportList(MyWagleActivity.this, urlAddr);
-            Object obj = networkTask.execute().get();
-            questionListData = (ArrayList<SgstRptList>) obj;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }  // connectGetData
-
-
-    private void viewBJM() {
-
-        String urlAddr = "http://192.168.0.82:8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
-        connectGetbjmData(urlAddr);
-
-        if (questionListData.size() > 0) {
-            final LinearLayout linear = (LinearLayout) View.inflate(MyWagleActivity.this, R.layout.custom_bjmview_sh, null);
-
-
-            LinearLayout ll = linear.findViewById(R.id.bjmview_ll_bjmlayout);
-
-            for (int i = 0; i < questionListData.size(); i++) {
-                //질문 입력 EditText 추가
-                TextView textView = new TextView(getApplicationContext());
-                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                p.setMargins(30,10,30,10);
-                textView.setLayoutParams(p);
-                textView.setTextSize(14);
-                textView.setBackgroundResource(R.drawable.white_rounded_background);
-                textView.setGravity(Gravity.CENTER);
-                textView.setPadding(5,5,5,5);
-                textView.setText(questionListData.get(i).getsContent());
-
-                ll.addView(textView);
-            }
-
-            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyWagleActivity.this);
-            builder.setTitle("")
-                    .setView(linear)
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-            androidx.appcompat.app.AlertDialog dialog = builder.create();
-            dialog.show();
-
-        } else {
-            Toast.makeText(MyWagleActivity.this, "등록된 발제문이 없습니다.", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
 
 }//----

@@ -4,8 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -29,7 +25,6 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,6 +44,7 @@ public class MyMoimActivity extends AppCompatActivity {
 
     Button btn_addBoard;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +55,9 @@ public class MyMoimActivity extends AppCompatActivity {
         adminData = new ArrayList<Jhj_MyMoim_DTO>();
         workerData = new ArrayList<Jhj_MyMoim_DTO>();
 
-        btn_addBoard = findViewById(R.id.myMoim_btn_addBoard);
+
         btn_addBoard.setOnClickListener(onClickListener);
+
 
         // 버튼 이벤트 등록
         findViewById(R.id.bt_mymoiminfo_Admin_Sub).setOnClickListener(mymoim_info_Admin_OnClickListener);
@@ -211,6 +208,7 @@ public class MyMoimActivity extends AppCompatActivity {
         }
     };
 
+
     Button.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -243,6 +241,7 @@ public class MyMoimActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
         Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {

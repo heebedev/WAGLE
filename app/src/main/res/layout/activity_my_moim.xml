@@ -113,5 +113,4 @@
         android:textStyle="bold"
         android:backgroundTint="@color/mainColor" />
 
-
 </LinearLayout>

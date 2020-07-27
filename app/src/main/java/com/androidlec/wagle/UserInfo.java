@@ -13,19 +13,18 @@ public class UserInfo {
     public static String UDATE;
     public static String UPASSWORD;
 
+
     // 모임
     public static String MOIMSEQNO;
     public static String MOIMSUBJECT;
     public static String MOIM_NAME;
     public static final String MOIM_BASE_URL = "http://192.168.0.82:8080/wagle/moimImgs/";
-    public static final String BOOK_BASE_URL = "http://192.168.0.82:8080/wagle/bookImgs/";
 
     // 와글
     public static String WAGLESEQNO;
     public static String WAGLENAME;
     public static String WAGLETYPE;
     public static String WAGLEBOOKSEQ;
-    public static String WAGLEMAKERNO;
 
     // 운영진 여부
     public static String WAGLEMAGRADE;
