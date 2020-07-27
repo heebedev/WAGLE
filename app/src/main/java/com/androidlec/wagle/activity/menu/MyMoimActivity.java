@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.androidlec.wagle.CS.Network.NetworkTask;
+
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -23,6 +23,7 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -235,7 +236,7 @@ public class MyMoimActivity extends AppCompatActivity {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputBoardWAGLE.jsp?bName=" + name + "&Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&bOrder=" + 1;
 
         try {
-            NetworkTask networkTask = new NetworkTask(MyMoimActivity.this, urlAddr);
+            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(MyMoimActivity.this, urlAddr);
             networkTask.execute();
         } catch (Exception e) {
             e.printStackTrace();

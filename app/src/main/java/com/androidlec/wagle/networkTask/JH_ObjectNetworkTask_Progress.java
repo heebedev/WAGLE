@@ -127,6 +127,7 @@ public class JH_ObjectNetworkTask_Progress extends AsyncTask<Integer, String, Ob
                 int wpSeqno = jsonObject1.getInt("wpSeqno");
                 String uName = jsonObject1.getString("uName");
 
+
                 Progress data = new Progress(uImageName, wpReadPage, uSeqno, uLoginType, wpSeqno, uName);
 
                 progressdata.add(data);

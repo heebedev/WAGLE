@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,11 @@ import androidx.fragment.app.Fragment;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
+import com.androidlec.wagle.JH.Payment;
+import com.androidlec.wagle.JH.PaymentAdapter;
+import com.androidlec.wagle.JH.Progress;
+import com.androidlec.wagle.JH.Rank;
+import com.androidlec.wagle.JH.RankAdapter;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.ViewDetailWagleActivity;
@@ -27,6 +33,7 @@ import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
 import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
+import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Rank;
 import com.bumptech.glide.Glide;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
@@ -35,6 +42,7 @@ import com.kakao.network.callback.ResponseCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +59,10 @@ public class MyPageFragment extends Fragment {
     private static String IP = "192.168.0.82";
 
     private static Jhj_MyPage_DTO data;
+
+    // 랭킹 탑5 구하기.
+    private static ArrayList<Rank> ranks;
+    private static RankAdapter rankAdapter;
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -71,15 +83,10 @@ public class MyPageFragment extends Fragment {
         btn_sendMessage = rootView.findViewById(R.id.myPage_btn_sendMessage);
         btn_sendMessage.setOnClickListener(onClickListener);
 
-        ImageView rankingIcon = rootView.findViewById(R.id.fragment_my_page_RankingIcon);
+        ImageView profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
+        ImageView Rank_Grade = rootView.findViewById(R.id.fragment_my_page_iv_Rank_Grade);
 
-        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
-
-        TextView rankNum1 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num1);
-        TextView rankNum2 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num2);
-        TextView rankNum3 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num3);
-        TextView rankNum4 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num4);
-        TextView rankNum5 = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Num5);
+//        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
 
         TextView waglePlusBtn = rootView.findViewById(R.id.fragment_my_page_Wagle_Plus);
 
@@ -87,18 +94,18 @@ public class MyPageFragment extends Fragment {
 
 
         // 프로필 사진 가져오기
+        UserInfo.ULOGINTYPE = "wagle";
         if(UserInfo.ULOGINTYPE.equals("wagle")){
             Glide.with(this)
                     .load("http://192.168.0.82:8080/wagle/userImgs/" + UserInfo.UIMAGENAME)
                     .placeholder(R.drawable.ic_outline_emptyimage)
-                    .into(rankingIcon);
+                    .into(profileIcon);
         } else {
             Glide.with(this)
                     .load(UserInfo.UIMAGENAME)
                     .placeholder(R.drawable.ic_outline_emptyimage)
-                    .into(rankingIcon);
+                    .into(profileIcon);
         }
-
 
         // 페이지 정보 가져오기
         String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
@@ -121,6 +128,24 @@ public class MyPageFragment extends Fragment {
         percentage = (int) (result * 100);
         TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
         bookReportNum.setText("참여한 총 독후감 : " + data.getWagleBookReportNum() + " 개 / " + data.getTotalBookReport() + "개 (" + percentage + "%)");
+        // 총점 계산
+        TextView totalScore = rootView.findViewById(R.id.fragment_my_page_Text_TotalScore);
+        int myscore = (Integer.parseInt(data.getWagleNum())*10) + (Integer.parseInt(data.getWagleBookReportNum())*5);
+        totalScore.setText("총 " + myscore + " 점");
+
+        // 랭크 이미지
+        if(getRankGrade() <= 10){
+            Rank_Grade.setImageResource(R.drawable.diamond);
+        }else if(getRankGrade() <= 30){
+            Rank_Grade.setImageResource(R.drawable.gold);
+        }else if(getRankGrade() <= 60) {
+            Rank_Grade.setImageResource(R.drawable.silver);
+        }else {
+            Rank_Grade.setImageResource(R.drawable.bronze);
+        }
+
+        // 랭킹 탑5
+        getTop5();
 
         // 와글 버튼 텍스트, 이벤트 설정
         Button[] wagleBtn = new Button[4];
@@ -146,6 +171,44 @@ public class MyPageFragment extends Fragment {
             suggestionBtn[i].setText(data.getSuggestion().get(i).getsContent());
         }
     }
+
+    private void getTop5(){
+        ListView lv_ranktop5 = rootView.findViewById(R.id.fragment_my_page_ListView_Rank);
+        String Moim_mSeqno = UserInfo.MOIMSEQNO;
+        String JH_IP = "192.168.0.178";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/getTop5.jsp?";
+        urlAddr = urlAddr + "Moim_mSeqno=" + Moim_mSeqno;
+        try {
+            JH_ObjectNetworkTask_Rank objectNetworkTask_rank = new JH_ObjectNetworkTask_Rank(getActivity(), urlAddr);
+            Object obj = objectNetworkTask_rank.execute().get();
+            ranks = (ArrayList<Rank>) obj;
+            rankAdapter = new RankAdapter(getContext(), R.layout.customlayout_ranktop5_listview, ranks); // making adapter.
+            lv_ranktop5.setAdapter(rankAdapter);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private int getRankGrade(){
+        int rankgrade = 0;
+//        String muSeqno = UserInfo.MOIMUSERSEQNO;
+        String muSeqno = "33"; // 일단 절대값 넣어둠!!!
+        String JH_IP = "192.168.0.178";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/getRankGrade.jsp?";
+        urlAddr = urlAddr + "muSeqno=" + muSeqno;
+        try {
+            JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(getActivity(), urlAddr);
+            rankgrade = networkTask4.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rankgrade;
+    }
+
+
+
+
 
     // JsonData 가져오기
     protected String MyPage_Select_All(String urlAddr) {

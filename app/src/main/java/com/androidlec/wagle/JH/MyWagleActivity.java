@@ -38,6 +38,9 @@ import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
 
+    // JSP 연결 IP
+    private final static String JH_IP = "192.168.0.178";
+
 
     private String urlAddr;
     private ListView lv_itemlist;
@@ -298,7 +301,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private void recordPage() {
         int wpSeqno = progressdata.get(index).getWpSeqno();
         String page = et_wpReadPage.getText().toString();
-        urlAddr = "http://192.168.0.178:8080/wagle/recordPage.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/recordPage.jsp?";
         urlAddr = urlAddr + "wpSeqno=" + wpSeqno + "&wpReadPage=" + page;
         try {
             JH_VoidNetworkTask networkTask7 = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
@@ -343,7 +346,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private int getwbMaxPage() {
         int wbMaxPage = 0;
-        urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/getTotalPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
@@ -367,8 +370,11 @@ public class MyWagleActivity extends AppCompatActivity {
     }
 
     private int getWagleUsers(){
-        int memNo=10;
-        urlAddr = "http://192.168.0.178:8080/wagle/getWagleUsers.jsp?";
+
+        int memNo=0;
+        urlAddr = "http://" + JH_IP + ":8080/wagle/getWagleUsers.jsp?";
+
+
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_IntNetworkTask networkTask8 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
@@ -383,7 +389,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private int paymentCnt(){
         String wcSeqno = UserInfo.WAGLESEQNO;
         paymentcnt = 3;
-        urlAddr = "http://192.168.0.178:8080/wagle/paymentCnt.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/paymentCnt.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         connectDB("paymentCnt");
         return paymentcnt;
@@ -394,17 +400,17 @@ public class MyWagleActivity extends AppCompatActivity {
         String wcSeqno = UserInfo.WAGLESEQNO;
         switch(function){
             case "wpItemAdd":
-                urlAddr = "http://192.168.0.178:8080/wagle/wpItemAdd.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/wpItemAdd.jsp?";
                 urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&wpItem=" + item + "&wpPrice=" + price;
                 connectDB("wpItemAdd");
                 break;
             case "paymentList":
-                urlAddr = "http://192.168.0.178:8080/wagle/paymentList.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/paymentList.jsp?";
                 urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
                 connectDB("paymentList");
                 break;
             case "deleteItem":
-                urlAddr = "http://192.168.0.178:8080/wagle/deleteItem.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/deleteItem.jsp?";
                 urlAddr = urlAddr + "wpSeqno=" + wpSeqno;
                 connectDB("deleteItem");
                 break;

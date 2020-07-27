@@ -24,32 +24,46 @@
                 >
 
                 <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="40dp"
-                    android:id="@+id/fragment_my_page_RankingIcon"
+                    android:id="@+id/fragment_my_page_ProfileIcon"
                     android:background="@drawable/ic_outline_emptyimage"
                     app:civ_border="false"
+                    android:paddingRight="5dp"
                     />
 
                 <TextView
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:id="@+id/fragment_my_page_Text_Name"
-                    android:text="하이"
-                    android:textSize="24dp"
+                    android:text="이름"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:gravity="right|center"
                     />
 
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
+<!--                <TextView-->
+<!--                    android:layout_width="0px"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:id="@+id/fragment_my_page_Text_Rank_Grade"-->
+<!--                    android:text="(골드)"-->
+<!--                    android:textSize="24dp"-->
+<!--                    android:gravity="left|center"-->
+<!--                    />-->
+
+                <ImageView
+                    android:id="@+id/fragment_my_page_iv_Rank_Grade"
                     android:layout_weight="1"
-                    android:id="@+id/fragment_my_page_Text_Rank_Grade"
-                    android:text="(골드)"
-                    android:textSize="24dp"
-                    android:gravity="left|center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center"
+                    android:padding="10dp"
+                    android:maxHeight="80dp"
+                    android:maxWidth="80dp"
+                    android:adjustViewBounds="true"
                     />
 
             </LinearLayout>
@@ -58,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_my_page_Text_WagleNum"
-                android:text="참여한 총 와글 : 10 개 / 32개 (00%)"
+                android:text="참여한 총 와글 : 0 개 / 10개 (00%)"
                 android:textSize="16dp"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
@@ -67,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_my_page_Text_BookReportNum"
-                android:text="참여한 총 독후감 : 10개 / 32개 (00%)"
+                android:text="참여한 총 독후감 : 0개 / 10개 (00%)"
                 android:textSize="16dp"
                 android:gravity="center"
                 android:layout_marginTop="8dp"
@@ -76,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_my_page_Text_TotalScore"
-                android:text="총 102 점"
+                android:text="총 0 점"
                 android:textSize="28dp"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
@@ -96,56 +110,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+               android:layout_height="120dp"
                 android:orientation="vertical"
                 android:background="@drawable/jhj_wagle_btn_loundary"
                 android:layout_marginTop="5dp"
+                android:gravity="center"
                 >
 
-                <TextView
+                <ListView
+                    android:id="@+id/fragment_my_page_ListView_Rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fragment_my_page_Text_Rank_Num1"
-                    android:textSize="25dp"
-                    android:layout_margin="5dp"
                     android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:dividerHeight="0px"
+                    android:divider="#fff"
                     />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_my_page_Text_Rank_Num2"
-                    android:textSize="25dp"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_my_page_Text_Rank_Num3"
-                    android:textSize="25dp"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_my_page_Text_Rank_Num4"
-                    android:textSize="25dp"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_my_page_Text_Rank_Num5"
-                    android:textSize="25dp"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    />
 
             </LinearLayout>
 
@@ -153,12 +134,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="내 활동 점수를 올리고 싶나요?"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:gravity="center"
                 android:textColor="@color/mainColor"
                 android:textStyle="bold"
                 android:layout_marginTop="36dp"
-                android:padding="5dp"
                 />
 
             <TextView
