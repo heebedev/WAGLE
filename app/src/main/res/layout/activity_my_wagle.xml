@@ -20,13 +20,6 @@
             android:textColor="@color/mainColor"
             android:textStyle="bold"/>
 
-        <include
-            android:id="@+id/ic_mywagle_bookinfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/custom_bookinfo_sh"
-            android:visibility="gone"/>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +47,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <FrameLayout
@@ -94,15 +86,11 @@
                     android:inputType="numberDecimal"
                     />
 
-                <TextView
+                <Button
                     android:id="@+id/mywagle_btn_move"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:text="이동"
-                    android:textColor="@color/mainColor"
-                    android:textStyle="bold"
-                    android:textSize="16dp"
                     />
 
             </LinearLayout>
@@ -111,18 +99,14 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <Button
                 android:id="@+id/mywagle_btn_suggestionAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="발제문 등록"
-                android:textColor="@color/mainColor"
-                android:textStyle="bold"
-                android:textSize="16dp"/>
+                android:text="발제문 등록" />
 
         </FrameLayout>
 
@@ -197,9 +181,10 @@
             android:id="@+id/mywagle_tv_galleryPlus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="더보기"
-            android:textSize="16dp" />
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
