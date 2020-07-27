@@ -25,6 +25,9 @@ import java.util.Locale;
 
 public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolder> {
 
+    // JSP 연결 IP
+    private final static String JH_IP = "192.168.0.178";
+
     Context mContext;
     ArrayList<WagleList> data;
 
@@ -118,12 +121,11 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         }
     }
 
-    // ----------------------수정된 부분입니다.---------------------------------
+
     private int chkJoinIn(int wcSeqno){
         int chk = 3;
         String uSeqno = String.valueOf(UserInfo.USEQNO);
-        //uSeqno = "1"; // 임시 절대값. 위에꺼 쓰면 됨.
-        String urlAddr = "http://192.168.0.178:8080/wagle/joininChk.jsp?";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/joininChk.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&User_uSeqno=" + uSeqno;
         try {
             JH_IntNetworkTask networkTask = new JH_IntNetworkTask(mContext, urlAddr);
@@ -134,7 +136,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
         }
         return chk;
     }
-    //----------------------------------------------------------------------
+
 
 
 

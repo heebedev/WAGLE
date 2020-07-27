@@ -7,14 +7,24 @@ public class Progress {
     private int uSeqno;
     private String uLoginType;
     private int wpSeqno;
+    private String uName;
 
 
-    public Progress(String uImageName, int wpReadPage, int uSeqno, String uLoginType, int wpSeqno) {
+    public Progress(String uImageName, int wpReadPage, int uSeqno, String uLoginType, int wpSeqno, String uName) {
         this.uImageName = uImageName;
         this.wpReadPage = wpReadPage;
         this.uSeqno = uSeqno;
         this.uLoginType = uLoginType;
         this.wpSeqno = wpSeqno;
+        this.uName = uName;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public int getWpSeqno() {

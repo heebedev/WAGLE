@@ -13,6 +13,7 @@ public class UserInfo {
     public static String UDATE;
     public static String UPASSWORD;
 
+
     // 모임
     public static String MOIMSEQNO;
     public static String MOIMSUBJECT;
