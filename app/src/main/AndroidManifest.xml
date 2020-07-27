@@ -17,9 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/WAGLETheme"
-        android:windowSoftInputMode="adjustPan"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity.wagleSub.AddBookActivity"></activity>
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustPan">
+        <activity android:name=".AddBoardActivity"></activity>
+        <activity android:name=".BoardListActivity" />
+        <activity android:name=".BoardActivity" />
+        <activity android:name=".activity.wagleSub.AddBookActivity" />
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
