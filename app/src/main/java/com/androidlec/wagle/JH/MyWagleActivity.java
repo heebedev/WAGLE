@@ -151,7 +151,11 @@ public class MyWagleActivity extends AppCompatActivity {
                     startActivity(new Intent(MyWagleActivity.this, AddDHGActivity.class));
                     break;
                 case R.id.mywagle_btn_suggestionAdd:
-                    startActivity(new Intent(MyWagleActivity.this, AddBJMActivity.class));
+                    if (UserInfo.WAGLEMAGRADE.equals("W")) {
+                        return;
+                    }
+                    intent = new Intent(MyWagleActivity.this, AddBJMActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.mywagle_btn_move:
                     recordPage();
