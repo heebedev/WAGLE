@@ -135,6 +135,30 @@ public class MyPageFragment extends Fragment {
         percentage = (int) (result * 100);
         TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
         bookReportNum.setText("참여한 총 독후감 : " + data.getWagleBookReportNum() + " 개 / " + data.getTotalBookReport() + "개 (" + percentage + "%)");
+      
+        // 와글 버튼 텍스트, 이벤트 설정
+        Button[] wagleBtn = new Button[4];
+        Integer[] wagle_Frag_Btn_Id = {
+                R.id.fragment_my_page_Wagle1, R.id.fragment_my_page_Wagle2, R.id.fragment_my_page_Wagle3, R.id.fragment_my_page_Wagle4
+        };
+
+        for (int i = 0 ; i < data.getWagle().size() ; i++) {
+            wagleBtn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
+            wagleBtn[i].setOnClickListener(wagle_MyPage_OnClickListener);
+            wagleBtn[i].setText(data.getWagle().get(i).getWcName());
+        }
+
+        // 독후감 버튼 텍스트, 이벤트 설정
+        Button[] suggestionBtn = new Button[4];
+        Integer[] suggestion_Frag_Btn_Id = {
+                R.id.fragment_my_page_BookReport1, R.id.fragment_my_page_BookReport2, R.id.fragment_my_page_BookReport3, R.id.fragment_my_page_BookReport4
+        };
+
+        for (int i = 0 ; i < data.getSuggestion().size() ; i++) {
+            suggestionBtn[i] = rootView.findViewById(suggestion_Frag_Btn_Id[i]);
+            suggestionBtn[i].setOnClickListener(suggestion_MyPage_OnClickListener);
+            suggestionBtn[i].setText(data.getSuggestion().get(i).getsContent());
+        }
     }
 
     // JsonData 가져오기

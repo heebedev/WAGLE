@@ -78,6 +78,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
                             UserInfo.WAGLENAME = data.get(position).getWcName();
                             UserInfo.WAGLETYPE = data.get(position).getWcType();
+                            UserInfo.WAGLEMAKERSEQ = data.get(position).getMoimUser_muSeqno();
                             mContext.startActivity(intent);
                             break;
                         case 2: // 와글 신청이 안되었을 때.

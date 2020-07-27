@@ -140,7 +140,7 @@ public class WaggleFragment extends Fragment {
     View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
             case R.id.wagle_fab_addwagle:
-                if (UserInfo.WAGLEMAGRADE.equals("O") || UserInfo.WAGLEMAGRADE.equals("S")) {
+                if (UserInfo.MOIMMYGRADE.equals("O") || UserInfo.MOIMMYGRADE.equals("S")) {
                     startActivity(new Intent(getActivity(), AddWagleActivity.class));
                 } else {
                     startActivity(new Intent(getActivity(), AddTodayWagleActivity.class));
