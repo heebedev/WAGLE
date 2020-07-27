@@ -10,11 +10,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.androidlec.wagle.CS.Model.BoardList;
+import com.androidlec.wagle.CS.Model.BoardTitleList;
+import com.androidlec.wagle.CS.Network.BDNetworkTask;
+import com.androidlec.wagle.CS.Network.BDTNetworkTask;
 import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -28,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyMoimActivity extends AppCompatActivity {
 
@@ -135,6 +142,44 @@ public class MyMoimActivity extends AppCompatActivity {
         // -----------------------------------------------------------------------------------------
 
 
+
+
+
+
+        // -----------------------------------------------------------------------------------------
+        // 게시판 리스트 뷰
+        // -----------------------------------------------------------------------------------------
+
+        ArrayList<BoardTitleList> boardTitleLists = getBoardList();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < boardTitleLists.size(); i++) {
+            list.add(boardTitleLists.get(i).getbName());
+        }
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(MyMoimActivity.this, android.R.layout.simple_list_item_1, list);
+
+        ListView lv_boardList = findViewById(R.id.myMoim_lv_boardList);
+        lv_boardList.setAdapter(mAdapter);
+
+        // -----------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
+
+
+    }
+
+    private ArrayList<BoardTitleList> getBoardList() {
+        ArrayList<BoardTitleList> list = null;
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardTitleListWAGLE.jsp?";
+
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            BDTNetworkTask bdtNetworkTask = new BDTNetworkTask(MyMoimActivity.this, urlAddr);
+            list = bdtNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     // ---------------------------------------------------------------------------------------------
