@@ -42,7 +42,8 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="책 이름"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/white_rounded_background"/>
 
 
@@ -52,7 +53,8 @@
         android:layout_height="wrap_content"
         android:hint="저자"
         android:layout_marginTop="10dp"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/white_rounded_background"/>
 
 
@@ -63,7 +65,8 @@
         android:hint="총 페이지 수"
         android:layout_marginTop="10dp"
         android:inputType="number"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/white_rounded_background"/>
 
     <EditText
@@ -74,7 +77,8 @@
         android:minHeight="100dp"
         android:layout_marginTop="10dp"
         android:hint="책 소개"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/white_rounded_background"/>
 
     <EditText
@@ -85,7 +89,8 @@
         android:minHeight="100dp"
         android:layout_marginTop="10dp"
         android:hint="책 추가 정보"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/white_rounded_background"/>
 
 

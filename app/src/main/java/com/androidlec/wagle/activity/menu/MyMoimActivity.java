@@ -1,11 +1,9 @@
 package com.androidlec.wagle.activity.menu;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,8 +22,6 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.bumptech.glide.Glide;
-import com.kakao.network.NetworkTask;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,7 +39,6 @@ public class MyMoimActivity extends AppCompatActivity {
     // moim Data .. 0 -> moimSeqno, 1 -> moimName, 2 -> moimImage
     String[] moimData;
 
-    Button btn_addBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +50,9 @@ public class MyMoimActivity extends AppCompatActivity {
         adminData = new ArrayList<Jhj_MyMoim_DTO>();
         workerData = new ArrayList<Jhj_MyMoim_DTO>();
 
-        btn_addBoard = findViewById(R.id.myMoim_btn_addBoard);
+
         //btn_addBoard.setOnClickListener(onClickListener);
+
 
         // 버튼 이벤트 등록
         findViewById(R.id.bt_mymoiminfo_Admin_Sub).setOnClickListener(mymoim_info_Admin_OnClickListener);
@@ -208,6 +203,7 @@ public class MyMoimActivity extends AppCompatActivity {
         }
     };
 
+
 //    Button.OnClickListener onClickListener = new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
@@ -240,6 +236,7 @@ public class MyMoimActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 //    }
+
 
     public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
         Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
