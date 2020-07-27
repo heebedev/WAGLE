@@ -23,7 +23,7 @@
         <activity android:name=".FindLocationActivity" />
         <activity android:name=".ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
-        <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
+        <activity android:name=".jhj.Jhj_HomeAndMyPage_Plus_List" />
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
         <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
