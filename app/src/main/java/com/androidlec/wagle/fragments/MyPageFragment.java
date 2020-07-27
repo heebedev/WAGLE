@@ -140,7 +140,7 @@ public class MyPageFragment extends Fragment {
                 R.id.fragment_my_page_BookReport1, R.id.fragment_my_page_BookReport2, R.id.fragment_my_page_BookReport3, R.id.fragment_my_page_BookReport4
         };
 
-        for (int i = 0 ; i < suggestionBtn.length ; i++) {
+        for (int i = 0 ; i < data.getSuggestion().size() ; i++) {
             suggestionBtn[i] = rootView.findViewById(suggestion_Frag_Btn_Id[i]);
             suggestionBtn[i].setOnClickListener(suggestion_MyPage_OnClickListener);
             suggestionBtn[i].setText(data.getSuggestion().get(i).getsContent());

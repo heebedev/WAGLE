@@ -20,6 +20,13 @@
             android:textColor="@color/mainColor"
             android:textStyle="bold"/>
 
+        <include
+            android:id="@+id/ic_mywagle_bookinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/custom_bookinfo_sh"
+            android:visibility="gone"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
