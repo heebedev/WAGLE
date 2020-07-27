@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.androidlec.wagle.BoardFragment;
 import com.androidlec.wagle.CS.Model.WagleList;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -34,9 +33,8 @@ import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_DHG_List;
+import com.androidlec.wagle.jhj.Jhj_HomeAndMyPage_Plus_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.bumptech.glide.Glide;
 
@@ -214,7 +212,7 @@ public class HomeFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "Notice");
                     break;
                 case R.id.fragment_home_Gallery_Plus :
@@ -224,7 +222,7 @@ public class HomeFragment extends Fragment {
                     getActivity().findViewById(R.id.navigation_wagle).performClick();
                     return;
                 case R.id.fragment_home_BookReport_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "BookReport");
                     break;
             }

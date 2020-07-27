@@ -25,6 +25,7 @@
                 android:background="@drawable/white_rounded_background"
                 >
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
                         />
 
                 </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"
