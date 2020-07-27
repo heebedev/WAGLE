@@ -20,6 +20,13 @@
             android:textColor="@color/mainColor"
             android:textStyle="bold"/>
 
+        <include
+            android:id="@+id/ic_mywagle_bookinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/custom_bookinfo_sh"
+            android:visibility="gone"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,6 +54,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <FrameLayout
@@ -86,11 +94,15 @@
                     android:inputType="numberDecimal"
                     />
 
-                <Button
+                <TextView
                     android:id="@+id/mywagle_btn_move"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="이동"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
                     />
 
             </LinearLayout>
@@ -99,14 +111,18 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <Button
+            <TextView
                 android:id="@+id/mywagle_btn_suggestionAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="발제문 등록" />
+                android:text="발제문 등록"
+                android:textColor="@color/mainColor"
+                android:textStyle="bold"
+                android:textSize="16dp"/>
 
         </FrameLayout>
 
@@ -181,10 +197,9 @@
             android:id="@+id/mywagle_tv_galleryPlus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="더보기"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
