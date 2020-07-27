@@ -201,8 +201,8 @@ public class NaverLogin {
             UserInfo.USEQNO = Integer.parseInt(user[0]);
             UserInfo.UID = user[1];
             UserInfo.UEMAIL = user[2];
-            UserInfo.UNAME = user[3];
-            UserInfo.ULOGINTYPE = user[4];
+            UserInfo.ULOGINTYPE = user[3];
+            UserInfo.UNAME = user[4];
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +247,7 @@ public class NaverLogin {
 
     public void logout() {
         mOAuthLoginInstance.logout(mContext);
-        ((Activity) mContext).finish();
+        //((Activity) mContext).finish();
     }
 
     public void deleteToken() {

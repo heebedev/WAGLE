@@ -53,7 +53,7 @@ public class BoardFragment extends Fragment {
         ll_main.setOrientation(LinearLayout.VERTICAL);
         for (int i = 0; i < boardTitleLists.size(); i++) {
             String boardSeq = boardTitleLists.get(i).getbSeqno();
-            ArrayList<BoardList> boardLists = getBoardList(boardSeq);
+            boardLists = getBoardList(boardSeq);
 ////////////////////// Head LinearLayout /////////////////////
             LinearLayout ll_header = new LinearLayout(getActivity());
             LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -83,6 +83,7 @@ public class BoardFragment extends Fragment {
             btnParams.setMargins(convertPixelsToDp(15), convertPixelsToDp(8), convertPixelsToDp(15), 0);
 
             Button btn1 = new Button(getActivity());
+            btn1.setTag("btn1");
             btn1.setLayoutParams(btnParams);
             btn1.setPadding(convertPixelsToDp(10),0,0,0);
             btn1.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
@@ -90,10 +91,12 @@ public class BoardFragment extends Fragment {
             btn1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             if(boardLists.size()!=0){
                 btn1.setText(boardLists.get(0).getPcTitle());
+                btn1.setOnClickListener(onClickListener);
             }
             ll_main.addView(btn1);
 
             Button btn2 = new Button(getActivity());
+            btn2.setTag("btn2");
             btn2.setLayoutParams(btnParams);
             btn2.setPadding(convertPixelsToDp(10),0,0,0);
             btn2.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
@@ -101,10 +104,12 @@ public class BoardFragment extends Fragment {
             btn2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             if(boardLists.size()>1){
                 btn2.setText(boardLists.get(1).getPcTitle());
+                btn2.setOnClickListener(onClickListener);
             }
             ll_main.addView(btn2);
 
             Button btn3 = new Button(getActivity());
+            btn3.setTag("btn3");
             btn3.setLayoutParams(btnParams);
             btn3.setPadding(convertPixelsToDp(10),0,0,0);
             btn3.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
@@ -112,10 +117,12 @@ public class BoardFragment extends Fragment {
             btn3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             if(boardLists.size()>2){
                 btn3.setText(boardLists.get(2).getPcTitle());
+                btn3.setOnClickListener(onClickListener);
             }
             ll_main.addView(btn3);
 
             Button btn4 = new Button(getActivity());
+            btn4.setTag("btn4");
             btn4.setLayoutParams(btnParams);
             btn4.setPadding(convertPixelsToDp(10),0,0,0);
             btn4.setBackgroundResource(R.drawable.jhj_wagle_btn_loundary);
@@ -123,6 +130,7 @@ public class BoardFragment extends Fragment {
             btn4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             if(boardLists.size()>3){
                 btn4.setText(boardLists.get(3).getPcTitle());
+                btn4.setOnClickListener(onClickListener);
             }
             ll_main.addView(btn4);
 ////////////////////// 4 Buttons /////////////////////
@@ -144,12 +152,27 @@ public class BoardFragment extends Fragment {
 
     }
 
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            if ("btn1".equals(tag)) {
+                boardLists.get(0).getbSeqno();
+            } else if ("btn2".equals(tag)) {
+                boardLists.get(1).getbSeqno();
+            } else if ("btn3".equals(tag)) {
+                boardLists.get(2).getbSeqno();
+            } else if ("btn4".equals(tag)) {
+                boardLists.get(3).getbSeqno();
+            }
+        }
+    };
+
     private ArrayList<BoardList> getBoardList(String boardSeq) {
         ArrayList<BoardList> result = null;
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardListWAGLE.jsp?";
 
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&bSeqno=" + boardSeq;
-        Log.e("Chance", urlAddr);
 
         try {
             BDNetworkTask bdNetworkTask = new BDNetworkTask(getActivity(), urlAddr);
@@ -168,7 +191,6 @@ public class BoardFragment extends Fragment {
         String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardTitleListWAGLE.jsp?";
 
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
-        Log.e("Chance", urlAddr);
 
         try {
             BDTNetworkTask bdtNetworkTask = new BDTNetworkTask(getActivity(), urlAddr);

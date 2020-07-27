@@ -1,5 +1,6 @@
 package com.androidlec.wagle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +17,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
+import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
+import com.androidlec.wagle.CS.LoginClass.NaverLogin;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.activity.menu.MyMoimActivity;
 import com.androidlec.wagle.CS.Network.MINetworkTask;
 import com.androidlec.wagle.activity.menu.MyInfoActivity;
+import com.androidlec.wagle.activity.user.LoginActivity;
 import com.androidlec.wagle.fragments.HomeFragment;
 import com.androidlec.wagle.fragments.MyPageFragment;
 import com.androidlec.wagle.fragments.PlanFragment;
@@ -28,7 +33,14 @@ import com.androidlec.wagle.fragments.WaggleFragment;
 import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -66,7 +78,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //GradeCheck
         ckGrade();
-
     }
 
     private void setActionBar() {
@@ -98,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
@@ -111,7 +121,6 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             menuInflater.inflate(R.menu.toolbar_menu_general, menu);
         }
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -133,9 +142,52 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, MyMoimActivity.class));
                 break;
             case R.id.toolbar_menu_logout:
+                logoutAction();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutAction() {
+        switch (UserInfo.ULOGINTYPE) {
+            case "wagle":
+                toLoginActivity();
+                break;
+            case "NAVER":
+                new NaverLogin(HomeActivity.this).logout();
+                toLoginActivity();
+                break;
+            case "GOOGLE":
+                GoogleSignInClient mGoogleSignInClient;
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build();
+                mGoogleSignInClient = GoogleSignIn.getClient(HomeActivity.this, gso);
+                mGoogleSignInClient.signOut()
+                        .addOnCompleteListener((Activity) HomeActivity.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                toLoginActivity();
+                            }
+                        });
+                break;
+            case "KAKAO":
+                UserManagement.getInstance()
+                        .requestLogout(new LogoutResponseCallback() {
+                            @Override
+                            public void onCompleteLogout() {
+                                toLoginActivity();
+                            }
+                        });
+                break;
+        }
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     // 네비게이션 클릭시 화면 이동 리스너
