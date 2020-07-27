@@ -21,6 +21,9 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
 
+    // JSP 연결 IP
+    private final static String JH_IP = "192.168.0.178";
+
     private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
 
     private TextView tv_bookInfo, tv_num6Name;
@@ -162,7 +165,7 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     private void joinInWagle() {
         String wcSeqno = intent.getStringExtra("wcSeqno");
         String uSeqno = String.valueOf(UserInfo.USEQNO);
-        String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/joinInWagle.jsp?";
         urlAddr = urlAddr + "Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
         try {
             JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(ViewDetailWagleActivity.this, urlAddr);
