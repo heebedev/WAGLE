@@ -93,11 +93,16 @@
                     android:inputType="numberDecimal"
                     />
 
-                <Button
+                <TextView
                     android:id="@+id/mywagle_btn_move"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/mainColor"
+                    android:layout_marginLeft="24dp"
                     android:text="이동"
+
                     />
 
             </LinearLayout>
@@ -108,11 +113,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <TextView
                 android:id="@+id/mywagle_btn_suggestionAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/mainColor"
                 android:layout_gravity="center_horizontal"
+                android:visibility="gone"
                 android:text="발제문 등록" />
 
         </FrameLayout>

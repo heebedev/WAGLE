@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
         Button GalleryBtnAdd = rootView.findViewById(R.id.fragment_home_Gallery_Add);
 
         // 일반인일때 공지사항 버튼 안보이기
-        if (UserInfo.WAGLEMAGRADE.equals("W")) {
+        if (UserInfo.MOIMMYGRADE.equals("W")) {
             NoticeBtnAdd.setVisibility(View.INVISIBLE);
         }
 
@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment {
                     startActivityForResult(intent, 1002);
                     break;
                 case R.id.fragment_home_Wagle_Add :
-                    if (UserInfo.WAGLEMAGRADE.equals("O") || UserInfo.WAGLEMAGRADE.equals("S")) {
+                    if (UserInfo.MOIMMYGRADE.equals("O") || UserInfo.MOIMMYGRADE.equals("S")) {
                         intent = new Intent(getActivity(), AddWagleActivity.class);
                     } else {
                         intent = new Intent(getActivity(), AddTodayWagleActivity.class);

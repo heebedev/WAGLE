@@ -38,7 +38,6 @@ import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
@@ -70,7 +69,7 @@ public class MyWagleActivity extends AppCompatActivity {
     // 프로그레스바 파트.
     private RelativeLayout rl_images;
     private ProgressBar pb_book;
-    private Button btn_move;
+    private TextView btn_move;
     private EditText et_wpReadPage;
 
     // 갤러리 파트.
@@ -125,10 +124,17 @@ public class MyWagleActivity extends AppCompatActivity {
         if(bookInfo != null) {
             ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
             ic_bookinfo.setVisibility(View.VISIBLE);
-            btn_suggestionAdd.setText("발제문 수정");
+            btn_suggestionAdd.setText("발제문 추가");
 
-            if(UserInfo.WAGLEMAGRADE.equals("W")) {  // ******************************** jsp 수정 후에 wagle 만든사람 userseq 랑 내 userseq 비교하도록 변경
-                btn_suggestionAdd.setVisibility(View.GONE);
+            if(UserInfo.WAGLEMAKERSEQ.equals(UserInfo.USEQNO)) {
+                btn_suggestionAdd.setVisibility(View.VISIBLE);
+
+
+
+                if (questionListData.size() > 0) {
+                    btn_suggestionAdd.setText("발제문 수정");
+                }
+
             }
 
             TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
@@ -151,6 +157,7 @@ public class MyWagleActivity extends AppCompatActivity {
                         .into(bookimage);
 
         }
+
 
         // 프로그레스바 파트.
         initProgressBar();
@@ -320,6 +327,10 @@ public class MyWagleActivity extends AppCompatActivity {
         String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
 
         bookInfo = getBookinfo(url);
+
+        //발제문 정보 가져오기
+        String urlAddr = "http://192.168.0.82:8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
+        connectGetbjmData(urlAddr);
 
     }
   
@@ -557,14 +568,12 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private void viewBJM() {
 
-        String urlAddr = "http://192.168.0.82:8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
-        connectGetbjmData(urlAddr);
-
         if (questionListData.size() > 0) {
             final LinearLayout linear = (LinearLayout) View.inflate(MyWagleActivity.this, R.layout.custom_bjmview_sh, null);
 
 
             LinearLayout ll = linear.findViewById(R.id.bjmview_ll_bjmlayout);
+            TextView bjmDown = linear.findViewById(R.id.bjmview_tv_bjmdownload);
 
             for (int i = 0; i < questionListData.size(); i++) {
                 //질문 입력 EditText 추가
