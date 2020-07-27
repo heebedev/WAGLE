@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,84 +16,175 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
+import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.adapter.QuestionListAdapter;
+import com.androidlec.wagle.dto.BookInfo;
+import com.androidlec.wagle.dto.SgstRptList;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
+import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
+import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
+import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
 
 
-    final static String TAG = "Log check : ";
-    String urlAddr;
-    ListView lv_itemlist;
-    ArrayList<Payment> lists;
-    PaymentAdapter adapter;
-    String item;
-    int price, paymentcnt;
+    //final static String TAG = "Log check : ";
+    private String urlAddr;
+    private ListView lv_itemlist;
+    private String item;
+    private int price, paymentcnt;
+    private PaymentAdapter adapter;
+    private ArrayList<Payment> lists;
+    private ArrayList<Progress> progressdata;
+    private ArrayList<ImageView> imageViews;
+    private int index = 0;
+    private int wcSeqno = Integer.parseInt(UserInfo.WAGLESEQNO);
 
+    // 와글 이름
+    private TextView wagleName;
+
+    // 독후감
+    private TextView btn_bookreportAdd, tv_viewBJM;
+    private TextView btn_suggestionAdd;
+    private ListView listView;
+    private BookInfo bookInfo;
+    private View ic_bookinfo;
+    //발제문
+    private static ArrayList<SgstRptList> questionListData;
+
+    // 프로그레스바 파트.
+    private RelativeLayout rl_images;
+    private ProgressBar pb_book;
+    private TextView btn_move;
+    private EditText et_wpReadPage;
+
+    // 갤러리 파트.
+    private Button btn_galleryAdd;
+    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
+    private TextView tv_galleryPlus;
+
+    // 정산 파트.
+    private Button btn_paymentAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wagle);
 
-        init();
+        getProfileReadPage();
         getData();
+        init();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+
         // 리스트 가져오기.
         urlDivider("paymentList", 0, null,0);
         getTotal();
+
     }
 
 
     private void init() {
+        //와글 이름 설정
+        wagleName = findViewById(R.id.tv_mywagle_wagleName);
+        wagleName.setText(UserInfo.WAGLENAME);
         // 독후감 파트.
-        Button btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
-        ProgressBar progressBar = findViewById(R.id.mywagle_pb_progress);
-        Button btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        ListView listView = findViewById(R.id.mywagle_lv_bookreport);
+        btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
+        btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
+        listView = findViewById(R.id.mywagle_lv_bookreport);
+        et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
+        //발제문
+        tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
+        tv_viewBJM.setOnClickListener(onClickListener);
+
+
+        btn_move = findViewById(R.id.mywagle_btn_move);
         btn_bookreportAdd.setOnClickListener(onClickListener);
         btn_suggestionAdd.setOnClickListener(onClickListener);
 
+
+        //책 정보 확인
+         if(bookInfo != null) {
+             ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
+             ic_bookinfo.setVisibility(View.VISIBLE);
+             btn_suggestionAdd.setText("발제문 수정");
+
+             if(UserInfo.WAGLEMAGRADE.equals("W")) {  // ******************************** jsp 수정 후에 wagle 만든사람 userseq 랑 내 userseq 비교하도록 변경
+                 btn_suggestionAdd.setVisibility(View.GONE);
+             }
+
+             TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
+             TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
+             TextView bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
+             TextView bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
+             TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
+             ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
+
+             bkname.setText(bookInfo.getTitle());
+             bkwriter.setText(bookInfo.getWriter());
+             bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
+             bkIntro.setText(bookInfo.getIntro());
+             bkData.setText(bookInfo.getData());
+
+             if (bookInfo.getImgName().length() > 0)
+             Glide.with(this)
+                     .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
+                     .apply(new RequestOptions().centerCrop())
+                     .into(bookimage);
+
+         }
+
+
+        // 프로그레스바 파트.
+        rl_images = findViewById(R.id.mywagle_rl_images);
+        pb_book = findViewById(R.id.mywagle_pb_book);
+        btn_move = findViewById(R.id.mywagle_btn_move);
+        et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
+
+        initProgressBar();
+
         // 갤러리 파트.
-        Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
-        ImageView iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
-        ImageView iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
-        ImageView iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
-        TextView tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
+        btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
+        iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
+        iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
+        iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
+        tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
         btn_galleryAdd.setOnClickListener(onClickListener);
         tv_galleryPlus.setOnClickListener(onClickListener);
 
         // 정산 파트.
-        Button btn_paymentAdd = findViewById(R.id.mywagle_btn_paymentAdd);
-        LinearLayout layout = findViewById(R.id.payment_ll_paymentActivity);
+        btn_paymentAdd = findViewById(R.id.mywagle_btn_paymentAdd);
 
+        // 정산 해놓은거 있으면 영수증, 아니면 버튼 띄워줌.
         switch (paymentCnt()) {
             case 2:
                 btn_paymentAdd.setVisibility(View.VISIBLE);
-                layout.setVisibility(View.INVISIBLE);
                 break;
             case 1:
                 btn_paymentAdd.setVisibility(View.INVISIBLE);
-                layout.setVisibility(View.VISIBLE);
                 break;
             default:
                 btn_paymentAdd.setVisibility(View.INVISIBLE);
-                layout.setVisibility(View.INVISIBLE);
                 break;
         }
 
@@ -110,47 +202,189 @@ public class MyWagleActivity extends AppCompatActivity {
             Intent intent = null;
 
             switch (view.getId()){
-                case R.id.mywagle_btn_bookreportAdd:
+                case R.id.mywagle_btn_bookreportAdd :
+                    startActivity(new Intent(MyWagleActivity.this, AddDHGActivity.class));
                     break;
-                case R.id.mywagle_btn_suggestionAdd:
+                case R.id.mywagle_btn_suggestionAdd :
+                    startActivity(new Intent(MyWagleActivity.this, AddBJMActivity.class));
                     break;
-                case R.id.mywagle_btn_galleryAdd:
+                case R.id.mywagle_btn_move :
+                    recordPage();
+                    Intent intent1 = getIntent();
+                    finish();
+                    startActivity(intent1);
                     break;
-                case R.id.mywagle_tv_galleryPlus:
+                case R.id.mywagle_btn_galleryAdd :
                     break;
-                case R.id.mywagle_btn_paymentAdd:
+                case R.id.mywagle_tv_galleryPlus :
                     break;
-                case R.id.payment_btn_addItem:
+                case R.id.mywagle_btn_paymentAdd :
+                    btn_paymentAdd.setVisibility(View.INVISIBLE);
+                    // --------------- 대화상자 띄우기 -------------------------------------------------
+                    new AlertDialog.Builder(MyWagleActivity.this)
+                            .setTitle("더하기 버튼을 눌러 아이템을 추가하고,\n항목을 길게 눌러 삭제할 수 있습니다.")
+                            .setCancelable(false)
+                            .setPositiveButton("확인", null)
+                            .show();
+                    // -----------------------------------------------------------------------------
+                    break;
+                case R.id.payment_btn_addItem :
                     popupAddItem();
                     break;
+                case R.id.tv_mywagle_readbjm :
+                    viewBJM();
+                break;
             }
         }
     };
 
 
-    private void getData(){
-        // 리스트 가져오기.
-        urlDivider("paymentList", 0, null,0);
+    private void initProgressBar(){
+
+        rl_images = findViewById(R.id.mywagle_rl_images);
+        pb_book = findViewById(R.id.mywagle_pb_book);
+
+
+        int deviceWidth = getApplication().getResources().getDisplayMetrics().widthPixels; // 디바이스 최대 크기를 구한다.
+        pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
+
+        int size = progressdata.size(); // 와글 총 인원 수.
+        int wbMaxPage= getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
+        imageViews = new ArrayList<ImageView>();
+
+        for(int i = 0; i < size; i++) {
+
+            ImageView iv = new ImageView(getApplicationContext());
+            imageViews.add(iv); // Initialize a new ImageView widget
+            imageViews.get(i).setId(progressdata.get(i).getuSeqno());
+
+            if(progressdata.get(i).getuLoginType().equals("wagle")){
+                Glide.with(this)
+                        .load("http://192.168.0.82:8080/wagle/userImgs/" + progressdata.get(i).getuImageName())
+                        .apply(new RequestOptions().circleCrop())
+                        .override(30,30)
+                        .placeholder(R.drawable.ic_outline_emptyimage)
+                        .into(imageViews.get(i));
+            } else {
+                Glide.with(this)
+                        .load(progressdata.get(i).getuImageName())
+                        .apply(new RequestOptions().circleCrop())
+                        .placeholder(R.drawable.ic_outline_emptyimage)
+                        .into(imageViews.get(i));
+            }
+
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT); // Create layout parameters for ImageView
+            layoutParams.addRule(RelativeLayout.ABOVE, pb_book.getId()); // Add rule to layout parameters // Add the ImageView below to Button
+            imageViews.get(i).setLayoutParams(layoutParams); // Add layout parameters to ImageView
+            rl_images.addView(imageViews.get(i)); // Finally, add the ImageView to layout
+
+            imageViews.get(i).requestLayout();
+            imageViews.get(i).getLayoutParams().height = dpToPx(30, rl_images); // Apply the new height for ImageView programmatically
+            imageViews.get(i).getLayoutParams().width = dpToPx(30, rl_images);
+            imageViews.get(i).setScaleType(ImageView.ScaleType.FIT_XY); // Set the scale type for ImageView image scaling
+
+
+            float wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
+            float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+            float moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
+            if(wpReadPage >= wbMaxPage){
+                imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
+            }else{
+                imageViews.get(i).setX(moveProgressBar);
+            }
+            if(progressdata.get(i).getuSeqno() == UserInfo.USEQNO){ // 프로그레스바는 내가 읽은 부분까지 채워줌.
+                index = i;
+                pb_book.incrementProgressBy((int) moveProgressBar); // 프로그레스바 비율에따른 이동
+                et_wpReadPage.setText(Integer.toString(progressdata.get(i).getWpReadPage()));
+            }
+        }
+
     }
 
 
-    private void getTotal(){
+    private void recordPage() {
+        String wpSeqno = Integer.toString(progressdata.get(index).getWpSeqno());
+        String page = et_wpReadPage.getText().toString();
+        urlAddr = "http://192.168.0.178:8080/wagle/recordPage.jsp?";
+        urlAddr = urlAddr + "wpSeqno=" + wpSeqno + "&wpReadPage=" + page;
+        try {
+            JH_VoidNetworkTask networkTask7 = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
+            networkTask7.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int dpToPx(int dp, RelativeLayout context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
+
+
+    private void getData(){
+
+        String centIP = "192.168.0.138";
+        String url = "http://" + centIP + ":8080/test/wagle_bookinfoGet.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
+
+        bookInfo = getBookinfo(url);
+
+    }
+  
+    private void getProfileReadPage() {
+        urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+        try {
+            JH_ObjectNetworkTask_Progress networkTask6 = new JH_ObjectNetworkTask_Progress(MyWagleActivity.this, urlAddr);
+            Object obj = networkTask6.execute().get();
+            progressdata = (ArrayList<Progress>) obj;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    private int getwbMaxPage() {
+        int wbMaxPage = 0;
+        urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+        try {
+            JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
+            wbMaxPage = networkTask4.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return wbMaxPage;
+    }
+
+  private void getTotal(){
         int total = 0;
         for (int i = 0 ; i < lists.size() ; i++) {
             total += lists.get(i).getPrice();
         }
         TextView tv_total = findViewById(R.id.payment_tv_total);
         tv_total.setText(total + "원");
-
-        int memNo = 10;
-        int ppp = total/memNo;
+        int ppp = total/getWagleUsers();
         TextView tv_PPP = findViewById(R.id.payment_tv_PricePerPerson);
         tv_PPP.setText(ppp + "원");
     }
 
+    private int getWagleUsers(){
+        int memNo=0;
+        urlAddr = "http://192.168.0.178:8080/wagle/getWagleUsers.jsp?";
+        urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
+        try {
+            JH_IntNetworkTask networkTask8 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
+            memNo = networkTask8.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return memNo;
+    }
+
 
     private int paymentCnt(){
-        int wcSeqno = 1; // 임시 절대값.
+        String wcSeqno = UserInfo.WAGLESEQNO;
         paymentcnt = 3;
         urlAddr = "http://192.168.0.178:8080/wagle/paymentCnt.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
@@ -160,7 +394,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void urlDivider(String function, int wpSeqno, String wpItem, int wpPrice){
-        String wcSeqno = "1"; // 임의로 절대값 넣음.
+        String wcSeqno = UserInfo.WAGLESEQNO;
         switch(function){
             case "wpItemAdd":
                 urlAddr = "http://192.168.0.178:8080/wagle/wpItemAdd.jsp?";
@@ -186,16 +420,17 @@ public class MyWagleActivity extends AppCompatActivity {
         try {
             switch (function){
                 case "paymentCnt":
-                    JH_IntNetworkTask intNetworkTask = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
-                    paymentcnt = intNetworkTask.execute().get();
+                    JH_IntNetworkTask networkTask3 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
+                    paymentcnt = networkTask3.execute().get();
+                    break;
                 case "wpItemAdd":
                 case "deleteItem":
-                    JH_VoidNetworkTask voidNetworkTask = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
-                    voidNetworkTask.execute().get();
+                    JH_VoidNetworkTask networkTask2 = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
+                    networkTask2.execute().get();
                     break;
                 case "paymentList":
-                    JH_ObjectNetworkTask_Payment networkTask = new JH_ObjectNetworkTask_Payment(MyWagleActivity.this, urlAddr);
-                    Object obj = networkTask.execute().get(); // 오브젝트로 받아야함.
+                    JH_ObjectNetworkTask_Payment networkTask1 = new JH_ObjectNetworkTask_Payment(MyWagleActivity.this, urlAddr);
+                    Object obj = networkTask1.execute().get(); // 오브젝트로 받아야함.
                     lists = (ArrayList<Payment>) obj; // cast.
                     adapter = new PaymentAdapter(MyWagleActivity.this, R.layout.customlayout_payment_listview, lists); // making adapter.
                     lv_itemlist.setAdapter(adapter);
@@ -204,7 +439,7 @@ public class MyWagleActivity extends AppCompatActivity {
                     if(paymentCnt() == 1) {
                         setListViewHeightBasedOnChildren(lv_itemlist); // 리스트뷰 길이 조절.
                     }
-
+                    break;
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -233,7 +468,7 @@ public class MyWagleActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
 
 
-    // ----------------- 꾹~ 롱클릭 이벤트 --------------------------------------------------------------------------------------------------
+    // ----------------- 롱클릭 이벤트 --------------------------------------------------------------------------------------------------
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
@@ -298,6 +533,83 @@ public class MyWagleActivity extends AppCompatActivity {
     }
 
 
+//    책 정보 가져오기 ------------------------------------------------------------
+    private BookInfo getBookinfo(String urlAddr) {
+        BookInfo result = null;
+        try {
+            NetworkTask_BookInfo networkTask = new NetworkTask_BookInfo(MyWagleActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+
+            result = (BookInfo) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+    //bjm 목록 가져오기
+    private void connectGetbjmData(String urlAddr) {
+
+        try {
+            NetworkTask_QuestionReportList networkTask = new NetworkTask_QuestionReportList(MyWagleActivity.this, urlAddr);
+            Object obj = networkTask.execute().get();
+            questionListData = (ArrayList<SgstRptList>) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }  // connectGetData
+
+
+    private void viewBJM() {
+
+        String urlAddr = "http://192.168.0.82:8080/wagle/wagle_questionlist.jsp?wcseqno=" + UserInfo.WAGLESEQNO;
+        connectGetbjmData(urlAddr);
+
+        if (questionListData.size() > 0) {
+            final LinearLayout linear = (LinearLayout) View.inflate(MyWagleActivity.this, R.layout.custom_bjmview_sh, null);
+
+
+            LinearLayout ll = linear.findViewById(R.id.bjmview_ll_bjmlayout);
+
+            for (int i = 0; i < questionListData.size(); i++) {
+                //질문 입력 EditText 추가
+                TextView textView = new TextView(getApplicationContext());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                p.setMargins(30,10,30,10);
+                textView.setLayoutParams(p);
+                textView.setTextSize(14);
+                textView.setBackgroundResource(R.drawable.white_rounded_background);
+                textView.setGravity(Gravity.CENTER);
+                textView.setPadding(5,5,5,5);
+                textView.setText(questionListData.get(i).getsContent());
+
+                ll.addView(textView);
+            }
+
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyWagleActivity.this);
+            builder.setTitle("")
+                    .setView(linear)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            androidx.appcompat.app.AlertDialog dialog = builder.create();
+            dialog.show();
+
+        } else {
+            Toast.makeText(MyWagleActivity.this, "등록된 발제문이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 
 }//----

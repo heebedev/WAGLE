@@ -4,12 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NetworkTask_CRUD extends AsyncTask<Integer, String, Object> {
+public class NetworkTask_CRUD extends AsyncTask<Integer, String, Void> {
 
     Context context;
     String mAddr;
@@ -20,21 +18,19 @@ public class NetworkTask_CRUD extends AsyncTask<Integer, String, Object> {
     }
 
     @Override
-    protected Object doInBackground(Integer... integers) {
-        boolean result = false;
+    protected Void doInBackground(Integer... integers) {
         try {
             URL url = new URL(mAddr);
-            //Log.e("status", "CRUD TASK : " + mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                result = true;
+                Log.v("NetWorkTask_CRUD", "Success");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return result;
+        return null;
     }
 }

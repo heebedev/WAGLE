@@ -6,7 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".jhj.Jhj_Post_Notice_List">
+    tools:context=".jhj.Jhj_HomeAndMyPage_Plus_List">
+
+    <TextView
+        android:id="@+id/noticeDhgList_tv_listlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/mainColor"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

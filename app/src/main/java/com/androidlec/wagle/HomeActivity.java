@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                 .into(include_ab_iv);
 
         include_ab_tv.setText(data[1]);
-
+        UserInfo.MOIM_NAME = data[1];
     }
 
     private String[] getMoimData() {
@@ -117,28 +117,24 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
-
         switch (item.getItemId()){
             case R.id.toolbar_menu_home:
-                intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
+                //intent = new Intent(HomeActivity.this, MainMoimListActivity.class);
+                finish();
                 break;
             case R.id.toolbar_menu_myInfo:
                 MyInfoActivity.previousXML = "edit";
-                intent = new Intent(HomeActivity.this, MyInfoActivity.class);
+                startActivity(new Intent(HomeActivity.this, MyInfoActivity.class));
                 break;
             case R.id.toolbar_menu_myMoim:
                 if (!UserInfo.WAGLEMAGRADE.equals("O")) {
                     return false;
                 }
-                intent = new Intent(HomeActivity.this, MyMoimActivity.class);
+                startActivity(new Intent(HomeActivity.this, MyMoimActivity.class));
                 break;
             case R.id.toolbar_menu_logout:
                 break;
         }
-
-        startActivity(intent);
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //Grade Check
     private void ckGrade() {
-        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO ;
+        urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO;
         UserInfo.WAGLEMAGRADE = getOSData();
     }
 

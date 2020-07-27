@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.menu.MyMoimActivity">
 
@@ -13,12 +14,13 @@
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
 
-        <com.androidlec.wagle.CircularImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/iv_mymoiminfo_moimimage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_outline_emptyimage"
+            app:civ_border="false"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -98,6 +100,18 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         ></ListView>
+
+    <Button
+        android:id="@+id/myMoim_btn_addBoard"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="새 게시판 추가하기"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/mainColor" />
 
 
 </LinearLayout>

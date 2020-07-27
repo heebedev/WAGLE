@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
     android:orientation="vertical"
     tools:context=".MakeMoimActivity">
@@ -19,12 +20,13 @@
             android:orientation="vertical">
 
 
-            <com.androidlec.wagle.CircularImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/iv_makemoim_moimimage"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="150dp"
+                app:civ_border="false"
                 android:background="@drawable/ic_outline_emptyimage" />
 
 
@@ -98,10 +100,11 @@
                 android:orientation="horizontal">
 
 
-                <com.androidlec.wagle.CircularImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/make_moim_viewFliper_ImageView"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    app:civ_border="false"
                     android:background="@drawable/ic_outline_emptyimage" />
 
                 <TextView

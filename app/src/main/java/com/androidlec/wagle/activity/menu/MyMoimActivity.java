@@ -1,20 +1,25 @@
 package com.androidlec.wagle.activity.menu;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.androidlec.wagle.CS.Network.NetworkTask;
+import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -22,8 +27,6 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
-import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_List;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
@@ -43,6 +46,7 @@ public class MyMoimActivity extends AppCompatActivity {
     // moim Data .. 0 -> moimSeqno, 1 -> moimName, 2 -> moimImage
     String[] moimData;
 
+    Button btn_addBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,9 @@ public class MyMoimActivity extends AppCompatActivity {
         jsonData = new ArrayList<Jhj_MyMoim_DTO>();
         adminData = new ArrayList<Jhj_MyMoim_DTO>();
         workerData = new ArrayList<Jhj_MyMoim_DTO>();
+
+        btn_addBoard = findViewById(R.id.myMoim_btn_addBoard);
+        btn_addBoard.setOnClickListener(onClickListener);
 
         // 버튼 이벤트 등록
         findViewById(R.id.bt_mymoiminfo_Admin_Sub).setOnClickListener(mymoim_info_Admin_OnClickListener);
@@ -203,6 +210,39 @@ public class MyMoimActivity extends AppCompatActivity {
         }
     };
 
+    Button.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.myMoim_btn_addBoard:
+                    EditText editText = new EditText(getApplicationContext());
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyMoimActivity.this);
+                    builder.setTitle("게시판 이름 지정");
+                    builder.setMessage("이름을 입력후 확인을 누르면 게시판 생성이 완료됩니다.");
+                    builder.setView(editText);
+                    builder.setPositiveButton("확인", (dialog, which) -> {
+                        String name = editText.getText().toString().trim();
+                        addBoard(name);
+                    });
+                    builder.setNegativeButton("취소", null);
+                    builder.show();
+                    break;
+            }
+        }
+    };
+
+    private void addBoard(String name) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputBoardWAGLE.jsp?bName=" + name + "&Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&bOrder=" + 1;
+
+        try {
+            NetworkTask networkTask = new NetworkTask(MyMoimActivity.this, urlAddr);
+            networkTask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
         Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
             @Override
@@ -213,6 +253,7 @@ public class MyMoimActivity extends AppCompatActivity {
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
         customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
     }
 }

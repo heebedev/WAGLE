@@ -112,7 +112,8 @@ public class WGNetworkTask extends AsyncTask<Integer, String, ArrayList<WagleLis
                 String wcWagleDetail = jsonObject1.getString("wcWagleDetail");
                 String wcWagleAgreeRefund = jsonObject1.getString("wcWagleAgreeRefund");
 
-                data.add(new WagleList(wcSeqno, Moim_wmSeqno, MoimUser_muSeqno, WagleBook_wbSeqno, wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund));
+                data.add(new WagleList(wcSeqno, Moim_wmSeqno, MoimUser_muSeqno, WagleBook_wbSeqno, wcName, wcType,
+                        wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund));
             }
         } catch (Exception e) {
             e.printStackTrace();

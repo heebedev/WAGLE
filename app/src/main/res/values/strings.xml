@@ -4,6 +4,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="kakao_app_key">ebfdfba386681b78fb5ad51ef1c68da2</string>
+    <string name="kakao_scheme">kakaoebfdfba386681b78fb5ad51ef1c68da2</string>
+    <string name="kakaolink_host">kakaolink</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

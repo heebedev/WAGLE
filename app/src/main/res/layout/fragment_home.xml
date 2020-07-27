@@ -11,9 +11,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
+<!--공지사항-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,11 +101,10 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="더보기"
-                    android:paddingLeft="10dp"
                     android:textSize="16dp" />
 
             </LinearLayout>
-
+<!--진행중인 와글-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,6 +144,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -155,6 +156,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -166,6 +168,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -177,6 +180,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -190,7 +194,7 @@
                     android:text="더보기"
                     android:textSize="16dp" />
             </LinearLayout>
-
+<!--갤러리-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -249,13 +253,13 @@
 
                     <com.androidlec.wagle.GalleryImageView
                         android:id="@+id/fragment_home_Gallery3"
-                        android:padding="10dp"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="15dp"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/ic_baseline_crop_din_24" />
+                        android:background="@drawable/ic_baseline_crop_din_24"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop" />
 
                 </LinearLayout>
 
@@ -306,7 +310,7 @@
                     android:textSize="16dp" />
 
             </LinearLayout>
-
+<!--독후감-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -328,16 +332,6 @@
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
-
-                    <Button
-                        android:id="@+id/fragment_home_BookReport_Add"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="48dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/ic_add_circle_24" />
-
-
                 </LinearLayout>
 
                 <Button
@@ -347,6 +341,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -358,6 +353,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -369,6 +365,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -380,6 +377,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/jhj_wagle_btn_loundary"
                     android:gravity="left|center_vertical"
                     android:textSize="16dp" />
@@ -394,6 +392,15 @@
                     android:layout_marginBottom="40dp"
                     android:textSize="16dp" />
             </LinearLayout>
+<!--게시판-->
+            <FrameLayout
+                android:id="@+id/fragment_home_boardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
         </LinearLayout>
 

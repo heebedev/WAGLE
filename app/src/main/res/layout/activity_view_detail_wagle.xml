@@ -7,20 +7,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/vdw_cs_et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="30dp"
             android:background="@null"
             android:gravity="center"
-            android:hint="정규 와글의 제목을 입력해주세요."
+            android:hint="와글 이름"
             android:singleLine="true"
-            android:textColorHint="#5A5A5A"
+            android:textColorHint="#605A5A5A"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
             android:text="1. 진행 기간"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
@@ -39,34 +38,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/tintgrey_background"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/vdw_cs_et_startDate"
+            <TextView
+                android:id="@+id/vdw_cs_tv_startDate"
                 android:layout_width="0px"
-                android:layout_height="40dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:editable="false"
                 android:gravity="center"
-                android:text="시작 일자" />
+                android:textSize="16dp"
+                android:text="시작 일자"
+                android:background="@drawable/white_rounded_background"/>
 
-            <EditText
-                android:id="@+id/vdw_cs_et_endDate"
+            <TextView
+                android:id="@+id/vdw_cs_tv_endDate"
                 android:layout_width="0px"
-                android:layout_height="40dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:editable="false"
                 android:gravity="center"
-                android:text="종료 일자" />
+                android:textSize="16dp"
+                android:text="종료 일자"
+                android:background="@drawable/white_rounded_background"/>
 
 
         </LinearLayout>
@@ -93,18 +89,18 @@
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/vdw_cs_et_dueDate"
+                <TextView
+                    android:id="@+id/vdw_cs_tv_dueDate"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/tintgrey_background"
-                    android:editable="false"
                     android:gravity="center"
-                    android:text="등록 마감" />
+                    android:textSize="16dp"
+                    android:text="등록 마감일"
+                    android:background="@drawable/white_rounded_background"/>
 
             </LinearLayout>
 
@@ -124,19 +120,18 @@
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/vdw_cs_et_fee"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/tintgrey_background"
-                    android:editable="false"
                     android:gravity="center"
-                    android:inputType="number"
-                    android:text="0" />
+                    android:textSize="16dp"
+                    android:text="0"
+                    android:background="@drawable/white_rounded_background"/>
 
             </LinearLayout>
 
@@ -154,16 +149,15 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/vdw_cs_et_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/tintgrey_background"
-            android:editable="false"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:background="@drawable/white_rounded_background"/>
 
 
         <LinearLayout
@@ -182,57 +176,72 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_addwagle_wagleAddBookInfo"
+                android:id="@+id/vdw_cs_tv_bookInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="180dp"
                 android:layout_marginTop="20dp"
-                android:text="도서 정보 등록하기"
-                android:textColor="#5A5A5A"
+                android:text="도서 정보 보기"
+                android:textColor="@color/mainColor"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
 
-        <EditText
-            android:id="@+id/vdw_cs_et_wagleDetail"
+        <TextView
+            android:id="@+id/vdw_cs_tv_wagleDetail"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/tintgrey_background"
-            android:editable="false" />
+            android:padding="5dp"
+            android:background="@drawable/white_rounded_background" />
 
 
         <TextView
+            android:id="@+id/vdw_cs_tv_num6name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:text="6. 동의 및 환불 규정"
+            android:text="6. 동의 사항 및 환불 규정"
             android:textColor="#5A5A5A"
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/vdw_cs_et_wagleAgreeRefund"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/tintgrey_background"
-            android:editable="false" />
+            android:padding="5dp"
+            android:background="@drawable/white_rounded_background" />
+
+        <CheckBox
+            android:id="@+id/vdw_cs_cb_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위의 내용에 동의합니다."
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="@color/mainColor"
+            android:visibility="gone"
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/vdw_cs_tv_joinIn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="20dp"
             android:text="신청하기"
-            android:textColor="#5A5A5A"
-            android:textSize="16dp" />
+            android:textColor="@color/mainColor"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18dp" />
 
     </LinearLayout>
 

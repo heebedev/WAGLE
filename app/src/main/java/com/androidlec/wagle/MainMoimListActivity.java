@@ -88,6 +88,7 @@ public class MainMoimListActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             UserInfo.MOIMSEQNO = parent.getItemAtPosition(position).toString();
+            UserInfo.MOIMSUBJECT = moimlistdata.get(position).getMoimSubject();
             startActivity(new Intent(MainMoimListActivity.this, HomeActivity.class));
         }
     };

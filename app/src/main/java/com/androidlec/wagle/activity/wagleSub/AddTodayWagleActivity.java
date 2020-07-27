@@ -18,10 +18,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -168,6 +170,11 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         String wcWagleAgreeRefund = "today";
 
 
+        createWaglenetwork(wcName, wcType, wcStartDate, wcEndDate, wcDueDate, wcLocate, wcEntryFee, wcWagleDetail, wcWagleAgreeRefund);
+
+    }
+
+    private void createWaglenetwork(String wcName, String wcType, String wcStartDate, String wcEndDate, String wcDueDate, String wcLocate, String wcEntryFee, String wcWagleDetail, String wcWagleAgreeRefund) {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleCreateWAGLE.jsp?";
         urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO + "&User_uSeqno=" + UserInfo.USEQNO + "&WagleBook_wbSeqno=" + 1 +
                 "&wcName=" + wcName + "&wcType=" + wcType + "&wcStartDate=" + wcStartDate +
@@ -180,12 +187,24 @@ public class AddTodayWagleActivity extends AppCompatActivity {
 
         try {
             WCNetworkTask wcNetworkTask = new WCNetworkTask(AddTodayWagleActivity.this, urlAddr);
-            wcNetworkTask.execute().get();
+            String seq = wcNetworkTask.execute().get();
+            inputWagleUserNetwork(seq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void inputWagleUserNetwork(String seq) {
+        String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
+        urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
+
+        try {
+            CSNetworkTask networkTask = new CSNetworkTask(AddTodayWagleActivity.this, urlAddr);
+            networkTask.execute();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

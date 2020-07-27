@@ -1,9 +1,15 @@
 package com.androidlec.wagle;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.androidlec.wagle.activity.user.LoginActivity;
@@ -11,6 +17,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.kakao.util.helper.Utility;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends Activity {
 
@@ -20,6 +30,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ImageView iv_splash = findViewById(R.id.iv_splash);
+
+        //getKeyHash(MainActivity.this);
 
         Glide.with(this)
                 .load(R.drawable.waglenewlogo)
@@ -35,5 +47,4 @@ public class MainActivity extends Activity {
         }, 1500);
 
     }
-
 }
