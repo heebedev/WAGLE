@@ -101,5 +101,16 @@
         android:layout_marginTop="5dp"
         ></ListView>
 
+    <Button
+        android:id="@+id/myMoim_btn_addBoard"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="새 게시판 추가하기"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/mainColor" />
 
 </LinearLayout>
