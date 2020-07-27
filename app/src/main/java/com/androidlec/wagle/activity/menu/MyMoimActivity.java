@@ -55,6 +55,7 @@ public class MyMoimActivity extends AppCompatActivity {
         workerData = new ArrayList<Jhj_MyMoim_DTO>();
 
 
+        btn_addBoard  = findViewById(R.id.myMoim_btn_addBoard);
         btn_addBoard.setOnClickListener(onClickListener);
 
 

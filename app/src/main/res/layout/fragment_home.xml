@@ -11,9 +11,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
+<!--공지사항-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,7 +104,7 @@
                     android:textSize="16dp" />
 
             </LinearLayout>
-
+<!--진행중인 와글-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,7 +194,7 @@
                     android:text="더보기"
                     android:textSize="16dp" />
             </LinearLayout>
-
+<!--갤러리-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -309,7 +310,7 @@
                     android:textSize="16dp" />
 
             </LinearLayout>
-
+<!--독후감-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -391,6 +392,15 @@
                     android:layout_marginBottom="40dp"
                     android:textSize="16dp" />
             </LinearLayout>
+<!--게시판-->
+            <FrameLayout
+                android:id="@+id/fragment_home_boardContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
         </LinearLayout>
 
