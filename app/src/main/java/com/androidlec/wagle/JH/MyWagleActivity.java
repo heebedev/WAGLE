@@ -56,10 +56,13 @@ public class MyWagleActivity extends AppCompatActivity {
     // 와글 이름
     private TextView wagleName;
 
+    private TextView bkname, bkwriter, bkmaxpate, bkIntro, bkData;
+    private ImageView bookimage;
+
     // 독후감
     private TextView btn_bookreportAdd, tv_viewBJM;
     private TextView btn_suggestionAdd;
-    private ListView listView;
+    private ListView dhglist;
     private BookInfo bookInfo;
     private View ic_bookinfo;
     //발제문
@@ -71,10 +74,6 @@ public class MyWagleActivity extends AppCompatActivity {
     private TextView btn_move;
     private EditText et_wpReadPage;
 
-    // 갤러리 파트.
-    private Button btn_galleryAdd;
-    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
-    private TextView tv_galleryPlus;
 
     // 정산 파트.
     private Button btn_paymentAdd;
@@ -105,55 +104,69 @@ public class MyWagleActivity extends AppCompatActivity {
         wagleName.setText(UserInfo.WAGLENAME);
 
 
+
+
         // 독후감 파트.
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        listView = findViewById(R.id.mywagle_lv_bookreport);
+        dhglist = findViewById(R.id.mywagle_lv_bookreport);
         et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
+
         //발제문
         tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
         tv_viewBJM.setOnClickListener(onClickListener);
 
         btn_move = findViewById(R.id.mywagle_btn_move);
-        btn_move.setOnClickListener(onClickListener);
-        btn_bookreportAdd.setOnClickListener(onClickListener);
-        btn_suggestionAdd.setOnClickListener(onClickListener);
 
 
-        //책 정보 확인
-        if(bookInfo != null) {
-            ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
-            ic_bookinfo.setVisibility(View.VISIBLE);
-            btn_suggestionAdd.setText("발제문 추가");
+        if(UserInfo.WAGLETYPE.equals("정규")) {
+            btn_bookreportAdd.setOnClickListener(onClickListener);
+            btn_suggestionAdd.setOnClickListener(onClickListener);
+            btn_move.setOnClickListener(onClickListener);
+
+            bkname = findViewById(R.id.bookinfo_tv_bookname);
+            bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
+            bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
+            bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
+            bkData = findViewById(R.id.bookinfo_tv_bookdata);
+            bookimage = findViewById(R.id.bookinfo_iv_bookImage);
+
+            //책 정보 확인
+            if(bookInfo != null) {
+                ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
+                ic_bookinfo.setVisibility(View.VISIBLE);
+                btn_suggestionAdd.setText("발제문 추가");
 
 
-            if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
-                btn_suggestionAdd.setVisibility(View.VISIBLE);
+                if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
+                    btn_suggestionAdd.setVisibility(View.VISIBLE);
 
-                if (questionListData.size() > 0) {
-                    btn_suggestionAdd.setText("발제문 수정");
+                    if (questionListData.size() > 0) {
+                        btn_suggestionAdd.setText("발제문 수정");
+                    }
                 }
+
+                bkname.setText(bookInfo.getTitle());
+                bkwriter.setText(bookInfo.getWriter());
+                bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
+                bkIntro.setText(bookInfo.getIntro());
+                bkData.setText(bookInfo.getData());
+
+                if (bookInfo.getImgName().length() > 0)
+                    Glide.with(this)
+                            .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
+                            .apply(new RequestOptions().centerCrop())
+                            .into(bookimage);
+
             }
 
-            TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
-            TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
-            TextView bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
-            TextView bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
-            TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
-            ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
-
-            bkname.setText(bookInfo.getTitle());
-            bkwriter.setText(bookInfo.getWriter());
-            bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
-            bkIntro.setText(bookInfo.getIntro());
-            bkData.setText(bookInfo.getData());
-
-            if (bookInfo.getImgName().length() > 0)
-                Glide.with(this)
-                        .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
-                        .apply(new RequestOptions().centerCrop())
-                        .into(bookimage);
-
+        } else {
+            btn_suggestionAdd.setVisibility(View.GONE);
+            btn_bookreportAdd.setVisibility(View.GONE);
+            btn_move.setVisibility(View.GONE);
+            tv_viewBJM.setVisibility(View.GONE);
+            LinearLayout ll = findViewById(R.id.mywagle_ll_readingstatus);
+            ll.setVisibility(View.GONE);
         }
 
 
@@ -162,9 +175,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
         // 갤러리 파트.
         Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
-        ImageView iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
-        ImageView iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
-        ImageView iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
         TextView tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
         btn_galleryAdd.setOnClickListener(onClickListener);
         tv_galleryPlus.setOnClickListener(onClickListener);
