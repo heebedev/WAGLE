@@ -23,11 +23,11 @@
                 android:orientation="horizontal"
                 >
 
-                <com.mikhaellopez.circularimageview.CircularImageView
+                <com.androidlec.wagle.CircularImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="40dp"
-                    android:id="@+id/fragment_my_page_RankingIcon"
+                    android:id="@+id/fragment_my_page_UserProfil"
                     android:background="@drawable/ic_outline_emptyimage"
                     app:civ_border="false"
                     />

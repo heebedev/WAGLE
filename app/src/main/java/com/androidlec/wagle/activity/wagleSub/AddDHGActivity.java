@@ -99,7 +99,7 @@ public class AddDHGActivity extends Activity {
                     String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Insert.jsp?uSeqno=" + UserInfo.USEQNO + "&moimSeqno=" + UserInfo.MOIMSEQNO + "&num=" + EditData.size();
 
                     // URL 에 EditText 넣기
-                    for (int i = 1 ; i < EditData.size() ; i++) {
+                    for (int i = 0 ; i < EditData.size() ; i++) {
                         urlAddr = urlAddr + "&sSeqno" + i + "=" + questionListData.get(i).getsSeqno() + "&bContent" + i + "=" + EditData.get(i).getaContent();
                     }
 
