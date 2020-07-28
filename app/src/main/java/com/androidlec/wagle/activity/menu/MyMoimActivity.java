@@ -4,18 +4,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import com.androidlec.wagle.CS.Activities.BoardListActivity;
+import com.androidlec.wagle.CS.Model.BoardTitleList;
+import com.androidlec.wagle.CS.Network.BDTNetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -43,6 +47,7 @@ public class MyMoimActivity extends AppCompatActivity {
     String[] moimData;
 
     Button btn_addBoard;
+    ArrayList<BoardTitleList> boardTitleLists;
 
 
     @Override
@@ -124,7 +129,6 @@ public class MyMoimActivity extends AppCompatActivity {
         for (int i = 0 ; i < jsonData.size() ; i++) {
             if (jsonData.get(i).getMaGrade().equals("W")) {
                 workerData.add(jsonData.get(i));
-                Log.v("hjhjh0", "1234 = " + workerData.get(count++).getuImageName());
             }
         }
 
@@ -137,6 +141,54 @@ public class MyMoimActivity extends AppCompatActivity {
         // -----------------------------------------------------------------------------------------
 
 
+
+
+
+
+        // -----------------------------------------------------------------------------------------
+        // 게시판 리스트 뷰
+        // -----------------------------------------------------------------------------------------
+
+        boardTitleLists = getBoardList();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < boardTitleLists.size(); i++) {
+            list.add(boardTitleLists.get(i).getbName());
+        }
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(MyMoimActivity.this, android.R.layout.simple_list_item_1, list);
+
+        ListView lv_boardList = findViewById(R.id.myMoim_lv_boardList);
+        lv_boardList.setAdapter(mAdapter);
+        lv_boardList.setOnItemClickListener(onItemClickListener);
+
+        // -----------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
+
+    }
+
+    ListView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(MyMoimActivity.this, BoardListActivity.class);
+            intent.putExtra("boardTitle", boardTitleLists.get(position).getbName());
+            intent.putExtra("boardSeq", boardTitleLists.get(position).getbSeqno());
+            startActivity(intent);
+        }
+    };
+
+    private ArrayList<BoardTitleList> getBoardList() {
+        ArrayList<BoardTitleList> list = null;
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardTitleListWAGLE.jsp?";
+
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            BDTNetworkTask bdtNetworkTask = new BDTNetworkTask(MyMoimActivity.this, urlAddr);
+            list = bdtNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -200,10 +252,10 @@ public class MyMoimActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_mymoiminfo_Admin_Add :
-                    mymoiminfo_CustomDialog(workerData);
+                    mymoiminfo_CustomDialog(workerData, "회원 목록");
                     break;
                 case R.id.bt_mymoiminfo_Admin_Sub :
-                    mymoiminfo_CustomDialog(adminData);
+                    mymoiminfo_CustomDialog(adminData, "운영진 목록");
                     break;
             }
         }
@@ -241,11 +293,13 @@ public class MyMoimActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        onResume();
     }
 
-
-    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
-        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
+    // custom Dialog 띄우기
+    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data, String title) {
+        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, title, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
             @Override
             public void onCancleClick() {
                 onResume();
@@ -253,8 +307,16 @@ public class MyMoimActivity extends AppCompatActivity {
         });
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
-        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Window window = customDialog.getWindow();
+        int x = (int) (size.x * 0.9f);
+        int y = (int) (size.y * 0.9f);
+        window.setLayout(x, y);
+
     }
 }

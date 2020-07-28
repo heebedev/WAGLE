@@ -15,7 +15,9 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 
+import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
+import com.androidlec.wagle.jhj.Jhj_FTPConnect2;
 import com.androidlec.wagle.jhj.Jhj_Make_Moim_Spinner_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 
@@ -28,12 +30,16 @@ public class MakeMoimActivity extends Activity {
     //final static String TAG = "MakeMoimActivity";
     final static String IP = "192.168.0.82";
 
+    public static Activity MAKEMOIMACT;
+
     Uri file = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_moim);
+
+        MAKEMOIMACT = this;
 
         // ------------------------------------------------------------------
         // 버튼, 버튼이벤트 등록
@@ -143,7 +149,6 @@ public class MakeMoimActivity extends Activity {
                 // 모임 개설
                 case R.id.make_moim_viewFliper_Complete:
                     moimInsert();
-                    startActivity(new Intent(MakeMoimActivity.this, MainMoimListActivity.class));
                     break;
             }
         }
@@ -177,17 +182,17 @@ public class MakeMoimActivity extends Activity {
 
         String imgName = name + formatDate + ".jpg";
 
-        connectionFTP(imgName);
-
         // Get 방식 URL 세팅
         String urlAddr = "http://" + IP + ":8080/wagle/moim_insert.jsp?userSeqno=" + seqno + "&title=" + name + "&subject=" + spinnerSeleted + "&intro=" + intro + "&imgName=" + imgName;
         connectionInsertData(urlAddr);
+
+        connectionFTP(imgName);
     }
 
     private void connectionFTP(String imgName) {
         try {
             // FTP 접속
-            Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
+            Jhj_FTPConnect2 connectFTP = new Jhj_FTPConnect2(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
             connectFTP.execute();
         } catch (Exception e) {
             e.printStackTrace();

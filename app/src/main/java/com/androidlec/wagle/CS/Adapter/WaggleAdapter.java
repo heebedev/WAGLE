@@ -15,7 +15,7 @@ import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,6 +81,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             UserInfo.WAGLESEQNO = data.get(position).getWcSeqno();
                             UserInfo.WAGLENAME = data.get(position).getWcName();
                             UserInfo.WAGLETYPE = data.get(position).getWcType();
+                            UserInfo.WAGLEMAKERSEQ = data.get(position).getMoimUser_muSeqno();
                             mContext.startActivity(intent);
                             break;
                         case 2: // 와글 신청이 안되었을 때.
@@ -92,7 +93,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             mContext.startActivity(intent);
                             break;
                         case 0: // 데이터베이스 연결이 안되었을 때.
-                            Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "인터넷 환경을 확인해주세요.", Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }

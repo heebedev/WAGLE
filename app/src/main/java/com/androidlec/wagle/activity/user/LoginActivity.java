@@ -8,13 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidlec.wagle.CS.LoginClass.GoogleLogin;
 import com.androidlec.wagle.CS.LoginClass.KakaoLogin;
 import com.androidlec.wagle.CS.LoginClass.NaverLogin;
 import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.TempActivity;
 import com.androidlec.wagle.network_sh.NetworkTask_Login;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -48,6 +48,9 @@ public class LoginActivity extends Activity {
     private EditText userid, userpw;
     //회원가입
     private TextView signUpBtn;
+    // 뒤로가기 버튼
+    private long backPressedTime = 0;
+    public static final long FINISH_INTERVAL_TIME = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +59,8 @@ public class LoginActivity extends Activity {
 
         init();
 
-
-        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getUserData("test@test.com", "123123")) {
-                    startActivity(new Intent(LoginActivity.this, TempActivity.class));
-                } else {
-                    loginResult.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-
-
-
     }
+
 
     private void init() {
         // 로그인
@@ -138,12 +127,6 @@ public class LoginActivity extends Activity {
             googleLogin.handleSignInResult(task);
         }
 
-        // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
-//        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-//            Log.i("Chance", "requestCode : "+requestCode);
-//            Log.i("Chance", "resultCode : "+resultCode);
-//            Log.i("Chance", "data : "+data);
-//        }
     }
 
     @Override
@@ -153,6 +136,18 @@ public class LoginActivity extends Activity {
         Session.getCurrentSession().removeCallback(kakaoLogin.sessionCallback);
     }
 
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && (FINISH_INTERVAL_TIME >= intervalTime)) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "뒤로가기를 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    } // 뒤로가기
 
     //아이디 찾기 버튼 클릭 이벤트
     TextView.OnClickListener findidpwClickListener = new View.OnClickListener() {

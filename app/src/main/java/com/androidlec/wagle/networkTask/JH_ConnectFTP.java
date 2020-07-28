@@ -3,7 +3,7 @@ package com.androidlec.wagle.networkTask;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -54,7 +54,6 @@ public class JH_ConnectFTP extends AsyncTask<Integer, String, String> {
 
             // 파일 업로드시
             if (ftpUploadFile(file, formatDate + ".jpg", currentPath)) {
-                Log.v("ConnectFTP", "Success");
             }
         }
 

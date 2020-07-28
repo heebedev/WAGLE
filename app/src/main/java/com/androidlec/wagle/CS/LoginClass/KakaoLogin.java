@@ -3,12 +3,11 @@ package com.androidlec.wagle.CS.LoginClass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -26,6 +25,7 @@ public class KakaoLogin {
     private Context mContext;
 
     private String strResult;
+    private User user;
 
     public KakaoLogin(Context mContext) {
         this.mContext = mContext;
@@ -51,12 +51,19 @@ public class KakaoLogin {
                     String userId = getUserId(result.toString());
                     if (!findUserFromDB(userId)) {
                         InputUserDataToDB(result.toString());
+                        Intent intent = new Intent(mContext, MyInfoActivity.class);
+                        intent.putExtra("LoginType", "KAKAO");
+                        intent.putExtra("UserProfile", user.getuImageName());
+                        intent.putExtra("UserName", user.getuName());
+                        intent.putExtra("UserBirth", user.getuBirthDate());
+                        intent.putExtra("UserEmail", user.getuEmail());
+                        mContext.startActivity(intent);
                     } else {
                         setUserInfo(userId);
+                        Intent intent = new Intent(mContext, MainMoimListActivity.class);
+                        mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
 
-                    Intent intent = new Intent(mContext, MainMoimListActivity.class);
-                    mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
         }
@@ -88,7 +95,7 @@ public class KakaoLogin {
     }
 
     private void InputUserDataToDB(String json) {
-        User user = jsonParsing(json);
+        user = jsonParsing(json);
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
 
         urlAddr = urlAddr + "uId=" + user.getuId() + "&uEmail=" + user.getuEmail() + "&uName=" + user.getuName() + "&uImageName=" + user.getuImageName() + "&uBirthDate=" + user.getuBirthDate() + "&uLoginType=KAKAO";
@@ -116,8 +123,8 @@ public class KakaoLogin {
             UserInfo.USEQNO = Integer.parseInt(user[0]);
             UserInfo.UID = user[1];
             UserInfo.UEMAIL = user[2];
-            UserInfo.UNAME = user[3];
-            UserInfo.ULOGINTYPE = user[4];
+            UserInfo.ULOGINTYPE = user[3];
+            UserInfo.UNAME = user[4];
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,18 +190,15 @@ public class KakaoLogin {
                 .requestUnlink(new UnLinkResponseCallback() {
                     @Override
                     public void onSessionClosed(ErrorResult errorResult) {
-                        Log.e("TAG", "세션이 닫혀 있음: " + errorResult);
                     }
 
                     @Override
                     public void onFailure(ErrorResult errorResult) {
-                        Log.e("TAG", "연결 끊기 실패: " + errorResult);
 
                     }
 
                     @Override
                     public void onSuccess(Long result) {
-                        Log.i("TAG", "연결 끊기 성공. id: " + result);
                         ((Activity) mContext).finish();
                     }
                 });

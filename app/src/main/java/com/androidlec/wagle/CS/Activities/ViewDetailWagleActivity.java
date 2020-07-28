@@ -1,9 +1,8 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -15,6 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
@@ -140,7 +141,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                         Glide.with(this)
                                 .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
                                 .apply(new RequestOptions().centerCrop())
-                                .placeholder(R.drawable.ic_outline_emptyimage)
                                 .into(bk_bookImage);
                     }
 

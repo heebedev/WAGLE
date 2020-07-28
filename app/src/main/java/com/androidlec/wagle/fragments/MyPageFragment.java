@@ -2,36 +2,27 @@ package com.androidlec.wagle.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-
-import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
-import com.androidlec.wagle.JH.Payment;
-import com.androidlec.wagle.JH.PaymentAdapter;
-import com.androidlec.wagle.JH.Progress;
 import com.androidlec.wagle.JH.Rank;
 import com.androidlec.wagle.JH.RankAdapter;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
-import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
+import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.jhj.Jhj_HomeAndMyPage_Plus_List;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.jhj.Jhj_MyPage_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
-import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Rank;
 import com.bumptech.glide.Glide;
@@ -39,11 +30,8 @@ import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.network.ErrorResult;
 import com.kakao.network.callback.ResponseCallback;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,9 +48,13 @@ public class MyPageFragment extends Fragment {
 
     private static Jhj_MyPage_DTO data;
 
+    //유저 랭킹
+    private  ImageView profileIcon, Rank_Grade;
+
     // 랭킹 탑5 구하기.
     private static ArrayList<Rank> ranks;
     private static RankAdapter rankAdapter;
+
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -73,6 +65,15 @@ public class MyPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_my_page, container, false);
 
+        // 카카오톡 메시지 초대 버튼
+        btn_sendMessage = rootView.findViewById(R.id.myPage_btn_sendMessage);
+        btn_sendMessage.setOnClickListener(onClickListener);
+
+
+        // 참가안한 와글, 독후감 더보기 버튼
+        rootView.findViewById(R.id.fragment_my_page_Wagle_Plus).setOnClickListener(Plus_MyPage_OnClickListener);
+        rootView.findViewById(R.id.fragment_my_page_BookReport_Plus).setOnClickListener(Plus_MyPage_OnClickListener);
+
         return rootView;
     }
 
@@ -80,21 +81,34 @@ public class MyPageFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
         btn_sendMessage = rootView.findViewById(R.id.myPage_btn_sendMessage);
         btn_sendMessage.setOnClickListener(onClickListener);
 
-        ImageView profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
-        ImageView Rank_Grade = rootView.findViewById(R.id.fragment_my_page_iv_Rank_Grade);
+        profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
+        Rank_Grade = rootView.findViewById(R.id.fragment_my_page_iv_Rank_Grade);
 
-//        TextView rankGrade = rootView.findViewById(R.id.fragment_my_page_Text_Rank_Grade);
+        // 페이지 정보 가져오기
+        String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
+        String MyPage_JsonString = MyPage_Select_All(urlAddr);
+        data = MyPage_parser(MyPage_JsonString);
 
-        TextView waglePlusBtn = rootView.findViewById(R.id.fragment_my_page_Wagle_Plus);
+        // 유저 정보 세팅
+        MyPageSetting();
 
-        TextView bookReportPlusBtn = rootView.findViewById(R.id.fragment_my_page_BookReport_Plus);
+        // 참가 안한 와글 세팅
+        WagleSetting();
 
+        // 안쓴 독후감 세팅
+        SuggestionSetting();
+    }
 
+    // 내 정보 세팅하기
+    protected void MyPageSetting() {
         // 프로필 사진 가져오기
         UserInfo.ULOGINTYPE = "wagle";
+        ImageView profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
+
         if(UserInfo.ULOGINTYPE.equals("wagle")){
             Glide.with(this)
                     .load("http://192.168.0.82:8080/wagle/userImgs/" + UserInfo.UIMAGENAME)
@@ -107,27 +121,22 @@ public class MyPageFragment extends Fragment {
                     .into(profileIcon);
         }
 
-        // 페이지 정보 가져오기
-        String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
-        Log.v(TAG, "urlAddr = " + urlAddr);
-        String MyPage_JsonString = MyPage_Select_All(urlAddr);
-        data = MyPage_parser(MyPage_JsonString);
-
         // 유저 이름 넣기
         TextView myName = rootView.findViewById(R.id.fragment_my_page_Text_Name);
         myName.setText(UserInfo.UNAME);
-
 
         // 참여한 총 와글 00개 / 00개 ( 00 % )
         TextView wagleNum = rootView.findViewById(R.id.fragment_my_page_Text_WagleNum);
         double result = Double.parseDouble(data.getWagleNum()) / Double.parseDouble(data.getTotalWagle());
         int percentage = (int) (result * 100);
         wagleNum.setText("참여한 총 와글 : " + data.getWagleNum() + " 개 / " + data.getTotalWagle() + "개 (" + percentage + "%)");
+
         // 참여한 총 독후감 00개 / 00개 ( 00 % )
         result = Double.parseDouble(data.getWagleBookReportNum()) / Double.parseDouble(data.getTotalBookReport());
         percentage = (int) (result * 100);
         TextView bookReportNum = rootView.findViewById(R.id.fragment_my_page_Text_BookReportNum);
         bookReportNum.setText("참여한 총 독후감 : " + data.getWagleBookReportNum() + " 개 / " + data.getTotalBookReport() + "개 (" + percentage + "%)");
+
         // 총점 계산
         TextView totalScore = rootView.findViewById(R.id.fragment_my_page_Text_TotalScore);
         int myscore = (Integer.parseInt(data.getWagleNum())*10) + (Integer.parseInt(data.getWagleBookReportNum())*5);
@@ -289,6 +298,20 @@ public class MyPageFragment extends Fragment {
     // 와글 시작
     // -------------------------------------------------------------------------------------
 
+    protected void WagleSetting() {
+        // 와글 버튼 텍스트, 이벤트 설정
+        Button[] wagleBtn = new Button[4];
+        Integer[] wagle_Frag_Btn_Id = {
+                R.id.fragment_my_page_Wagle1, R.id.fragment_my_page_Wagle2, R.id.fragment_my_page_Wagle3, R.id.fragment_my_page_Wagle4
+        };
+
+        for (int i = 0 ; i < data.getWagle().size() ; i++) {
+            wagleBtn[i] = rootView.findViewById(wagle_Frag_Btn_Id[i]);
+            wagleBtn[i].setOnClickListener(wagle_MyPage_OnClickListener);
+            wagleBtn[i].setText(data.getWagle().get(i).getWcName());
+        }
+    }
+
     // 와글 신청 이벤트
     Button.OnClickListener wagle_MyPage_OnClickListener = new View.OnClickListener() {
         @Override
@@ -327,7 +350,7 @@ public class MyPageFragment extends Fragment {
                 startActivity(intent);
                 break;
             case 0: // 데이터베이스 연결이 안되었을 때.
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "인터넷 환경을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -356,12 +379,46 @@ public class MyPageFragment extends Fragment {
     // 발제문 시작
     // -------------------------------------------------------------------------------------
 
+    protected void SuggestionSetting() {
+        // 독후감 버튼 텍스트, 이벤트 설정
+        Button[] suggestionBtn = new Button[4];
+        Integer[] suggestion_Frag_Btn_Id = {
+                R.id.fragment_my_page_BookReport1, R.id.fragment_my_page_BookReport2, R.id.fragment_my_page_BookReport3, R.id.fragment_my_page_BookReport4
+        };
+
+        for (int i = 0 ; i < data.getSuggestion().size() ; i++) {
+            suggestionBtn[i] = rootView.findViewById(suggestion_Frag_Btn_Id[i]);
+            suggestionBtn[i].setOnClickListener(suggestion_MyPage_OnClickListener);
+            suggestionBtn[i].setText(data.getSuggestion().get(i).getsContent());
+        }
+    }
+
     Button.OnClickListener suggestion_MyPage_OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            switch (v.getId()) {
+                case R.id.fragment_my_page_BookReport1 :
+                    BookReportMove(0);
+                    break;
+                case R.id.fragment_my_page_BookReport2 :
+                    BookReportMove(1);
+                    break;
+                case R.id.fragment_my_page_BookReport3 :
+                    BookReportMove(2);
+                    break;
+                case R.id.fragment_my_page_BookReport4 :
+                    BookReportMove(3);
+                    break;
+            }
         }
     };
+
+    protected void BookReportMove(int position) {
+        UserInfo.WAGLESEQNO = data.getSuggestion().get(position).getWcSeqno();
+
+        Intent intent = new Intent(getActivity(), AddDHGActivity.class);
+        startActivity(intent);
+    }
 
     // -------------------------------------------------------------------------------------
     // 발제문 끝
@@ -391,19 +448,33 @@ public class MyPageFragment extends Fragment {
                 .sendCustom(getActivity(), templateId, templateArgs, serverCallbackArgs, new ResponseCallback<KakaoLinkResponse>() {
                     @Override
                     public void onFailure(ErrorResult errorResult) {
-                        Log.e("KAKAO_API", "카카오링크 보내기 실패: " + errorResult);
                     }
 
                     @Override
                     public void onSuccess(KakaoLinkResponse result) {
-                        Log.i("KAKAO_API", "카카오링크 보내기 성공");
 
-                        // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
-                        Log.w("KAKAO_API", "warning messages: " + result.getWarningMsg());
-                        Log.w("KAKAO_API", "argument messages: " + result.getArgumentMsg());
                     }
                 });
     }
     // 카카오톡 이벤트 끝
+
+    // 참가안한 와글, 독후감 더보기 버튼
+    Button.OnClickListener Plus_MyPage_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = null;
+            switch (v.getId()) {
+                case R.id.fragment_my_page_Wagle_Plus :
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
+                    intent.putExtra("Type", "Wagle");
+                    break;
+                case R.id.fragment_my_page_BookReport_Plus :
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
+                    intent.putExtra("Type","NoBookReport");
+                    break;
+            }
+            startActivity(intent);
+        }
+    };
 
 }

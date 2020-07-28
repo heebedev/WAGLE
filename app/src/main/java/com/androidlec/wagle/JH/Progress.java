@@ -17,6 +17,7 @@ public class Progress {
         this.uLoginType = uLoginType;
         this.wpSeqno = wpSeqno;
         this.uName = uName;
+
     }
 
     public String getuName() {
@@ -26,6 +27,7 @@ public class Progress {
     public void setuName(String uName) {
         this.uName = uName;
     }
+
 
     public int getWpSeqno() {
         return wpSeqno;
@@ -66,4 +68,5 @@ public class Progress {
     public void setuLoginType(String uLoginType) {
         this.uLoginType = uLoginType;
     }
+
 }//----

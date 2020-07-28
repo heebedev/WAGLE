@@ -2,22 +2,11 @@ package com.androidlec.wagle.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
 import com.androidlec.wagle.CS.CalendarUtil.CSDrawableUtils;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.CS.Network.WGNetworkTask;
@@ -25,19 +14,13 @@ import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.utils.DateUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.TimeZone;
+
+
 
 public class PlanFragment extends Fragment {
 

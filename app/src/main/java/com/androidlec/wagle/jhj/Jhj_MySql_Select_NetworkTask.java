@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -95,8 +95,6 @@ public class Jhj_MySql_Select_NetworkTask extends AsyncTask<Integer, String, Str
                 e.printStackTrace();
             }
         }
-
-        //Log.v("Jhj_MySql_Select_NetworkTask", "JsonData = " + Json_Data);
 
         return Json_Data;
     }

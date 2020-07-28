@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,7 +27,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.CS.Model.User;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.user.LoginActivity;
@@ -176,7 +174,8 @@ public class MyInfoActivity extends AppCompatActivity {
 
     // ------------------------------------------------- 정보수정을 통해 들어왔을 경우, 회원정보 불러오기.--------------------------------------------------------
     private void getmyInfo(){
-       String uSeqno =  Integer.toString(UserInfo.USEQNO);
+
+        uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();

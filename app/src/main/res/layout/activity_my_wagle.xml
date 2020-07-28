@@ -31,103 +31,147 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_mywagle_readbjm"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
                 android:text="발제문 보기" />
 
             <TextView
                 android:id="@+id/mywagle_btn_bookreportAdd"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="240dp"
+                android:layout_weight="1"
+                android:gravity="right"
                 android:text="독후감 등록" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/mywagle_btn_suggestionAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/mainColor"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="발제문 등록" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
 
-                <RelativeLayout
-                    android:id="@+id/mywagle_rl_images"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </FrameLayout>
-
-            <ProgressBar
-                android:id="@+id/mywagle_pb_book"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:layout_marginRight="36dp"
-                android:max="200"
-                android:progress="0"
-                android:secondaryProgress="0"
-                style="?android:attr/progressBarStyleHorizontal" />
+        <LinearLayout
+            android:id="@+id/mywagle_ll_readingstatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/white_rounded_background"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                >
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/mywagle_et_wpReadPage"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="현재까지 읽은 페이지 수"
-                    android:inputType="numberDecimal"
+                    android:layout_marginTop="10dp"
+                    android:text="독서 현황"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/mywagle_rl_images"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/mywagle_ll_prgsbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     />
 
-                <Button
-                    android:id="@+id/mywagle_btn_move"
-                    android:layout_width="wrap_content"
+                <ProgressBar
+                    android:id="@+id/mywagle_pb_book"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이동"
-                    />
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:max="200"
+                    android:progress="0"
+                    android:secondaryProgress="0"
+                    style="?android:attr/progressBarStyleHorizontal" />
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/mywagle_et_wpReadPage"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:hint="현재까지 읽은 페이지 수"
+                        android:inputType="numberDecimal"
+                        android:textSize="16dp"
+                        android:padding="2dp"
+                        android:gravity="center"
+                        android:background="@drawable/tintgrey_background"
+                        />
+
+                    <TextView
+                        android:id="@+id/mywagle_btn_move"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/mainColor"
+                        android:layout_marginLeft="24dp"
+                        android:text="이동"
+
+                        />
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/mywagle_lv_bookreport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/mywagle_btn_suggestionAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="발제문 등록" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/mywagle_lv_bookreport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,7 +208,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
             <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery2"
@@ -172,7 +216,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
             <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery3"
@@ -180,7 +224,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
         </LinearLayout>
 
@@ -188,10 +232,10 @@
             android:id="@+id/mywagle_tv_galleryPlus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="더보기"
-            android:textSize="20dp" />
+            android:textSize="16dp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -207,19 +251,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/mywagle_btn_paymentAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정산하기"
-                    android:layout_gravity="center"
-                    />
-
                 <include layout="@layout/activity_payment"/>
 
             </FrameLayout>
 
+            <LinearLayout
+                android:id="@+id/mywagle_btn_paymentMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/kakaologo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정산 메시지 보내기"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
+
 
     </LinearLayout>
 

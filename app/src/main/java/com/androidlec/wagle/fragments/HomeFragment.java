@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.androidlec.wagle.BoardFragment;
+import com.androidlec.wagle.CS.Activities.BoardFragment;
 import com.androidlec.wagle.CS.Model.WagleList;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.activity.wagleSub.AddTodayWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddWagleActivity;
@@ -34,9 +32,8 @@ import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
-import com.androidlec.wagle.jhj.Jhj_Post_Notice_DHG_List;
+import com.androidlec.wagle.jhj.Jhj_HomeAndMyPage_Plus_List;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.bumptech.glide.Glide;
 
@@ -83,7 +80,7 @@ public class HomeFragment extends Fragment {
         Button GalleryBtnAdd = rootView.findViewById(R.id.fragment_home_Gallery_Add);
 
         // 일반인일때 공지사항 버튼 안보이기
-        if (UserInfo.WAGLEMAGRADE.equals("W")) {
+        if (UserInfo.MOIMMYGRADE.equals("W")) {
             NoticeBtnAdd.setVisibility(View.INVISIBLE);
         }
 
@@ -167,7 +164,6 @@ public class HomeFragment extends Fragment {
 
                 // Get 방식 URL 세팅
                 String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Insert.jsp?userSeqno=" + seqno + "&type=G&fileName=" + fileName + "&MoimSeqno=" + UserInfo.MOIMSEQNO;
-                Log.v("qwerasdf", urlAddr);
                 connectionInsertData(urlAddr);
             }
         }
@@ -195,7 +191,7 @@ public class HomeFragment extends Fragment {
                     startActivityForResult(intent, 1002);
                     break;
                 case R.id.fragment_home_Wagle_Add :
-                    if (UserInfo.WAGLEMAGRADE.equals("O") || UserInfo.WAGLEMAGRADE.equals("S")) {
+                    if (UserInfo.MOIMMYGRADE.equals("O") || UserInfo.MOIMMYGRADE.equals("S")) {
                         intent = new Intent(getActivity(), AddWagleActivity.class);
                     } else {
                         intent = new Intent(getActivity(), AddTodayWagleActivity.class);
@@ -214,7 +210,7 @@ public class HomeFragment extends Fragment {
 
             switch (v.getId()) {
                 case R.id.fragment_home_Notice_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "Notice");
                     break;
                 case R.id.fragment_home_Gallery_Plus :
@@ -224,7 +220,7 @@ public class HomeFragment extends Fragment {
                     getActivity().findViewById(R.id.navigation_wagle).performClick();
                     return;
                 case R.id.fragment_home_BookReport_Plus :
-                    intent = new Intent(getActivity(), Jhj_Post_Notice_DHG_List.class);
+                    intent = new Intent(getActivity(), Jhj_HomeAndMyPage_Plus_List.class);
                     intent.putExtra("Type", "BookReport");
                     break;
             }
@@ -273,13 +269,15 @@ public class HomeFragment extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
 
-            for (int i = 0 ; i < 4 ; i++) {
-                Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
-                        jsonObject.getString("PostTitle" + i),
-                        jsonObject.getString("PostContent" + i),
-                        jsonObject.getString("PostUserSeqno" + i));
+            if(!jsonObject.isNull("PostSeqno")) {
+                for (int i = 0; i < 4; i++) {
+                    Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
+                            jsonObject.getString("PostTitle" + i),
+                            jsonObject.getString("PostContent" + i),
+                            jsonObject.getString("PostUserSeqno" + i));
 
-                dtos.add(dto);
+                    dtos.add(dto);
+                }
             }
 
         } catch (Exception e) {
@@ -442,6 +440,7 @@ public class HomeFragment extends Fragment {
                 UserInfo.WAGLESEQNO = Wdata.get(position).getWcSeqno();
                 UserInfo.WAGLENAME = Wdata.get(position).getWcName();
                 UserInfo.WAGLETYPE = Wdata.get(position).getWcType();
+                UserInfo.WAGLEMAKERSEQ = Wdata.get(position).getMoimUser_muSeqno();
                 startActivity(intent);
                 break;
             case 2: // 와글 신청이 안되었을 때.
@@ -451,7 +450,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
                 break;
             case 0: // 데이터베이스 연결이 안되었을 때.
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "인터넷 환경을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -503,9 +502,6 @@ public class HomeFragment extends Fragment {
 
         for (int i = 0 ; i < Gdata.size() ; i++) {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
-            gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            //         Context                 URL              ImageView
-            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
             Glide.with(getActivity())
                     .load(imgUrl + Gdata.get(i).getImageName())
                     .placeholder(R.drawable.ic_baseline_crop_din_24)

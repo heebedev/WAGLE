@@ -4,13 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -52,15 +50,20 @@ public class GoogleLogin {
             String userId = getUserId();
             if (!findUserFromDB(userId)) {
                 InputUserDataToDB();
+                Intent intent = new Intent(mContext, MyInfoActivity.class);
+                intent.putExtra("LoginType", "GOOGLE");
+                intent.putExtra("UserProfile", account.getPhotoUrl());
+                intent.putExtra("UserName", account.getFamilyName() + account.getGivenName());
+                intent.putExtra("UserBirth", "");
+                intent.putExtra("UserEmail", account.getEmail());
+                mContext.startActivity(intent);
             } else {
                 setUserInfo(userId);
+                mContext.startActivity(new Intent(mContext, MainMoimListActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
-
-            mContext.startActivity(new Intent(mContext, MainMoimListActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("TAG", "signInResult:failed code=" + e.getMessage());
         }
     }
 
@@ -112,8 +115,8 @@ public class GoogleLogin {
             UserInfo.USEQNO = Integer.parseInt(user[0]);
             UserInfo.UID = user[1];
             UserInfo.UEMAIL = user[2];
-            UserInfo.UNAME = user[3];
-            UserInfo.ULOGINTYPE = user[4];
+            UserInfo.ULOGINTYPE = user[3];
+            UserInfo.UNAME = user[4];
 
         } catch (Exception e) {
             e.printStackTrace();
