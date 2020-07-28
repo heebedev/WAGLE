@@ -56,7 +56,7 @@ public class FindLocationActivity extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
-        getCurrentLocation();
+        //getCurrentLocation();
     }
 
     private void getCurrentLocation() {
