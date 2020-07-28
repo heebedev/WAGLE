@@ -148,6 +148,7 @@ public class TempActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AppFriendsResponse result) {
                         Log.i("KAKAO_API", "친구 조회 성공");
+                        Log.i("KAKAO_API", result.getFriends().toString());
 
                         for (AppFriendInfo friend : result.getFriends()) {
                             Log.d("KAKAO_API", friend.toString());

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidlec.wagle.CS.Activities.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
@@ -33,8 +35,17 @@ import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kakao.kakaolink.v2.KakaoLinkResponse;
+import com.kakao.kakaolink.v2.KakaoLinkService;
+import com.kakao.message.template.LinkObject;
+import com.kakao.message.template.TemplateParams;
+import com.kakao.message.template.TextTemplate;
+import com.kakao.network.ErrorResult;
+import com.kakao.network.callback.ResponseCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyWagleActivity extends AppCompatActivity {
 
@@ -72,6 +83,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     // 정산 파트.
     private Button btn_paymentAdd;
+    private TextView tv_PPP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +134,10 @@ public class MyWagleActivity extends AppCompatActivity {
 
         // 정산 해놓은거 있으면 영수증, 아니면 버튼 띄워줌.
         switch (paymentCnt()) {
-            case 2:
+            case 1:
                 btn_paymentAdd.setVisibility(View.VISIBLE);
                 break;
-            case 1:
-                btn_paymentAdd.setVisibility(View.INVISIBLE);
-                break;
+            case 2:
             default:
                 btn_paymentAdd.setVisibility(View.INVISIBLE);
                 break;
@@ -164,13 +174,20 @@ public class MyWagleActivity extends AppCompatActivity {
                 case R.id.mywagle_tv_galleryPlus:
                     break;
                 case R.id.mywagle_btn_paymentAdd:
-                    btn_paymentAdd.setVisibility(View.INVISIBLE);
                     // --------------- 대화상자 띄우기 -------------------------------------------------
-                    new AlertDialog.Builder(MyWagleActivity.this)
-                            .setTitle("더하기 버튼을 눌러 아이템을 추가하고,\n항목을 길게 눌러 삭제할 수 있습니다.")
-                            .setCancelable(false)
-                            .setPositiveButton("확인", null)
-                            .show();
+                    EditText editText = new EditText(getApplicationContext());
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+                    androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyWagleActivity.this);
+                    builder.setTitle("계좌번호 등록");
+                    builder.setMessage("계좌번호를 입력해 주세요.");
+                    builder.setView(editText);
+                    builder.setPositiveButton("확인", (dialog, which) -> {
+                        String account = editText.getText().toString().trim();
+                        sendMessage(account);
+                    });
+                    builder.setNegativeButton("취소", null);
+                    builder.show();
                     // -----------------------------------------------------------------------------
                     break;
                 case R.id.payment_btn_addItem:
@@ -179,6 +196,35 @@ public class MyWagleActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void sendMessage(String account) {
+        // 템플릿 ID
+        String templateId = "33365";
+
+        // 템플릿에 입력된 Argument에 채워질 값
+        Map<String, String> templateArgs = new HashMap<>();
+        templateArgs.put("WAGLE_NAME", UserInfo.WAGLENAME);
+        templateArgs.put("PAYMENT", tv_PPP.getText().toString().trim());
+        templateArgs.put("ACCOUNT", account);
+
+        // 커스텀 템플릿으로 카카오링크 보내기
+        KakaoLinkService.getInstance()
+                .sendCustom(this, templateId, templateArgs, null, new ResponseCallback<KakaoLinkResponse>() {
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "카카오링크 보내기 실패: " + errorResult);
+                    }
+
+                    @Override
+                    public void onSuccess(KakaoLinkResponse result) {
+                        Log.i("KAKAO_API", "카카오링크 보내기 성공");
+
+                        // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                        Log.w("KAKAO_API", "warning messages: " + result.getWarningMsg());
+                        Log.w("KAKAO_API", "argument messages: " + result.getArgumentMsg());
+                    }
+                });
+    }
 
 
     private void initProgressBar(){
@@ -303,7 +349,7 @@ public class MyWagleActivity extends AppCompatActivity {
         TextView tv_total = findViewById(R.id.payment_tv_total);
         tv_total.setText(total + "원");
         int ppp = total/getWagleUsers();
-        TextView tv_PPP = findViewById(R.id.payment_tv_PricePerPerson);
+        tv_PPP = findViewById(R.id.payment_tv_PricePerPerson);
         tv_PPP.setText(ppp + "원");
     }
 
