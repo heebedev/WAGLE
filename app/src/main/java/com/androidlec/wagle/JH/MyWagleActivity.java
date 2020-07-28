@@ -132,6 +132,11 @@ public class MyWagleActivity extends AppCompatActivity {
         // 독후감 파트.
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
+
+
+
+        dhglist = findViewById(R.id.mywagle_lv_bookreport);
+
         et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
 
         //발제문
@@ -139,6 +144,10 @@ public class MyWagleActivity extends AppCompatActivity {
         tv_viewBJM.setOnClickListener(onClickListener);
 
         btn_move = findViewById(R.id.mywagle_btn_move);
+        btn_move.setOnClickListener(onClickListener);
+        btn_bookreportAdd.setOnClickListener(onClickListener);
+        btn_suggestionAdd.setOnClickListener(onClickListener);
+
 
 
         if(UserInfo.WAGLETYPE.equals("정규")) {
@@ -245,6 +254,8 @@ public class MyWagleActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.mywagle_btn_move:
+                    Toast.makeText(MyWagleActivity.this, "클릭!!", Toast.LENGTH_SHORT).show();
+                    Log.v("로그체크 : ", "클릭!");
                     recordPage();
                     Intent intent1 = getIntent();
                     finish();
@@ -360,13 +371,15 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
             float wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
-
+Log.v("읽은 페이지 : ", String.valueOf(wpReadPage));
             if(wpReadPage == 0) wpReadPage = (float) 0.1;
-
+Log.v("읽은 페이지 : ", String.valueOf(wpReadPage));
             float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-
+Log.v("전체 페이지 : ", String.valueOf(wbMaxPage));
+Log.v("전체 페이지에서 읽은 페이지 비율 : ", String.valueOf(movePage));
             float moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
-
+Log.v("바에서 움직이는 거리 : ", String.valueOf(moveProgressBar));
+Log.v("전체 디바이스 길이 : ", String.valueOf(deviceWidth));
             if(wpReadPage >= wbMaxPage){
                 imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
             }else{

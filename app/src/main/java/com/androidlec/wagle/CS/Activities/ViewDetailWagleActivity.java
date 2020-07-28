@@ -18,6 +18,7 @@ import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.dto.BookInfo;
+import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
 import com.bumptech.glide.Glide;
@@ -179,8 +180,18 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        String insert_urlAddr = "http://" + JH_IP + ":8080/wagle/insertWagleProgress.jsp?";
+        insert_urlAddr = insert_urlAddr + "wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
+        try {
+            JH_VoidNetworkTask networkTask2 = new JH_VoidNetworkTask(ViewDetailWagleActivity.this, insert_urlAddr);
+            networkTask2.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         finish();
     }
+
 
     private BookInfo getBookinfo(String urlAddr) {
         BookInfo result = null;
