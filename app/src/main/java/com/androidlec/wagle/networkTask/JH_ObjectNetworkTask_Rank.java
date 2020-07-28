@@ -63,7 +63,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
     // 중요한 건, doInBackground 죠.
     @Override
     protected Object doInBackground(Integer... integers) {
-        //Log.v(TAG, "doInBackground()");
 
         StringBuffer stringBuffer = new StringBuffer();
         InputStream inputStream = null;
@@ -74,8 +73,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
             URL url = new URL(mAddr);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000); // 10 seconds.
-
-            //Log.v(TAG, "Accept : " + httpURLConnection.getResponseCode());
 
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
 
@@ -89,7 +86,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
                     stringBuffer.append(strline + "\n");
                 } // 와일문 끝나면 다 가져왔다~.
 
-                //Log.v(TAG, stringBuffer.toString());
                 // 파싱.
                 parser(stringBuffer.toString()); // 아직 안만들었어요~~~ But, 파씽 하겠다~.
 
@@ -102,7 +98,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
                 if(inputStreamReader != null) inputStreamReader.close();
                 if(inputStream != null) inputStream.close();
             }catch (Exception e){
-                //Log.v(TAG, "Network Error");
                 e.printStackTrace();
             }
         }
@@ -112,7 +107,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
 
 
     private void parser(String s){ // 스트링 하나만 가져오죠.
-        //Log.v(TAG, "parse()");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -125,11 +119,6 @@ public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object
                 int muWagleNum = jsonObject1.getInt("muWagleNum");
                 int muWagleReport = jsonObject1.getInt("muWagleReport");
                 int muWagleScore = jsonObject1.getInt("muWagleScore");
-
-                Log.v(TAG, uName);
-                Log.v(TAG, String.valueOf(muWagleNum));
-                Log.v(TAG, String.valueOf(muWagleReport));
-                Log.v(TAG, String.valueOf(muWagleScore));
 
                 Rank data = new Rank(uName, muWagleNum, muWagleReport, muWagleScore);
 

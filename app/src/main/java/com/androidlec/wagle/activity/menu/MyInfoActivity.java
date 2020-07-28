@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
@@ -144,9 +145,7 @@ public class MyInfoActivity extends AppCompatActivity {
     };
 
     private void getmyInfo(){
-//       uSeqno =  UserInfo.USEQNO;
-        uSeqno = "1"; //******  절대값 수정해주세요!! ******
-//         uSeqno = Integer.toString(UserInfo.USEQNO);
+        uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();

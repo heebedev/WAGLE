@@ -151,7 +151,6 @@ public class MyWagleActivity extends AppCompatActivity {
                 ic_bookinfo.setVisibility(View.VISIBLE);
                 btn_suggestionAdd.setText("발제문 추가");
 
-
                 if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
                     btn_suggestionAdd.setVisibility(View.VISIBLE);
 

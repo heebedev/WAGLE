@@ -89,6 +89,11 @@ public class MyPageFragment extends Fragment {
         profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
         Rank_Grade = rootView.findViewById(R.id.fragment_my_page_iv_Rank_Grade);
 
+        // 페이지 정보 가져오기
+        String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
+        Log.e(TAG, urlAddr);
+        String MyPage_JsonString = MyPage_Select_All(urlAddr);
+        data = MyPage_parser(MyPage_JsonString);
 
         // 유저 정보 세팅
         MyPageSetting();
@@ -102,31 +107,21 @@ public class MyPageFragment extends Fragment {
 
     // 내 정보 세팅하기
     protected void MyPageSetting() {
-        // 페이지 정보 가져오기
-        String urlAddr = "http://" + IP + ":8080/wagle/MyPage_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO + "&userSeqno=" + UserInfo.USEQNO;
-        String MyPage_JsonString = MyPage_Select_All(urlAddr);
-        data = MyPage_parser(MyPage_JsonString);
-
         // 프로필 사진 가져오기
-
         UserInfo.ULOGINTYPE = "wagle";
         ImageView profileIcon = rootView.findViewById(R.id.fragment_my_page_ProfileIcon);
-
 
         if(UserInfo.ULOGINTYPE.equals("wagle")){
             Glide.with(this)
                     .load("http://192.168.0.82:8080/wagle/userImgs/" + UserInfo.UIMAGENAME)
                     .placeholder(R.drawable.ic_outline_emptyimage)
                     .into(profileIcon);
-
-
         } else {
             Glide.with(this)
                     .load(UserInfo.UIMAGENAME)
                     .placeholder(R.drawable.ic_outline_emptyimage)
                     .into(profileIcon);
         }
-
 
         // 유저 이름 넣기
         TextView myName = rootView.findViewById(R.id.fragment_my_page_Text_Name);
