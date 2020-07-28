@@ -202,10 +202,10 @@ public class MyMoimActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_mymoiminfo_Admin_Add :
-                    mymoiminfo_CustomDialog(workerData);
+                    mymoiminfo_CustomDialog(workerData, "회원 목록");
                     break;
                 case R.id.bt_mymoiminfo_Admin_Sub :
-                    mymoiminfo_CustomDialog(adminData);
+                    mymoiminfo_CustomDialog(adminData, "운영진 목록");
                     break;
             }
         }
@@ -246,8 +246,8 @@ public class MyMoimActivity extends AppCompatActivity {
     }
 
     // custom Dialog 띄우기
-    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
-        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
+    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data, String title) {
+        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, title, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
             @Override
             public void onCancleClick() {
                 onResume();
@@ -255,7 +255,6 @@ public class MyMoimActivity extends AppCompatActivity {
         });
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
-
         customDialog.show();
 
         Display display = getWindowManager().getDefaultDisplay();
