@@ -143,7 +143,7 @@ public class MakeMoimActivity extends Activity {
                 // 모임 개설
                 case R.id.make_moim_viewFliper_Complete:
                     moimInsert();
-                    startActivity(new Intent(MakeMoimActivity.this, MainMoimListActivity.class));
+                    finish();
                     break;
             }
         }

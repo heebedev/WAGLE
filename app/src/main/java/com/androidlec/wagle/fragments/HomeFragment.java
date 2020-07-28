@@ -440,6 +440,7 @@ public class HomeFragment extends Fragment {
                 UserInfo.WAGLESEQNO = Wdata.get(position).getWcSeqno();
                 UserInfo.WAGLENAME = Wdata.get(position).getWcName();
                 UserInfo.WAGLETYPE = Wdata.get(position).getWcType();
+                UserInfo.WAGLEMAKERSEQ = Wdata.get(position).getMoimUser_muSeqno();
                 startActivity(intent);
                 break;
             case 2: // 와글 신청이 안되었을 때.
