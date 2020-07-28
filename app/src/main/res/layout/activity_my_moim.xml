@@ -104,6 +104,8 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:divider="#fff"
+        android:dividerHeight="0px"
         ></ListView>
 
 
@@ -132,7 +134,9 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="50dp"
+        android:divider="#fff"
+        android:dividerHeight="0px"/>
 
 </LinearLayout>
 

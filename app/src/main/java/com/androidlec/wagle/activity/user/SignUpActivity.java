@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 
@@ -65,7 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void blankChk() {
-
 
         // 회원가입 이메일 포맷체크, 비밀번호 6자리체크
         if (!Patterns.EMAIL_ADDRESS.matcher(id).matches()) {
@@ -153,8 +153,9 @@ public class SignUpActivity extends AppCompatActivity {
                     signupNetworkTask.execute().get();
                     Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "회원가입 완료.");
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, MyInfoActivity.class);
                     intent.putExtra("uId", id);
+                    intent.putExtra("LoginType", "wagle");
                     startActivity(intent);
                     break;
             }

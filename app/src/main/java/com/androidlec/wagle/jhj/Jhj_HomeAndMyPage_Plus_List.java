@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.CS.Model.WagleList;
@@ -50,10 +51,13 @@ public class Jhj_HomeAndMyPage_Plus_List extends AppCompatActivity {
 
     private static RecyclerView recyclerView;
 
+    private static TextView plusTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jhj__post__notice__list);
+        plusTitle = findViewById(R.id.Recycler_tv_Post_Title);
     }
 
     @Override
@@ -186,6 +190,7 @@ public class Jhj_HomeAndMyPage_Plus_List extends AppCompatActivity {
         NData = JsonData_Notice_Parser(Notice_JsonString, "notice", keyName);
 
         RecyclerList();
+        plusTitle.setText("공지사항");
     }
 
     // JSP 파일 URL로 받아 JSON Data 받아오는 메소드
@@ -386,6 +391,7 @@ public class Jhj_HomeAndMyPage_Plus_List extends AppCompatActivity {
             BRData = JsonData_BookReport_Parser(BookReport_JsonString, "bookreport", keyName);
         }
 
+        plusTitle.setText("독후감");
         RecyclerList();
     }
 
