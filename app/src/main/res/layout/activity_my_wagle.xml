@@ -205,7 +205,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
             <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery2"
@@ -213,7 +213,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
             <com.androidlec.wagle.GalleryImageView
                 android:id="@+id/mywagle_iv_gallery3"
@@ -221,7 +221,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/jhj_wagle_image_loundary" />
+                android:background="@drawable/ic_baseline_crop_din_24" />
 
         </LinearLayout>
 
@@ -252,20 +252,35 @@
 
             </FrameLayout>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/mywagle_btn_paymentMsg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="정산 메시지 보내기"
+                android:layout_marginBottom="30dp"
                 android:layout_gravity="center"
-                android:padding="2dp"
-                android:textColor="@color/mainColor"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:layout_marginBottom="36dp"
-                />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/kakaologo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정산 메시지 보내기"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

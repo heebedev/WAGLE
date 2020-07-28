@@ -391,7 +391,7 @@ public class Jhj_HomeAndMyPage_Plus_List extends AppCompatActivity {
             BRData = JsonData_BookReport_Parser(BookReport_JsonString, "bookreport", keyName);
         }
 
-        plusTitle.setText("공지사항");
+        plusTitle.setText("독후감");
         RecyclerList();
     }
 
