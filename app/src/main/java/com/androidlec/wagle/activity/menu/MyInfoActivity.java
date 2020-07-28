@@ -440,7 +440,7 @@ public class MyInfoActivity extends AppCompatActivity {
         } else if (image_uri == null) {
             connectDB(name, birthDate, emailAddress, "", uId);
         } else {
-            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri);
+            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri, uId);
             String fileName = "";
             try {
                 fileName = mConnectFTP.execute().get();
@@ -485,7 +485,7 @@ public class MyInfoActivity extends AppCompatActivity {
         } else if (image_uri == null) {
             connectEditDB(uName, uEmail, uBirthDate, "");
         } else {
-            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri);
+            JH_ConnectFTP mConnectFTP = new JH_ConnectFTP(MyInfoActivity.this, "192.168.0.82", "host", "qwer1234", 25, image_uri, uId);
             String fileName = "";
             try {
                 fileName = mConnectFTP.execute().get();
