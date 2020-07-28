@@ -91,5 +91,4 @@ dependencies {
 
     // 구글 로그인
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
-
 }

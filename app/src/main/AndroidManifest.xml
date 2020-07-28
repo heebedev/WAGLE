@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -26,12 +27,11 @@
         <activity android:name=".CS.Activities.FindLocationActivity" />
         <activity android:name=".CS.Activities.ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
-        <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
+        <activity android:name=".jhj.Jhj_HomeAndMyPage_Plus_List" />
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />
-        <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
-        <activity android:name=".activity.menu.MyMoimActivity" />
+        <activity android:name=".activity.menu.MyMoimActivity"/>
         <activity android:name=".activity.menu.MyInfoActivity" />
         <activity android:name=".activity.wagleSub.AddCostActivity" />
         <activity android:name=".activity.wagleSub.AddDHGActivity" />

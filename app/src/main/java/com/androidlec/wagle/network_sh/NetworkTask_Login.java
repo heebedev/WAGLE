@@ -2,13 +2,9 @@ package com.androidlec.wagle.network_sh;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.androidlec.wagle.UserInfo;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,7 +38,6 @@ public class NetworkTask_Login extends AsyncTask<Integer, String, Object> {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
-        //log.v("status", "doinBackground start");
 
         try {
             URL url = new URL(mAddr);

@@ -27,12 +27,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.CS.Model.User;
-import com.androidlec.wagle.HomeActivity;
 import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.user.LoginActivity;
 import com.androidlec.wagle.networkTask.JH_ConnectFTP;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_MyInfo;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class MyInfoActivity extends AppCompatActivity {
         editBtn = findViewById(R.id.myInfo_btn_edit);
     }
 
+    // 회원가입을 통해 들어왔는지 / 정보수정을 통해 들어왔는지.
     private void chkPreviousXML(){
         if(previousXML.equals("edit")){
             tv_changePw.setVisibility(View.VISIBLE);
@@ -101,21 +104,46 @@ public class MyInfoActivity extends AppCompatActivity {
         startBtn.setOnClickListener(onClickListener);
         editBtn.setOnClickListener(onClickListener);
 
+        // 와글 회원가입 시
         Intent intent = getIntent();
-        et_emailAddress.setText(intent.getStringExtra("uId"));
+        uId = intent.getStringExtra("uId");
+        String loginType = intent.getStringExtra("LoginType");
+        et_emailAddress.setText(uId);
 
-        if(previousXML.equals("edit")) getmyInfo();
+        // 소셜 회원가입 시
+        String userProfile = intent.getStringExtra("UserProfile");
+        String userName = intent.getStringExtra("UserName");
+        String userBirth = intent.getStringExtra("UserBirth");
+        String userEmail = intent.getStringExtra("UserEmail");
+
+        // 소셜 회원가입을 통해 들어왔을 경우, 회원정보 불러오기.
+        if(previousXML.equals("") || previousXML == null){
+            if(loginType.equals("NAVER") || loginType.equals("GOOGLE") || loginType.equals("KAKAO")){
+                Glide.with(this)
+                        .load(userProfile)
+                        .apply(new RequestOptions().circleCrop())
+                        .placeholder(R.drawable.ic_outline_emptyimage)
+                        .into(iv_photo);
+                iv_photo.setClickable(false);
+                et_name.setText(userName);
+                et_birthDate.setText(userBirth);
+                et_emailAddress.setText(userEmail);
+            }
+        }
+
+        // 정보수정을 통해 들어왔을 경우, 회원정보 불러오기.
+        if(previousXML.equals("edit")){
+            tv_changePw.setVisibility(View.VISIBLE);
+            getmyInfo();
+        }
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!uLoginType.equals("wagle")){
-//            iv_photo.setClickable(false);
-            tv_changePw.setVisibility(View.INVISIBLE);
-        }
     }
+
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -123,7 +151,6 @@ public class MyInfoActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
-                    Toast.makeText(MyInfoActivity.this, "이미지가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();
@@ -133,26 +160,25 @@ public class MyInfoActivity extends AppCompatActivity {
                     break;
                 case R.id.myInfo_btn_start:
                     inputNewData();
-                    startActivity(new Intent(MyInfoActivity.this, HomeActivity.class));
+                    Toast.makeText(MyInfoActivity.this, "회원님의 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_btn_edit:
-                    Toast.makeText(MyInfoActivity.this, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyInfoActivity.this, "회원님의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                     editMyInfo();
-//                    finish();
+                    finish();
                     break;
 
             }
         }
     };
 
+    // ------------------------------------------------- 정보수정을 통해 들어왔을 경우, 회원정보 불러오기.--------------------------------------------------------
     private void getmyInfo(){
-//       uSeqno =  UserInfo.USEQNO;
-        uSeqno = "1"; //******  절대값 수정해주세요!! ******
-//         uSeqno = Integer.toString(UserInfo.USEQNO);
+
+        uSeqno = Integer.toString(UserInfo.USEQNO);
         urlAddr = "http://192.168.0.178:8080/wagle/getMyInfo.jsp?";
         urlAddr += "uSeqno=" + uSeqno;
         connectGetMyInfo();
-
     }
 
     private void connectGetMyInfo() {
@@ -174,29 +200,29 @@ public class MyInfoActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         setText();
     }
 
     private void setText(){
-
         if(uLoginType.equals("wagle")){
             Glide.with(this)
                     .load("http://192.168.0.82:8080/wagle/userImgs/" + uImageName)
-//                    .apply(new RequestOptions().circleCrop())
+                    .apply(new RequestOptions().circleCrop())
                     .placeholder(R.drawable.ic_outline_emptyimage)
                     .into(iv_photo);
         } else {
             Glide.with(this)
                     .load(uImageName)
-//                    .apply(new RequestOptions().circleCrop())
+                    .apply(new RequestOptions().circleCrop())
                     .placeholder(R.drawable.ic_outline_emptyimage)
                     .into(iv_photo);
+            iv_photo.setClickable(false);
         }
         et_name.setText(uName);
         et_birthDate.setText(uBirthDate);
         et_emailAddress.setText(uEmail);
     }
+    // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     private void changePw() {
@@ -234,11 +260,17 @@ public class MyInfoActivity extends AppCompatActivity {
                 String newPwCkStr = newPwcheck.getText().toString().trim();
 
                 if (newPwStr.equals(newPwCkStr) && newPwStr.length() >= 6) {
-                    String centIP = "192.168.0.138";
-//                    String uId = UserInfo.UID; 임시로 절대값.
-                    String uId = "test@test.com";
-                    urlAddr = "http://" + centIP + ":8080/test/wagle_changePw.jsp?email=" + uId + "&pw=" + newPw.getText().toString().trim();
-//                    connectGetData();
+                    uPassword = newPw.getText().toString().trim();
+                    String JH_IP = "192.168.0.178";
+                    urlAddr = "http://" + JH_IP + ":8080/wagle/changePw.jsp?";
+                    urlAddr = urlAddr + "uSeqno=" + uSeqno + "&uId=" + uId + "&uEmail=" + uEmail + "&uName=" + uName + "&uImageName=" + uImageName + "&uBirthDate=" + uBirthDate + "&uPassword=" + uPassword;
+                    try {
+                        JH_VoidNetworkTask myInfoNetworkTask = new JH_VoidNetworkTask(MyInfoActivity.this, urlAddr);
+                        myInfoNetworkTask.execute().get();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     Toast.makeText(MyInfoActivity.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
                 } else if (newPwStr.length() < 6) {
                     newPwCmt.setText("비밀번호는 6자리 이상입니다.");
@@ -251,16 +283,6 @@ public class MyInfoActivity extends AppCompatActivity {
         });
     }
 
-//    private void connectGetData() {
-//        try {
-//            NetworkTask_FindIDPW networkTask = new NetworkTask_FindIDPW(MyInfoActivity.this, urlAddr);
-//            Object obj = networkTask.execute().get();
-//            String findData = (String) obj;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     private void chooseBirthDate() {
         long now = System.currentTimeMillis();
@@ -270,7 +292,7 @@ public class MyInfoActivity extends AppCompatActivity {
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
 
-        int year = Integer.parseInt(yearFormat.format(date)) - 25;
+        int year = Integer.parseInt(yearFormat.format(date));
         int month = Integer.parseInt(monthFormat.format(date)) - 1;
         int day = Integer.parseInt(dayFormat.format(date));
 
@@ -283,7 +305,14 @@ public class MyInfoActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            et_birthDate.setText(year + "년 " + monthOfYear + "월 " + dayOfMonth + "일");
+            String yearStr = String.valueOf(year);
+            yearStr = yearStr.substring(2);
+            String monthOfYearStr = String.valueOf(monthOfYear+1);
+            if(monthOfYear<10){
+                monthOfYearStr = "0" + monthOfYearStr;
+            }
+            String dayOfMonthStr = String.valueOf(dayOfMonth);
+            et_birthDate.setText(yearStr+monthOfYearStr+dayOfMonthStr);
         }
     };
 
@@ -401,8 +430,6 @@ public class MyInfoActivity extends AppCompatActivity {
         String name = et_name.getText().toString().trim();
         String birthDate = et_birthDate.getText().toString().trim();
         String emailAddress = et_emailAddress.getText().toString().trim();
-        // String uId = LoginInfo.LOGIN_ID;
-        String uId = "jong@naver.com";
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "이름을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -428,11 +455,14 @@ public class MyInfoActivity extends AppCompatActivity {
 
 
     private void connectDB(String name, String birthDate, String emailAddress, String fileName, String uId) {
-        urlAddr = "http://192.168.0.178:8080/wagle/saveMyInfo.jsp?";
-        urlAddr = urlAddr + "name=" + name + "&birthDate=" + birthDate + "&emailAddress=" + emailAddress + "&fileName=" + fileName + "&uId=" + uId;
+
+        String JH_IP = "192.168.0.178";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/saveMyInfo.jsp?";
+        urlAddr = urlAddr + "uId=" + uId + "&uEmail=" + emailAddress + "&uName=" + name + "&uImageName=" + fileName + "&uBirthDate=" + birthDate;
         try {
             JH_VoidNetworkTask myInfoNetworkTask = new JH_VoidNetworkTask(MyInfoActivity.this, urlAddr);
             myInfoNetworkTask.execute().get();
+            startActivity(new Intent(MyInfoActivity.this, LoginActivity.class));
             finish();
         } catch (Exception e) {
             e.printStackTrace();

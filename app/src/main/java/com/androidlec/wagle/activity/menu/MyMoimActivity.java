@@ -4,14 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,11 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.androidlec.wagle.CS.Activities.BoardListActivity;
 import com.androidlec.wagle.CS.Model.BoardTitleList;
 import com.androidlec.wagle.CS.Network.BDTNetworkTask;
-import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -31,6 +27,7 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -63,7 +60,8 @@ public class MyMoimActivity extends AppCompatActivity {
         adminData = new ArrayList<Jhj_MyMoim_DTO>();
         workerData = new ArrayList<Jhj_MyMoim_DTO>();
 
-        btn_addBoard = findViewById(R.id.myMoim_btn_addBoard);
+
+        btn_addBoard  = findViewById(R.id.myMoim_btn_addBoard);
         btn_addBoard.setOnClickListener(onClickListener);
 
 
@@ -131,7 +129,6 @@ public class MyMoimActivity extends AppCompatActivity {
         for (int i = 0 ; i < jsonData.size() ; i++) {
             if (jsonData.get(i).getMaGrade().equals("W")) {
                 workerData.add(jsonData.get(i));
-                Log.v("hjhjh0", "1234 = " + workerData.get(count++).getuImageName());
             }
         }
 
@@ -255,10 +252,10 @@ public class MyMoimActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_mymoiminfo_Admin_Add :
-                    mymoiminfo_CustomDialog(workerData);
+                    mymoiminfo_CustomDialog(workerData, "회원 목록");
                     break;
                 case R.id.bt_mymoiminfo_Admin_Sub :
-                    mymoiminfo_CustomDialog(adminData);
+                    mymoiminfo_CustomDialog(adminData, "운영진 목록");
                     break;
             }
         }
@@ -291,16 +288,18 @@ public class MyMoimActivity extends AppCompatActivity {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputBoardWAGLE.jsp?bName=" + name + "&Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&bOrder=" + 1;
 
         try {
-            NetworkTask networkTask = new NetworkTask(MyMoimActivity.this, urlAddr);
+            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(MyMoimActivity.this, urlAddr);
             networkTask.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        onResume();
     }
 
-
-    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
-        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
+    // custom Dialog 띄우기
+    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data, String title) {
+        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, title, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
             @Override
             public void onCancleClick() {
                 onResume();
@@ -308,8 +307,16 @@ public class MyMoimActivity extends AppCompatActivity {
         });
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
-        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Window window = customDialog.getWindow();
+        int x = (int) (size.x * 0.9f);
+        int y = (int) (size.y * 0.9f);
+        window.setLayout(x, y);
+
     }
 }

@@ -2,7 +2,7 @@ package com.androidlec.wagle.network_sh;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import com.androidlec.wagle.dto.SgstRptList;
 

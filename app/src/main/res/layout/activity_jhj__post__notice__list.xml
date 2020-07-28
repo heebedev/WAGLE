@@ -6,7 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".jhj.Jhj_Post_Notice_DHG_List">
+    tools:context=".jhj.Jhj_HomeAndMyPage_Plus_List">
+
+    <TextView
+        android:id="@+id/Recycler_tv_Post_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="게시판 이름"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/mainColor"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

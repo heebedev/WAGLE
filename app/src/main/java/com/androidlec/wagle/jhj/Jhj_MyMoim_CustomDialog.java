@@ -3,10 +3,10 @@ package com.androidlec.wagle.jhj;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.androidlec.wagle.R;
 
@@ -19,18 +19,20 @@ public class Jhj_MyMoim_CustomDialog extends Dialog {
         void onCancleClick();
     }
 
-    private Context mContext;
-    private CustomDialogClickListener customDialogClickListener;
-    private ArrayList<Jhj_MyMoim_DTO> data;
+    private static Context mContext;
+    private static CustomDialogClickListener customDialogClickListener;
+    private static ArrayList<Jhj_MyMoim_DTO> data;
+    private static String title;
 
     // JSP 연결 IP
     private final static String IP = "192.168.0.82";
 
-    public Jhj_MyMoim_CustomDialog(Context context, ArrayList<Jhj_MyMoim_DTO> data, CustomDialogClickListener customDialogClickListener) {
+    public Jhj_MyMoim_CustomDialog(Context context, ArrayList<Jhj_MyMoim_DTO> data, String title, CustomDialogClickListener customDialogClickListener) {
         super(context);
 
         this.mContext = context;
         this.data = data;
+        this.title = title;
         this.customDialogClickListener = customDialogClickListener;
     }
 
@@ -38,6 +40,8 @@ public class Jhj_MyMoim_CustomDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jhj_mymoiminfo_customdialog_layout);
+
+        setCustomDialogTitle(title);
 
         // Custom ClickEvent 사용 -------------------------------------------------------------------
         findViewById(R.id.mymoiminfo_customdialog_Btn_Cancle).setOnClickListener(new View.OnClickListener() {
@@ -67,7 +71,6 @@ public class Jhj_MyMoim_CustomDialog extends Dialog {
                 urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_Update.jsp?maGrade=S&muSeqno=" + data.get(position).getMuSeqno();
             } else {
                 urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_Update.jsp?maGrade=W&muSeqno=" + data.get(position).getMuSeqno();
-                Log.v("CustomDialog", "URL = " + urlAddr);
             }
             connectionUpdateData(urlAddr);
         }
@@ -82,6 +85,11 @@ public class Jhj_MyMoim_CustomDialog extends Dialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCustomDialogTitle(String title) {
+        TextView textView = findViewById(R.id.mymoiminfo_customdialog_Text_Title);
+        textView.setText(title);
     }
 
 }

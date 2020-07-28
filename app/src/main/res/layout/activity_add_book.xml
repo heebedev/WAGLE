@@ -20,6 +20,7 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:background="@drawable/ic_baseline_crop_din_24"
+            android:scaleType="centerCrop"
             />
 
         <TextView

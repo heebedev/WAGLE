@@ -3,7 +3,6 @@ package com.androidlec.wagle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -116,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
 
-        if(UserInfo.WAGLEMAGRADE.equals("O")) {
+        if(UserInfo.MOIMMYGRADE.equals("O")) {
             menuInflater.inflate(R.menu.toolbar_menu, menu);
         } else {
             menuInflater.inflate(R.menu.toolbar_menu_general, menu);
@@ -136,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, MyInfoActivity.class));
                 break;
             case R.id.toolbar_menu_myMoim:
-                if (!UserInfo.WAGLEMAGRADE.equals("O")) {
+                if (!UserInfo.MOIMMYGRADE.equals("O")) {
                     return false;
                 }
                 startActivity(new Intent(HomeActivity.this, MyMoimActivity.class));
@@ -216,7 +215,7 @@ public class HomeActivity extends AppCompatActivity {
     //Grade Check
     private void ckGrade() {
         urlAddr = "http://192.168.0.138:8080/test/wagle_magradecheck.jsp?useqno=" + UserInfo.USEQNO + "&mseqno=" + UserInfo.MOIMSEQNO;
-        UserInfo.WAGLEMAGRADE = getOSData();
+        UserInfo.MOIMMYGRADE = getOSData();
     }
 
     private String getOSData() {

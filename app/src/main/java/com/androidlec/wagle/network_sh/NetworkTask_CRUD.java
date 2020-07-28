@@ -2,7 +2,7 @@ package com.androidlec.wagle.network_sh;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +24,6 @@ public class NetworkTask_CRUD extends AsyncTask<Integer, String, Void> {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(10000);
             if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                Log.v("NetWorkTask_CRUD", "Success");
             }
 
         } catch (Exception e) {

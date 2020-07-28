@@ -1,21 +1,26 @@
 package com.androidlec.wagle.CS.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.R;
 
+import net.daum.android.map.MapActivity;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -26,7 +31,6 @@ import java.util.Locale;
 public class FindLocationActivity extends AppCompatActivity {
 
     MapView mapView;
-
 
     @Override
     protected void onDestroy() {
@@ -103,11 +107,9 @@ public class FindLocationActivity extends AppCompatActivity {
 
             } else {
                 strAdd = "위치를 찾을 수 없습니다.";
-                Log.w("Chance", "No Address returned!");
             }
         } catch (Exception e) {
             strAdd = "위치를 찾을 수 없습니다.";
-            Log.e("Chance", "getAddressError : " + e.getMessage());
         }
 
         return strAdd;
