@@ -797,7 +797,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
         String imgUrl = "http://" + IP + ":8080/wagle/moimImgs/gallery/";
 
-        for (int i = 0 ; i < 3; i++) {
+        for (int i = 0 ; i < Gdata.size(); i++) {
             gallery_Frag_Btn[i] = findViewById(gallery_Frag_Btn_Id[i]);
 
             //         Context                 URL              ImageView
