@@ -3,6 +3,7 @@ package com.androidlec.wagle.JH;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,10 @@ import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.dto.SgstRptList;
+import com.androidlec.wagle.jhj.Jhj_FTPConnect;
+import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
+import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
@@ -38,6 +43,9 @@ import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -55,6 +63,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private ArrayList<Payment> lists;
     private ArrayList<Progress> progressdata;
     private ArrayList<ImageView> imageViews;
+    private static ArrayList<Jhj_Gallery_DTO> Gdata;
     private int index = 0;
     private int wcSeqno = Integer.parseInt(UserInfo.WAGLESEQNO);
 
@@ -78,7 +87,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
     // 갤러리 파트.
     private Button btn_galleryAdd;
-    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
     private TextView tv_galleryPlus;
 
     // 정산 파트.
@@ -101,6 +109,7 @@ public class MyWagleActivity extends AppCompatActivity {
         // 리스트 가져오기.
         urlDivider("paymentList", 0, null,0);
         getTotal();
+        Gallery_Setting();
     }
 
 
@@ -160,9 +169,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
         // 갤러리 파트.
         Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
-        ImageView iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
-        ImageView iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
-        ImageView iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
         TextView tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
         btn_galleryAdd.setOnClickListener(onClickListener);
         tv_galleryPlus.setOnClickListener(onClickListener);
@@ -235,6 +241,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void initProgressBar(){
+Log.v("로그 체크 : ", "initProgressBar()");
 
         RelativeLayout rl_images = findViewById(R.id.mywagle_rl_images);
         ProgressBar pb_book = findViewById(R.id.mywagle_pb_book);
@@ -244,10 +251,12 @@ public class MyWagleActivity extends AppCompatActivity {
         pb_book.setMax(deviceWidth); // 사용할 프로그레스바의 최대크기를 디바이스 최대크기로 지정한다.
 
         int size = progressdata.size(); // 와글 총 인원 수.
+Log.v("로그 체크 : ", String.valueOf(size));
         int wbMaxPage= getwbMaxPage(); // 필요 할당량 (ex 책의 최대 페이지)
         imageViews = new ArrayList<ImageView>();
 
         for(int i = 0; i < size; i++) {
+Log.v("로그 체크 : ", String.valueOf(i));
 
             ImageView iv = new ImageView(getApplicationContext());
             imageViews.add(iv); // Initialize a new ImageView widget
@@ -279,9 +288,15 @@ public class MyWagleActivity extends AppCompatActivity {
             imageViews.get(i).setScaleType(ImageView.ScaleType.FIT_XY); // Set the scale type for ImageView image scaling
 
 
+
             float wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
+
+            if(wpReadPage == 0) wpReadPage = (float) 0.1;
+
             float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
+
             float moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
+
             if(wpReadPage >= wbMaxPage){
                 imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
             }else{
@@ -327,6 +342,7 @@ public class MyWagleActivity extends AppCompatActivity {
     }
   
     private void getProfileReadPage() {
+        Log.v("로그 체크 : ", "getProfileReadPage()");
         urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
@@ -606,6 +622,126 @@ public class MyWagleActivity extends AppCompatActivity {
         }
 
     }
+
+
+    // -------------------------------------------------------------------------------------
+    // 갤러리 시작
+    // -------------------------------------------------------------------------------------
+
+    // 갤러리 세팅
+    protected void Gallery_Setting() {
+        // --------------------------------------------------------------
+        // 갤러리 정보 6개 가져오기
+        // --------------------------------------------------------------
+        String IP = "192.168.0.82";
+        String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Select.jsp?moimSeqno=" + UserInfo.MOIMSEQNO;
+        String Gallery_JsonString = Post_Select_All(urlAddr);
+        Gdata = Gallery_parser(Gallery_JsonString);
+        // --------------------------------------------------------------
+        // --------------------------------------------------------------
+
+
+
+        // --------------------------------------------------------------
+        // 갤러리 정보 3개 보여주기
+        // --------------------------------------------------------------
+        ImageView[] gallery_Frag_Btn = new ImageView[3];
+        Integer[] gallery_Frag_Btn_Id = {
+                R.id.mywagle_iv_gallery1, R.id.mywagle_iv_gallery2, R.id.mywagle_iv_gallery3
+        };
+
+        String imgUrl = "http://" + IP + ":8080/wagle/moimImgs/gallery/";
+
+        for (int i = 0 ; i < 3; i++) {
+            gallery_Frag_Btn[i] = findViewById(gallery_Frag_Btn_Id[i]);
+
+            //         Context                 URL              ImageView
+            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
+            Glide.with(MyWagleActivity.this)
+                    .load(imgUrl + Gdata.get(i).getImageName())
+                    .placeholder(R.drawable.ic_baseline_crop_din_24)
+                    .into(gallery_Frag_Btn[i]);
+        }
+
+        // --------------------------------------------------------------
+        //
+        // --------------------------------------------------------------
+    }
+
+
+    protected String Post_Select_All(String urlAddr) {
+        String data = null;
+
+        try {
+            Jhj_MySql_Select_NetworkTask networkTask = new Jhj_MySql_Select_NetworkTask(MyWagleActivity.this, urlAddr);
+            // execute() java 파일안의 메소드 한번에 동작시키기, 메소드를 사용하면 HttpURLConnection 이 제대로 작동하지않는다.
+            Object obj = networkTask.execute().get();
+            data = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+
+
+    // 갤러리 JsonData Dtos 에 저장하기
+    protected ArrayList<Jhj_Gallery_DTO> Gallery_parser(String jsonStr) {
+        ArrayList<Jhj_Gallery_DTO> dtos = new ArrayList<Jhj_Gallery_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("gallery"));
+            dtos.clear();
+
+            for (int i = 0 ; i < jsonArray.length() ; i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String seqno = jsonObject1.getString("seqno");
+                String imgName = jsonObject1.getString("imagename");
+                String user_uSeqno = jsonObject1.getString("user_useqno");
+
+                dtos.add(new Jhj_Gallery_DTO(seqno, imgName, user_uSeqno));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+    // 갤러리 FTP File Uplaod
+    protected void GalleryFTPUpload(Uri file, String fileName) {
+        try {
+            String fileDirectroy = "/moimImgs/gallery";
+
+            // FTP 접속
+            String IP = "192.168.0.82";
+            Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MyWagleActivity.this, IP, "host", "qwer1234", 25, file, fileName, fileDirectroy);
+            connectFTP.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 갤러리 FTP FileUpload 시, MySql 저장
+    protected void connectionInsertData(String urlAddr) {
+        // Jsp 서버 전송
+        try {
+            Jhj_MySql_Insert_Delete_Update_NetworkTask insNetworkTask = new Jhj_MySql_Insert_Delete_Update_NetworkTask(MyWagleActivity.this, urlAddr);
+            insNetworkTask.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // -------------------------------------------------------------------------------------
+    // 갤러리 끝
+    // -------------------------------------------------------------------------------------
 
 
 
