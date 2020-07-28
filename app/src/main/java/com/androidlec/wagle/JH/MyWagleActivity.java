@@ -700,5 +700,5 @@ public class MyWagleActivity extends AppCompatActivity {
 
     };
 
-    
+
 }//----
