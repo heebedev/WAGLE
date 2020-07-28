@@ -68,7 +68,7 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
         super.onPostExecute(aBoolean);
 
         Log.e(TAG, "끝");
-        MakeMoimActivity.MAKEMOIOMACTIVITY.finish();
+        MakeMoimActivity.MAKEMOIMACT.finish();
     }
 
     public boolean ftpConnect(String host, String username, String password, int port) {
