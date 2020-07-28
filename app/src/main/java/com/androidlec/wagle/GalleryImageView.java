@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 
 public class GalleryImageView extends androidx.appcompat.widget.AppCompatImageView {
 
-    private float radius = 100.0f;
+    private float radius = 70.0f;
     private Path path;
     private RectF rect;
 

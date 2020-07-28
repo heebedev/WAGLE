@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +86,21 @@ public class WaggleFragment extends Fragment {
         }
     } // 인기순 정렬
 
+    private void getMyWagle() {
+        String JH_IP = "192.168.0.178";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/getMyWagleList.jsp?";
+
+        urlAddr = urlAddr + "mSeqno=" + UserInfo.MOIMSEQNO + "&uSeqno=" + UserInfo.USEQNO;
+
+        try {
+            WGNetworkTask wgNetworkTask = new WGNetworkTask(getActivity(), urlAddr);
+            data = wgNetworkTask.execute().get(); // doInBackground 의 리턴값
+            setAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } // 인기순 정렬
+
     private void setAdapter() {
         if (data.size() == 0) {
             tv_noWagleList.setVisibility(View.VISIBLE);
@@ -103,6 +119,7 @@ public class WaggleFragment extends Fragment {
         tvFindMyWaggle = v.findViewById(R.id.tvFindMyWaggle);
         fab_addWagle = v.findViewById(R.id.wagle_fab_addwagle);
 
+        tvFindMyWaggle.setOnClickListener(onClickListener);
         fab_addWagle.setOnClickListener(onClickListener);
 
         spinSearch = v.findViewById(R.id.sp_Wagle_ArrangeSpinner);
@@ -147,6 +164,8 @@ public class WaggleFragment extends Fragment {
                 }
                 break;
             case R.id.tvFindMyWaggle:
+                getMyWagle();
+                Toast.makeText(getActivity(), "내가 신청한 와글만 보이기", Toast.LENGTH_SHORT).show();
                 break;
 
         }

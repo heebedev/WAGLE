@@ -4,20 +4,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.androidlec.wagle.CS.Activities.BoardListActivity;
+import com.androidlec.wagle.CS.Model.BoardTitleList;
+import com.androidlec.wagle.CS.Network.BDTNetworkTask;
 import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
@@ -26,6 +32,7 @@ import com.androidlec.wagle.jhj.Jhj_MyMoim_CustomDialog;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_DTO;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_User_List_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.bumptech.glide.Glide;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +52,7 @@ public class MyMoimActivity extends AppCompatActivity {
     String[] moimData;
 
     Button btn_addBoard;
+    ArrayList<BoardTitleList> boardTitleLists;
 
 
     @Override
@@ -139,6 +147,54 @@ public class MyMoimActivity extends AppCompatActivity {
         // -----------------------------------------------------------------------------------------
 
 
+
+
+
+
+        // -----------------------------------------------------------------------------------------
+        // 게시판 리스트 뷰
+        // -----------------------------------------------------------------------------------------
+
+        boardTitleLists = getBoardList();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < boardTitleLists.size(); i++) {
+            list.add(boardTitleLists.get(i).getbName());
+        }
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(MyMoimActivity.this, android.R.layout.simple_list_item_1, list);
+
+        ListView lv_boardList = findViewById(R.id.myMoim_lv_boardList);
+        lv_boardList.setAdapter(mAdapter);
+        lv_boardList.setOnItemClickListener(onItemClickListener);
+
+        // -----------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
+
+    }
+
+    ListView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(MyMoimActivity.this, BoardListActivity.class);
+            intent.putExtra("boardTitle", boardTitleLists.get(position).getbName());
+            intent.putExtra("boardSeq", boardTitleLists.get(position).getbSeqno());
+            startActivity(intent);
+        }
+    };
+
+    private ArrayList<BoardTitleList> getBoardList() {
+        ArrayList<BoardTitleList> list = null;
+        String urlAddr = "http://192.168.0.79:8080/wagle/csGetBoardTitleListWAGLE.jsp?";
+
+        urlAddr = urlAddr + "Moim_wmSeqno=" + UserInfo.MOIMSEQNO;
+
+        try {
+            BDTNetworkTask bdtNetworkTask = new BDTNetworkTask(MyMoimActivity.this, urlAddr);
+            list = bdtNetworkTask.execute().get(); // doInBackground 의 리턴값
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -238,7 +294,7 @@ public class MyMoimActivity extends AppCompatActivity {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputBoardWAGLE.jsp?bName=" + name + "&Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&bOrder=" + 1;
 
         try {
-            NetworkTask networkTask = new NetworkTask(MyMoimActivity.this, urlAddr);
+            JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(MyMoimActivity.this, urlAddr);
             networkTask.execute();
         } catch (Exception e) {
             e.printStackTrace();

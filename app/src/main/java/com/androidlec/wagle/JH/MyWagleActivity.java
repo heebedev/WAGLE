@@ -3,7 +3,6 @@ package com.androidlec.wagle.JH;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,15 +19,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.adapter.DHGListAdapter;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.dto.SgstRptList;
+import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
+import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
@@ -38,9 +38,16 @@ import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
+
+    // JSP 연결 IP
+    private final static String JH_IP = "192.168.0.178";
 
 
     private String urlAddr;
@@ -48,6 +55,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private String item;
     private int price, paymentcnt;
     private PaymentAdapter adapter;
+    private DHGListAdapter bookadapter;
     private ArrayList<Payment> lists;
     private ArrayList<Progress> progressdata;
     private ArrayList<ImageView> imageViews;
@@ -57,12 +65,16 @@ public class MyWagleActivity extends AppCompatActivity {
     // 와글 이름
     private TextView wagleName;
 
+    private TextView bkname, bkwriter, bkmaxpate, bkIntro, bkData;
+    private ImageView bookimage;
+
     // 독후감
     private TextView btn_bookreportAdd, tv_viewBJM;
     private TextView btn_suggestionAdd;
-    private ListView listView;
+    private ListView dhglist;
     private BookInfo bookInfo;
     private View ic_bookinfo;
+    private ArrayList<Jhj_BookReport_DTO> booklist;
     //발제문
     private static ArrayList<SgstRptList> questionListData;
 
@@ -72,10 +84,6 @@ public class MyWagleActivity extends AppCompatActivity {
     private TextView btn_move;
     private EditText et_wpReadPage;
 
-    // 갤러리 파트.
-    private Button btn_galleryAdd;
-    private ImageView iv_gallery1, iv_gallery2, iv_gallery3;
-    private TextView tv_galleryPlus;
 
     // 정산 파트.
     private Button btn_paymentAdd;
@@ -109,54 +117,70 @@ public class MyWagleActivity extends AppCompatActivity {
         // 독후감 파트.
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        listView = findViewById(R.id.mywagle_lv_bookreport);
         et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
+
         //발제문
         tv_viewBJM = findViewById(R.id.tv_mywagle_readbjm);
         tv_viewBJM.setOnClickListener(onClickListener);
 
         btn_move = findViewById(R.id.mywagle_btn_move);
-        btn_bookreportAdd.setOnClickListener(onClickListener);
-        btn_suggestionAdd.setOnClickListener(onClickListener);
 
 
-        //책 정보 확인
-        if(bookInfo != null) {
-            ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
-            ic_bookinfo.setVisibility(View.VISIBLE);
-            btn_suggestionAdd.setText("발제문 추가");
+        if(UserInfo.WAGLETYPE.equals("정규")) {
+            btn_bookreportAdd.setOnClickListener(onClickListener);
+            btn_suggestionAdd.setOnClickListener(onClickListener);
+            btn_move.setOnClickListener(onClickListener);
 
-            if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
-                btn_suggestionAdd.setVisibility(View.VISIBLE);
+            bkname = findViewById(R.id.bookinfo_tv_bookname);
+            bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
+            bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
+            bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
+            bkData = findViewById(R.id.bookinfo_tv_bookdata);
+            bookimage = findViewById(R.id.bookinfo_iv_bookImage);
+
+            //책 정보 확인
+            if(bookInfo != null) {
+                ic_bookinfo = findViewById(R.id.ic_mywagle_bookinfo);
+                ic_bookinfo.setVisibility(View.VISIBLE);
+                btn_suggestionAdd.setText("발제문 추가");
 
 
+                if(UserInfo.WAGLEMAKERSEQ.equals(Integer.toString(UserInfo.USEQNO))) {
+                    btn_suggestionAdd.setVisibility(View.VISIBLE);
 
-                if (questionListData.size() > 0) {
-                    btn_suggestionAdd.setText("발제문 수정");
+                    if (questionListData.size() > 0) {
+                        btn_suggestionAdd.setText("발제문 수정");
+                    }
                 }
+
+                bkname.setText(bookInfo.getTitle());
+                bkwriter.setText(bookInfo.getWriter());
+                bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
+                bkIntro.setText(bookInfo.getIntro());
+                bkData.setText(bookInfo.getData());
+
+                if (bookInfo.getImgName().length() > 0)
+                    Glide.with(this)
+                            .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
+                            .apply(new RequestOptions().centerCrop())
+                            .into(bookimage);
 
             }
 
-            TextView bkname = findViewById(R.id.bookinfo_tv_bookname);
-            TextView bkwriter = findViewById(R.id.bookinfo_tv_bookwriter);
-            TextView bkmaxpate = findViewById(R.id.bookinfo_tv_bookmaxpage);
-            TextView bkIntro = findViewById(R.id.bookinfo_tv_bookinfo);
-            TextView bkData = findViewById(R.id.bookinfo_tv_bookdata);
-            ImageView bookimage = findViewById(R.id.bookinfo_iv_bookImage);
-
-            bkname.setText(bookInfo.getTitle());
-            bkwriter.setText(bookInfo.getWriter());
-            bkmaxpate.setText(Integer.toString(bookInfo.getMaxpage()));
-            bkIntro.setText(bookInfo.getIntro());
-            bkData.setText(bookInfo.getData());
-
-            if (bookInfo.getImgName().length() > 0)
-                Glide.with(this)
-                        .load(UserInfo.BOOK_BASE_URL + bookInfo.getImgName())
-                        .apply(new RequestOptions().centerCrop())
-                        .into(bookimage);
-
+        } else {
+            btn_suggestionAdd.setVisibility(View.GONE);
+            btn_bookreportAdd.setVisibility(View.GONE);
+            btn_move.setVisibility(View.GONE);
+            tv_viewBJM.setVisibility(View.GONE);
+            LinearLayout ll = findViewById(R.id.mywagle_ll_readingstatus);
+            ll.setVisibility(View.GONE);
         }
+
+        //독후감 목록
+        dhglist = findViewById(R.id.mywagle_lv_bookreport);
+        connectGetBookData();
+
+        dhglist.setOnItemClickListener(bookReportClick);
 
 
         // 프로그레스바 파트.
@@ -164,9 +188,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
         // 갤러리 파트.
         Button btn_galleryAdd = findViewById(R.id.mywagle_btn_galleryAdd);
-        ImageView iv_gallery1 = findViewById(R.id.mywagle_iv_gallery1);
-        ImageView iv_gallery2 = findViewById(R.id.mywagle_iv_gallery2);
-        ImageView iv_gallery3 = findViewById(R.id.mywagle_iv_gallery3);
         TextView tv_galleryPlus = findViewById(R.id.mywagle_tv_galleryPlus);
         btn_galleryAdd.setOnClickListener(onClickListener);
         tv_galleryPlus.setOnClickListener(onClickListener);
@@ -241,7 +262,6 @@ public class MyWagleActivity extends AppCompatActivity {
         }
     };
 
-
     private void initProgressBar(){
 
         RelativeLayout rl_images = findViewById(R.id.mywagle_rl_images);
@@ -306,9 +326,9 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
     private void recordPage() {
-        String wpSeqno = Integer.toString(progressdata.get(index).getWpSeqno());
+        int wpSeqno = progressdata.get(index).getWpSeqno();
         String page = et_wpReadPage.getText().toString();
-        urlAddr = "http://192.168.0.178:8080/wagle/recordPage.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/recordPage.jsp?";
         urlAddr = urlAddr + "wpSeqno=" + wpSeqno + "&wpReadPage=" + page;
         try {
             JH_VoidNetworkTask networkTask7 = new JH_VoidNetworkTask(MyWagleActivity.this, urlAddr);
@@ -353,7 +373,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
     private int getwbMaxPage() {
         int wbMaxPage = 0;
-        urlAddr = "http://192.168.0.178:8080/wagle/getTotalPage.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/getTotalPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_IntNetworkTask networkTask4 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
@@ -377,8 +397,11 @@ public class MyWagleActivity extends AppCompatActivity {
     }
 
     private int getWagleUsers(){
-        int memNo=10;
-        urlAddr = "http://192.168.0.178:8080/wagle/getWagleUsers.jsp?";
+
+        int memNo=0;
+        urlAddr = "http://" + JH_IP + ":8080/wagle/getWagleUsers.jsp?";
+
+
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {
             JH_IntNetworkTask networkTask8 = new JH_IntNetworkTask(MyWagleActivity.this, urlAddr);
@@ -393,7 +416,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private int paymentCnt(){
         String wcSeqno = UserInfo.WAGLESEQNO;
         paymentcnt = 3;
-        urlAddr = "http://192.168.0.178:8080/wagle/paymentCnt.jsp?";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/paymentCnt.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         connectDB("paymentCnt");
         return paymentcnt;
@@ -404,17 +427,17 @@ public class MyWagleActivity extends AppCompatActivity {
         String wcSeqno = UserInfo.WAGLESEQNO;
         switch(function){
             case "wpItemAdd":
-                urlAddr = "http://192.168.0.178:8080/wagle/wpItemAdd.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/wpItemAdd.jsp?";
                 urlAddr = urlAddr + "wcSeqno=" + wcSeqno + "&wpItem=" + item + "&wpPrice=" + price;
                 connectDB("wpItemAdd");
                 break;
             case "paymentList":
-                urlAddr = "http://192.168.0.178:8080/wagle/paymentList.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/paymentList.jsp?";
                 urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
                 connectDB("paymentList");
                 break;
             case "deleteItem":
-                urlAddr = "http://192.168.0.178:8080/wagle/deleteItem.jsp?";
+                urlAddr = "http://" + JH_IP + ":8080/wagle/deleteItem.jsp?";
                 urlAddr = urlAddr + "wpSeqno=" + wpSeqno;
                 connectDB("deleteItem");
                 break;
@@ -577,7 +600,6 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
             LinearLayout ll = linear.findViewById(R.id.bjmview_ll_bjmlayout);
-            TextView bjmDown = linear.findViewById(R.id.bjmview_tv_bjmdownload);
 
             for (int i = 0; i < questionListData.size(); i++) {
                 //질문 입력 EditText 추가
@@ -594,6 +616,7 @@ public class MyWagleActivity extends AppCompatActivity {
 
                 ll.addView(textView);
             }
+
 
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MyWagleActivity.this);
             builder.setTitle("")
@@ -614,7 +637,68 @@ public class MyWagleActivity extends AppCompatActivity {
 
     }
 
+    private void connectGetBookData() {
+        //독후감 목록
+        String centIP = "192.168.0.138";
+        String bookAddr = "http://" + centIP + ":8080/test/mywagle_BookReport_Select.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
 
+        String data = null;
+
+        try {
+            Jhj_MySql_Select_NetworkTask networkTask = new Jhj_MySql_Select_NetworkTask(MyWagleActivity.this, bookAddr);
+            // execute() java 파일안의 메소드 한번에 동작시키기, 메소드를 사용하면 HttpURLConnection 이 제대로 작동하지않는다.
+            Object obj = networkTask.execute().get();
+            data = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        booklist = BookReport_Parser(data);
+
+
+        bookadapter = new DHGListAdapter(MyWagleActivity.this, R.layout.jhj_post_notice_list_item, booklist);
+        dhglist.setAdapter(bookadapter);
+
+    }
+
+    protected ArrayList<Jhj_BookReport_DTO> BookReport_Parser(String jsonStr) {
+        ArrayList<Jhj_BookReport_DTO> dtos = new ArrayList<Jhj_BookReport_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("bookreport"));
+            dtos.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String brSeqno = jsonObject1.getString("brSeqno");
+                String wcSeqno = UserInfo.WAGLESEQNO;
+                String wcName = UserInfo.WAGLENAME;
+                String uName = jsonObject1.getString("uName");
+
+
+                dtos.add(new Jhj_BookReport_DTO(brSeqno, wcSeqno, wcName, uName));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+
+    ListView.OnItemClickListener bookReportClick = new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent=new Intent(MyWagleActivity.this,AddDHGActivity.class);
+            startActivity(intent);
+        }
+
+    };
 
 
 }//----

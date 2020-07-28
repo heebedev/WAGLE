@@ -1,4 +1,4 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;
@@ -23,6 +25,9 @@ import com.bumptech.glide.request.RequestOptions;
 
 
 public class ViewDetailWagleActivity extends AppCompatActivity {
+
+    // JSP 연결 IP
+    private final static String JH_IP = "192.168.0.178";
 
     private TextView et_title, et_startDate, et_endDate, et_dueDate, et_location, et_fee, et_wagleDetail, et_wagleAgreeRefund, tv_joinIn;
 
@@ -136,7 +141,6 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
                         Glide.with(this)
                                 .load(UserInfo.BOOK_BASE_URL + bookinfo.getImgName())
                                 .apply(new RequestOptions().centerCrop())
-                                .placeholder(R.drawable.ic_outline_emptyimage)
                                 .into(bk_bookImage);
                     }
 
@@ -167,7 +171,7 @@ public class ViewDetailWagleActivity extends AppCompatActivity {
     private void joinInWagle() {
         String wcSeqno = intent.getStringExtra("wcSeqno");
         String uSeqno = String.valueOf(UserInfo.USEQNO);
-        String urlAddr = "http://192.168.0.178:8080/wagle/joinInWagle.jsp?";
+        String urlAddr = "http://" + JH_IP + ":8080/wagle/joinInWagle.jsp?";
         urlAddr = urlAddr + "Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&wcSeqno=" + wcSeqno + "&uSeqno=" + uSeqno;
         try {
             JH_VoidNetworkTask networkTask = new JH_VoidNetworkTask(ViewDetailWagleActivity.this, urlAddr);

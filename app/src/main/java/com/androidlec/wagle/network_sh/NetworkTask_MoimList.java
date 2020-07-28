@@ -84,8 +84,9 @@ public class NetworkTask_MoimList extends AsyncTask<Integer, String, Object> {
                 int moimseqno = Integer.parseInt(jsonObject1.getString("mSeqno"));
                 String moimname = jsonObject1.getString("mName");
                 String moimsubject = jsonObject1.getString("mSubject");
+                String museqno = jsonObject1.getString("muSeqno");
 
-                MoimList moimlist = new MoimList(moimseqno, moimname, moimsubject);
+                MoimList moimlist = new MoimList(moimseqno, moimname, moimsubject, museqno);
 
                 moimlistdata.add(moimlist);
             }

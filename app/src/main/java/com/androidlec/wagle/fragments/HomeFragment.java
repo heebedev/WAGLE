@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.androidlec.wagle.BoardFragment;
+import com.androidlec.wagle.CS.Activities.BoardFragment;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
 import com.androidlec.wagle.activity.wagleSub.AddTodayWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddWagleActivity;

@@ -1,15 +1,20 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.androidlec.wagle.R;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -21,6 +26,19 @@ import java.util.Locale;
 public class FindLocationActivity extends AppCompatActivity {
 
     MapView mapView;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MapView.clearMapTilePersistentCache();
+    }
+
+    @Override
+    protected void onStart() {
+        MapView.setMapTilePersistentCacheEnabled(true);
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +56,22 @@ public class FindLocationActivity extends AppCompatActivity {
         mapView = new MapView(this);
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+
+        getCurrentLocation();
+    }
+
+    private void getCurrentLocation() {
+        // GPS체크
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            startActivity(intent);
+            Toast.makeText(this, "GPS를 켜주세요!", Toast.LENGTH_LONG).show();
+        }
+
+        mapView.setCurrentLocationEventListener(currentLocationEventListener);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
     }
 
     private void setNewMarker(MapPoint mapPoint) {
@@ -163,6 +197,32 @@ public class FindLocationActivity extends AppCompatActivity {
         @Override
         public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
             mapPOIItem.setItemName(getCompleteAddressString(mapPoint.getMapPointGeoCoord().latitude, mapPoint.getMapPointGeoCoord().longitude));
+        }
+    };
+
+    private MapView.CurrentLocationEventListener currentLocationEventListener = new MapView.CurrentLocationEventListener() {
+        @Override
+        public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
+            MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+            MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
+            //이 좌표로 지도 중심 이동
+            mapView.setMapCenterPoint(currentMapPoint, true);
+            mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+            mapView.setZoomLevel(2, true);
+        }
+
+        @Override
+        public void onCurrentLocationDeviceHeadingUpdate(MapView mapView, float v) {
+
+        }
+
+        @Override
+        public void onCurrentLocationUpdateFailed(MapView mapView) {
+            Toast.makeText(FindLocationActivity.this, "현재 위치를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCurrentLocationUpdateCancelled(MapView mapView) {
         }
     };
 

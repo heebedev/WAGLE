@@ -112,7 +112,6 @@ public class MyInfoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!uLoginType.equals("wagle")){
-//            iv_photo.setClickable(false);
             tv_changePw.setVisibility(View.INVISIBLE);
         }
     }
@@ -123,7 +122,6 @@ public class MyInfoActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.myInfo_iv_photo:
                     showImagePicDialog();
-                    Toast.makeText(MyInfoActivity.this, "이미지가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_et_birthDate:
                     chooseBirthDate();
