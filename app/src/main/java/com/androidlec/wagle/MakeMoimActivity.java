@@ -31,10 +31,14 @@ public class MakeMoimActivity extends Activity {
 
     Uri file = null;
 
+    public MakeMoimActivity MAKEMOIOMACTIVITY = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_moim);
+
+        MAKEMOIOMACTIVITY = this;
 
         // ------------------------------------------------------------------
         // 버튼, 버튼이벤트 등록

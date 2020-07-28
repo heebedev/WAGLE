@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.androidlec.wagle.MakeMoimActivity;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
@@ -66,7 +68,7 @@ public class Jhj_FTPConnect extends AsyncTask<Integer, String, Boolean> {
         super.onPostExecute(aBoolean);
 
         Log.e(TAG, "끝");
-        finish();
+        MakeMoimActivity.MAKEMOIOMACTIVITY.finish();
     }
 
     public boolean ftpConnect(String host, String username, String password, int port) {
