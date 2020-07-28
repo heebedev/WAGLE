@@ -455,13 +455,6 @@ public class MyInfoActivity extends AppCompatActivity {
 
 
     private void connectDB(String name, String birthDate, String emailAddress, String fileName, String uId) {
-        Log.v("로그체크 : ", "connectDB");
-        Log.v("로그체크 : ", name);
-        Log.v("로그체크 : ", birthDate);
-        Log.v("로그체크 : ", emailAddress);
-        Log.v("로그체크 : ", fileName);
-        Log.v("로그체크 : ", uId);
-
         String JH_IP = "192.168.0.178";
         urlAddr = "http://" + JH_IP + ":8080/wagle/saveMyInfo.jsp?";
         urlAddr = urlAddr + "uId=" + uId + "&uEmail=" + emailAddress + "&uName=" + name + "&uImageName=" + fileName + "&uBirthDate=" + birthDate;
