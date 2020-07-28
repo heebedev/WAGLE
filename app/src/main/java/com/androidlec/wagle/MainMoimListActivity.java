@@ -57,6 +57,17 @@ public class MainMoimListActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        init();
+
+        addMoim.setOnClickListener(addMoimClickListener);
+        moimList.setOnItemClickListener(moimItemClickListener);
+
+    }
+
+    @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
