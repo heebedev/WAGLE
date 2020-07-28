@@ -143,8 +143,8 @@ public class WaggleFragment extends Fragment {
         spinSearch = v.findViewById(R.id.sp_Wagle_ArrangeSpinner);
 
         spinList = new ArrayList<>();
-        spinList.add("마감순");
         spinList.add("인기순");
+        spinList.add("마감순");
 
         spinArrayAdapt = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinList);
         spinSearch.setAdapter(spinArrayAdapt);
@@ -158,10 +158,10 @@ public class WaggleFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             switch (position){
                 case 0: // 마감순 정렬
-                    getDataQueryDue();
+                    getDataQueryPopular();
                     break;
                 case 1: // 인기순 정렬
-                    getDataQueryPopular();
+                    getDataQueryDue();
                     break;
             }
         }
