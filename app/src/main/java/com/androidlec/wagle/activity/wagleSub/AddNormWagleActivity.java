@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,6 +166,9 @@ public class AddNormWagleActivity extends AppCompatActivity {
         } else if (wagleDueD.getText().toString().trim().equals("등록 마감일")) {
             Toast.makeText(this, "등록 마감일을 선택해주세요.", Toast.LENGTH_SHORT).show();
             wagleDueD.performClick();
+        } else if (UserInfo.WAGLEBOOKSEQ.length() == 0){
+            Toast.makeText(this, "책을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            UserInfo.WAGLEBOOKSEQ = "";
         } else {
             inputWagleCreateData();
         }
@@ -198,6 +202,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
                 "&wcEndDate=" + wcEndDate + "&wcDueDate=" + wcDueDate +
                 "&wcLocate=" + wcLocate + "&wcEntryFee=" + wcEntryFee +
                 "&wcWagleDetail=" + wcWagleDetail + "&wcWagleAgreeRefund=" + wcWagleAgreeRefund;
+        Log.e("Chance", "url1 : " + urlAddr);
 
 //        urlAddr = urlAddr.replace(" ", "%20");
 //        urlAddr = urlAddr.replace("\n", "%20");
@@ -214,6 +219,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
     private void inputWagleUserNetwork(String seq) {
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputWagleUserWAGLE.jsp?";
         urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&wcSeqno=" + seq;
+        Log.e("Chance", "url2 : " + urlAddr);
 
         try {
             CSNetworkTask networkTask = new CSNetworkTask(AddNormWagleActivity.this, urlAddr);
