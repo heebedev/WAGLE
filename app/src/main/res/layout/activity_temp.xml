@@ -6,24 +6,6 @@
     android:orientation="vertical"
     tools:context=".TempActivity">
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="카카오 로그아웃" />
-
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="네이버 로그아웃" />
-
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="구글 로그아웃" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -68,6 +50,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="독후감 추가" />
+
+    <Button
+        android:id="@+id/btn10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="메시지 테스트" />
 
 
 </LinearLayout>

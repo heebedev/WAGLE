@@ -1,4 +1,4 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,12 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.androidlec.wagle.CS.Model.BoardList;
-import com.androidlec.wagle.CS.Network.BDNetworkTask;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.NetworkTask;
-
-import java.util.ArrayList;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 public class AddBoardActivity extends AppCompatActivity {
 

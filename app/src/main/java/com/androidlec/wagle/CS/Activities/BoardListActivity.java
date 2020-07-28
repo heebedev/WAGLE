@@ -1,18 +1,18 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.androidlec.wagle.CS.Adapter.BoardListAdapter;
 import com.androidlec.wagle.CS.Model.BoardList;
 import com.androidlec.wagle.CS.Network.BDNetworkTask;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 import java.util.ArrayList;
 

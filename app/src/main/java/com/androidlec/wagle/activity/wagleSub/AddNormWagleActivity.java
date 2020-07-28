@@ -19,10 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
-import com.androidlec.wagle.FindLocationActivity;
+import com.androidlec.wagle.CS.Activities.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.kakao.network.NetworkTask;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;

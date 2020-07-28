@@ -1,4 +1,4 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidlec.wagle.CS.Model.WagleList;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.networkTask.JH_VoidNetworkTask;
 import com.androidlec.wagle.network_sh.NetworkTask_BookInfo;

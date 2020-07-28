@@ -1,7 +1,6 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -15,7 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.daum.android.map.MapActivity;
+import com.androidlec.wagle.R;
+
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;

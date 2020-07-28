@@ -14,20 +14,16 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
-
 import com.androidlec.wagle.JH.Rank;
 import com.androidlec.wagle.JH.RankAdapter;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
-import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
 import com.androidlec.wagle.jhj.Jhj_HomeAndMyPage_Plus_List;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.jhj.Jhj_MyPage_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
-import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Rank;
 import com.bumptech.glide.Glide;
@@ -35,11 +31,8 @@ import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.network.ErrorResult;
 import com.kakao.network.callback.ResponseCallback;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
