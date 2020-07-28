@@ -1,4 +1,4 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidlec.wagle.R;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_Post_Write_Notice;
 

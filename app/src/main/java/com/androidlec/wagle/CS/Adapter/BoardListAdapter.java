@@ -2,33 +2,20 @@ package com.androidlec.wagle.CS.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.androidlec.wagle.BoardActivity;
-import com.androidlec.wagle.BoardListActivity;
+import com.androidlec.wagle.CS.Activities.BoardActivity;
+import com.androidlec.wagle.CS.Activities.BoardListActivity;
 import com.androidlec.wagle.CS.Model.BoardList;
-import com.androidlec.wagle.CS.Model.WagleList;
-import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
-import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
-import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.mViewHolder> {
 

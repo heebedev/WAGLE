@@ -8,24 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Model.WagleList;
 import com.androidlec.wagle.JH.MyWagleActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
-import com.androidlec.wagle.ViewDetailWagleActivity;
-import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
+import com.androidlec.wagle.CS.Activities.ViewDetailWagleActivity;
 import com.androidlec.wagle.jhj.Jhj_MyPage_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
-import com.androidlec.wagle.jhj.Jhj_Notice_DTO;
 import com.androidlec.wagle.jhj.Jhj_Suggestion_DTO;
-import com.androidlec.wagle.jhj.Jhj_Wagle_DTO;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.bumptech.glide.Glide;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;

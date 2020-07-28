@@ -19,12 +19,12 @@
         android:theme="@style/WAGLETheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustPan">
-        <activity android:name=".AddBoardActivity"></activity>
-        <activity android:name=".BoardListActivity" />
-        <activity android:name=".BoardActivity" />
+        <activity android:name=".CS.Activities.AddBoardActivity"></activity>
+        <activity android:name=".CS.Activities.BoardListActivity" />
+        <activity android:name=".CS.Activities.BoardActivity" />
         <activity android:name=".activity.wagleSub.AddBookActivity" />
-        <activity android:name=".FindLocationActivity" />
-        <activity android:name=".ViewDetailWagleActivity" />
+        <activity android:name=".CS.Activities.FindLocationActivity" />
+        <activity android:name=".CS.Activities.ViewDetailWagleActivity" />
         <activity android:name=".jhj.Jhj_Post_Gallery_List" />
         <activity android:name=".jhj.Jhj_Post_Notice_DHG_List" />
         <activity android:name=".jhj.Jhj_Post_Write_Notice" />

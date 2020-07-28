@@ -1,4 +1,4 @@
-package com.androidlec.wagle;
+package com.androidlec.wagle.CS.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +20,8 @@ import com.androidlec.wagle.CS.Model.BoardList;
 import com.androidlec.wagle.CS.Model.BoardTitleList;
 import com.androidlec.wagle.CS.Network.BDNetworkTask;
 import com.androidlec.wagle.CS.Network.BDTNetworkTask;
+import com.androidlec.wagle.R;
+import com.androidlec.wagle.UserInfo;
 
 import java.util.ArrayList;
 

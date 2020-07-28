@@ -4,12 +4,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +20,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.androidlec.wagle.CS.Model.BoardList;
+import com.androidlec.wagle.CS.Activities.BoardListActivity;
 import com.androidlec.wagle.CS.Model.BoardTitleList;
-import com.androidlec.wagle.CS.Network.BDNetworkTask;
 import com.androidlec.wagle.CS.Network.BDTNetworkTask;
 import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.R;
@@ -34,7 +36,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyMoimActivity extends AppCompatActivity {
 
@@ -49,6 +50,7 @@ public class MyMoimActivity extends AppCompatActivity {
     String[] moimData;
 
     Button btn_addBoard;
+    ArrayList<BoardTitleList> boardTitleLists;
 
 
     @Override
@@ -150,7 +152,7 @@ public class MyMoimActivity extends AppCompatActivity {
         // 게시판 리스트 뷰
         // -----------------------------------------------------------------------------------------
 
-        ArrayList<BoardTitleList> boardTitleLists = getBoardList();
+        boardTitleLists = getBoardList();
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < boardTitleLists.size(); i++) {
             list.add(boardTitleLists.get(i).getbName());
@@ -159,12 +161,22 @@ public class MyMoimActivity extends AppCompatActivity {
 
         ListView lv_boardList = findViewById(R.id.myMoim_lv_boardList);
         lv_boardList.setAdapter(mAdapter);
+        lv_boardList.setOnItemClickListener(onItemClickListener);
 
         // -----------------------------------------------------------------------------------------
         // -----------------------------------------------------------------------------------------
-
 
     }
+
+    ListView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(MyMoimActivity.this, BoardListActivity.class);
+            intent.putExtra("boardTitle", boardTitleLists.get(position).getbName());
+            intent.putExtra("boardSeq", boardTitleLists.get(position).getbSeqno());
+            startActivity(intent);
+        }
+    };
 
     private ArrayList<BoardTitleList> getBoardList() {
         ArrayList<BoardTitleList> list = null;
