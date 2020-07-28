@@ -28,7 +28,8 @@
         <activity android:name=".TempActivity" />
         <activity android:name=".MainMoimListActivity" />
         <activity android:name=".activity.wagleSub.AddImageActivity" />
-        <activity android:name=".activity.menu.MyMoimActivity" />
+        <activity android:name=".activity.menu.MyMoimActivity">
+        </activity>
         <activity android:name=".activity.menu.MyInfoActivity" />
         <activity android:name=".activity.wagleSub.AddCostActivity" />
         <activity android:name=".activity.wagleSub.AddDHGActivity" />

@@ -67,7 +67,6 @@ public class Jhj_MyMoim_CustomDialog extends Dialog {
                 urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_Update.jsp?maGrade=S&muSeqno=" + data.get(position).getMuSeqno();
             } else {
                 urlAddr = "http://" + IP + ":8080/wagle/Moim_MyMoim_Update.jsp?maGrade=W&muSeqno=" + data.get(position).getMuSeqno();
-                Log.v("CustomDialog", "URL = " + urlAddr);
             }
             connectionUpdateData(urlAddr);
         }
