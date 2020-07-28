@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -254,8 +253,6 @@ public class MyWagleActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.mywagle_btn_move:
-                    Toast.makeText(MyWagleActivity.this, "클릭!!", Toast.LENGTH_SHORT).show();
-                    Log.v("로그체크 : ", "클릭!");
                     recordPage();
                     Intent intent1 = getIntent();
                     finish();
@@ -308,16 +305,12 @@ public class MyWagleActivity extends AppCompatActivity {
                 .sendCustom(this, templateId, templateArgs, null, new ResponseCallback<KakaoLinkResponse>() {
                     @Override
                     public void onFailure(ErrorResult errorResult) {
-                        Log.e("KAKAO_API", "카카오링크 보내기 실패: " + errorResult);
+
                     }
 
                     @Override
                     public void onSuccess(KakaoLinkResponse result) {
-                        Log.i("KAKAO_API", "카카오링크 보내기 성공");
 
-                        // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
-                        Log.w("KAKAO_API", "warning messages: " + result.getWarningMsg());
-                        Log.w("KAKAO_API", "argument messages: " + result.getArgumentMsg());
                     }
                 });
     }
@@ -371,15 +364,14 @@ public class MyWagleActivity extends AppCompatActivity {
 
 
             float wpReadPage = progressdata.get(i).getWpReadPage();// 유저의 읽은 페이지 수만큼 이미지 이동.
-Log.v("읽은 페이지 : ", String.valueOf(wpReadPage));
+
             if(wpReadPage == 0) wpReadPage = (float) 0.1;
-Log.v("읽은 페이지 : ", String.valueOf(wpReadPage));
+
             float movePage = wbMaxPage / wpReadPage; // 필요 할당량 에서 움직일 만큼의 비율을 구한다. (책의 총 페이지 / 읽은 책의 양)
-Log.v("전체 페이지 : ", String.valueOf(wbMaxPage));
-Log.v("전체 페이지에서 읽은 페이지 비율 : ", String.valueOf(movePage));
+
+
             float moveProgressBar = deviceWidth / movePage; // 비율 구한것을 화면 기기에 넣는다.
-Log.v("바에서 움직이는 거리 : ", String.valueOf(moveProgressBar));
-Log.v("전체 디바이스 길이 : ", String.valueOf(deviceWidth));
+
             if(wpReadPage >= wbMaxPage){
                 imageViews.get(i).setX(deviceWidth - imageViews.get(i).getWidth()); // 맨 오른쪽 으로 이동
             }else{
@@ -429,7 +421,6 @@ Log.v("전체 디바이스 길이 : ", String.valueOf(deviceWidth));
     }
   
     private void getProfileReadPage() {
-        Log.v("로그 체크 : ", "getProfileReadPage()");
         urlAddr = "http://192.168.0.178:8080/wagle/getProfileReadPage.jsp?";
         urlAddr = urlAddr + "wcSeqno=" + wcSeqno;
         try {

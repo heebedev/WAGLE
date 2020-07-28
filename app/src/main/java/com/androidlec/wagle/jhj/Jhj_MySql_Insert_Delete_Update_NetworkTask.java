@@ -3,7 +3,7 @@ package com.androidlec.wagle.jhj;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -57,7 +57,7 @@ public class Jhj_MySql_Insert_Delete_Update_NetworkTask extends AsyncTask<Intege
             httpURLConnection.setConnectTimeout(30000);
 
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                Log.v("jhj_MySql_NetworkTask", "Success");
+
             }
 
         } catch (Exception e) {

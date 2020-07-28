@@ -3,20 +3,15 @@ package com.androidlec.wagle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.network_sh.NetworkTask_MoimList;
-import com.androidlec.wagle.network_sh.NetworkTask_ckGrade;
-
 import java.util.ArrayList;
 
 public class MainMoimListActivity extends Activity {

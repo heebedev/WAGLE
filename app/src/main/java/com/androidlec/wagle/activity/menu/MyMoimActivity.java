@@ -4,16 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,7 +20,6 @@ import android.widget.TextView;
 import com.androidlec.wagle.CS.Activities.BoardListActivity;
 import com.androidlec.wagle.CS.Model.BoardTitleList;
 import com.androidlec.wagle.CS.Network.BDTNetworkTask;
-import com.androidlec.wagle.CS.Network.NetworkTask;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_MyMoim_Admin_List_Adapter;
@@ -134,7 +129,6 @@ public class MyMoimActivity extends AppCompatActivity {
         for (int i = 0 ; i < jsonData.size() ; i++) {
             if (jsonData.get(i).getMaGrade().equals("W")) {
                 workerData.add(jsonData.get(i));
-                Log.v("hjhjh0", "1234 = " + workerData.get(count++).getuImageName());
             }
         }
 

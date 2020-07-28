@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,7 +164,6 @@ public class HomeFragment extends Fragment {
 
                 // Get 방식 URL 세팅
                 String urlAddr = "http://" + IP + ":8080/wagle/Post_Gallery_Insert.jsp?userSeqno=" + seqno + "&type=G&fileName=" + fileName + "&MoimSeqno=" + UserInfo.MOIMSEQNO;
-                Log.v("qwerasdf", urlAddr);
                 connectionInsertData(urlAddr);
             }
         }
@@ -452,7 +450,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
                 break;
             case 0: // 데이터베이스 연결이 안되었을 때.
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "인터넷 환경을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -1,7 +1,6 @@
 package com.androidlec.wagle.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +50,6 @@ public class DHGListAdapter extends BaseAdapter {
         }
 
         bookList = convertView.findViewById(R.id.Post_Notice_List_Item_TextView);
-
-        Log.e("dhglistAdapter", data.get(position).getWcName());
-        Log.e("dhglistAdapter", data.get(position).getuName());
 
         bookList.setText(data.get(position).getWcName() + " - " + data.get(position).getuName());
 

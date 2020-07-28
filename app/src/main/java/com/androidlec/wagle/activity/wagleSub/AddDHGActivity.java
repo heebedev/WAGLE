@@ -4,7 +4,6 @@ package com.androidlec.wagle.activity.wagleSub;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -165,7 +164,6 @@ public class AddDHGActivity extends Activity {
     protected void DHG_Update_Data() {
         // Data 불러오는 URL
         String urlAddr = "http://" + centIP + ":8080/wagle/wagle_BookReport_Select.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
-        Log.e(TAG, urlAddr);
         String JsonData = DHG_Select(urlAddr);
         String[] attrName = {"brSeqno", "User_uSeqno", "brContent", "sSeqno", "WagleCreate_wcSeqno", "sType", "sContent"};
         ListData = JsonData_DHG_Parser(JsonData, "bookreport", attrName);

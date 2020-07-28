@@ -6,7 +6,6 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -103,11 +102,9 @@ public class FindLocationActivity extends AppCompatActivity {
 
             } else {
                 strAdd = "위치를 찾을 수 없습니다.";
-                Log.w("Chance", "No Address returned!");
             }
         } catch (Exception e) {
             strAdd = "위치를 찾을 수 없습니다.";
-            Log.e("Chance", "getAddressError : " + e.getMessage());
         }
 
         return strAdd;

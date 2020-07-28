@@ -3,17 +3,14 @@ package com.androidlec.wagle.adapter;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
-import com.androidlec.wagle.dto.SgstRptList;
 import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
 
 import java.util.ArrayList;

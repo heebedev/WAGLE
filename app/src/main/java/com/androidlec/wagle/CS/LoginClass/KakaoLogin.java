@@ -3,8 +3,6 @@ package com.androidlec.wagle.CS.LoginClass;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
@@ -192,18 +190,15 @@ public class KakaoLogin {
                 .requestUnlink(new UnLinkResponseCallback() {
                     @Override
                     public void onSessionClosed(ErrorResult errorResult) {
-                        Log.e("TAG", "세션이 닫혀 있음: " + errorResult);
                     }
 
                     @Override
                     public void onFailure(ErrorResult errorResult) {
-                        Log.e("TAG", "연결 끊기 실패: " + errorResult);
 
                     }
 
                     @Override
                     public void onSuccess(Long result) {
-                        Log.i("TAG", "연결 끊기 성공. id: " + result);
                         ((Activity) mContext).finish();
                     }
                 });

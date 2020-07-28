@@ -3,7 +3,7 @@ package com.androidlec.wagle.jhj;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import com.androidlec.wagle.MakeMoimActivity;
 
@@ -46,13 +46,12 @@ public class Jhj_FTPConnect2 extends AsyncTask<Integer, String, Boolean> {
         // FTP 접속 시
         if (status = ftpConnect(host, username, password, port)) {
 
-            Log.v(TAG, fileName);
 
             // 파일 업로드시
             if (ftpUploadFile(file, fileName, directoryRoot)) {
-                Log.v("ConnectFTP", "Success");
+
             } else {
-                Log.v("ConnectFTP", "False");
+
             }
         }
 

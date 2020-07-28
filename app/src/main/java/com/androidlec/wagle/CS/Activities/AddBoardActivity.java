@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,7 +65,6 @@ public class AddBoardActivity extends AppCompatActivity {
 
         urlAddr = urlAddr + "User_uSeqno=" + UserInfo.USEQNO + "&Moim_mSeqno=" + UserInfo.MOIMSEQNO + "&Board_bSeqno=" + seq;
 
-        Log.e("Chance", "1 - " + urlAddr);
         try {
             CSNetworkTask csNetworkTask = new CSNetworkTask(AddBoardActivity.this, urlAddr);
             String result = csNetworkTask.execute().get(); // doInBackground 의 리턴값
@@ -84,7 +82,6 @@ public class AddBoardActivity extends AppCompatActivity {
 
         urlAddr = urlAddr + "Post_pSeqno=" + newSeq + "&pcTitle=" + title + "&pcContent=" + contents;
 
-        Log.e("Chance", "2 - " + urlAddr);
         try {
             NetworkTask networkTask = new NetworkTask(AddBoardActivity.this, urlAddr);
             networkTask.execute(); // doInBackground 의 리턴값

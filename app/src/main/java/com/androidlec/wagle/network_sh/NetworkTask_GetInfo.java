@@ -34,7 +34,6 @@ public class NetworkTask_GetInfo extends AsyncTask<Integer, String, Object> {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
-        //log.v("status", "doinBackground start");
 
         try {
             URL url = new URL(mAddr);

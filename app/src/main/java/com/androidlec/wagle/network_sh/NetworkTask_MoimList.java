@@ -3,7 +3,7 @@ package com.androidlec.wagle.network_sh;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import com.androidlec.wagle.dto.MoimList;
 

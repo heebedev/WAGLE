@@ -3,7 +3,7 @@ package com.androidlec.wagle.networkTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
 
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.JH.Progress;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class JH_ObjectNetworkTask_Rank extends AsyncTask<Integer, String, Object> { // 어레이리스트 불러와야 하니깐 오브젝트로 쓴다. 그래야 오브젝트로 바뀜.
 
     // Field
-    final static String TAG = "Log check : ";
     Context context;
     String mAddr;
     ProgressDialog progressDialog;

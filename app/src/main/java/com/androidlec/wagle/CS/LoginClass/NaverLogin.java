@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
-
 import androidx.annotation.RequiresApi;
-
 import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
@@ -81,7 +78,6 @@ public class NaverLogin {
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(mContext).getCode();
                 String errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext);
-                Log.e("TAG", "errorCode:" + errorCode + ", errorDesc:" + errorDesc);
             }
         }
 
@@ -287,8 +283,6 @@ public class NaverLogin {
         if (!isSuccess) {
             // 서버에서 토큰 삭제에 실패했어도 클라이언트에 있는 토큰은 삭제되어 로그아웃된 상태입니다.
             // 클라이언트에 토큰 정보가 없기 때문에 추가로 처리할 수 있는 작업은 없습니다.
-            Log.d("Chance", "errorCode:" + mOAuthLoginInstance.getLastErrorCode(mContext));
-            Log.d("Chance", "errorDesc:" + mOAuthLoginInstance.getLastErrorDesc(mContext));
         }
     }
 

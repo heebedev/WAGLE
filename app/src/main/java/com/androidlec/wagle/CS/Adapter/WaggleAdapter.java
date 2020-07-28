@@ -93,7 +93,7 @@ public class WaggleAdapter extends RecyclerView.Adapter<WaggleAdapter.mViewHolde
                             mContext.startActivity(intent);
                             break;
                         case 0: // 데이터베이스 연결이 안되었을 때.
-                            Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "인터넷 환경을 확인해주세요.", Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }
