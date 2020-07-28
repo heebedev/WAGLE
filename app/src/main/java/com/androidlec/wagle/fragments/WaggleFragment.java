@@ -71,7 +71,6 @@ public class WaggleFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == REQUEST_TEST) && (resultCode == Activity.RESULT_OK)) {
-            Log.e("wagleFragment", "onActicity11");
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.detach(this).attach(this).commit();
         }
