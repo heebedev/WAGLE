@@ -108,8 +108,9 @@ public class MyInfoActivity extends AppCompatActivity {
 
         // 와글 회원가입 시
         Intent intent = getIntent();
+        uId = intent.getStringExtra("uId");
         String loginType = intent.getStringExtra("LoginType");
-        et_emailAddress.setText(intent.getStringExtra("uId"));
+        et_emailAddress.setText(uId);
 
         // 소셜 회원가입 시
         String userProfile = intent.getStringExtra("UserProfile");
@@ -161,9 +162,10 @@ public class MyInfoActivity extends AppCompatActivity {
                     break;
                 case R.id.myInfo_btn_start:
                     inputNewData();
+                    Toast.makeText(MyInfoActivity.this, "회원님의 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.myInfo_btn_edit:
-                    Toast.makeText(MyInfoActivity.this, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyInfoActivity.this, "회원님의 정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                     editMyInfo();
                     finish();
                     break;
@@ -430,8 +432,6 @@ public class MyInfoActivity extends AppCompatActivity {
         String birthDate = et_birthDate.getText().toString().trim();
         String emailAddress = et_emailAddress.getText().toString().trim();
 
-        String uId = "jong@naver.com";
-
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "이름을 입력해 주세요.", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(birthDate)) {
@@ -456,8 +456,16 @@ public class MyInfoActivity extends AppCompatActivity {
 
 
     private void connectDB(String name, String birthDate, String emailAddress, String fileName, String uId) {
-        urlAddr = "http://192.168.0.178:8080/wagle/saveMyInfo.jsp?";
-        urlAddr = urlAddr + "name=" + name + "&birthDate=" + birthDate + "&emailAddress=" + emailAddress + "&fileName=" + fileName + "&uId=" + uId;
+        Log.v("로그체크 : ", "connectDB");
+        Log.v("로그체크 : ", name);
+        Log.v("로그체크 : ", birthDate);
+        Log.v("로그체크 : ", emailAddress);
+        Log.v("로그체크 : ", fileName);
+        Log.v("로그체크 : ", uId);
+
+        String JH_IP = "192.168.0.178";
+        urlAddr = "http://" + JH_IP + ":8080/wagle/saveMyInfo.jsp?";
+        urlAddr = urlAddr + "uId=" + uId + "&uEmail=" + emailAddress + "&uName=" + name + "&uImageName=" + fileName + "&uBirthDate=" + birthDate;
         try {
             JH_VoidNetworkTask myInfoNetworkTask = new JH_VoidNetworkTask(MyInfoActivity.this, urlAddr);
             myInfoNetworkTask.execute().get();
