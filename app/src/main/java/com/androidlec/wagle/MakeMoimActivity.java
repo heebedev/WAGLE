@@ -143,7 +143,6 @@ public class MakeMoimActivity extends Activity {
                 // 모임 개설
                 case R.id.make_moim_viewFliper_Complete:
                     moimInsert();
-                    finish();
                     break;
             }
         }
@@ -189,6 +188,7 @@ public class MakeMoimActivity extends Activity {
             // FTP 접속
             Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
             connectFTP.execute();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
