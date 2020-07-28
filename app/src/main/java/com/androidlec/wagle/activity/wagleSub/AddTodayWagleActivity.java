@@ -1,8 +1,10 @@
 package com.androidlec.wagle.activity.wagleSub;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -14,14 +16,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
 import com.androidlec.wagle.CS.Activities.FindLocationActivity;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
+
+import net.daum.android.map.MapActivity;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -39,6 +46,10 @@ public class AddTodayWagleActivity extends AppCompatActivity {
     private String result = "";
 
     private TextView calendarStatus;
+
+    //location permission and values
+    private static final int LOCATION_REQUEST_CODE = 100;
+    private String[] locationPermissions;
 
     private void init() {
 
@@ -71,6 +82,9 @@ public class AddTodayWagleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_wagle_today);
+
+        //init permissions array
+        locationPermissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
 
         init();
 
@@ -121,9 +135,41 @@ public class AddTodayWagleActivity extends AppCompatActivity {
     View.OnClickListener pickAplaceClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivityForResult(new Intent(getApplicationContext(), FindLocationActivity.class), REQUEST_CODE);
+
+            if(checkLocationPermission()){
+                startActivityForResult(new Intent(getApplicationContext(), FindLocationActivity.class), REQUEST_CODE);
+            } else {
+                requestLocationPermission();
+            }
         }
     };  // 장소 입력 클릭 리스너
+
+    private boolean checkLocationPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) ==
+                (PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void requestLocationPermission() {
+        ActivityCompat.requestPermissions(this, locationPermissions, LOCATION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+                boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (locationAccepted) {
+                    startActivity(new Intent(AddTodayWagleActivity.this, FindLocationActivity.class));
+                    finish();
+                } else {
+                    //permission denied
+                    Toast.makeText(this, "위치 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 
     View.OnClickListener rgstClickListener = new View.OnClickListener() {
         @Override

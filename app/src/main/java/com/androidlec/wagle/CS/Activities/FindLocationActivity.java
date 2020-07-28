@@ -1,6 +1,8 @@
 package com.androidlec.wagle.CS.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -10,11 +12,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.androidlec.wagle.R;
 
+import net.daum.android.map.MapActivity;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -25,7 +31,6 @@ import java.util.Locale;
 public class FindLocationActivity extends AppCompatActivity {
 
     MapView mapView;
-
 
     @Override
     protected void onDestroy() {
@@ -56,7 +61,7 @@ public class FindLocationActivity extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
-        //getCurrentLocation();
+        getCurrentLocation();
     }
 
     private void getCurrentLocation() {
