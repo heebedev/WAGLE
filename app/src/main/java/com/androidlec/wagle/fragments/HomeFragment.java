@@ -269,15 +269,13 @@ public class HomeFragment extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
 
-            if(!jsonObject.isNull("PostSeqno")) {
-                for (int i = 0; i < 4; i++) {
-                    Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
-                            jsonObject.getString("PostTitle" + i),
-                            jsonObject.getString("PostContent" + i),
-                            jsonObject.getString("PostUserSeqno" + i));
+            for (int i = 0; i < 4; i++) {
+                Jhj_Notice_DTO dto = new Jhj_Notice_DTO(jsonObject.getString("PostSeqno" + i),
+                        jsonObject.getString("PostTitle" + i),
+                        jsonObject.getString("PostContent" + i),
+                        jsonObject.getString("PostUserSeqno" + i));
 
-                    dtos.add(dto);
-                }
+                dtos.add(dto);
             }
 
         } catch (Exception e) {
