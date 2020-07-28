@@ -299,6 +299,8 @@ public class MyMoimActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        onResume();
     }
 
     // custom Dialog 띄우기
