@@ -61,9 +61,6 @@ public class HomeFragment extends Fragment {
     private static ViewGroup rootView;
     private static String IP = "192.168.0.82";
 
-
-    private static final String TAG = "HomeFragment";
-
     //
 
     public HomeFragment() {

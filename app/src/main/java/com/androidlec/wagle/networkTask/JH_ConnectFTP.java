@@ -41,7 +41,7 @@ public class JH_ConnectFTP extends AsyncTask<Integer, String, String> {
         boolean status = false;
         // FTP 접속 시
         if (status = ftpConnect(host, username, password, port)) {
-            String currentPath = ftpGetDirectory() + "imgs";
+            String currentPath = ftpGetDirectory() + "userImgs";
 
             // 현재시간을 msec 으로 구한다.
             long now = System.currentTimeMillis();
