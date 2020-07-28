@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,11 @@ import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.activity.wagleSub.AddBJMActivity;
 import com.androidlec.wagle.activity.wagleSub.AddDHGActivity;
+import com.androidlec.wagle.adapter.DHGListAdapter;
 import com.androidlec.wagle.dto.BookInfo;
 import com.androidlec.wagle.dto.SgstRptList;
+import com.androidlec.wagle.jhj.Jhj_BookReport_DTO;
+import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
@@ -34,6 +38,10 @@ import com.androidlec.wagle.network_sh.NetworkTask_QuestionReportList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MyWagleActivity extends AppCompatActivity {
@@ -47,6 +55,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private String item;
     private int price, paymentcnt;
     private PaymentAdapter adapter;
+    private DHGListAdapter bookadapter;
     private ArrayList<Payment> lists;
     private ArrayList<Progress> progressdata;
     private ArrayList<ImageView> imageViews;
@@ -65,6 +74,7 @@ public class MyWagleActivity extends AppCompatActivity {
     private ListView dhglist;
     private BookInfo bookInfo;
     private View ic_bookinfo;
+    private ArrayList<Jhj_BookReport_DTO> booklist;
     //발제문
     private static ArrayList<SgstRptList> questionListData;
 
@@ -104,12 +114,9 @@ public class MyWagleActivity extends AppCompatActivity {
         wagleName.setText(UserInfo.WAGLENAME);
 
 
-
-
         // 독후감 파트.
         btn_bookreportAdd = findViewById(R.id.mywagle_btn_bookreportAdd);
         btn_suggestionAdd = findViewById(R.id.mywagle_btn_suggestionAdd);
-        dhglist = findViewById(R.id.mywagle_lv_bookreport);
         et_wpReadPage = findViewById(R.id.mywagle_et_wpReadPage);
 
         //발제문
@@ -168,6 +175,12 @@ public class MyWagleActivity extends AppCompatActivity {
             LinearLayout ll = findViewById(R.id.mywagle_ll_readingstatus);
             ll.setVisibility(View.GONE);
         }
+
+        //독후감 목록
+        dhglist = findViewById(R.id.mywagle_lv_bookreport);
+        connectGetBookData();
+
+        dhglist.setOnItemClickListener(bookReportClick);
 
 
         // 프로그레스바 파트.
@@ -624,7 +637,68 @@ public class MyWagleActivity extends AppCompatActivity {
 
     }
 
+    private void connectGetBookData() {
+        //독후감 목록
+        String centIP = "192.168.0.138";
+        String bookAddr = "http://" + centIP + ":8080/test/mywagle_BookReport_Select.jsp?wcSeqno=" + UserInfo.WAGLESEQNO;
+
+        String data = null;
+
+        try {
+            Jhj_MySql_Select_NetworkTask networkTask = new Jhj_MySql_Select_NetworkTask(MyWagleActivity.this, bookAddr);
+            // execute() java 파일안의 메소드 한번에 동작시키기, 메소드를 사용하면 HttpURLConnection 이 제대로 작동하지않는다.
+            Object obj = networkTask.execute().get();
+            data = (String) obj;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        booklist = BookReport_Parser(data);
 
 
+        bookadapter = new DHGListAdapter(MyWagleActivity.this, R.layout.jhj_post_notice_list_item, booklist);
+        dhglist.setAdapter(bookadapter);
 
+    }
+
+    protected ArrayList<Jhj_BookReport_DTO> BookReport_Parser(String jsonStr) {
+        ArrayList<Jhj_BookReport_DTO> dtos = new ArrayList<Jhj_BookReport_DTO>();
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonObject.getString("bookreport"));
+            dtos.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                String brSeqno = jsonObject1.getString("brSeqno");
+                String wcSeqno = UserInfo.WAGLESEQNO;
+                String wcName = UserInfo.WAGLENAME;
+                String uName = jsonObject1.getString("uName");
+
+
+                dtos.add(new Jhj_BookReport_DTO(brSeqno, wcSeqno, wcName, uName));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dtos;
+    }
+
+
+    ListView.OnItemClickListener bookReportClick = new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent=new Intent(MyWagleActivity.this,AddDHGActivity.class);
+            startActivity(intent);
+        }
+
+    };
+
+    
 }//----
