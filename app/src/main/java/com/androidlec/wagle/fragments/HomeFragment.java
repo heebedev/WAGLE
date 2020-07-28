@@ -501,9 +501,6 @@ public class HomeFragment extends Fragment {
 
         for (int i = 0 ; i < Gdata.size() ; i++) {
             gallery_Frag_Btn[i] = rootView.findViewById(gallery_Frag_Btn_Id[i]);
-            gallery_Frag_Btn[i].setOnClickListener(notice_Frag_OnClickListener);
-            //         Context                 URL              ImageView
-            //Glide.with(getActivity()).load(imgUrl + Gdata.get(i).getImageName()).into(gallery_Frag_Btn[i]);
             Glide.with(getActivity())
                     .load(imgUrl + Gdata.get(i).getImageName())
                     .placeholder(R.drawable.ic_baseline_crop_din_24)

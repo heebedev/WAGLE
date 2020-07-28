@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -200,10 +203,10 @@ public class MyMoimActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_mymoiminfo_Admin_Add :
-                    mymoiminfo_CustomDialog(workerData);
+                    mymoiminfo_CustomDialog(workerData, "회원 목록");
                     break;
                 case R.id.bt_mymoiminfo_Admin_Sub :
-                    mymoiminfo_CustomDialog(adminData);
+                    mymoiminfo_CustomDialog(adminData, "운영진 목록");
                     break;
             }
         }
@@ -243,9 +246,9 @@ public class MyMoimActivity extends AppCompatActivity {
         }
     }
 
-
-    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data) {
-        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
+    // custom Dialog 띄우기
+    public void mymoiminfo_CustomDialog(ArrayList<Jhj_MyMoim_DTO> data, String title) {
+        Jhj_MyMoim_CustomDialog customDialog = new Jhj_MyMoim_CustomDialog(MyMoimActivity.this, data, title, new Jhj_MyMoim_CustomDialog.CustomDialogClickListener() {
             @Override
             public void onCancleClick() {
                 onResume();
@@ -253,8 +256,16 @@ public class MyMoimActivity extends AppCompatActivity {
         });
         customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
-        customDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         customDialog.show();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Window window = customDialog.getWindow();
+        int x = (int) (size.x * 0.9f);
+        int y = (int) (size.y * 0.9f);
+        window.setLayout(x, y);
+
     }
 }
