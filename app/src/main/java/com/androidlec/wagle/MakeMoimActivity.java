@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -176,11 +177,11 @@ public class MakeMoimActivity extends Activity {
 
         String imgName = name + formatDate + ".jpg";
 
-        connectionFTP(imgName);
-
         // Get 방식 URL 세팅
         String urlAddr = "http://" + IP + ":8080/wagle/moim_insert.jsp?userSeqno=" + seqno + "&title=" + name + "&subject=" + spinnerSeleted + "&intro=" + intro + "&imgName=" + imgName;
         connectionInsertData(urlAddr);
+
+        connectionFTP(imgName);
     }
 
     private void connectionFTP(String imgName) {
@@ -188,7 +189,7 @@ public class MakeMoimActivity extends Activity {
             // FTP 접속
             Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
             connectFTP.execute();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
