@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 
+import com.androidlec.wagle.UserInfo;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 

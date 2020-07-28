@@ -33,6 +33,7 @@ import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.jhj.Jhj_Gallery_DTO;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 import com.androidlec.wagle.jhj.Jhj_MySql_Select_NetworkTask;
+import com.androidlec.wagle.jhj.Jhj_Post_Gallery_List;
 import com.androidlec.wagle.networkTask.JH_IntNetworkTask;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Payment;
 import com.androidlec.wagle.networkTask.JH_ObjectNetworkTask_Progress;
@@ -259,8 +260,14 @@ public class MyWagleActivity extends AppCompatActivity {
                     startActivity(intent1);
                     break;
                 case R.id.mywagle_btn_galleryAdd:
+                    intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, 1002);
                     break;
                 case R.id.mywagle_tv_galleryPlus:
+                    intent = new Intent(MyWagleActivity.this, Jhj_Post_Gallery_List.class);
+                    startActivity(intent);
                     break;
                 case R.id.mywagle_btn_paymentMsg:
                     // --------------- 대화상자 띄우기 -------------------------------------------------
