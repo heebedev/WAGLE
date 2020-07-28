@@ -1,5 +1,6 @@
 package com.androidlec.wagle.activity.wagleSub;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -198,6 +199,7 @@ public class AddTodayWagleActivity extends AppCompatActivity {
         try {
             CSNetworkTask networkTask = new CSNetworkTask(AddTodayWagleActivity.this, urlAddr);
             networkTask.execute();
+            setResult(Activity.RESULT_OK);
             finish();
         } catch (Exception e) {
             e.printStackTrace();

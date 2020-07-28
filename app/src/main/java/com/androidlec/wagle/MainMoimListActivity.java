@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidlec.wagle.adapter.MoimListAdapter;
 import com.androidlec.wagle.dto.MoimList;
@@ -30,6 +31,10 @@ public class MainMoimListActivity extends Activity {
 
     //모임 더하기 버튼
     private Button addMoim;
+
+    // 뒤로가기 버튼
+    private long backPressedTime = 0;
+    public static final long FINISH_INTERVAL_TIME = 2000;
 
     private void init() {
         moimList = findViewById(R.id.lv_mainMoim_moimlist);
@@ -55,6 +60,21 @@ public class MainMoimListActivity extends Activity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && (FINISH_INTERVAL_TIME >= intervalTime)) {
+            moveTaskToBack(true);
+            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "뒤로가기를 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    } // 뒤로가기
 
     private void connectGetData() {
         try {

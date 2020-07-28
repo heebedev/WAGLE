@@ -13,6 +13,7 @@ import com.androidlec.wagle.CS.Model.User;
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.MainMoimListActivity;
 import com.androidlec.wagle.UserInfo;
+import com.androidlec.wagle.activity.menu.MyInfoActivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
@@ -38,6 +39,7 @@ public class NaverLogin {
     private String responseBody;
 
     private String strResult;
+    private User user;
 
     public NaverLogin(Context mContext) {
         this.mContext = mContext;
@@ -63,12 +65,19 @@ public class NaverLogin {
                 String userId = getUserId(accessToken);
                 if (!findUserFromDB(userId)) {
                     InputUserDataToDB();
+                    Intent intent = new Intent(mContext, MyInfoActivity.class);
+                    intent.putExtra("LoginType", "NAVER");
+                    intent.putExtra("UserProfile", user.getuImageName());
+                    intent.putExtra("UserName", user.getuName());
+                    intent.putExtra("UserBirth", user.getuBirthDate());
+                    intent.putExtra("UserEmail", user.getuEmail());
+                    mContext.startActivity(intent);
                 } else {
                     setUserInfo(userId);
+                    Intent intent = new Intent(mContext, MainMoimListActivity.class);
+                    mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
 
-                Intent intent = new Intent(mContext, MainMoimListActivity.class);
-                mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(mContext).getCode();
                 String errorDesc = mOAuthLoginInstance.getLastErrorDesc(mContext);
@@ -174,7 +183,7 @@ public class NaverLogin {
     }
 
     private void InputUserDataToDB() {
-        User user = jsonParsing(responseBody);
+        user = jsonParsing(responseBody);
         String urlAddr = "http://192.168.0.79:8080/wagle/csInputUserWAGLE.jsp?";
 
         urlAddr = urlAddr + "uId=" + user.getuId() + "&uEmail=" + user.getuEmail() + "&uName=" + user.getuName() + "&uImageName=" + user.getuImageName() + "&uBirthDate=" + user.getuBirthDate() + "&uLoginType=NAVER";

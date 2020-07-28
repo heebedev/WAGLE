@@ -1,5 +1,6 @@
 package com.androidlec.wagle.activity.wagleSub;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.androidlec.wagle.CS.Network.CSNetworkTask;
 import com.androidlec.wagle.CS.Network.WCNetworkTask;
@@ -29,6 +32,7 @@ import java.util.Calendar;
 public class AddNormWagleActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 100;
+
 
     /////////////////////////// 정규 와글//////////////////////////////
     private EditText wagleName, wagleFee, wagleDetail, wagleAgreeRefund;
@@ -218,6 +222,7 @@ public class AddNormWagleActivity extends AppCompatActivity {
         try {
             CSNetworkTask networkTask = new CSNetworkTask(AddNormWagleActivity.this, urlAddr);
             networkTask.execute();
+            setResult(Activity.RESULT_OK);
             finish();
         } catch (Exception e) {
             e.printStackTrace();

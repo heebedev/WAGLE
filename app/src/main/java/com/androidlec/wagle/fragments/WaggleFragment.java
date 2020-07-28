@@ -1,6 +1,8 @@
 package com.androidlec.wagle.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidlec.wagle.CS.Adapter.WaggleAdapter;
@@ -26,6 +31,7 @@ import com.androidlec.wagle.activity.wagleSub.AddWagleActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class WaggleFragment extends Fragment {
 
@@ -43,6 +49,8 @@ public class WaggleFragment extends Fragment {
     private WaggleAdapter adapter;
     private ArrayList<WagleList> data;
 
+    private int REQUEST_TEST = 1;
+
     public WaggleFragment() {
         // Required empty public constructor
     }
@@ -56,6 +64,16 @@ public class WaggleFragment extends Fragment {
         init(v);
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == REQUEST_TEST) && (resultCode == Activity.RESULT_OK)) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }
     }
 
     private void getDataQueryDue() {
@@ -158,16 +176,20 @@ public class WaggleFragment extends Fragment {
         switch (v.getId()) {
             case R.id.wagle_fab_addwagle:
                 if (UserInfo.MOIMMYGRADE.equals("O") || UserInfo.MOIMMYGRADE.equals("S")) {
-                    startActivity(new Intent(getActivity(), AddWagleActivity.class));
+                    Intent intent = new Intent(getActivity(), AddWagleActivity.class);
+                    startActivityForResult(intent, REQUEST_TEST);
                 } else {
-                    startActivity(new Intent(getActivity(), AddTodayWagleActivity.class));
+                    Intent intent = new Intent(getActivity(), AddTodayWagleActivity.class);
+                    startActivityForResult(intent, REQUEST_TEST);
                 }
                 break;
             case R.id.tvFindMyWaggle:
                 getMyWagle();
-                Toast.makeText(getActivity(), "내가 신청한 와글만 보이기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "내가 신청한 와글", Toast.LENGTH_SHORT).show();
                 break;
 
         }
     };
+
+
 }

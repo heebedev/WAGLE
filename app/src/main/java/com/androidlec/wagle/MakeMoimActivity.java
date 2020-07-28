@@ -16,7 +16,9 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 
+import com.androidlec.wagle.dto.MoimList;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
+import com.androidlec.wagle.jhj.Jhj_FTPConnect2;
 import com.androidlec.wagle.jhj.Jhj_Make_Moim_Spinner_Adapter;
 import com.androidlec.wagle.jhj.Jhj_MySql_Insert_Delete_Update_NetworkTask;
 
@@ -29,12 +31,16 @@ public class MakeMoimActivity extends Activity {
     //final static String TAG = "MakeMoimActivity";
     final static String IP = "192.168.0.82";
 
+    public static Activity MAKEMOIMACT;
+
     Uri file = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_moim);
+
+        MAKEMOIMACT = this;
 
         // ------------------------------------------------------------------
         // 버튼, 버튼이벤트 등록
@@ -187,7 +193,7 @@ public class MakeMoimActivity extends Activity {
     private void connectionFTP(String imgName) {
         try {
             // FTP 접속
-            Jhj_FTPConnect connectFTP = new Jhj_FTPConnect(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
+            Jhj_FTPConnect2 connectFTP = new Jhj_FTPConnect2(MakeMoimActivity.this, IP, "host", "qwer1234", 25, file, imgName, "/moimImgs");
             connectFTP.execute();
 
         } catch (Exception e) {
