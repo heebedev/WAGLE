@@ -1,5 +1,6 @@
 package com.androidlec.wagle.activity.wagleSub;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -7,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -22,11 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidlec.wagle.CS.Permission;
 import com.androidlec.wagle.R;
 import com.androidlec.wagle.UserInfo;
 import com.androidlec.wagle.jhj.Jhj_FTPConnect;
 import com.androidlec.wagle.network_sh.NetworkTask_CRUD;
 import com.androidlec.wagle.network_sh.NetworkTask_GetInfo;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -47,6 +53,7 @@ public class AddBookActivity extends Activity {
     private static final int IMAGE_PICK_CAMERA_CODE = 101;
     private static final int IMAGE_PICK_GALLERY_CODE = 102;
     private Uri image_uri;
+    private Permission permission;
 
     String bkname, bkwriter, bkpage, bkintro, bkdata;
 
@@ -68,11 +75,107 @@ public class AddBookActivity extends Activity {
         cancleBtn.setOnClickListener(onClickListener);
         registerBtn.setOnClickListener(onClickListener);
 
+        permission = new Permission(this);
     }
+
+
+
+    private void showImagePicDialog() {
+        String[] options = {"카메라에서 촬영", "갤러리에서 선택"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
+        builder.setTitle("이미지 등록");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    if (!permission.checkCameraPermission()) {
+                        permission.requestCameraPermission();
+                    } else {
+                        pickFromCamera();
+                    }
+                } else if (which == 1) {
+                    if (!permission.checkStoragePermission()) {
+                        permission.requestStoragePermission();
+                    } else {
+                        pickFromGallery();
+                    }
+                }
+            }
+        });
+        builder.create().show();
+    } // 이미지 선택 다이얼로그
+
+    private void pickFromCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
+
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
+    } // 카메라에서 이미지선택
+
+    private void pickFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
+    } // 갤러리에서 이미지선택
+
+    private void uploadProfileCoverPhoto(Uri uri) {
+        Glide.with(this)
+                .load(uri)
+                .placeholder(R.drawable.ic_baseline_crop_din_24)
+                .into(bookImage);
+    } // 이미지 보이기
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Permission.CAMERA_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (cameraAccepted) {
+                        pickFromCamera();
+                    } else {
+                        Toast.makeText(AddBookActivity.this, "카메라 권한을 동의해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            break;
+            case Permission.STORAGE_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (writeStorageAccepted) {
+                        pickFromGallery();
+                    } else {
+                        Toast.makeText(AddBookActivity.this, "저장공간 권한을 동의해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    } // 권한에 대한 응답이 있을때 작동하는 함수
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IMAGE_PICK_GALLERY_CODE:
+                    image_uri = data.getData();
+                case IMAGE_PICK_CAMERA_CODE:
+                    uploadProfileCoverPhoto(image_uri);
+                    break;
+            }
+        }
 
         // Check which request we're responding to
         if (requestCode == 1001) {
@@ -155,50 +258,6 @@ public class AddBookActivity extends Activity {
             }
         }
     };
-
-    private void showImagePicDialog() {
-        String[] options = {"카메라에서 촬영", "갤러리에서 선택"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
-        builder.setTitle("이미지 등록");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (checkPermission()) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, 1001);
-                }
-            }
-        });
-        builder.create().show();
-    }
-
-
-    public boolean checkPermission() {
-        String temp = "";
-        //카메라 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.CAMERA + " ";
-        }
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
-        }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
-        }
-        if (!TextUtils.isEmpty(temp)) {
-            // 권한 요청 다이얼로그
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "), PERMISSION_REQUST_CODE);
-        } else {
-            // 모두 허용 상태
-            return true;
-        }
-        return false;
-    }
 
     private void connectionFTP(String imgName) {
         try {
